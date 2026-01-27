@@ -1,0 +1,207 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>Robot Tool - GTAs</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>Global Targets</h1>
+<p>
+In association with robot related
+development, a new TARGET data type has been introduced in the Trio BASIC
+language. It stores information of position and orientation in 3D space. The TARGET
+data type represents a set of 6 values:
+</p>
+<p style="margin-left:36.0pt;text-indent:-18.0pt">
+-
+<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>X, Y, Z – for the coordinates of the point in 3D
+space in millimeters
+</p>
+<p style="margin-left:36.0pt;text-indent:-18.0pt">
+-
+<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>U, V, W – for the angular orientation in
+degrees.
+</p>
+<p>
+An array of 1000 global target 
+(
+<a href="Glossary.html#GTA">GTA</a>
+) 
+points is available for use in
+all programs. In addition to the 6 coordinates GTAs can have name assigned
+which can be used to reference them in programs. An Active state flag used to
+determine whether 
+<a href="Glossary.html#GTA">GTA</a>
+ point has already been defined and contains valid data.
+</p>
+<p>
+The Robot tool displays a list of already
+defined points. 
+</p>
+<p>
+<img border="0" width="602" height="502" id="Picture 1" src="RobotTool_GTA_files/image001.png">
+</p>
+<p>
+The ranges of empty entries can be
+collapsed to single line which allows for more compact representation.
+</p>
+<p>
+To expand the empty ranges use ‘Show empty
+entries’ check-box.
+</p>
+<h2>Adding A New Point</h2>
+<p>
+There are two methods for entering new
+points – teaching and typing-in.
+</p>
+<p>
+<img border="0" width="242" height="101" src="RobotTool_GTA_files/image002.png">
+</p>
+<h3>Teaching</h3>
+<p>
+This method makes use of robot jog tool to
+interactively adjust the robot position and orientation before acquired point
+to be stored.
+</p>
+<p>
+<img border="0" width="599" height="472" src="RobotTool_GTA_files/image003.png">
+</p>
+<p>
+Once the operator has finished adjusting
+the robot to the target position it can be added to the list by pressing ‘Teach
+point’ button.
+</p>
+<p>
+A dialog box is displayed allowing the
+operator to set the name for the new 
+<a href="Glossary.html#GTA">GTA</a>
+ point and also to do any corrections
+to the coordinates if necessary. The name should be different from the existing
+ones otherwise the tool will refuse to add the new point.
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+<img border="0" width="198" height="199" src="RobotTool_GTA_files/image004.png">
+</p>
+<p>
+Pressing the ‘Append’ button adds the new point
+to the list.
+</p>
+<p>
+ Jog will not close automatically after
+appending the point, allowing the operator to add multiple target points in a single
+teach session. The software will automatically select the next empty position
+in the list.
+</p>
+<h3>Typing-in </h3>
+<p>
+In this mode the operator directly enters
+the name and the coordinates of the target point.
+</p>
+<p>
+<img border="0" width="233" height="288" src="RobotTool_GTA_files/image005.png">
+</p>
+<p>
+The user interface is similar to the final
+stage in the teaching case. The coordinates can be entered manually or
+populated by pressing the ‘Teach…’ button which will open robot jog tool.
+</p>
+<p>
+Pressing ‘Append’ button will store the
+newly entered data in the currently selected entry and software will move the
+selection to the next empty entry.
+</p>
+<h2>Modifying An Existing Point</h2>
+<p>
+By pressing 
+<img border="0" width="29" height="26" src="RobotTool_GTA_files/image006.png">
+ button a mode similar to the operation of ‘Type-in’ mode is
+invoked. It allows the operator to modify coordinates or the name of previously
+defined point or alternatively populate a new entry.
+</p>
+<p>
+<img border="0" width="216" height="290" src="RobotTool_GTA_files/image007.png">
+</p>
+<p>
+After pressing ‘Apply’ button the
+modifications are accepted and dialogue box is closed allowing only the modification
+of a single entry at a time.
+</p>
+<h2>Moving Points</h2>
+<p>
+By pressing 
+<img border="0" width="20" height="14" src="RobotTool_GTA_files/image008.png">
+ and 
+<img border="0" width="19" height="14" src="RobotTool_GTA_files/image009.png">
+ buttons
+currently selected points can be moved up or down on position in the list. When
+empty entries are collapsed the selected points are moved over the entire
+range.
+</p>
+<h2>Deleting Points</h2>
+<p>
+By pressing 
+<img border="0" width="25" height="25" src="RobotTool_GTA_files/image010.png">
+button the data stored in selected points will be deleted and they
+will become empty.
+</p>
+<h2>Move to Point</h2>
+<p>
+The user interface in that section allows
+the operator to move the robot to the currently selected GTA point.
+</p>
+<p>
+By pressing 
+<img border="0" width="31" height="23" src="RobotTool_GTA_files/image011.png">
+ button the movement is started. 
+</p>
+<p>
+It can be prematurely stopped by pressing 
+<img border="0" width="30" height="28" src="RobotTool_GTA_files/image012.png">
+ button.
+</p>
+<p>
+The robot can be moved in two modes:
+</p>
+<p style="margin-left:36.0pt;text-indent:-18.0pt">
+-
+<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>linear – done by executing MOVEL command in
+which case the motion of all joints is synchronized in order to produce linear
+movement of the end effector of the robot
+</p>
+<p style="margin-left:36.0pt;text-indent:-18.0pt">
+-
+<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>joint – done by executing MOVEJ command in which
+case the each joint moves with constant speed between its start and end
+position. In that mode the end effector is not guaranteed to move linearly
+between its start and end position.
+</p>
+<p>
+The speed of the movement can be adjusted
+to be a fraction of the nominal speed provided as part of the robot definition.
+</p>
+<p>
+In case of multi-robot configuration it is
+possible to select the active robot which will be moved to the selected target
+position.
+</p>
+<p>
+It is also possible to select active tool,
+object frame and robot frame against which the movement will be applied.
+</p>
+<p>
+These selections can be done using the
+controls in right side of the title bar.
+</p>
+<p>
+<img border="0" width="420" height="28" src="RobotTool_GTA_files/image013.png">
+</p>
+</body>
+</html>

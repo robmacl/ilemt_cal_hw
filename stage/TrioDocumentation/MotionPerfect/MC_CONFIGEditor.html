@@ -1,0 +1,80 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>MC_CONFIG Editor</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>MC_CONFIG Editor</h1>
+<p>
+The MC_CONFIG editor is designed to allow assisted editing
+of the parameter values which need to be set when the controller is restarted.
+The editor is started by double clicking on the MC_CONFIG file in the
+controller tree, or by creating a new MC_CONFIG file if one does not already
+exist. Initially the editor starts up in read-only mode so that values are not
+accidentally changed. Clicking on the link in the warning notice puts it into
+editing mode.
+</p>
+<p>
+<img width="602" height="262" id="Picture 1" src="MC_CONFIGEditor_files/image001.jpg">
+</p>
+<p>
+The parameters are divided into three groups, All, IP
+Configuration and EtherCAT. Selecting a group on the left of the dialog will
+display the parameters in that group on the right-hand side.
+</p>
+<h2>Groups</h2>
+<h3>All</h3>
+<p>
+<img width="601" height="192" id="Picture 3" src="MC_CONFIGEditor_files/image002.jpg">
+</p>
+<p>
+To add a parameter, click on the name column in the last row
+(marked with a * on the left hand side). The required parameter (from the 
+<a href="MC_CONFIGFile.html#SupportedParameters">supported parameters</a>
+) is
+selected from a drop-down list. A modifier (if required), value and comment can
+then be added.
+</p>
+<h3>IP Configuration</h3>
+<p>
+<img border="0" width="602" height="339" id="Picture 6" src="MC_CONFIGEditor_files/image003.png">
+</p>
+<p>
+This allows the user to set up various IP (Ethernet)
+parameters.
+</p>
+<p class="note">
+Normally it is best to leave the settings as set in the
+controller flash memory. Setting them in the MC_CONFIG file may be useful when
+configuring stand-alone systems but can cause unforeseen communications
+problems if not used wisely.
+</p>
+<p class="warning">
+Incorrect settings here may make it impossible to communicate
+with the controller.
+</p>
+<h3>EtherCAT</h3>
+<p>
+<img border="0" width="602" height="261" id="Picture 5" src="MC_CONFIGEditor_files/image004.jpg">
+</p>
+<p>
+This allows the user to set up certain parameters for
+communication with EtherCAT drives basic system parameters such as the start-up
+state of EtherCAT protocol and the network cycle time apply to the whole
+EtherCAT network, other parameters affect how the system interfaces with a
+device or configures an axis.
+</p>
+<h2>Text Mode</h2>
+<p>
+Selecting text mode by clicking on the 
+<img border="0" width="11" height="14" id="Picture 2" src="MC_CONFIGEditor_files/image005.png">
+ icon
+in the toolbar changes to using 
+<a href="ProgramEditor.html">the Trio BASIC program
+editor</a>
+ to edit the MC_CONFIG file.
+</p>
+</body>
+</html>

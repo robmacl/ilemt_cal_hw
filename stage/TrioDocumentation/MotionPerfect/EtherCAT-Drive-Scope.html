@@ -1,0 +1,705 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>EtherCAT Drive Scope</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>EtherCAT Drive Scope</h1>
+<p>
+The Scope page implements a graphical view of motion on the
+drive.  Allowing data capture on the drive which can sample data at up to 4kHz,
+one sample every 125 microseconds.  This  is then uploaded and can be displayed
+and maniplulated in the Scope screen.
+</p>
+<p>
+The Scope screen is divided into 3 sections:
+</p>
+<p>
+<a href="#_Configuration">Configuration</a>
+</p>
+<p>
+<a href="#_Display">Display</a>
+</p>
+<p>
+<a href="#_Move">Move</a>
+</p>
+<p>
+<img border="0" width="418" height="232" src="EtherCAT-Drive-Scope_files/image001.png">
+</p>
+<h2><a name="_Configuration"></a>
+Configuration</h2>
+<p>
+The configuration panel is used to set up
+the data capture on the drive.  There are multiple data capture buffers on the
+drive which can be used to capture selected items at a specified rate.  This is
+used to build up a time-based graph of the drive operation.
+</p>
+<h3>Capture</h3>
+<p>
+The non channel-based capture setting are: 
+</p>
+<ul type="disc">
+
+ 
+<li>
+Resolution: rate at which each capture
+     point is sampled.  This can be specified in multiples of 125us and will be
+     rounded down once the capture is started
+</li>
+
+ 
+<li>
+Trigger Mode: selects the trigger method
+     used to start the capture.  
+</li>
+
+ 
+<ul type="circle">
+
+  
+<li>
+NoTrigger (default) – manually start the
+      scope
+</li>
+
+  
+<li>
+Rising – start capture when trigger
+      channel value changes from less than trigger threshold to greater than
+      trigger threshold
+</li>
+
+  
+<li>
+Falling – start capture when trigger
+      channel value changes from greater than trigger threshold to less than
+      trigger threshold
+</li>
+
+  
+<li>
+Change – start capture when trigger
+      channel value changes from the value of trigger threshold
+</li>
+
+  
+<li>
+Error – start capture when drive is in
+      error
+</li>
+
+  
+<li>
+GreaterThanThreshold – start capture
+      when trigger channel value is greater than the trigger threshold
+</li>
+
+  
+<li>
+LessThanThreshold – start capture when
+      trigger channel value is less than the trigger threshold
+</li>
+
+ 
+</ul>
+
+ 
+<li>
+Trigger Threshold: the value used in the
+     scope triggering
+</li>
+
+ 
+<li>
+Trigger Channel: scope channel used as
+     the trigger source 
+</li>
+
+
+</ul>
+<h3>Channel </h3>
+<p>
+There are up to 8 capture channels on the
+drive, depending on the data being capture it may be that not all 8 can be used
+together.
+</p>
+<ul type="disc">
+
+ 
+<li>
+Visible: show or hide the data line
+</li>
+
+ 
+<li>
+Target: value to be captured
+</li>
+
+
+</ul>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="192" valign="top" class="tablegrid">
+
+  
+<p>
+Target
+</p>
+
+  
+</td>
+<td width="548" valign="top" class="tablegrid">
+
+  
+<p>
+Description
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="192" valign="top" class="tablegrid">
+
+  
+<p>
+Position Command
+</p>
+
+  
+</td>
+<td width="548" valign="top" class="tablegrid">
+
+  
+<p>
+Set point for the position loop,
+  typically object 0x607A:0 (Target position)
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="192" valign="top" class="tablegrid">
+
+  
+<p>
+Position Command Speed
+</p>
+
+  
+</td>
+<td width="548" valign="top" class="tablegrid">
+
+  
+<p>
+Speed derived from Position Command
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="192" valign="top" class="tablegrid">
+
+  
+<p>
+Position Feedback
+</p>
+
+  
+</td>
+<td width="548" valign="top" class="tablegrid">
+
+  
+<p>
+Position from the motor encoder,
+  typically object 0x6064:0 (Actual position)
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="192" valign="top" class="tablegrid">
+
+  
+<p>
+Position Error
+</p>
+
+  
+</td>
+<td width="548" valign="top" class="tablegrid">
+
+  
+<p>
+Difference between Position Command and
+  Position Feedback
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="192" valign="top" class="tablegrid">
+
+  
+<p>
+Speed Command 
+</p>
+
+  
+</td>
+<td width="548" valign="top" class="tablegrid">
+
+  
+<p>
+Set point for the speed loop
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="192" valign="top" class="tablegrid">
+
+  
+<p>
+Speed Feedback
+</p>
+
+  
+</td>
+<td width="548" valign="top" class="tablegrid">
+
+  
+<p>
+Speed from the motor encoder
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="192" valign="top" class="tablegrid">
+
+  
+<p>
+Current Command (Iqr)
+</p>
+
+  
+</td>
+<td width="548" valign="top" class="tablegrid">
+
+  
+<p>
+Set point for the torque generating
+  current loop
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="192" valign="top" class="tablegrid">
+
+  
+<p>
+Current Feedback (Iq)
+</p>
+
+  
+</td>
+<td width="548" valign="top" class="tablegrid">
+
+  
+<p>
+Measured current 
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<ul type="disc">
+
+ 
+<li>
+Color: color of the line on the graph
+</li>
+
+ 
+<li>
+Scaling: show scaling options pop-up to
+     modify how the displayed data line is scaled.  
+</li>
+
+ 
+<ul type="circle">
+
+  
+<li>
+Auto – automatic scaling
+</li>
+
+  
+<li>
+Same as – use same scaling as another
+      channel.  This is often useful is there are multiple lines showing values
+      with common units, e.g. speed command, speed feedback.
+</li>
+
+  
+<li>
+Manual – set the offset and amplitude
+      manually to adjust the position of the data line
+</li>
+
+ 
+</ul>
+
+ 
+<li>
+Cursor: show cursor options pop-up.  The
+     channel-based cursors allow easy measurements to be taken from the graph. 
+     
+</li>
+
+ 
+<ul type="circle">
+
+  
+<li>
+Enable – show or hide the cursor
+</li>
+
+  
+<li>
+Cursor Mode – select either horizontal
+      or vertical cursors
+</li>
+
+  
+<li>
+Cursor 1 – position of cursor 1
+</li>
+
+  
+<li>
+Cursor 2 – position of cursor 2
+</li>
+
+  
+<li>
+Auto label position – move measurement
+      label box to default location 
+</li>
+
+ 
+</ul>
+
+
+</ul>
+<h2><a name="_Display"></a>
+Display</h2>
+<p>
+The display area is a time-based graph
+which shows the data captured on the drive in a graphical format.
+</p>
+<p>
+The icons allow general graph control
+</p>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="31" valign="top" class="tablegrid">
+
+  
+<p>
+Icon
+</p>
+
+  
+</td>
+<td width="319" valign="top" class="tablegrid">
+
+  
+<p>
+Function
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="31" valign="top" class="tablegrid">
+
+  
+<p>
+<img border="0" width="32" height="35" src="EtherCAT-Drive-Scope_files/image002.png">
+</p>
+
+  
+</td>
+<td width="319" valign="top" class="tablegrid">
+
+  
+<p>
+Start capture
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="31" valign="top" class="tablegrid">
+
+  
+<p>
+<img border="0" width="31" height="34" src="EtherCAT-Drive-Scope_files/image003.png">
+</p>
+
+  
+</td>
+<td width="319" valign="top" class="tablegrid">
+
+  
+<p>
+Load capture data from disk
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="31" valign="top" class="tablegrid">
+
+  
+<p>
+<img border="0" width="28" height="33" src="EtherCAT-Drive-Scope_files/image004.png">
+</p>
+
+  
+</td>
+<td width="319" valign="top" class="tablegrid">
+
+  
+<p>
+Save capture data to disk
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="31" valign="top" class="tablegrid">
+
+  
+<p>
+<img border="0" width="30" height="31" src="EtherCAT-Drive-Scope_files/image005.png">
+</p>
+
+  
+</td>
+<td width="319" valign="top" class="tablegrid">
+
+  
+<p>
+Zoom to fit
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="31" valign="top" class="tablegrid">
+
+  
+<p>
+<img border="0" width="26" height="26" src="EtherCAT-Drive-Scope_files/image006.png">
+</p>
+
+  
+</td>
+<td width="319" valign="top" class="tablegrid">
+
+  
+<p>
+Zoom in/out using click and drag
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="31" valign="top" class="tablegrid">
+
+  
+<p>
+<img border="0" width="30" height="28" src="EtherCAT-Drive-Scope_files/image007.png">
+</p>
+
+  
+</td>
+<td width="319" valign="top" class="tablegrid">
+
+  
+<p>
+Box zoom
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="31" valign="top" class="tablegrid">
+
+  
+<p>
+<img border="0" width="30" height="30" src="EtherCAT-Drive-Scope_files/image008.png">
+</p>
+
+  
+</td>
+<td width="319" valign="top" class="tablegrid">
+
+  
+<p>
+Pan
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="31" valign="top" class="tablegrid">
+
+  
+<p>
+<img border="0" width="31" height="31" src="EtherCAT-Drive-Scope_files/image009.png">
+</p>
+
+  
+</td>
+<td width="319" valign="top" class="tablegrid">
+
+  
+<p>
+Save image of graph to clipboard
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="31" valign="top" class="tablegrid">
+
+  
+<p>
+<img border="0" width="31" height="32" src="EtherCAT-Drive-Scope_files/image010.png">
+</p>
+
+  
+</td>
+<td width="319" valign="top" class="tablegrid">
+
+  
+<p>
+Settings
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+Zooming in and out can also be achieved
+using the mouse wheel.
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+The image below shows an example of the scope view.
+</p>
+<p>
+<img border="0" width="602" height="401" id="Picture 1" src="EtherCAT-Drive-Scope_files/image011.png">
+</p>
+<p>
+<a name="_Move"></a>
+The timebase of the
+graph is in milliseconds (ms).  The y axes have scaling shown in the same color
+as the data line.
+</p>
+<p>
+Each data line has a legend shown in the bottom
+right of the graph.
+</p>
+<h2>Move</h2>
+<p>
+The move panel allows the initiation of
+either Jog or Program Jog motion used for drive commissioning.
+</p>
+<p>
+For more information on the move panel see:
+</p>
+<p>
+<a href="EtherCAT-Drive-Jog.html">Jog</a>
+</p>
+<p>
+<a href="EtherCAT-Drive-PJog.html">Program
+Jog</a>
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+&nbsp;
+</p>
+</body>
+</html>

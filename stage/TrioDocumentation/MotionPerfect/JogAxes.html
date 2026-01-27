@@ -1,0 +1,318 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>Jog Axes</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>Jog Axes</h1>
+<p>
+The Jog Axes tool allows the user to move the axes on the 
+<i>Motion
+</i>Coordinator. 
+</p>
+<p>
+<img width="520" height="299" id="Picture 1" src="JogAxes_files/image001.png">
+</p>
+<p>
+This tool takes advantage of the bi-directional I/O channels
+on the 
+<i>Motion </i>Coordinator to set the jog inputs. The forward, reverse
+and fast jog inputs are identified by writing to the corresponding axis
+parameters and are expected to be connected to NC switches. This means that
+when the input is on (+24V applied) then the corresponding jog function is
+DISABLED and when the input is off (0V) then the jog function is ENABLED. 
+</p>
+<p>
+The jog functions implemented here disable the fast jog
+function, which means that the speed at which the jog will be performed is set
+by the 
+<b>JOGSPEED</b> axis parameter. What is more this window limits the jog
+speed to the range 0..demand_speed, where the demand_speed is given by the 
+<b>SPEED</b>
+axis parameter. 
+</p>
+<p>
+Before allowing a jog to be initiated, the jog window checks
+that all the data set in the jog window and on the 
+<i>Motion </i>Coordinator is
+valid for a jog to be performed. 
+</p>
+<p>
+Each axis has a check box to enable/disable jogging on that
+axis. This allows jogging to be configured on an axis but not actually used.
+This is sometimes useful in machine development.
+</p>
+<h2><img width="18" height="18" id="Picture 9" src="JogAxes_files/image002.png">
+ Jog
+Reverse </h2>
+<p>
+This button will initiate a reverse jog. In order to do
+this, the following check sequence is performed: 
+</p>
+<ul style="list_style_type:disc">
+<li class="indent-list-first">
+If this is a SERVO or RESOLVER axis and the servo is off then set
+the warning message 
+</li>
+<li class="indent-list-middle">
+If this axis has a daughter board and the Watchdog is off then
+set the warning message 
+</li>
+<li class="indent-list-middle">
+If the jog speed is 0 the set the warning message 
+</li>
+<li class="indent-list-middle">
+If the acceleration rate on this axis is 0 then set the warning
+message 
+</li>
+<li class="indent-list-middle">
+If the deceleration rate on this axis is 0 then set the warning
+message 
+</li>
+<li class="indent-list-middle">
+If the reverse jog input is out of range then set the warning
+message 
+</li>
+<li class="indent-list-last">
+If there is already a move being performed on this axis that is
+not a jog move then set the warning message 
+</li>
+</ul>
+<p>
+If there were no warnings set, then the message
+&quot;Reverse jog set on axis?&quot; is set in the warnings window, the 
+<b>FAST_JOG</b>
+input is invalidated for this axis, the 
+<b>CREEP</b> is set to the value given
+in the jog speed control and finally the 
+<b>JOG_REV</b> output is turned off,
+thus enabling the reverse jog function. 
+</p>
+<h2><img width="18" height="18" id="Picture 10" src="JogAxes_files/image003.png">
+ Jog
+Forward </h2>
+<p>
+This button will initiate a forward jog. In order to do
+this, a check sequence identical to that used for 
+<b>Jog Reverse</b> is
+performed. 
+</p>
+<h2>Jog Speed </h2>
+<p>
+<img width="133" height="24" id="Picture 11" src="JogAxes_files/image004.png">
+</p>
+<p>
+This is the speed at which the jog will be performed. This
+window limits this value to the range from zero to the demand speed for this
+axis, where the demand speed is given by the 
+<b>SPEED</b> axis parameter. This
+value can be changed by writing directly to this control or using the jog speed
+control. The scroll bar changes the jog speed up or down in increments of 1
+unit per second 
+</p>
+<h2>Jog Inputs </h2>
+<p>
+<img width="91" height="101" id="Picture 12" src="JogAxes_files/image005.png">
+</p>
+<p>
+These are the inputs which will be associated with the
+forward / reverse jog functions. 
+</p>
+<p>
+They must be in the range 8 to the total number of inputs in
+the system as the input channels 0 to 7 are not bi-directional and so the state
+of the input cannot be set by the corresponding output. Both real and virtual
+I/O lines can be used for jogging. The value -1 is shown when no input has been
+allocated for jogging.
+</p>
+<p>
+The jog function depends on the state of the jog inputs as
+follows:
+</p>
+<table class="tablegrid">
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Jog - 
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Jog +
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Function
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+OFF
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+OFF
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Not defined
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+OFF
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+ON
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Reverse Jog
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+ON
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+OFF
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Forward Jog
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+ON
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+ON
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+No jog
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+&nbsp;
+</p>
+<h2>Warnings </h2>
+<p>
+<img width="520" height="299" id="Picture 3" src="JogAxes_files/image006.png">
+</p>
+<p>
+This shows the status of the last jog request. For example,
+the screen above shows an error on axis 1 because the drives are not enabled.
+</p>
+<p class="note">
+An error will occur if a dedicated input is allocated as a jog
+input because Motion Perfect is unable to change it's state.
+</p>
+<h2>Select Axes </h2>
+<p>
+<img width="520" height="346" id="Picture 5" src="JogAxes_files/image007.jpg">
+</p>
+<p>
+This displays an axis selector box which enables the user to
+select the axis to include in the jog axes display. By default, the physical
+axes fitted to the controller will be displayed.
+</p>
+</body>
+</html>

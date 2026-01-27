@@ -1,0 +1,189 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>Terminal Scripting</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>Terminal Scripting</h1>
+<h2><a name="Terminal_Scripting"></a>
+Introduction</h2>
+<p>
+Motion Perfect has built in support for simple terminal
+scripting in direct and channel 0 terminals. This allows the user to write
+files of commands and then send the file contents to the controller in a single
+operation. In addition to the commands to be sent to the controller there are
+some extra commands which are used by Motion Perfect to control the running of
+the script.
+</p>
+<h2>Interaction with the controller</h2>
+<p>
+Command lines are sent to the controller one at a time in
+sequence. Motion Perfect sends a command then waits to receive a prompt
+(&gt;&gt;) before sending the next one.
+</p>
+<p>
+To not wait for a prompt put the two character sequence
+\&amp; on the end of the line. These extra characters are not sent to the
+controller.
+</p>
+<h2>Script commands</h2>
+<p>
+Script commands control the running of the script. All
+script commands start with two colons. The following commands are valid: 
+</p>
+<table class="tablegrid">
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Command
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Parameter
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Description
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+::Timeout
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+timeout in seconds
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Changes the time Motion Perfect waits for a prompt to
+  be returned. The default value is 10 seconds.
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+::Wait
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+wait time in seconds
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Wait and do nothing for the given time
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+e.g.:
+</p>
+<p class="codeexample">
+::Timeout 55
+</p>
+<p>
+sets the timeout to 55 seconds
+</p>
+<h2>Tests</h2>
+<p>
+Special support has been added in order to enable the use of
+scripts for testing purposes. The response from a command can be tested by
+Motion Perfect and the results written to a log file. A test is written on the
+line after the one whose response is to be tested and consists of a single ^
+character followed by a list of alternative responses separated by single |
+characters. The comparison is done as a string comparison after all leading and
+training spaces have been removed.
+</p>
+<p>
+e.g.:
+</p>
+<p class="codeexample">
+^12.0000|13.0000
+</p>
+<p>
+gives a PASS if the returned string is &quot;12.0000&quot;
+or &quot;13.0000&quot;, otherwise a FAIL.
+</p>
+<p>
+The PASS or FAIL state of each test is logged in the log
+file and a summary of passes and failures is given at the end.
+</p>
+<h2>Editing Scripts</h2>
+<p>
+To edit or write a new script, select &quot;Script / Edit&quot;
+from the terminal window menu.
+</p>
+<h2>Running Scripts</h2>
+<p>
+To run a script normally, select &quot;Script / Run&quot;
+from the terminal window menu. This does not produce a log of what has
+happened.
+</p>
+<p>
+To run a script with full logging, select &quot;Script/Run
+logged&quot; from the terminal window menu. The log will contain a full log of
+what has happened including test results.
+</p>
+<p>
+To run a script in test mode, select &quot;Script/Run Test&quot;
+from the terminal window menu. This will produce a log containing only test
+failures and a PASS/FAIL summary.
+</p>
+</body>
+</html>

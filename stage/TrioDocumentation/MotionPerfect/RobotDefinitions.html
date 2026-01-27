@@ -1,0 +1,316 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>Robot Definitions</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>Robot Definitions</h1>
+<p style="margin-left:3.0pt">
+Up to 8 robot
+definitions (robots) are supported by the Motion Coordinator simultaneously. A
+robot is defined by assigning up to 6 axes to work together in a so-called
+kinematic group. Part of TABLE area is also used with each robot definition.
+Involved axes are initialized in an appropriate manner.
+</p>
+<p style="margin-left:3.0pt">
+The ROBOT_DEFINITIONS
+program contains commands configuring the kinematic groups and related axes.
+This effectively turns your Motion Coordinator (controller) into a robot
+controller.
+<br>
+
+The ROBOT_DEFINITIONS editor normally runs in read-only mode, because the
+ROBOT_DEFINITIONS program is vital to your robot system. Hence its editing is
+made explicit to ensure no accidental changes are possible. 
+</p>
+<p style="margin-left:3.0pt">
+<span class="MsoIntenseEmphasis">Important:
+It is strongly recommended that you only edit ROBOT_DEFINITIONS program in
+guided mode within the dedicated editor. Changing BASIC code directly may
+result in corruption and code loss.</span></p>
+<h2>Creating a Robot Definitions File</h2>
+<p class="MsoNoSpacing">
+To create a Robot Definitions File:
+</p>
+<p class="MsoNoSpacing">
+Click the Robot Definitions File button on Motion Perfect
+toolbar.
+</p>
+<p class="MsoNoSpacing">
+<img width="576" height="63" src="RobotDefinitions_files/image001.jpg">
+</p>
+<p class="MsoNoSpacing">
+Alternatively, you can right click on Programs &gt; New
+&gt; Robot Definitions File:
+</p>
+<p class="MsoNoSpacing">
+<img width="576" height="242" src="RobotDefinitions_files/image002.jpg">
+</p>
+<p style="margin-left:3.0pt">
+<b><i>&nbsp;</i></b></p>
+<h2>Adding A New Robot Definition</h2>
+<p>
+A new robot definition is added from 
+<img width="24" height="26" src="RobotDefinitions_files/image003.png">
+ button. A dialog box is displayed for choosing the robot type and 6
+axis numbers which will define robot’s kinematic group. Axis numbers need to be
+in ascending order.
+</p>
+<p class="note">
+Even in the case of 4 or 5-axis robot (like SCARA robot) it is still
+needed to assign 6 axes to the kinematic group.
+</p>
+<p>
+<img width="576" height="336" src="RobotDefinitions_files/image004.jpg">
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+If a Trio SCARA robot is selected, then
+there is the option to enter calibration data
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+<img width="309" height="206" src="RobotDefinitions_files/image005.png">
+&nbsp;
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+&nbsp;
+</p>
+<br clear="ALL">
+<h3>Data sections</h3>
+<p>
+A robot definition is spread in several
+sections displayed on the left pane:
+</p>
+<p style="margin-left:36.0pt;text-indent:-18.0pt">
+-
+<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><a href="#_Physical">Physical</a>
+</p>
+<p style="margin-left:36.0pt;text-indent:-18.0pt">
+-
+<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><a href="#_Movement">Movement</a>
+</p>
+<p style="margin-left:36.0pt;text-indent:-18.0pt">
+<span class="MsoHyperlink">-<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a href="#_Axis_#X">Joints #1 to #6</a>
+</p>
+<p style="margin-left:36.0pt;text-indent:-18.0pt">
+<span class="MsoHyperlink">-<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span class="MsoHyperlink">I/O lines</span></p>
+<p style="margin-left:36.0pt;text-indent:-18.0pt">
+-
+<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span class="MsoHyperlink">Drives</span></p>
+<p>
+Any missing or wrong data will be marked by
+yellow warning sign 
+<img border="0" width="20" height="18" id="Picture 1" src="RobotDefinitions_files/image006.png">
+</p>
+<p>
+<b>Note:</b> When a
+Trio robot is selected the data is pre-populated based on known design
+information. 
+</p>
+<h4><a name="_Physical"></a>
+Physical</h4>
+<p>
+This data is related to physical dimensions
+of the robot. A scheme of the robot illustrates the link length data needed.
+</p>
+<p>
+<img width="576" height="336" src="RobotDefinitions_files/image007.jpg">
+</p>
+<p>
+Clicking the 
+<img border="0" width="26" height="25" src="RobotDefinitions_files/image008.png">
+ icon on any of the data fields will
+guide users to the Calibration data entry window as shown below:
+</p>
+<p>
+<img width="580" height="206" src="RobotDefinitions_files/image009.png">
+</p>
+<p>
+<br>
+
+A range of TABLE data that will be used for robot definition and operation
+needs to be set as well.
+</p>
+<p>
+<span class="MsoIntenseEmphasis">The TABLE range will be
+locked by default. No attempts to modify values in this range shall be made!</span></p>
+<h4><a name="_Movement"></a>
+Movement</h4>
+<p>
+This page contains all data necessary to the movement
+aspects of the robot.
+</p>
+<p>
+<img width="576" height="336" src="RobotDefinitions_files/image010.jpg">
+</p>
+<h3><a name="_Axis_#X"></a>
+Joint 1 – 6</h3>
+<p>
+This page contains all data on each axis. 
+</p>
+<p>
+<img width="576" height="462" src="RobotDefinitions_files/image011.png">
+</p>
+<h5>Motor setup</h5>
+<p>
+Motor setup related parameters.
+</p>
+<p>
+<i>Direction Invert</i>: use this option to invert the
+direction of the axis without setting it up on the drive.
+</p>
+<p>
+<i>Parasitic Compensation</i>: use this option to apply
+parasitic compensation between 2 axes. Compensation ratio is needed for this
+function to operate properly.
+</p>
+<p>
+<i>Other Parameters</i>: populate the table list with other
+axis parameters setup.
+</p>
+<h5>Parameters</h5>
+<p>
+Different movements and jog parameters.
+</p>
+<h5>Parasitic compensation</h5>
+<p>
+When enabled – a master axis and gear ratio
+parameters.
+</p>
+<h5>Other parameters</h5>
+<p>
+An optional list of additional axis
+parameters and their values. 
+</p>
+<p>
+<img border="0" width="575" height="320" src="RobotDefinitions_files/image012.png">
+</p>
+<p>
+Not all axis parameters are available because
+some are already engaged internally. The initial values of the parameters are
+acquired from the 
+<a href="Glossary.html#MC">MC</a>
+ and can be changed by the user subsequently.
+</p>
+<p>
+Add a new parameter from 
+<img border="0" width="58" height="16" src="RobotDefinitions_files/image013.png">
+ button. 
+</p>
+<p>
+Copy the list of parameters and their
+values from another axis
+ via 
+<img border="0" width="132" height="16" src="RobotDefinitions_files/image014.png">
+ button.
+That can avoid tedious process of defining same or a similar list again. 
+</p>
+<p>
+If any value does not match the user is
+given an option to resolve the collision or to cancel the copy operation.
+</p>
+<p>
+<img border="0" width="270" height="123" src="RobotDefinitions_files/image015.jpg">
+</p>
+<p>
+It is possible to change the order in which
+parameters are applied using 
+<img border="0" width="19" height="14" src="RobotDefinitions_files/image016.png">
+ and
+
+<img border="0" width="21" height="14" src="RobotDefinitions_files/image017.png">
+ buttons.
+</p>
+<p class="note">
+Keep in mind some parameters can be dependent in
+a way so the order may be important.
+</p>
+<p>
+Pressing the 
+<img border="0" width="25" height="25" src="RobotDefinitions_files/image018.png">
+button, deletes a parameter from the list.
+</p>
+<p>
+Apart from using direct values it is
+allowed to enter simple expressions following the Trio BASIC syntax. That gives
+more meaningful representation of the parameter values if necessary. For
+example:
+</p>
+<p>
+131072 * 80 / 360
+</p>
+<h3>I/O Lines</h3>
+<p>
+This page contains I/O points linked to robot operation,
+such as jogging individual axis.
+</p>
+<p>
+<img width="578" height="336" src="RobotDefinitions_files/image019.png">
+</p>
+<p>
+Links a digital I/O line for a reverse and
+forward jog operation along with line active state.
+</p>
+<h3>Drives</h3>
+<p>
+This page contains all drive setup necessary relevant to
+robot joints.
+</p>
+<p>
+<img width="578" height="336" src="RobotDefinitions_files/image020.png">
+</p>
+<p>
+If Trio drives are used to control the
+robot, then this page will allow basic parameter setup for all joints.
+</p>
+<p>
+&nbsp;
+</p>
+<h2>Deleting A Robot Definition</h2>
+<p>
+Pressing the 
+<img border="0" width="25" height="25" src="RobotDefinitions_files/image018.png">
+button deletes the robot definition.
+</p>
+<p>
+<img border="0" width="215" height="98" src="RobotDefinitions_files/image021.png">
+</p>
+<p>
+A context menu is also available from the
+robot definition header:
+</p>
+<p>
+<img border="0" width="225" height="73" src="RobotDefinitions_files/image022.png">
+</p>
+</body>
+</html>

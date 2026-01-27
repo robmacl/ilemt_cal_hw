@@ -1,0 +1,468 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>Oscilloscope, Horizontal Controls</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>Oscilloscope Horizontal Controls </h1>
+<p>
+<img width="215" height="80" src="Oscilloscope_HorizontalControls_files/image002.png">
+</p>
+<p>
+The oscilloscope horizontal controls appear towards the
+bottom of the oscilloscope control panel. From here you can control such aspect
+as the timebase, triggering modes and memory used for the captured data. 
+</p>
+<h2>Timebase </h2>
+<p>
+<img width="215" height="80" src="Oscilloscope_HorizontalControls_files/image003.png">
+</p>
+<p>
+The required time base is selected using the up/down 
+<img width="12" height="19" id="Image2" src="Oscilloscope_HorizontalControls_files/image004.png">
+ scale buttons
+on the right side of the current time base scale text box. The value selected
+is the time per grid division on the display. 
+</p>
+<p>
+If the time base is greater than a predefined value, then
+the data is retrieved from the controller in sections (as opposed to retrieving
+a compete trace of data at one time.) These sections of data are plotted on the
+display as they are received, and the last point plotted is seen as a white
+spot. 
+</p>
+<p>
+After the oscilloscope has finished running and a trace has
+been displayed, the time base scale may be changed to view the trace with
+respect to different horizontal time scales. If the time base scale is reduced,
+a section of the trace can be viewed in greater detail, with access provided to
+the complete trace by moving the horizontal scrollbar. 
+</p>
+<h2>Scope Delay</h2>
+<p>
+<img width="217" height="80" id="Picture 1" src="Oscilloscope_HorizontalControls_files/image005.png">
+</p>
+<p>
+If the controller supports this feature the value is applied
+to SCOPE_DELAY system parameter when the oscilloscope capture cycle is started.
+</p>
+<p>
+When negative SCOPE_DELAY is set it is
+possible to show/hide scope trigger position by pressing 
+<img width="25" height="26" src="Oscilloscope_HorizontalControls_files/image006.png">
+ button.
+</p>
+<p>
+&nbsp;
+</p>
+<h2>Horizontal scrollbar </h2>
+<p>
+<img width="215" height="80" src="Oscilloscope_HorizontalControls_files/image007.png">
+</p>
+<p>
+Once the oscilloscope has finished running and displayed the
+trace of the recorded data, if the time base is changed to a faster value, only
+part of the trace is displayed. The remainder can be viewed by moving the thumb
+box on the horizontal scrollbar. 
+</p>
+<p>
+Additionally, if the oscilloscope is configured to record
+both motion parameters and plot table data, then the number of points plotted
+across the display can be determined by the motion parameter. If there are
+additional table points not visible, these can be brought into view by
+scrolling the table trace using the horizontal scrollbar. The motion parameter
+trace does not move.
+</p>
+<h2>Display Mode</h2>
+<p>
+<img width="215" height="80" src="Oscilloscope_HorizontalControls_files/image008.png">
+</p>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="28">
+
+  
+<p class="tablecontent">
+<img width="16" height="16" id="Image6" src="Oscilloscope_HorizontalControls_files/image009.png">
+</p>
+
+  
+</td>
+<td width="573">
+
+  
+<p>
+<a href="Oscilloscope_ViewModes.html#Yt_Mode">Y/t
+  (timebase) mode</a>
+ - this is the normal operation mode for an oscilloscope
+  where each set of gathered data is plotted against time.
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="28">
+
+  
+<p class="tablecontent">
+<img border="0" width="16" height="16" id="Image7" src="Oscilloscope_HorizontalControls_files/image010.png">
+</p>
+
+  
+</td>
+<td width="573">
+
+  
+<p>
+<a href="Oscilloscope_ViewModes.html#XY_Mode">XY mode</a>
+
+  - channels are grouped in pairs and the values form one channel are plotted
+  against the values of the other one in the pair.
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="28">
+
+  
+<p class="tablecontent">
+<img border="0" width="15" height="16" id="Image8" src="Oscilloscope_HorizontalControls_files/image011.png">
+</p>
+
+  
+</td>
+<td width="573">
+
+  
+<p>
+<a href="Oscilloscope_ViewModes.html#XY_Uniform_Mode">XY
+  mode with uniform scale</a>
+ – 
+this mode is similar to
+  previous one and two channels are grouped together. The difference is in the
+  way scaling works in 2D view. In previous mode the grid is stretched to the
+  view area and it is not possible to zoom and pan. In this mode the scale
+  factor is the same in X and Y directions and the user is given more freedom
+  to zoom and pan to area of interest.
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="28">
+
+  
+<p class="tablecontent">
+<img border="0" width="16" height="16" id="Image9" src="Oscilloscope_HorizontalControls_files/image012.png">
+</p>
+
+  
+</td>
+<td width="573">
+
+  
+<p class="tablecontent">
+<a href="Oscilloscope_ViewModes.html#XYZ_Mode">XYZ mode</a>
+
+  – in this mode 3 channels are grouped together to provide X, Y and Z
+  coordinates of the control points of a 3D curve to be visualized
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="28">
+
+  
+<p class="tablecontent">
+<img border="0" width="18" height="16" src="Oscilloscope_HorizontalControls_files/image013.png">
+</p>
+
+  
+</td>
+<td width="573">
+
+  
+<p class="tablecontent">
+<a href="Oscilloscope_ViewModes.html#XYZD_Mode">XYZD
+  mode</a>
+ – in this mode 4 channels are grouped together to provide X, Y and Z
+  coordinates of the control points as well as control point thickness via 4
+<sup>th</sup>
+  channel
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="28">
+
+  
+<p class="tablecontent">
+<img border="0" width="18" height="18" src="Oscilloscope_HorizontalControls_files/image014.png">
+</p>
+
+  
+</td>
+<td width="573">
+
+  
+<p class="tablecontent">
+<a href="Oscilloscope_ViewModes.html#XYZUVW_Mode">XYZUVW
+  mode</a>
+ – in this mode 6 channels are grouped together to provide X, Y and Z
+  coordinates of the control points as well as orientation as 3 rotations
+  around X, Y and Z axes.
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+&nbsp;
+</p>
+<h2>One Shot / Repeat / Continuous Trigger Mode </h2>
+<p>
+<img border="0" width="215" height="80" src="Oscilloscope_HorizontalControls_files/image015.png">
+</p>
+<p>
+<img border="0" width="20" height="16" src="Oscilloscope_HorizontalControls_files/image016.png">
+ – One Shot Trigger
+Mode. 
+</p>
+<p>
+In one-shot mode, the oscilloscope runs until it has been
+triggered and one set of data recorded by the controller, retrieved and
+displayed. 
+</p>
+<p>
+<img border="0" width="19" height="15" src="Oscilloscope_HorizontalControls_files/image017.png">
+– Auto-repeat Trigger Mode. 
+</p>
+<p>
+In auto-repeat mode the oscilloscope continues running and
+retrieving data from the controller each time it is re-triggered and new data
+is recorded. The oscilloscope continues to run until the trigger button is
+pressed for a second time. There is a setting for the maximum number of
+captured data blocks to be kept and visualized as a trace history. When more
+than maximum number of captured blocks are received the oldest ones are discarded
+and replaced by the new data.
+</p>
+<p>
+<img border="0" width="22" height="16" src="Oscilloscope_HorizontalControls_files/image018.png" alt="*">
+ – Continuous
+Trigger Mode
+</p>
+<p>
+Continuous mode is an extension of auto-repeat mode where
+there is no limit to the maximum number of visualized blocks to be kept and
+visualized. 
+</p>
+<p class="note">
+Continuous mode should be used with caution as is might lead to
+slow responsiveness of the UI and even to out of memory condition when large
+number of data set is collected.
+</p>
+<p>
+&nbsp;
+</p>
+<h2>Manual/Program Trigger Mode </h2>
+<p>
+<img border="0" width="198" height="74" id="Image13" src="Oscilloscope_HorizontalControls_files/image019.png">
+</p>
+<p>
+The manual/program trigger mode button toggles between these
+two modes. When pressed, the oscilloscope is set to trigger in the program
+mode, and two program listings can be seen on the button. When raised, the
+oscilloscope is set to the manual trigger mode, and a pointing hand can be seen
+on the button. 
+</p>
+<p>
+Button up 
+<img border="0" width="16" height="16" id="Image14" src="Oscilloscope_HorizontalControls_files/image020.png">
+- Manual Trigger Mode: 
+</p>
+<p>
+In manual mode, the controller is triggered, and starts to
+record data immediately the oscilloscope trigger button is pressed. 
+</p>
+<p>
+Button down 
+<img border="0" width="16" height="16" id="Image15" src="Oscilloscope_HorizontalControls_files/image021.png">
+- Program Trigger Mode: 
+</p>
+<p>
+In program mode the oscilloscope starts running when the
+trigger button is pressed, but the controller does not start to record data
+until a TRIGGER instruction is executed by a program running on the controller.
+After the trigger instruction is executed by the program, and the controller
+has recorded the required data. The required data is retrieved by the
+oscilloscope and displayed. 
+</p>
+<p>
+The oscilloscope stops running if in one-shot mode, or it
+waits for the next trigger on the controller if in continuous mode 
+</p>
+<h2>Trigger Button </h2>
+<p>
+<img border="0" width="215" height="80" src="Oscilloscope_HorizontalControls_files/image022.png">
+</p>
+<p>
+When the trigger button 
+<img border="0" width="16" height="16" id="Image17" src="Oscilloscope_HorizontalControls_files/image023.png">
+ is pressed the
+oscilloscope is enabled. If it is manual mode the controller immediately
+commences recording data. If it is in program mode then it waits until it
+encounters a trigger command in a running program. 
+</p>
+<p>
+After the trigger button has been pressed, it changes to 
+<img border="0" width="10" height="13" id="Image18" src="Oscilloscope_HorizontalControls_files/image024.png">
+ (stop) whilst
+the oscilloscope is running. If the oscilloscope is in the one-shot mode, then
+after the data has been recorded and plotted on the display, the trigger button
+returns to indicating that the operation has been completed. The oscilloscope
+can be halted at any time when it is running by pressing the 
+<img border="0" width="16" height="16" id="Image19" src="Oscilloscope_HorizontalControls_files/image023.png">
+ button.
+</p>
+<p class="note">
+When real-time simulation is running in 3D visualization tool it
+is not possible to trigger data capture at the same time as both tools use the
+same functionality on MC. If simultaneous use of both tools is required the 3D
+visualization tool can be switched to PRMBLK mode of operation from application
+settings.
+</p>
+<h2>Control Oscilloscope Tool from a Program</h2>
+<p>
+Since Motion Perfect v5.0 it is possible to
+emulate pressing of trigger button
+<img border="0" width="16" height="16" src="Oscilloscope_HorizontalControls_files/image023.png">
+ from a program and to control the capturing in the tool. It is done
+via messages generated by a program and sent via channel #9 to Motion Perfect.
+</p>
+<p>
+To arm the oscilloscope tool and instruct
+it initialize for capturing data, a program should execute following command: 
+</p>
+<p>
+CHANNEL_WRITE
+(
+9
+, 
+&quot;%[USER] SCOPE
+ARM&quot;
+)
+</p>
+<p>
+To disarm the oscilloscope and instruct it
+stop capturing data, a program should execute:
+</p>
+<p>
+CHANNEL_WRITE
+(
+9
+, 
+&quot;%[USER] SCOPE
+DISARM&quot;
+)
+</p>
+<p class="note">
+Users of that functionality should be aware that there is a delay
+between executing the command in the program and oscilloscope tool being ready
+to capture data and the program should take that into account if it also
+initiates the data collection at controller side using TRIGGER command.
+</p>
+<h2>Settings Button</h2>
+<p>
+<img border="0" width="215" height="80" src="Oscilloscope_HorizontalControls_files/image025.png">
+</p>
+<p>
+Clicking in the Settings button causes 
+<i>Motion</i> Perfect
+to display the Settings Dialog.
+</p>
+<h2>Oscilloscope Cursors </h2>
+<p>
+<img border="0" width="203" height="68" id="Image21" src="Oscilloscope_HorizontalControls_files/image026.png">
+</p>
+<p>
+The cursor bars are enabled/disabled by clicking on one of
+the cursor buttons which shows/hides the corresponding cursor. A cursor can be
+moved by positioning the mouse cursor over the required bar, holding down the
+left mouse button, and dragging the bar to the required position. Cursors are
+automatically allocated to the first channel currently enabled. To allocate a
+cursor to a different channel, right click on its button and choose the desired
+channel from the pop-up menu. When a cursor is active a coloured bar representing
+the channel to which the cursor has been allocated is displayed under the
+cursor's button.
+</p>
+<p>
+<img border="0" width="200" height="210" id="Image22" src="Oscilloscope_HorizontalControls_files/image027.png">
+</p>
+<p>
+The cursor (right click) menu allows the user to assign the
+cursor to a channel and also contains following functions:
+</p>
+<ul type="disc">
+
+ 
+<li>
+<b>Reset Cursor</b> - resets the cursor position to a
+     position close to the start of the display,
+</li>
+
+ 
+<li>
+<b>Remove Cursor</b> - allows to remove the cursor,
+</li>
+
+ 
+<li>
+<b>Centre in View</b> - moves the cursor to the centre of
+     the view,
+</li>
+
+ 
+<li>
+<b>Go To</b> - scrolls the display so that the cursor is
+     visible (only if zoomed in).
+</li>
+
+
+</ul>
+<p>
+If the 
+<b>Show numeric display</b> box is checked then the
+numeric display is enabled, this shows maximum and minimum values for all
+enabled traces at the bottom of the oscilloscope display and the positions of
+the active cursors at the top.
+</p>
+<p>
+<img border="0" width="602" height="437" src="Oscilloscope_HorizontalControls_files/image028.png">
+</p>
+</body>
+</html>

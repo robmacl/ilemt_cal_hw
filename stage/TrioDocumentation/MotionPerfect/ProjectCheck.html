@@ -1,0 +1,338 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>Project Check</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>Project Check</h1>
+<p>
+A project check is performed every time 
+<i>Motion </i>Perfect
+connects in &quot;Sync Mode&quot; and if the user initiates a project check
+from the main menu. The programs in the project are checked against those on
+the controller and if there are any differences the &quot;Resolve Program
+Differences&quot; dialog is displayed so the user can resolve the differences.
+</p>
+<p>
+<img width="430" height="520" id="Picture 1" src="ProjectCheck_files/image001.png">
+</p>
+<h2><a name="ResolveDifferences"></a>
+<a name="_Resolving_differences"></a>
+Resolving
+differences</h2>
+<p>
+The &quot;Resolve Program Differences&quot; dialog can
+perform several different operations to resolve differences.
+</p>
+<table class="tablegrid">
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Icon /Button
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Operation
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Change
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Change to a different project
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+<img width="48" height="48" id="Picture 3" src="ProjectCheck_files/image002.png">
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Create a new empty project
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+<img width="32" height="32" id="Picture 4" src="ProjectCheck_files/image003.png">
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Make the contents of the project the same as that in
+  the controller
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+<img width="32" height="32" id="Picture 5" src="ProjectCheck_files/image004.png">
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Make the contents of the controller the same as that in
+  the project
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+<img width="32" height="17" id="Picture 6" src="ProjectCheck_files/image005.png">
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Copy a program from the controller to the project
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+<img width="32" height="17" id="Picture 8" src="ProjectCheck_files/image006.png">
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Copy a program from the project to the controller
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+<img width="16" height="16" id="Picture 9" src="ProjectCheck_files/image007.png">
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Delete a program (from the project or controller or
+  both)
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+<img width="16" height="16" id="Picture 10" src="ProjectCheck_files/image008.png">
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Use the file-compare/merge tool (specified in synchronization
+  section of the 
+<a href="Options_Project.html">Project Options</a>
+) to examine
+  the differences between the copy of a program on the controller and the one
+  in the project and optionally to make changes to the file in the project
+  (which will then be loaded onto the controller).
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+The synchronization operation is carried out when the user
+clicks on the &quot;Synchronize&quot; button which is only enabled 
+</p>
+<p>
+Once a set of operations has been selected which will
+resolve all differences.
+</p>
+<p class="note">
+The synchronization operations available depend on the types of
+program in the project and on the controller.
+</p>
+<p class="note">
+Encrypted programs are tagged with a small key icon 
+<img border="0" width="19" height="17" id="Picture 7" src="ProjectCheck_files/image009.png">
+ and
+can be copied from the project (PC) to the controller (as long as the user is
+in possession of the appropriate key, but not from the controller to the
+project (PC).
+</p>
+<p class="warning">
+It is possible that a program copied from the project onto the
+controller will still cause a project check failure if the controller supports
+different keywords to those supported by the controller on which the program
+was written. This problem can be resolved by saving the copy on the controller
+into the project or manually resolving the differences.
+</p>
+<p class="note">
+There may be and entry &quot;PROJECT_DATA&quot;. This is a file
+which contains project specific data such as axis names and I/O line
+descriptions. Differences can be resolved in the normal way.
+</p>
+<h2>Problems Loading Programs</h2>
+<p>
+Even though it appears that differences can be resolved by
+loading the project or some of its programs onto the controller it is still
+possible to get a mismatch between the controller and the project. This is
+usually due to different TrioBASIC keywords being supported on the controller
+to those supported on the controller on which the program was written. This can
+cause variables to become keywords, keywords to become variables or keywords to
+change.
+</p>
+<p class="note">
+All the letters in a keyword are always upper case whereas all
+the letters in a variable name are always lower case.
+</p>
+<p>
+When this occurs a warning dialog will be displayed to show
+that the controller has made changes to the program.
+</p>
+<p>
+<img border="0" width="506" height="175" id="Picture 2" src="ProjectCheck_files/image010.png">
+</p>
+<p>
+The user now has the choice of resolving the differences
+using the program modifications dialog or cancelling. If you cancel it is then
+possible to resolve differences by doing another project check and manually
+resolving the differences using the &quot;
+<a href="#ResolveDifferences">Resolve
+Differences</a>
+&quot; tool.
+</p>
+<h3>Modifications Dialog</h3>
+<p>
+<img border="0" width="602" height="329" id="Picture 12" src="ProjectCheck_files/image011.png">
+</p>
+<p>
+This shows the original program source (on the PC) on the
+left and the changes made to it on the right. The user can resolve the differences
+by either using the controller version of the program or by clicking on the
+&quot;Resolve&quot; button which steps through the differences to allow the
+used to make a decision for each one using the &quot;Resolve&quot; dialog.
+</p>
+<h3> Resolve Dialog</h3>
+<p>
+<img border="0" width="602" height="158" id="Picture 13" src="ProjectCheck_files/image012.png">
+</p>
+<p>
+The new value for the word to resolve is automatically
+filled in using the value obtained from the controller. The user can type any
+valid keyword, variable name, or number to replace the word in the source file.
+Clicking on &quot;OK&quot; makes the change and clicking on &quot;Cancel&quot;
+cancels the whole resolution process.
+</p>
+<h2>Project Check Status Window</h2>
+<p>
+<img border="0" width="600" height="400" id="Picture 11" src="ProjectCheck_files/image013.png">
+</p>
+<p>
+After the project check has completed the “Project Check
+Status” window is displayed. This shows information about the contents of the
+project and the project check operation. The contents of the Window can be
+saved to the clipboard for inclusion in an external document or printed. This
+feature helps provide documentary proof that the correct project has been
+loaded as is often required for machines operation in safety critical
+circumstances.
+</p>
+</body>
+</html>

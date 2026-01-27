@@ -1,0 +1,210 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>Communications Setup</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>Communications Setup</h1>
+<p>
+Communications setup allows the user to set the
+communications parameters for each supported communications interface on the
+controller. 
+</p>
+<p class="note">
+A controller may have one or more communications interfaces used
+for special purposes and which are not directly configurable by the user.
+</p>
+<p>
+The “Controller/Communications” sub-menu contains an entry
+for each configurable interface.
+</p>
+<p>
+<img width="248" height="78" id="Picture 1" src="CommunicationsSetup_files/image001.png">
+</p>
+<p>
+Selecting an interface will open the appropriate
+configuration tool.
+</p>
+<h2>Ethernet Configuration</h2>
+<p>
+<img width="371" height="380" id="Picture 2" src="CommunicationsSetup_files/image002.png">
+</p>
+<h3>IP Address</h3>
+<p>
+This is the IP Address of the controller. If the IP address
+of the controller is changed in this dialog, the actual IP address used by the
+controller will not be updated until the controller is reset.
+</p>
+<h3>Subnet Mask</h3>
+<p>
+The subnet mask defines the size of the subnet to which the
+controller is connected. All devices on the same subnet must have the same
+subnet mask.
+</p>
+<h3>Default Gateway</h3>
+<p>
+The default gateway is the IP address to which all Ethernet
+communications to addresses outside the local subnet are directed. The address
+required here is in the same subnet as the controller’s IP address and is
+generally the address of a dedicated gateway or router.
+</p>
+<p class="note">
+If the controller is connected to a subnet which does not have an
+external connection then this can be set to a free IP address in the same
+subnet as the controller.
+</p>
+<h3>MAC Address</h3>
+<p>
+This is the hardware MAC address of the controller. It is
+read-only.
+</p>
+<h3>Normal Communications Port Number</h3>
+<p>
+This is the IP port used for normal communications (with
+Motion Perfect). The default is 13 and this should be used wherever possible.
+</p>
+<h3>Token Communications Port Number</h3>
+<p>
+This is the IP port used for communication with the Trio PC
+Motion ActiveX control. The default value is 3420 and should be used wherever
+possible.
+</p>
+<h3>Ethernet Firmware Version</h3>
+<p>
+This is the version number of the Ethernet firmware on the
+controller. It is read-only.
+</p>
+<h3>Endpoint Settings</h3>
+<p>
+Endpoint settings are configured using tabbed pages:
+</p>
+<h4>Modbus TCP</h4>
+<p>
+<img width="461" height="203" id="Picture 3" src="CommunicationsSetup_files/image003.png">
+</p>
+<p>
+“Port Number” specifies the TCP port over which
+communications take place. Default is TCP port 502.
+</p>
+<h4>Ethernet IP Input (instance 100)</h4>
+<p>
+<img width="461" height="201" id="Picture 4" src="CommunicationsSetup_files/image004.png">
+</p>
+<p>
+“Address” and “Length” specify the start address (in the
+specified “
+<a href="#_Data_Location">Data Location</a>
+”) and the length (number
+of units of data as specified in “
+<a href="#_Data_Format">Data Format</a>
+”) in
+the Ethernet IP input message.
+</p>
+<h4>Ethernet IP Output (instance 101)</h4>
+<p>
+<img border="0" width="461" height="203" id="Picture 5" src="CommunicationsSetup_files/image005.png">
+</p>
+<p>
+“Address” and “Length” specify the start address (in the
+specified “
+<a href="#_Data_Location">Data Location</a>
+”) and the length (number
+of units of data as specified in “
+<a href="#_Data_Format">Data Format</a>
+”) in
+the Ethernet IP input message.
+</p>
+<h4>Common Settings</h4>
+<h5><a name="_Data_Location"></a>
+Data Location</h5>
+<p class="NormalIndent3">
+<img border="0" width="125" height="130" id="Picture 7" src="CommunicationsSetup_files/image006.png">
+</p>
+<p class="NormalIndent3">
+This specifies the location of the endpoint on the
+controller. MODBUS can only use “VR” or “TABLE”, Ethernet IP can use all
+locations. 
+</p>
+<h5><a name="_Data_Format"></a>
+Data Format</h5>
+<p class="NormalIndent3">
+<img border="0" width="125" height="66" id="Picture 8" src="CommunicationsSetup_files/image007.png">
+</p>
+<p class="NormalIndent3">
+This specifies the precision (size) of the data. Default
+is 16 bit integer.
+</p>
+<h5>Operation Mode</h5>
+<p class="NormalIndent3">
+<img border="0" width="125" height="34" id="Picture 9" src="CommunicationsSetup_files/image008.png">
+</p>
+<p class="NormalIndent3">
+This specifies which addressing method to use. MODBUS
+can use both “Normal Addressing” and “Address Halving”, Ethernet IP always uses
+“Normal Addressing”. 
+</p>
+<h2>Serial Configuration</h2>
+<p>
+<img border="0" width="313" height="337" id="Picture 6" src="CommunicationsSetup_files/image009.png">
+</p>
+<p>
+This specifies the settings for a serial port on the
+controller.
+</p>
+<h4>Baudrate</h4>
+<p>
+This sets the serial communications speed. The following
+values are available:
+</p>
+<p>
+<img border="0" width="117" height="98" id="Picture 10" src="CommunicationsSetup_files/image010.png">
+</p>
+<p>
+The setting will largely depend on the speed capability of
+the device at the other end of the serial link. The default value is 38400.
+</p>
+<h4>Data bits</h4>
+<p>
+This sets the number of data bits transmitted and received.
+</p>
+<p>
+<img border="0" width="117" height="34" id="Picture 11" src="CommunicationsSetup_files/image011.png">
+</p>
+<p>
+A link using an ASCII protocol may use 7 or 8 bits, a binary
+protocol (e.g. MODBUS) must use 8 bits.
+</p>
+<h4>Parity</h4>
+<p>
+This sets the type of parity.
+</p>
+<p>
+<img border="0" width="117" height="50" id="Picture 12" src="CommunicationsSetup_files/image012.png">
+</p>
+<h4>Stop bits</h4>
+<p>
+<img border="0" width="117" height="34" id="Picture 15" src="CommunicationsSetup_files/image013.png">
+</p>
+<p>
+This sets the number of stop bits, 1 is normal.
+</p>
+<h4>Operating mode</h4>
+<p>
+This sets the operating mode. For normal serial
+communications one of the first two modes should be used.
+</p>
+<p>
+<img border="0" width="263" height="130" id="Picture 16" src="CommunicationsSetup_files/image014.png">
+</p>
+<h4>MODBUS target</h4>
+<p>
+This sets the target memory type for MODBUS communications
+modes.
+</p>
+<p>
+<img border="0" width="205" height="34" id="Picture 14" src="CommunicationsSetup_files/image015.png">
+</p>
+</body>
+</html>

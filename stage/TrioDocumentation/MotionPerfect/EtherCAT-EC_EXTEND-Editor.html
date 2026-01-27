@@ -1,0 +1,947 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>EtherCAT EC_EXTEND Editor</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>EC_EXTEND Editor</h1>
+<h2>EC_EXTEND file</h2>
+<p>
+The EC_EXTEND file is an XML format text file containing
+configuration data for one or more EtherCAT slave devices. The file can be
+loaded onto a 
+<i>Motion</i> Coordinator so that it is able to interact with the
+EtherCAT devices whose configuration data in contained in the file. The
+contents of the file is used to extend the 
+<i>Motion</i> Coordinator’s in-build
+dictionary of EtherCAT devices. 
+</p>
+<h3>File structure</h3>
+<p>
+The XML format has tags to delineate the various objects
+that require description.
+</p>
+<p>
+The Tags’ hierarchy is as shown below:
+</p>
+<p class="fixed">
+&lt;EtherCAT&gt;
+</p>
+<p class="fixed" style="text-indent:36.0pt">
+&lt;group_tag&gt;
+</p>
+<p class="fixed" style="margin-left:36.0pt;text-indent:36.0pt">
+&lt;block_tag&gt;
+</p>
+<p class="fixed" style="margin-left:72.0pt;text-indent:36.0pt">
+&lt;Entry_tag&gt;
+</p>
+<p class="fixed" style="margin-left:108.0pt;text-indent:36.0pt">
+&lt;Attribute_tag&gt;Value&lt;/Attribute_tag&gt;
+</p>
+<p class="fixed" style="margin-left:108.0pt;text-indent:36.0pt">
+…
+</p>
+<p class="fixed" style="margin-left:72.0pt;text-indent:36.0pt">
+&lt;/Entry_tag&gt;
+</p>
+<p class="fixed" style="margin-left:72.0pt;text-indent:36.0pt">
+…
+</p>
+<p class="fixed" style="margin-left:36.0pt;text-indent:36.0pt">
+&lt;/block_tag&gt;
+</p>
+<p class="fixed" style="margin-left:36.0pt;text-indent:36.0pt">
+…
+</p>
+<p class="fixed" style="margin-left:36.0pt">
+&lt;/group_tag&gt;
+</p>
+<p class="fixed" style="text-indent:36.0pt">
+…
+</p>
+<p class="fixed">
+&lt;/EtherCAT&gt;
+</p>
+<p>
+Each group may contain one or more blocks. Usually indicated
+by use of an &lt;Index&gt;&lt;/Index&gt; tag.
+</p>
+<p>
+Each block may contain multiple entries and each entry
+consists of one or more attributes with value.
+</p>
+<p>
+When parsing an EC_EXTEND file it is most likely done from
+the END of the file first, as this contains the top-level information about the
+slaves.
+</p>
+<h2>Text Editor</h2>
+<p>
+EC_EXTEND is essentially a TEXT file for the Motion
+Coordinator and is possible to do line by line text editing for minor
+modifications like changes to attribute value. From Motion Perfect v4.3 XML
+format is recognised in text editor and operations like code collapsing and
+text highlighting are available.
+</p>
+<p>
+<img width="555" height="265" id="Picture 1" src="EtherCAT-EC_EXTEND-Editor_files/image012.png">
+</p>
+<h3>Toolbar</h3>
+<p>
+The available editing functions are as follows:
+</p>
+<p>
+<img width="16" height="16" id="Picture 16" src="EtherCAT-EC_EXTEND-Editor_files/image013.png">
+ Save to disk
+</p>
+<p>
+<img width="16" height="16" id="Picture 26" src="EtherCAT-EC_EXTEND-Editor_files/image014.png">
+<a href="EtherCAT-ESI-Import.html">Import</a>
+</p>
+<p>
+<img border="0" width="16" height="16" src="EtherCAT-EC_EXTEND-Editor_files/image015.png">
+ Print
+</p>
+<p>
+<img border="0" width="16" height="16" src="EtherCAT-EC_EXTEND-Editor_files/image016.png">
+Switch to guided editor
+</p>
+<p>
+<img border="0" width="16" height="16" src="EtherCAT-EC_EXTEND-Editor_files/image017.png">
+ Cut selected text to
+clipboard
+</p>
+<p>
+<img border="0" width="16" height="16" src="EtherCAT-EC_EXTEND-Editor_files/image018.png">
+ Copy selected text to
+clipboard
+</p>
+<p>
+<img border="0" width="16" height="16" src="EtherCAT-EC_EXTEND-Editor_files/image019.png">
+ Paste text from clipboard
+</p>
+<p>
+<img border="0" width="16" height="16" src="EtherCAT-EC_EXTEND-Editor_files/image020.png">
+ Undo last operation
+</p>
+<p>
+<img border="0" width="16" height="16" id="Picture 10" src="EtherCAT-EC_EXTEND-Editor_files/image021.png">
+ Redo last undone operation
+</p>
+<p>
+<img border="0" width="16" height="16" id="Picture 9" src="EtherCAT-EC_EXTEND-Editor_files/image022.png">
+<a href="GoTo.html">Go to
+line or label</a>
+</p>
+<p>
+<img border="0" width="16" height="16" id="Picture 8" src="EtherCAT-EC_EXTEND-Editor_files/image023.png">
+ Find text
+</p>
+<p>
+<img border="0" width="16" height="16" id="Picture 7" src="EtherCAT-EC_EXTEND-Editor_files/image024.png">
+ Replace text
+</p>
+<p>
+<img border="0" width="16" height="16" id="Picture 6" src="EtherCAT-EC_EXTEND-Editor_files/image025.png">
+ Toggle bookmark on current
+line
+</p>
+<p>
+<img border="0" width="16" height="16" id="Picture 5" src="EtherCAT-EC_EXTEND-Editor_files/image026.png">
+ Go to previous bookmark
+</p>
+<p>
+<img border="0" width="16" height="16" id="Picture 4" src="EtherCAT-EC_EXTEND-Editor_files/image027.png">
+ Go to next bookmark
+</p>
+<p>
+<img border="0" width="16" height="16" id="Picture 3" src="EtherCAT-EC_EXTEND-Editor_files/image028.png">
+ Clear all bookmarks
+</p>
+<p>
+<img border="0" width="16" height="16" id="Picture 2" src="EtherCAT-EC_EXTEND-Editor_files/image029.png">
+ Collapse all collapsible
+sections
+</p>
+<p>
+<img border="0" width="16" height="16" id="Picture 11" src="EtherCAT-EC_EXTEND-Editor_files/image030.png">
+ Expand all previously
+collapsed sections
+</p>
+<p>
+<img border="0" width="16" height="16" id="Picture 12" src="EtherCAT-EC_EXTEND-Editor_files/image031.png">
+ Comment out selected lines
+</p>
+<p>
+<img border="0" width="16" height="16" id="Picture 17" src="EtherCAT-EC_EXTEND-Editor_files/image032.png">
+ Un-comment selected lines
+</p>
+<p>
+<img border="0" width="16" height="16" id="Picture 13" src="EtherCAT-EC_EXTEND-Editor_files/image033.png">
+ Validate the contents
+</p>
+<h3>Context Menu</h3>
+<p>
+Right clicking anywhere in the editor working area will
+display a context menu containing the following entries:
+</p>
+<table class="tablegrid">
+
+ 
+<tr>
+<td colspan="2" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Entry
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Description
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td colspan="2" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Cut
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Cut the currently selected text to the clipboard.
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td colspan="2" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Copy
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Copy the currently selected text to the clipboard.
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td colspan="2" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Paste
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Paste text from the clipboard at the current position.
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td colspan="2" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Find
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Find text in this program
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td colspan="2" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Find in Project
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Find text in all suitable programs in this project
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td colspan="2" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Replace
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Replace text in this program
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td colspan="2" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Delete Line
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Delete the current line.
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td rowspan="2" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Code Collapsing
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Collapse All
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Collapse all collapsible sections
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Expand All
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Expand all previously collapsed sections
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td colspan="2" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Toggle Bookmark
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Toggle a bookmark on the current line.
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<h2>Guided Editor</h2>
+<p>
+Guided editor is designed to provide assisted visualization
+and editing of EC_EXTEND file contents.
+</p>
+<p>
+In the left panel of the editor window the list of groups is
+displayed and individual group can be selected.
+</p>
+<p>
+In the right panel the list of blocks of a selected group is
+displayed and individual block can be selected.
+</p>
+<p>
+By clicking with mouse and selecting a block it is expanded to
+visualize its contents in deeper details.
+</p>
+<p>
+Initially the editor is in read-only mode to prevent
+accidental modification of the contents.
+</p>
+<p>
+To enable editing either click on the link in the warning
+notice or by Enable Editing button on the tool-bar.
+</p>
+<h3>Toolbar</h3>
+<p>
+The available editing functions are as follows:
+</p>
+<p>
+<img border="0" width="16" height="16" id="Picture 14" src="EtherCAT-EC_EXTEND-Editor_files/image034.png">
+ Navigate editor backward to
+entry that was displayed before
+</p>
+<p>
+<img border="0" width="16" height="16" src="EtherCAT-EC_EXTEND-Editor_files/image035.png">
+ Navigate editor forward –
+reverse the last navigate backward operation
+</p>
+<p>
+<img border="0" width="16" height="16" id="Picture 25" src="EtherCAT-EC_EXTEND-Editor_files/image013.png">
+ Save to disk
+</p>
+<p>
+<img border="0" width="16" height="16" id="Picture 27" src="EtherCAT-EC_EXTEND-Editor_files/image014.png">
+<a href="EtherCAT-ESI-Import.html">Import</a>
+</p>
+<p>
+<img border="0" width="16" height="16" id="Picture 20" src="EtherCAT-EC_EXTEND-Editor_files/image017.png">
+ Cut selected text to
+clipboard
+</p>
+<p>
+<img border="0" width="16" height="16" id="Picture 21" src="EtherCAT-EC_EXTEND-Editor_files/image018.png">
+ Copy selected text to
+clipboard
+</p>
+<p>
+<img border="0" width="16" height="16" id="Picture 22" src="EtherCAT-EC_EXTEND-Editor_files/image019.png">
+ Paste text from clipboard
+</p>
+<p>
+<img border="0" width="16" height="16" id="Picture 23" src="EtherCAT-EC_EXTEND-Editor_files/image020.png">
+ Undo last operation
+</p>
+<p>
+<img border="0" width="16" height="16" id="Picture 24" src="EtherCAT-EC_EXTEND-Editor_files/image021.png">
+ Redo last undone operation
+</p>
+<p>
+<img border="0" width="16" height="16" id="Picture 28" src="EtherCAT-EC_EXTEND-Editor_files/image033.png">
+ Validate the contents
+</p>
+<h3>Context Menu</h3>
+<p>
+Right clicking on any entry in guided editor it will display
+a context menu containing the following entries:
+</p>
+<table class="tablegrid">
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Entry
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Description
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Remove entry…
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Remove the selected entry
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Show in XML editor
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Switch to text editor and visualize the XML form of the
+  selected entry
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<h2>Groups</h2>
+<p>
+The EC_EXTEND file contains following groups:
+</p>
+<ul style="list_style_type:disc">
+<li class="indent-list-first">
+Vendor definitions 
+</li>
+<li class="indent-list-middle">
+Product profile definitions
+</li>
+<li class="indent-list-middle">
+Slave configurations
+</li>
+<li class="indent-list-middle">
+ESC configurations
+</li>
+<li class="indent-list-middle">
+SDO initialization command lists
+</li>
+<li class="indent-list-last">
+RxPDO and TxPDO configurations
+</li>
+</ul>
+<p>
+For each group the editor presents the contained information
+in structured form.
+</p>
+<h3>Vendors and Profiles</h3>
+<p>
+EC_EXTEND file contains information about one or more
+profiles for given product. Profiles are grouped by vendor and ordered by
+product.
+</p>
+<p>
+<img border="0" width="624" height="267" id="Picture 15" src="EtherCAT-EC_EXTEND-Editor_files/image036.jpg">
+</p>
+<p>
+For each profile following information is displayed:
+</p>
+<ul style="list_style_type:disc">
+<li class="indent-list-first">
+Product name
+</li>
+<li class="indent-list-middle">
+Vendor Id (Vid)
+</li>
+<li class="indent-list-middle">
+Product Id (Pid)
+</li>
+<li class="indent-list-middle">
+Revision
+</li>
+<li class="indent-list-middle">
+Axis control type e.g. position, speed or torque
+</li>
+<li class="indent-list-middle">
+DRIVE_PROFILE index used to distinguish different profiles for same
+product
+</li>
+<li class="indent-list-last">
+Slave configuration index
+</li>
+</ul>
+<p>
+When in editing mode all fields are subject to modification.
+Vendor and slave configuration are selected from their corresponding lists.
+</p>
+<p>
+<img border="0" width="408" height="264" id="Picture 19" src="EtherCAT-EC_EXTEND-Editor_files/image037.png">
+</p>
+<p>
+Vendor list starts with a special entry for adding a new
+vendor followed by the list of custom vendors from EC_EXTEND file and ending
+with the list of known vendors from the controller.
+</p>
+<p>
+When adding a new vendor a dialog box is displayed asking
+for vendor name and ID.
+</p>
+<p>
+<img border="0" width="271" height="160" id="Picture 18" src="EtherCAT-EC_EXTEND-Editor_files/image038.png">
+</p>
+<p>
+The newly entered vendor Id is checked against the list of
+already defined ones.
+</p>
+<h3>Slave configurations</h3>
+<p>
+Slave configuration is assigned to each profile. Profile
+references the slave configuration by its index. Although it is not common one
+slave configuration can be assigned to multiple profiles.
+</p>
+<p>
+Slave configurations are visualized in a table and by
+selecting an entry in the list it is expanded and more detailed information
+about selected slave configuration is displayed inline.
+</p>
+<p>
+<img border="0" width="624" height="273" id="Picture 52" src="EtherCAT-EC_EXTEND-Editor_files/image039.png">
+</p>
+<p>
+Slave configuration describes aspects of the profile like:
+</p>
+<ul style="list_style_type:disc">
+<li class="indent-list-first">
+slave type e.g. servo, inverter, digital or analogue module etc.
+</li>
+<li class="indent-list-middle">
+number of controlled axes
+</li>
+<li class="indent-list-middle">
+number of digital and analogue inputs and outputs supplied by the module
+</li>
+<li class="indent-list-middle">
+reference to ESC configuration, SDO initialization command list as well
+as RxPDO and TxPDO configurations
+</li>
+<li class="indent-list-last">
+optionally mailbox protocol details, cyclic data and distributed clock
+related settings
+</li>
+</ul>
+<p>
+While selection of majority of configuration options is
+aided by presenting a list of possible values it also possible to set a custom
+value by directly editing the field.
+</p>
+<p>
+Selected ESC, SDO, RxPDO and TxPDO configurations are just
+references to a block in corresponding group in EC_EXTEND file. ESC
+configuration is referenced by its index while SDO and PDO configurations are
+referenced by their name.
+</p>
+<p>
+While in editing mode it is possible to remove a slave
+configuration using 
+<img border="0" width="16" height="16" id="Picture 37" src="EtherCAT-EC_EXTEND-Editor_files/image040.png">
+ button.
+</p>
+<h3>ESC configurations</h3>
+<p>
+ESC configurations are referenced by one or more slave
+configurations.
+</p>
+<p>
+<img border="0" width="605" height="305" id="Picture 33" src="EtherCAT-EC_EXTEND-Editor_files/image041.png">
+</p>
+<p>
+Each ESC configuration represents a list of entries each
+specifying following data:
+</p>
+<ul style="list_style_type:disc">
+<li class="indent-list-first">
+start address
+</li>
+<li class="indent-list-middle">
+size in bytes
+</li>
+<li class="indent-list-middle">
+control byte
+</li>
+<li class="indent-list-middle">
+enable flag
+</li>
+<li class="indent-list-last">
+function
+</li>
+</ul>
+<p>
+While in editing mode it is possible to remove whole
+configurations as well as individual entries using 
+<img border="0" width="16" height="16" id="Picture 36" src="EtherCAT-EC_EXTEND-Editor_files/image040.png">
+ button.
+</p>
+<p>
+It is also possible to add a new entry by pressing ‘
+<img border="0" width="18" height="18" id="Picture 35" src="EtherCAT-EC_EXTEND-Editor_files/image042.png">
+ Add entry’ button below the
+list.
+</p>
+<p>
+Individual entries within a configuration block can be
+reordered by pressing 
+<img border="0" width="16" height="16" id="Picture 34" src="EtherCAT-EC_EXTEND-Editor_files/image043.png">
+ area and dragging the
+entry.
+</p>
+<h3>Initialization commands</h3>
+<p>
+SDO initialization command lists are referenced by one or
+more slave configurations.
+</p>
+<p>
+<img border="0" width="624" height="332" id="Picture 42" src="EtherCAT-EC_EXTEND-Editor_files/image044.png">
+</p>
+<p>
+Each SDO initialization command list represents a set of
+entries each specifying following data:
+</p>
+<ul style="list_style_type:disc">
+<li class="indent-list-first">
+index and sub-index
+</li>
+<li class="indent-list-middle">
+length in bytes
+</li>
+<li class="indent-list-middle">
+data
+</li>
+<li class="indent-list-middle">
+flags
+</li>
+<li class="indent-list-last">
+transition when the data is set
+</li>
+</ul>
+<p>
+While in editing mode it is possible to remove whole lists
+as well as individual entries using 
+<img border="0" width="16" height="16" id="Picture 39" src="EtherCAT-EC_EXTEND-Editor_files/image040.png">
+ button.
+</p>
+<p>
+It is also possible to add a new entry by pressing ‘
+<img border="0" width="18" height="18" id="Picture 40" src="EtherCAT-EC_EXTEND-Editor_files/image042.png">
+ Add entry’ button below the
+list.
+</p>
+<p>
+Individual entries within a configuration block can be
+reordered by pressing 
+<img border="0" width="16" height="16" id="Picture 41" src="EtherCAT-EC_EXTEND-Editor_files/image043.png">
+ area and dragging the
+entry.
+</p>
+<h3>RxPDO and TxPDO configurations</h3>
+<p>
+PDO configurations are referenced by one or more slave
+configurations. Each slave configuration refers to one RxPDO configuration and
+one TxPDO configuration.
+</p>
+<p>
+Both RxPDO and TxPDO configurations are presented in guided
+editor side by side in the same panel.
+</p>
+<p>
+<img border="0" width="624" height="204" id="Picture 47" src="EtherCAT-EC_EXTEND-Editor_files/image045.png">
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+Each PDO configuration represents a list of entries each
+specifying following data:
+</p>
+<ul style="list_style_type:disc">
+<li class="indent-list-first">
+name
+</li>
+<li class="indent-list-middle">
+length in bytes
+</li>
+<li class="indent-list-last">
+flag
+</li>
+</ul>
+<p>
+The list is terminated by NULL entry.
+</p>
+<p>
+While in editing mode it is possible to remove whole
+configurations as well as individual entries using 
+<img border="0" width="16" height="16" id="Picture 44" src="EtherCAT-EC_EXTEND-Editor_files/image040.png">
+ button.
+</p>
+<p>
+It is also possible to add a new entry by pressing ‘
+<img border="0" width="18" height="18" id="Picture 45" src="EtherCAT-EC_EXTEND-Editor_files/image042.png">
+ Add entry’ button below the
+list.
+</p>
+<p>
+Individual entries within a configuration block can be
+reordered by pressing 
+<img border="0" width="16" height="16" id="Picture 46" src="EtherCAT-EC_EXTEND-Editor_files/image043.png">
+ area and dragging the
+entry.
+</p>
+<h2>Navigation</h2>
+<p>
+Useful feature of guided editor is ability to navigate
+between different types of blocks by clicking on their references.
+</p>
+<p>
+<img border="0" width="624" height="164" id="Picture 49" src="EtherCAT-EC_EXTEND-Editor_files/image046.png">
+</p>
+<p>
+By using 
+<img border="0" width="16" height="16" id="Picture 51" src="EtherCAT-EC_EXTEND-Editor_files/image034.png">
+ and 
+<img border="0" width="16" height="16" id="Picture 50" src="EtherCAT-EC_EXTEND-Editor_files/image035.png">
+buttons
+on toolbar it is possible easily go back and forth between visited blocks of
+entries.
+</p>
+<p>
+In case guided editor does not provide required editing
+functionality it possible to switch to text editor and automatically scroll and
+place the cursor over the currently selected block or entry.
+</p>
+<h2>Merge another EC_EXTEND file</h2>
+<p>
+It is possible to merge the contents of another EC_EXTEND
+file into currently edited one. During the merge process all blocks are copied
+to their respective groups. Indices are adjusted so that no duplications exist.
+For entries that are referenced by name it is ensured that the names are unique
+by appending number as a suffix. At the end of merge operation the new combined
+contents is checked for duplicated entries and in case duplicated blocks are
+found the user is presented UI to consolidate duplicated entries.
+</p>
+<h2>Consolidate duplicated entries</h2>
+<p>
+Guided editor provides functionality to detect and
+consolidate duplicated entries.
+</p>
+<p>
+Duplicated entries that are candidate for consolidation are
+listed by groups and the user is given option to select with which ones to
+process.
+</p>
+<p>
+<img border="0" width="461" height="296" id="Picture 53" src="EtherCAT-EC_EXTEND-Editor_files/image047.png">
+</p>
+<p>
+After the processing completes there remains only the first
+entry for each consolidation group.
+</p>
+<h2>Validation</h2>
+<p>
+Another useful feature is validation of EC_EXTEND contents.
+There are two type of validation performed:
+</p>
+<ul style="list_style_type:disc">
+<li class="indent-list-first">
+Local – by checking each individual entry against a set of constrains. 
+</li>
+<li class="indent-list-last">
+Remote – by executing ETHERCAT($101) command on controller.
+</li>
+</ul>
+</body>
+</html>

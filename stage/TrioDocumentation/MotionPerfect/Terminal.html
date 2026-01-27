@@ -1,0 +1,767 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>Terminal</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>Terminal</h1>
+<p>
+<img width="340" height="361" id="Picture 1" src="Terminal_files/image001.jpg">
+</p>
+<p>
+The &quot;Terminal&quot; tool allows the user to interact
+directly with the controller, either with the command line (direct or channel
+0) or with user programs (channel 5, 6 or 7). Characters typed on the keyboard
+are sent to the controller and characters output by the controller are
+displayed in the terminal window.
+</p>
+<h2>Menu</h2>
+<h3>Terminal Menu</h3>
+<table class="tablegrid">
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Entry
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Description
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Logging
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Enable or disable terminal logging to a file.
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Script
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Controls 
+<a href="TerminalScripting.html">terminal
+  scripting</a>
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Close
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Close the terminal tool 
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<h4><a name="Terminal_logging"></a>
+Terminal Logging</h4>
+<p>
+When logging is active all the data displayed on the
+terminal is also written to a file. The name of the log file is displayed in
+the status bar at the bottom of the terminal window.
+</p>
+<h4><a name="Terminal_Scripting"></a>
+<a href="TerminalScripting.html">Terminal
+Scripting</a>
+ (only available direct or on channel 0)</h4>
+<p>
+Motion Perfect has built in support for simple terminal
+scripting. This allows the user to write files of commands and then send the
+file contents to the controller in a single operation. In addition to the
+commands to be sent to the controller there are some extra commands which are
+used by Motion Perfect to control the running of the script.
+</p>
+<h3><a name="Edit_Menu">Edit Menu</a>
+</h3>
+<table class="tablegrid">
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Entry
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Description
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Clear all
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Clear the terminal window
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Copy
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Copy the selected text to the clipboard
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Paste
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Paste the text in the clipboard into the terminal
+  output (sends it to the controller)
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Copy, Paste and Run
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Copy the selected text into the terminal output and
+  append a carriage return.
+</p>
+
+  
+<p class="note">
+This is an easy way to rerun a previously used command.
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<h3>Search Menu</h3>
+<table class="tablegrid">
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Entry
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Description
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Find
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Fins and Replace window
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Find Next
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Find next occurrence
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Find Prev
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Find previous occurrence
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Find Next Occurrence Current Selection
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Find next occurrence in current selection
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Find Prev Occurrence Current Selection
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Find previous occurrence in current selection
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<h3>Context Menu</h3>
+<p>
+This is the same as the 
+<a href="#Edit_Menu">edit menu</a>
+
+(above)..
+</p>
+<p>
+&nbsp;
+</p>
+<h2>Navigation Keys</h2>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="215" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Keys
+</p>
+
+  
+</td>
+<td width="369" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Action
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="215" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Backspace
+</p>
+
+  
+</td>
+<td width="369" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Delete previous character
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="215" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Delete
+</p>
+
+  
+</td>
+<td width="369" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Delete character at the cursor position
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="215" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+End
+</p>
+
+  
+</td>
+<td width="369" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Go to end of the line
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="215" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Home
+</p>
+
+  
+</td>
+<td width="369" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Go to start of the line
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="215" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Ctrl + Left Arrow
+</p>
+
+  
+</td>
+<td width="369" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Go to the start of the left word
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="215" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Ctrl + Right Arrow
+</p>
+
+  
+</td>
+<td width="369" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Go to the start of the right word
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="215" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Esc
+</p>
+
+  
+</td>
+<td width="369" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Abort this edit &amp; reset the line
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="215" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Up Arrow
+</p>
+
+  
+</td>
+<td width="369" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Go to previous item in history buffer
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="215" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Down Arrow
+</p>
+
+  
+</td>
+<td width="369" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Go to next item in history buffer
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="215" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Ctrl + Delete
+</p>
+
+  
+</td>
+<td width="369" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Delete to the end of the line
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="215" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Tab
+</p>
+
+  
+</td>
+<td width="369" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Go to the start of the next word
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="215" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Insert
+</p>
+
+  
+</td>
+<td width="369" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Switch toggle insert mode
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="215" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Ctrl + Backspace
+</p>
+
+  
+</td>
+<td width="369" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Delete characters from the cursor position to the beginning
+  of the next word
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="215" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+F7
+</p>
+
+  
+</td>
+<td width="369" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+View History
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+&nbsp;
+</p>
+<p>
+&nbsp;
+</p>
+<h2>Macro Buttons</h2>
+<p>
+There are a row of user configurable macro buttons above the
+status bar at the bottom of the terminal window. The user can configure these
+to send often used strings (commands) to the controller. To configure these
+buttons click on the 
+<img border="0" width="16" height="16" id="Picture 2" src="Terminal_files/image002.png">
+ icon at the right of the macro button bar.
+This will cause the &quot;Terminal Macro Buttons&quot; dialog to be displayed.
+</p>
+<p>
+<img border="0" width="399" height="346" id="Picture 3" src="Terminal_files/image003.jpg">
+</p>
+<p>
+The &quot;Add&quot; button will add an entry in the button
+list and the &quot;Remove&quot; button will remove the selected entry. The
+title of is the text which is displayed in the button in the terminal window.
+The command is the string of characters sent to the controller. A carriage
+return character will be appended to the string when it is sent.
+</p>
+</body>
+</html>

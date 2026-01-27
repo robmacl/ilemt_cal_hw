@@ -1,0 +1,1058 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>Recipe Support</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>Recipe Support</h1>
+<p>
+A built-in functionality for recpe support is based on a new
+type of data on the controller.
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+<img width="547" height="227" src="RecipeSupport_files/image004.png" alt="Graphical user interface, text, application&#10;&#10;Description automatically generated">
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+To access recipe data on the controller it is needed to add
+the Recipes package which provides functions for recipe data management. The
+recipe support in HMI also relies on that package.
+</p>
+<p>
+The data flow is illustrated below
+</p>
+<p>
+<img width="862" height="408" src="RecipeSupport_files/image005.png" alt="Graphical user interface, text, application&#10;&#10;Description automatically generated">
+</p>
+<p>
+The custom recipe management implementation program (called
+MY_RECIPE_IMPLEMENTATION in this example) is optional and can be a program that
+you have deleoped to serve specific taskt for your machine.
+</p>
+<p>
+&nbsp;
+</p>
+<h2>Recipe data</h2>
+<p>
+The recipe data is kept on the controller as a Recipe data
+file 
+<img width="24" height="24" id="Picture 4" src="RecipeSupport_files/image006.png">
+. A recipe data file represents a fixed number
+of ingredients (recipe parameters) and arbitrary number of recipes – values for
+the ingredients. In other words one file contains many recipes that operate on
+the fixed ingredient set.
+</p>
+<p>
+If you need a different ingredient (parameter) set (maybe
+targeting a different part or sub-system on your machine) you need to put this
+in another Recipe data file 
+<img width="24" height="24" id="Picture 1386912036" src="RecipeSupport_files/image006.png">
+.
+</p>
+<p>
+&nbsp;
+</p>
+<h2>Recipe Editor</h2>
+<p>
+A dedicated recipe editor is now available in Motion Perfect.
+The editor can be opened by double-clicking on the recipe data file in the tree
+view or from its context menu. 
+</p>
+<p>
+The recipe data is presented in a form of table. Two ways of
+presenting the data are available on user’s choice – vertical and horizontal
+span of recipe values. The view choice does not affect the data itself.
+</p>
+<p>
+Here is an example of opened recipe editor where recipe data
+is presented as a column – one per recipe:
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+<img width="601" height="187" id="Picture 1" src="RecipeSupport_files/image007.png" alt="Graphical user interface, application&#10;&#10;Description automatically generated">
+</p>
+<p>
+In this view the ingredients (recipe parameters) are
+presented as rows and recipe data is presented in columns.
+</p>
+<p>
+A specialized buttons for inserting rows and columns are
+available: 
+<img width="24" height="24" id="Picture 2" src="RecipeSupport_files/image008.png">
+(add recipe or ingredient) and  
+<img width="24" height="24" id="Picture 3" src="RecipeSupport_files/image009.png">
+(add
+attribute).
+</p>
+<p>
+Each ingredient has the following (but not limited to)
+attributes:
+</p>
+<p>
+Name – The ingredient name. Also displayed by the
+specialized UI controls in the HMI user interface.
+</p>
+<p>
+@type – the data type of the attribute. A list of available
+types is presented.
+</p>
+<ul style="list_style_type:disc">
+<li class="indent-list-first">
+FLOAT – floating point value
+</li>
+<li class="indent-list-middle">
+INTEGER – integer value
+</li>
+<li class="indent-list-middle">
+STRING – text value
+</li>
+<li class="indent-list-middle">
+BOOLEAN – TRUE/FALSE value
+</li>
+<li class="indent-list-last">
+TIME_MODIFIED – internally supported value. This is the last time
+the recipe got modified.
+</li>
+</ul>
+<p>
+@min – minimum value for this ingredient. Some data types do
+not support this (like STRING, BOOLEAN, etc.)
+</p>
+<p>
+@max – maximum value for this ingredient. Some data types do
+not support this (like STRING, BOOLEAN, etc.)
+</p>
+<p>
+@units – optional value for units. Can be used in data
+presentation, information only.
+</p>
+<p>
+@target – The data object of the controller where the
+ingredient value is written when a recipe gest applied. Different data object
+types are supported:
+</p>
+<ul style="list_style_type:disc">
+<li class="indent-list-first">
+<span class="Code-Blue">VR</span><br>
+
+The format is
+<br>
+
+
+<span class="codeexampleChar">VR(&lt;number&gt;)</span></li>
+<li class="indent-list-middle">
+<span class="Code-Blue">VR bit</span><br>
+
+The format is:
+<br>
+
+
+<span class="codeexampleChar">VR(&lt;number&gt;).&lt;bit_number&gt;</span></li>
+<li class="indent-list-middle">
+<span class="Code-Blue">TABLE</span><br>
+
+The format is:
+<br>
+
+
+<span class="codeexampleChar">TABLE(&lt;number&gt;)</span></li>
+<li class="indent-list-middle">
+<span class="Code-Blue">Program variable</span><br>
+
+The format is:
+<br>
+
+
+<span class="codeexampleChar">LOOKUP(&quot;program_name&quot;,&quot;variable_name&quot;)
+PROC(process_name)<br>
+
+</span>The PROC(process_name) is optional.
+</li>
+<li class="indent-list-middle">
+<span class="Code-Blue">Axis parameter</span><br>
+
+The format is:
+<br>
+
+
+<span class="codeexampleChar">AXIS(</span><span class="codeexampleChar">axis_number</span><span class="codeexampleChar">) </span><span class="codeexampleChar">parameter_name</span></li>
+<li class="indent-list-middle">
+<span class="Code-Blue">Digital output</span><br>
+
+The format is:
+<br>
+
+
+<span class="codeexampleChar">OP(</span><span class="codeexampleChar">line_number</span><span class="codeexampleChar">)</span></li>
+<li class="indent-list-middle">
+<span class="Code-Blue">Analogue output</span><br>
+
+The format is:
+<br>
+
+
+<span class="codeexampleChar">AOUT(</span><span class="codeexampleChar">line_number</span><span class="codeexampleChar">)</span></li>
+<li class="indent-list-last">
+<span class="Code-Blue">None</span> (value
+does not get written on recipe apply)
+</li>
+</ul>
+<p class="note">
+From the example above when the recipe “Recipe1” gets “applied”
+it would mean its values will be written to the corresponding targets from
+@target. Namely: 
+<br>
+
+VR(0) = 0.12
+<br>
+
+VR(1) = 11.5
+<br>
+
+VR(2) = 21
+<br>
+
+VR(3) = 41
+<br>
+
+VR(4) = 31.3
+</p>
+<p class="note">
+When needed it is possible to define 
+<img width="24" height="24" id="Picture 1494476382" src="RecipeSupport_files/image009.png">
+ another
+“target” column with different values following the format described above. In
+such case the recipe “apply” will need to explicitly refer to that “target”
+column by its Id  (for example @target1). 
+</p>
+<p>
+@id – optional alias for the ingredient. This can be
+utilized in HMI user interface.
+<br>
+<br>
+</p>
+<p class="note" style="margin-left:0cm">
+The user can define additional ingredient
+attributes. Those will be stored along with all attributes in the recipe data
+file and can be used as appropriate in the project. 
+</p>
+<p class="note" style="margin-left:0cm">
+The dedicated recipe HMI components manage
+the recipe data only (actual recipe ingredient values) but are not able to add
+new attributes or change ingredient count nor ingredient type.
+</p>
+<p>
+&nbsp;
+</p>
+<h2><a name="_Recipe_Package"></a>
+Recipe Package</h2>
+<p>
+The Recipe package is provided as part of Motion Perfect
+installation. It provides the base for the embedded recipe support. You can add
+the recipe package to your project explicitly. Motion Perfect will suggest
+adding the package on some occasions.
+</p>
+<p>
+The package provides set of Trio BASIC functions for recipe
+management:
+</p>
+<p>
+&nbsp;
+</p>
+<h3>Apply recipe</h3>
+<p class="fixed">
+FUNCTION 
+<span class="Code-Red">recipe_0n</span>(recipe_file AS STRING, recipe AS INTEGER,
+target_set_name AS STRING) AS INTEGER
+</p>
+<p class="fixed">
+'---------------------------------------------------------------------------------
+<br>
+
+' RECIPE - function 0 (Apply recipe)
+<br>
+
+' Applies recipe values to the target objects 'target_set_name' as described in
+the '&quot;recipe_file&quot; data base
+<br>
+
+' recipe_file - the recipe database file
+<br>
+
+' recipe - recipe index starting from 0
+<br>
+
+' target_set_name - targets set name. Must be present in the recipe file data
+base. Defaults to default_target_set (@target)
+<br>
+
+' Returns: the recipe index or
+ negative
+ error code.
+</p>
+<p class="fixed">
+'          (-1) – error
+</p>
+<p class="fixed">
+'          (-1000 - N) – the Ingredient N value failed to apply.
+N is a zero-based index.
+</p>
+<p class="fixed">
+'---------------------------------------------------------------------------------
+</p>
+<p class="fixed">
+&nbsp;
+</p>
+<p class="fixed">
+<span class="fixedChar">FUNCTION </span><span class="Code-Red">recipe_0t</span><span class="fixedChar">(recipe_file AS STRING, recipe_name AS STRING, target_set_name
+AS STRING) AS INTEGER</span></p>
+<p class="fixed">
+'---------------------------------------------------------------------------------
+<br>
+
+' RECIPE - function 0 (Apply recipe)
+<br>
+
+' Applies recipe values to the target objects 'target_set_name' as described in
+the  '&quot;recipe_file&quot; data base
+<br>
+
+' recipe_file - the recipe database file
+<br>
+
+' recipe_name - recipe name
+<br>
+
+' target_set_name - targets set name. Must be present in the recipe file data
+base. Defaults to default_target_set (@target)
+<br>
+
+' Returns: the recipe index or
+ negative
+ error code.
+</p>
+<p class="fixed">
+'          (-1) – error
+</p>
+<p class="fixed">
+'          (-1000 - N) – the Ingredient N value failed to apply.
+N is a zero-based index.
+</p>
+<p class="fixed">
+'---------------------------------------------------------------------------------
+<br>
+
+
+<br>
+
+
+</p>
+<p class="FixedSmall">
+<span class="fixedChar">&nbsp;</span></p>
+<h3><span class="fixedChar"><span style='font-family:"Cambria",serif'>Get recipe
+data </span></span></h3>
+<p class="fixed">
+&nbsp;
+</p>
+<p class="fixed">
+FUNCTION
+ <span class="Code-Red">recipe_1n</span>(recipe_file
+
+AS
+ STRING
+,
+recipe 
+AS
+ INTEGER
+,
+start 
+AS
+ INTEGER
+,
+count 
+AS
+ INTEGER
+)
+
+AS
+ STRING
+</p>
+<p class="fixed">
+'---------------------------------------------------------------------------------
+<br>
+
+' RECIPE - function 1 (Get recipe)
+<br>
+
+' Reads recipe parameters from the 'recipe_file' data base
+<br>
+
+' recipe_file - the recipe database file
+<br>
+
+' recipe - recipe number
+<br>
+
+' start - start parameter (ingredient)
+<br>
+
+' count - the number of parameters (ingredients) to get
+<br>
+
+' If more than 1 parameter is requested a string of comma-separated values is
+returned. In such
+<br>
+
+' case if a string parameter contains quote symbol it is encoded as
+&quot;&quot;
+<br>
+
+'---------------------------------------------------------------------------------
+<br>
+
+
+<br>
+
+
+</p>
+<p class="fixed">
+&nbsp;
+</p>
+<p class="fixed">
+FUNCTION
+ <span class="Code-Red">recipe_1nt</span>(recipe_file
+
+AS
+ STRING
+,
+recipe 
+AS
+ INTEGER
+,
+info_recipe 
+AS
+ BOOLEAN
+,
+start_name 
+AS
+ STRING
+,
+count 
+AS
+ INTEGER
+)
+
+AS
+ STRING
+<br>
+
+'---------------------------------------------------------------------------------
+<br>
+
+' RECIPE - function 1 (Get recipe)
+<br>
+
+' Reads recipe parameters from the 'recipe_file' data base
+<br>
+
+' recipe_file - the recipe database file
+<br>
+
+' recipe - recipe number
+<br>
+
+' start_name - start parameter (ingredient) name
+/
+id
+ as per information in the recipe file.
+<br>
+
+' count - the number of parameters (ingredients) to get
+<br>
+
+' If more than 1 parameter is requested a string of comma-separate dvalues is
+returned. In such
+<br>
+
+' case if a string parameter contains quote symbol it is encoded as
+&quot;&quot;
+<br>
+
+'---------------------------------------------------------------------------------
+<br>
+
+
+<br>
+
+
+FUNCTION
+ <span class="Code-Red">recipe_1t</span>(recipe_file 
+AS
+ STRING
+,
+recipe_name 
+AS
+ STRING
+,
+info_recipe 
+AS
+ BOOLEAN
+,
+start 
+AS
+ INTEGER
+,
+count 
+AS
+ INTEGER
+)
+
+AS
+ STRING
+<br>
+
+'---------------------------------------------------------------------------------
+<br>
+
+' RECIPE - function 1 (Get recipe)
+<br>
+
+' Reads recipe parameters from the 'recipe_file' data base
+<br>
+
+' recipe_file - the recipe database file
+<br>
+
+' recipe_name - recipe name
+<br>
+
+' start - start parameter (ingredient)
+<br>
+
+' count - the number of parameters (ingredients) to get
+<br>
+
+' If more than 1 parameter is requested a string of comma-separated values is
+returned. In such
+<br>
+
+' case if a string parameter contains quote symbol it is encoded as
+&quot;&quot;
+<br>
+
+'---------------------------------------------------------------------------------
+<br>
+
+
+<br>
+
+
+</p>
+<p class="fixed">
+&nbsp;
+</p>
+<p class="fixed">
+FUNCTION 
+<span class="Code-Red">recipe_1tt</span>(recipe_file AS STRING, recipe_name AS STRING,
+start_name AS STRING, count AS INTEGER) AS STRING
+<br>
+
+'---------------------------------------------------------------------------------
+<br>
+
+' RECIPE - function 1 (Get recipe)
+<br>
+
+' Reads recipe parameters from the 'recipe_file' data base
+<br>
+
+' recipe_file - the recipe database file
+<br>
+
+' recipe_name - recipe name
+<br>
+
+' start_name - start parameter (ingredient) name
+/
+id
+ as per information in the recipe file.
+<br>
+
+' count - the number of parameters (ingredients) to get
+<br>
+
+' If more than 1 parameter is requested a string of comma-separated values is
+returned. In such
+<br>
+
+' case if a string parameter contains quote symbol it is encoded as
+&quot;&quot;
+<br>
+
+'---------------------------------------------------------------------------------
+<br>
+
+
+<br>
+
+
+</p>
+<h3>Set recipe data<span class="fixedChar"><span style='font-family:"Cambria",serif'>
+(not available in this version)</span></span></h3>
+<p>
+&nbsp;
+</p>
+<p class="fixed">
+FUNCTION 
+<span class="Code-Red">recipe_2n</span>(recipe_file AS STRING, recipe AS INTEGER, start
+AS INTEGER, values AS STRING) AS STRING
+<br>
+
+'---------------------------------------------------------------------------------
+<br>
+
+' RECIPE - function 2 (Set recipe parameters)
+<br>
+
+' Sets recipe parameters in the 'recipe_file' data base
+<br>
+
+' recipe_file - the recipe database file
+<br>
+
+' recipe - recipe number
+<br>
+
+' start - start parameter (ingredient)
+<br>
+
+' values - comma-separated string of values. String values are quoted.
+<br>
+
+'---------------------------------------------------------------------------------
+<br>
+
+
+<br>
+
+
+</p>
+<p class="FixedSmall">
+&nbsp;
+</p>
+<p class="fixed">
+FUNCTION 
+<span class="Code-Red">recipe_2nt</span>(recipe_file AS STRING, recipe AS INTEGER,
+start_name AS STRING, values AS STRING) AS STRING
+</p>
+<p class="fixed">
+'---------------------------------------------------------------------------------
+<br>
+
+' RECIPE - function 2 (Set recipe parameters)
+<br>
+
+' Sets recipe parameters in the 'recipe_file' data base
+<br>
+
+' recipe_file - the recipe database file
+<br>
+
+' recipe - recipe number
+<br>
+
+' start_name - start parameter (ingredient) name
+/
+id
+ as per information in the recipe file.
+<br>
+
+' values - comma-separated string of values. String values are quoted.
+<br>
+
+'---------------------------------------------------------------------------------
+<br>
+
+
+<br>
+
+
+</p>
+<p class="FixedSmall">
+&nbsp;
+</p>
+<p class="fixed">
+FUNCTION 
+<span class="Code-Red">recipe_2t</span>(recipe_file AS STRING, recipe_name AS STRING,
+start AS INTEGER, values AS STRING) AS STRING 
+</p>
+<p class="fixed">
+'---------------------------------------------------------------------------------
+<br>
+
+' RECIPE - function 2 (Set recipe parameters)
+<br>
+
+' Sets recipe parameters in the 'recipe_file' data base
+<br>
+
+' recipe_file - the recipe database file
+<br>
+
+' recipe_name - recipe name. The recipe, must exist.
+<br>
+
+' start - start parameter (ingredient)
+<br>
+
+' values - comma-separated string of values. String values are quoted.
+<br>
+
+'---------------------------------------------------------------------------------
+<br>
+
+
+<br>
+
+
+</p>
+<p class="FixedSmall">
+&nbsp;
+</p>
+<p class="fixed">
+FUNCTION 
+<span class="Code-Red">recipe_2tt</span>(recipe_file AS STRING, recipe_name AS STRING,
+start_name AS STRING, values AS STRING) AS STRING
+<br>
+
+'---------------------------------------------------------------------------------
+<br>
+
+' RECIPE - function 2 (Set recipe parameters)
+<br>
+
+' Sets recipe parameters in the 'recipe_file' data base
+<br>
+
+' recipe_file - the recipe database file
+<br>
+
+' recipe_name - recipe name
+<br>
+
+' start_name - start parameter (ingredient) name
+/
+id
+ as per information in the recipe file.
+<br>
+
+' values - comma-separated string of values. String values are quoted.
+<br>
+
+'---------------------------------------------------------------------------------
+<br>
+
+
+<br>
+
+
+</p>
+<h3>Get recipe count<span class="fixedChar"><span style='font-family:"Cambria",serif'>
+(not available in this version)</span></span></h3>
+<p class="fixed">
+FUNCTION 
+<span class="Code-Red">recipe_3</span>(recipe_file AS STRING) AS INTEGER
+</p>
+<p class="fixed">
+'---------------------------------------------------------------------------------
+<br>
+
+' RECIPE - function 3 (Get recipe count)
+<br>
+
+' recipe_file - the recipe database file
+<br>
+
+' Returns the count of the recipes in the 'recipe_file' data base
+<br>
+
+'---------------------------------------------------------------------------------
+<br>
+
+
+<br>
+
+
+</p>
+<h3>Delete recipe<span class="fixedChar"><span style='font-family:"Cambria",serif'>
+(not available in this version)</span></span></h3>
+<p class="fixed">
+FUNCTION 
+<span class="Code-Red">recipe_5n</span>(recipe_file AS STRING, start AS INTEGER, count
+AS INTEGER) AS BOOLEAN
+</p>
+<p class="fixed">
+'---------------------------------------------------------------------------------
+<br>
+
+' RECIPE - function 5 (Delete recipe)
+<br>
+
+' Deletes recipe(s) from the 'recipe_file' data base
+<br>
+
+' recipe_file - the recipe database file
+<br>
+
+' start - recipe number
+<br>
+
+' count - number of recipes to delete starting from 'start'
+<br>
+
+' Returns TRUE on success
+<br>
+
+'---------------------------------------------------------------------------------
+<br>
+
+
+<br>
+
+
+</p>
+<p class="fixed">
+&nbsp;
+</p>
+<p class="fixed">
+FUNCTION 
+<span class="Code-Red">recipe_5t</span>(recipe_file AS STRING, start AS STRING, count
+AS INTEGER) AS BOOLEAN
+</p>
+<p class="fixed">
+'---------------------------------------------------------------------------------
+<br>
+
+' RECIPE - function 5 (Delete recipe)
+<br>
+
+' Deletes recipe(s) from the 'recipe_file' data base
+<br>
+
+' recipe_file - the recipe database file
+<br>
+
+' start - recipe name
+<br>
+
+' count - number of recipes to delete starting from 'start'
+<br>
+
+' Returns TRUE on success
+<br>
+
+'---------------------------------------------------------------------------------
+<br>
+
+
+<br>
+
+
+</p>
+<h3>Get names<span class="fixedChar"><span style='font-family:"Cambria",serif'>
+(not available in this version)</span></span></h3>
+<p class="fixed">
+FUNCTION 
+<span class="Code-Red">recipe_7</span>(recipe_file AS STRING, start AS INTEGER, count
+AS INTEGER) AS STRING
+</p>
+<p class="fixed">
+'---------------------------------------------------------------------------------
+<br>
+
+' RECIPE - function 7 (Get name(s))
+<br>
+
+' Returns the name(s) of the requested recipe(s)
+<br>
+
+' recipe_file - the recipe database file
+<br>
+
+' start - recipe number
+<br>
+
+' count - number of recipes starting from 'start'
+<br>
+
+' Returns a comma-separated string of quoted names. If count is 1 the result is
+not quoted.
+<br>
+
+'---------------------------------------------------------------------------------
+<br>
+
+
+<br>
+
+
+</p>
+<h3>Get recipe index<span class="fixedChar"><span style='font-family:"Cambria",serif'>
+(not available in this version)</span></span></h3>
+<p class="fixed">
+FUNCTION 
+<span class="Code-Red">recipe_10</span>(recipe_file AS STRING, recipe_name AS STRING)
+AS INTEGER
+</p>
+<p class="fixed">
+'---------------------------------------------------------------------------------
+<br>
+
+' RECIPE - function 10 (Get recipe index)
+<br>
+
+' Returns the index of the in the 'recipe_file' data base
+<br>
+
+' recipe_file - the recipe database file
+<br>
+
+' recipe_name - recipe name to search for.
+<br>
+
+' Returns the number (index) of the recipe or -1 if not found
+<br>
+
+'---------------------------------------------------------------------------------
+<br>
+
+
+<br>
+
+
+</p>
+<p>
+&nbsp;
+</p>
+<h3>Read target value</h3>
+<p class="FixedSmall">
+&nbsp;
+</p>
+<p class="fixed">
+FUNCTION
+ <span class="Code-Red">recipe_11</span>(recipe_file
+
+AS
+ STRING
+,
+target_set_name 
+AS
+ STRING
+,
+start 
+AS
+ INTEGER
+,
+count 
+AS
+ INTEGER
+)
+
+AS
+ STRING
+</p>
+<p class="fixed">
+'---------------------------------------------------------------------------------
+<br>
+
+' RECIPE - function 11 (Read target value)
+<br>
+
+' Reads values from controller objects as described by target_set_name in the '
+recipe_file' recipe data base
+<br>
+
+' recipe_file - the recipe database file
+<br>
+
+' target_set_name - targets set name. Must be present in the recipe file data
+base.
+<br>
+
+' start - parameter index to start from
+<br>
+
+' count - parameter count to read
+<br>
+
+' Returns a string of comma-separated values. String values are quoted. Expects
+to have default_type_set&quot; information
+<br>
+
+' in recipe
+<br>
+
+' data base file.
+<br>
+
+'---------------------------------------------------------------------------------
+<br>
+
+
+<br>
+
+
+</p>
+<p>
+&nbsp;
+</p>
+<p class="note">
+More functions will be available in the next versions of the
+Recipes package.
+</p>
+<p>
+&nbsp;
+</p>
+<h2>Using recipes in your project</h2>
+<ol style="list_style_type:decimal">
+<li class="indent-list-first">
+Design
+and create your recipe data file (
+<img width="16" height="16" id="Picture 5" src="RecipeSupport_files/image010.png">
+) using the recipe editor in Motion Perfect.
+Make sure you put min/max restrictions where applicable and set the targets - where
+recipe values will be written when a recipe gets “applied”.
+</li>
+<li class="indent-list-middle">
+If
+you are writing your own recipe management or logic in a Trio BASIC program,
+you may want to use the Trio BASIC functions available from 
+<a href="#_Recipe_Package">Recipes package</a>
+ (needs to be added to the project).
+Those operate on the recipe file you specify.
+</li>
+<li class="indent-list-last">
+If
+you are developing Uniplay HMI design for your project, then couple of recipe
+management components are available for the purpose. They operate on the recipe
+data file on the controller you specify. Please refer to the relevant HMI help
+topic.
+</li>
+</ol>
+</body>
+</html>

@@ -1,0 +1,217 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>EtherCAT Drive Inertia Detection</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>EtherCAT Drive Inertia Detection</h1>
+<p>
+The Inertia Detection function is used to calculate the load
+inertia relative to the motor rotor inertia (percentage of load inertia).  This
+tool is available when in either One-Parameter Auto Tuning or Manual Tuning modes.
+</p>
+<p>
+<img width="601" height="367" src="EtherCAT-Drive-LoadInertia_files/image001.jpg">
+</p>
+<p>
+Selecting this function will launch a wizard which will
+guide the inertia detection.
+</p>
+<p>
+&nbsp;
+</p>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="100" class="tablegrid">
+
+  
+<p class="CAUTIONHeading">
+<img width="67" height="67" src="EtherCAT-Drive-LoadInertia_files/image002.png">
+</p>
+
+  
+</td>
+<td width="503" class="tablegrid">
+
+  
+<p class="CAUTIONTextList">
+Stop the
+  Motor running before performing this function. 
+</p>
+
+  
+<p class="CAUTIONTextList" style="margin-left:0cm">
+Ensure the movable parts have sufficient
+  travel in the forward and reverse directions, as the Motor will run for up to
+  8 rotations during this operation.
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+&nbsp;
+</p>
+<p>
+During the test the motor will rotate back and forth several
+times (the maximum rotations is 8). The number of motor rotations used is
+configurable; either 4 or 8. 
+</p>
+<table class="tablegrid">
+
+ 
+<thead>
+<tr>
+<td width="73" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Parameter</span></p>
+
+   
+</td>
+<td width="113" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Setting</span></p>
+
+   
+</td>
+<td width="340" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Meaning</span></p>
+
+   
+</td>
+<td width="83" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Classification</span></p>
+
+   
+</td>
+</tr>
+</thead>
+
+ 
+<tr>
+<td width="73" rowspan="2" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn172</span></p>
+
+  
+</td>
+<td width="113" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>0
+  [Default]</span></p>
+
+  
+</td>
+<td width="340" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>8
+  rotations</span></p>
+
+  
+</td>
+<td width="83" rowspan="2" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Function</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="113" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>1</span></p>
+
+  
+</td>
+<td width="340" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>4
+  rotations</span></p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+The wizard sequence is:
+</p>
+<ul type="disc">
+
+ 
+<li>
+<b>Warning screen</b>, please ensure there is enough motor
+     travel to complete the test without causing mechanical damage
+</li>
+
+
+</ul>
+<p style="margin-left:36.0pt">
+<img width="602" height="432" id="Picture 1" src="EtherCAT-Drive-LoadInertia_files/image003.png">
+</p>
+<ul type="disc">
+
+ 
+<li>
+<b>Setup</b>, select the range of movement the test will
+     use.  This will set the parameter Pn172
+</li>
+
+
+</ul>
+<p style="margin-left:36.0pt">
+<img width="602" height="432" src="EtherCAT-Drive-LoadInertia_files/image004.png">
+</p>
+<ul type="disc">
+
+ 
+<li>
+<b>Tuning</b>, perform the measuerment and display the
+     result
+</li>
+
+
+</ul>
+<p style="margin-left:36.0pt">
+<img width="602" height="432" src="EtherCAT-Drive-LoadInertia_files/image005.png">
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+&nbsp;
+</p>
+</body>
+</html>

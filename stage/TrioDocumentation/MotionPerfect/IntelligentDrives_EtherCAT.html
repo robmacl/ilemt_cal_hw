@@ -1,0 +1,220 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>Intelligent Drives - EtherCAT</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>Intelligent Drives – EtherCAT</h1>
+<h2>EtherCAT</h2>
+<p>
+EtherCAT is an Ethernet based multi-vendor
+supported industrial control bus originally developed by Beckhoff Automation in
+Germany. The EtherCAT standard supports many types of different device. Trio
+supports a selection of drives and I/O devices.
+</p>
+<p>
+The functionality supported for these
+different devices can be split into 4 categories:
+</p>
+<ul type="disc">
+
+ 
+<li>
+Trio drives
+</li>
+
+ 
+<li>
+Trio I/O devices
+</li>
+
+ 
+<li>
+Third party drive
+</li>
+
+ 
+<li>
+Third party I/O devices
+</li>
+
+
+</ul>
+<p>
+The supported functionality and level of
+integration into Motion Perfect will vary for these different device types. 
+Not all functionality is available for non-Trio products.
+</p>
+<p>
+A visualization of the EtherCAT network can
+be seen either in the 
+<a href="ControllerTree.html">Controller
+tree</a>
+ view
+</p>
+<p>
+<img border="0" width="230" height="280" src="IntelligentDrives_EtherCAT_files/image001.jpg">
+</p>
+<p>
+Or from the Intelligent Drives tool
+</p>
+<p>
+<img border="0" width="368" height="488" id="Picture 1" src="IntelligentDrives_EtherCAT_files/image002.png">
+</p>
+<h2>Intelligent Drives</h2>
+<p>
+The Intelligent drives dialog contains a tab for each of the
+controller's interface modules to which supported intelligent drives can be
+connected. On a tab for an EtherCAT module a diagram of the drives and a list
+of the correspondingly assigned axes is displayed along with data for each
+drive and the motor connected to it. Any additional EtherCAT devices (which are
+not drives) are also shown.
+</p>
+<p>
+<img border="0" width="323" height="416" src="IntelligentDrives_EtherCAT_files/image003.png">
+</p>
+<p>
+The 
+<img border="0" width="16" height="16" id="Picture 8" src="IntelligentDrives_EtherCAT_files/image004.png">
+ icon
+toggles between a normal and higher resolution view of the controller and
+connected drives.
+</p>
+<p>
+The state of the EtherCAT network (“Master State” above) can
+be controlled using the pull-down list and can be set to one of the following
+states:
+</p>
+<ul type="disc">
+
+ 
+<li>
+Init
+</li>
+
+ 
+<li>
+Pre-operational
+</li>
+
+ 
+<li>
+Safe operational
+</li>
+
+ 
+<li>
+Operational
+</li>
+
+
+</ul>
+<p>
+Hovering the mouse cursor over the controller displays a
+pop-up containing information about the current controller or interface module.
+</p>
+<p>
+<img border="0" width="207" height="103" src="IntelligentDrives_EtherCAT_files/image005.png">
+</p>
+<p>
+Double-clicking on the controller launches 
+<a href="EtherCAT-Diagnostics.html">EtherCAT diagnostics Wizard</a>
+ which allows the collection of diagnostic information about current
+configuration. This can also be done by right clicking on the controller and
+selecting “Collect Diagnostic Info” from the menu.
+</p>
+<p>
+Hovering the mouse cursor over a drive displays a pop-up
+containing information about the drive.
+</p>
+<p>
+<img border="0" width="216" height="103" src="IntelligentDrives_EtherCAT_files/image006.png">
+</p>
+<p>
+Hovering the mouse cursor over a drive displays a pop-up
+containing information about the motor.
+</p>
+<p>
+<img border="0" width="118" height="64" src="IntelligentDrives_EtherCAT_files/image007.png">
+</p>
+<p>
+Double-clicking on a device in the network will bring up an 
+<a href="EtherCAT-Device-Info.html">EtherCAT Device window</a>
+ for the
+corresponding device.
+</p>
+<p>
+Right-clicking a drive icon
+or a motor icon associated with a drive displays following context menu:
+</p>
+<p>
+<img border="0" width="245" height="223" src="IntelligentDrives_EtherCAT_files/image008.png">
+</p>
+<ul type="disc">
+
+ 
+<li>
+Drive Setup - brings up an 
+<a href="EtherCAT-Device-Info.html">EtherCAT Device window</a>
+ for the
+     corresponding device.
+</li>
+
+ 
+<li>
+Import ESI File – allows import of the devices EtherCAT
+     Slave Information (ESI) file in cases where the device is not recognised
+     by the controller.
+</li>
+
+
+</ul>
+<h2>Modify STARTUP Program</h2>
+<p>
+In order to make sure that EtherCAT devices are configured
+correctly, a set of CoE objects can be added to the STARTUP program. The
+STARTUP program will ensure that correct values are set for the CoE objects
+selected by the user. The “
+<a href="EtherCAT-ModifyStartup.html">Modify STARTUP
+Program</a>
+” button launches a configuration wizard which allows the user to
+specify for which CoE objects information should be stored in STARTUP program. 
+</p>
+<h2>Browse Database</h2>
+<p>
+The controller contains an internal database of known
+EtherCAT vendors and devices. For each device there are one or more predefined
+profiles containing configuration information such as:
+</p>
+<ul type="disc">
+
+ 
+<li>
+PDO configuration
+</li>
+
+ 
+<li>
+SDO configuration
+</li>
+
+ 
+<li>
+IO configuration
+</li>
+
+
+</ul>
+<p>
+Pressing the “Browse database” button causes a 
+<a href="EtherCAT-DatabaseBrowser.html">Database Browser Dialog</a>
+, containing a
+hierarchical list of known vendors and their products, to be displayed.
+</p>
+<p>
+&nbsp;
+</p>
+</body>
+</html>

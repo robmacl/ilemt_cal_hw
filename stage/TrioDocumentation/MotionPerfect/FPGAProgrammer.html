@@ -1,0 +1,58 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>FPGA Programmer</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>FPGA Programmer Tool</h1>
+<p>
+The FPGA Programmer tool allows the user to reprogram the FPGA
+in the controller. Using this tool it is possible to upgrade the FPGA code
+without having to return the controller to Trio. This functionality is not
+supported by all controllers.
+</p>
+<h2>Using the Tool</h2>
+<p>
+The tool is implemented as a Wizard which guides the user
+through the programming process. The tool is started by selecting “Controller /
+Reprogram FPGA…” the Motion Perfect’s main menu. The stages of the process are
+as follows:
+</p>
+<h3>Select FPGA program version to install</h3>
+<p>
+<img width="600" height="400" id="Picture 1" src="FPGAProgrammer_files/image001.png">
+</p>
+<p>
+The current FPGA version and the versions available are
+displayed. The user should choose the correct version to install from the
+combo-box then press “Next” to continue.
+</p>
+<h3>Confirm the reprogramming operation</h3>
+<p>
+<img width="600" height="402" id="Picture 3" src="FPGAProgrammer_files/image002.png">
+</p>
+<p>
+A warning message is displayed. If you are happy with this
+then press “Reprogram” to continue.
+</p>
+<h3>Reprogram</h3>
+<p>
+<img width="602" height="401" id="Picture 5" src="FPGAProgrammer_files/image003.png">
+</p>
+<p>
+A warning message is displayed and a progress bar is used to
+indicate that something is happening. Motion Perfect cannot display actual
+progress because the information is not available to it. When programming is
+complete the user is prompted to cycle controller power and then reconnect.
+</p>
+<p>
+<img width="601" height="401" id="Picture 6" src="FPGAProgrammer_files/image004.png">
+</p>
+<p>
+Cycle controller power, wait for the controller to restart
+then press the “Reconnect” button.
+</p>
+</body>
+</html>

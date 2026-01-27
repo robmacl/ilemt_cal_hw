@@ -1,0 +1,205 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>Digital I/O Viewer</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>Digital I/O Viewer</h1>
+<p>
+The digital I/O viewer is used to show the states of the
+digital inputs and outputs of the controller (both local and remote).
+</p>
+<p>
+<img width="284" height="309" id="Picture 1" src="DigitalIOViewer_files/image001.png">
+</p>
+<p>
+The display divides the I/O address space up into blocks of
+8 lines. Usually all the lines in a block are the same type. The types
+available and their associated colours are shown in the table below:
+</p>
+<table class="tablegrid">
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Type
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Colour
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p>
+Input
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p>
+Green
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p>
+Output
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p>
+Orange
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p>
+Input/Output
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p>
+Yellow
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p>
+Virtual Input/Output
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p>
+Cyan
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+Information about the physical device containing an I/O
+block is displayed as a tool-tip if the mouse cursor hovers over the black
+header block of an I/O group.
+</p>
+<p>
+<img width="284" height="309" id="Picture 10" src="DigitalIOViewer_files/image002.png">
+</p>
+<h2>Configuration</h2>
+<p>
+It is possible to change which banks are displayed by
+clicking on the &quot;Configuration&quot; button 
+<img width="16" height="16" id="Picture 3" src="DigitalIOViewer_files/image003.png">
+ which then displays
+the configuration dialog.
+</p>
+<p>
+<img width="490" height="416" id="Picture 12" src="DigitalIOViewer_files/image004.png">
+</p>
+<p>
+It is possible to group the daiplay by physical device by
+selecting the “devices” radio button.
+</p>
+<p>
+<img width="490" height="416" id="Picture 13" src="DigitalIOViewer_files/image005.png">
+</p>
+<p>
+Using this dialog the user can select which banks of I/O
+lines to display.
+</p>
+<h2>Descriptions</h2>
+<p>
+Each i/0 line can be given a description. The description
+can be shown or hidden by clicking on the &quot;Show/Hide Descriptions&quot;
+button 
+<img width="16" height="16" id="Picture 4" src="DigitalIOViewer_files/image006.png">
+ or 
+<img width="16" height="16" id="Picture 5" src="DigitalIOViewer_files/image007.png">
+. Device information is
+displayed in the header for each I/O block.
+</p>
+<p>
+<img width="461" height="416" id="Picture 14" src="DigitalIOViewer_files/image008.png">
+</p>
+<p>
+Right clicking on a description will bring up a context menu
+allowing to user to perform cut and paste operations.
+</p>
+<p>
+<img width="161" height="78" id="Picture 2" src="DigitalIOViewer_files/image009.png">
+</p>
+<p>
+Right clicking on the header of an IO block will bring up a
+context menu allowing bulk copying, pasting, importing and exporting of
+descriptions.
+</p>
+<p>
+<img width="277" height="142" id="Picture 6" src="DigitalIOViewer_files/image010.png">
+</p>
+<h2>Forced Outputs</h2>
+<p>
+If an output state has been changed (forced on) by the
+Digital IO Tool it may not be possible for a program running on the controller
+to turn it off. Clicking the 
+<img width="22" height="18" id="Picture 15" src="DigitalIOViewer_files/image011.png">
+ button will free any forced outputs
+so that a running program can control them.
+</p>
+</body>
+</html>

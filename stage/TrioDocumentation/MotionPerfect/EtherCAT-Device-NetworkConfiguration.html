@@ -1,0 +1,776 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>EtherCAT Device Network Configuration</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>EtherCAT Device Network Configuration</h1>
+<p>
+EtherCAT devices allow data exchange between the controller
+and the device via two methods, service data and process data.  Service data
+allows parameter access to the device in an adhoc fashion.  Process data is a
+set of data which is exchanged between the master and slave on a cyclic basis. 
+The process data exchanged between the master and slave is setup when the
+network starts up and is referred to as a device profile.
+</p>
+<p>
+Depending on the application it may be necessary to exchange
+different data between the master and slave.  Generally, this data set is kept
+to a minimum to improve overall controller and network performance.
+</p>
+<p>
+The Network Configuration screen allows the selection of
+different device profiles (different process data exchange maps).  
+</p>
+<p>
+The controller firmware supports a set of pre-defined
+profiles:
+</p>
+<p>
+<b>Position Control</b></p>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="92" valign="top" class="tablegrid">
+
+  
+<p>
+Profile No
+</p>
+
+  
+</td>
+<td width="265" valign="top" class="tablegrid">
+
+  
+<p>
+Master to Slave (RxPDO)
+</p>
+
+  
+</td>
+<td width="259" valign="top" class="tablegrid">
+
+  
+<p>
+Slave to Master (TxPDO)
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="92" valign="top" class="tablegrid">
+
+  
+<p>
+0 (default)
+</p>
+
+  
+</td>
+<td width="265" valign="top" class="tablegrid">
+
+  
+<p>
+Control Word, Target Position
+</p>
+
+  
+</td>
+<td width="259" valign="top" class="tablegrid">
+
+  
+<p>
+Status Word, Actual Position
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="92" valign="top" class="tablegrid">
+
+  
+<p>
+1
+</p>
+
+  
+</td>
+<td width="265" valign="top" class="tablegrid">
+
+  
+<p>
+Control Word, Target Position
+</p>
+
+  
+</td>
+<td width="259" valign="top" class="tablegrid">
+
+  
+<p>
+Status Word, Actual Position, Actual Following Error
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="92" valign="top" class="tablegrid">
+
+  
+<p>
+2
+</p>
+
+  
+</td>
+<td width="265" valign="top" class="tablegrid">
+
+  
+<p>
+Control Word, Target Position, Touch Probe Function
+</p>
+
+  
+</td>
+<td width="259" valign="top" class="tablegrid">
+
+  
+<p>
+Status Word, Actual Position, Actual Following Error,
+  Touch Probe Status, Touch Probe1 Pos1, Touch Probe1 Pos2, Touch Probe2 Pos1,
+  Touch Probe2 Pos2
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="92" valign="top" class="tablegrid">
+
+  
+<p>
+3
+</p>
+
+  
+</td>
+<td width="265" valign="top" class="tablegrid">
+
+  
+<p>
+Control Word, Target Position, Touch Probe Function,
+  Digital Outputs
+</p>
+
+  
+</td>
+<td width="259" valign="top" class="tablegrid">
+
+  
+<p>
+Status Word, Actual Position, Actual Following Error,
+  Touch Probe Status, Touch Probe1 Pos1, Touch Probe1 Pos2, Touch Probe2 Pos1,
+  Touch Probe2 Pos2, Digital Inputs
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="92" valign="top" class="tablegrid">
+
+  
+<p>
+4
+</p>
+
+  
+</td>
+<td width="265" valign="top" class="tablegrid">
+
+  
+<p>
+Control Word, Target Position, Digital Outputs
+</p>
+
+  
+</td>
+<td width="259" valign="top" class="tablegrid">
+
+  
+<p>
+Status Word, Actual Position, Actual Following Error,
+  Digital Inputs
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="92" valign="top" class="tablegrid">
+
+  
+<p>
+5
+</p>
+
+  
+</td>
+<td width="265" valign="top" class="tablegrid">
+
+  
+<p>
+Control Word, Target Position, Digital Outputs
+</p>
+
+  
+</td>
+<td width="259" valign="top" class="tablegrid">
+
+  
+<p>
+Status Word, Actual Position, Actual Following Error,
+  Actual Current, Digital Inputs
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+<b>Speed Control</b></p>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="92" valign="top" class="tablegrid">
+
+  
+<p>
+Profile No
+</p>
+
+  
+</td>
+<td width="265" valign="top" class="tablegrid">
+
+  
+<p>
+Master to Slave (RxPDO)
+</p>
+
+  
+</td>
+<td width="259" valign="top" class="tablegrid">
+
+  
+<p>
+Slave to Master (TxPDO)
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="92" valign="top" class="tablegrid">
+
+  
+<p>
+0 (default)
+</p>
+
+  
+</td>
+<td width="265" valign="top" class="tablegrid">
+
+  
+<p>
+Control Word, Target Speed
+</p>
+
+  
+</td>
+<td width="259" valign="top" class="tablegrid">
+
+  
+<p>
+Status Word, Actual Position
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="92" valign="top" class="tablegrid">
+
+  
+<p>
+1
+</p>
+
+  
+</td>
+<td width="265" valign="top" class="tablegrid">
+
+  
+<p>
+Control Word, Target Speed, Touch Probe Function
+</p>
+
+  
+</td>
+<td width="259" valign="top" class="tablegrid">
+
+  
+<p>
+Status Word, Actual Position, Touch Probe Status, Touch
+  Probe1 Pos1, Touch Probe1 Pos2, Touch Probe2 Pos1, Touch Probe2 Pos2
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="92" valign="top" class="tablegrid">
+
+  
+<p>
+2
+</p>
+
+  
+</td>
+<td width="265" valign="top" class="tablegrid">
+
+  
+<p>
+Control Word, Target Speed, Touch Probe Function, Digital
+  Outputs
+</p>
+
+  
+</td>
+<td width="259" valign="top" class="tablegrid">
+
+  
+<p>
+Status Word, Actual Position, Touch Probe Status, Touch
+  Probe1 Pos1, Touch Probe1 Pos2, Touch Probe2 Pos1, Touch Probe2 Pos2, Digital
+  Inputs
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="92" valign="top" class="tablegrid">
+
+  
+<p>
+3
+</p>
+
+  
+</td>
+<td width="265" valign="top" class="tablegrid">
+
+  
+<p>
+Control Word, Target Speed, Digital Outputs
+</p>
+
+  
+</td>
+<td width="259" valign="top" class="tablegrid">
+
+  
+<p>
+Status Word, Actual Position, Digital Inputs
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="92" valign="top" class="tablegrid">
+
+  
+<p>
+5
+</p>
+
+  
+</td>
+<td width="265" valign="top" class="tablegrid">
+
+  
+<p>
+Control Word, Target Speed, Digital Outputs
+</p>
+
+  
+</td>
+<td width="259" valign="top" class="tablegrid">
+
+  
+<p>
+Status Word, Actual Position, Actual Current, Digital
+  Inputs
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+<b>Torque Control</b></p>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="92" valign="top" class="tablegrid">
+
+  
+<p>
+Profile No
+</p>
+
+  
+</td>
+<td width="265" valign="top" class="tablegrid">
+
+  
+<p>
+Master to Slave (RxPDO)
+</p>
+
+  
+</td>
+<td width="259" valign="top" class="tablegrid">
+
+  
+<p>
+Slave to Master (TxPDO)
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="92" valign="top" class="tablegrid">
+
+  
+<p>
+0 (default)
+</p>
+
+  
+</td>
+<td width="265" valign="top" class="tablegrid">
+
+  
+<p>
+Control Word, Target Torque
+</p>
+
+  
+</td>
+<td width="259" valign="top" class="tablegrid">
+
+  
+<p>
+Status Word, Actual Position
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="92" valign="top" class="tablegrid">
+
+  
+<p>
+1
+</p>
+
+  
+</td>
+<td width="265" valign="top" class="tablegrid">
+
+  
+<p>
+Control Word, Target Torque, Touch Probe Function
+</p>
+
+  
+</td>
+<td width="259" valign="top" class="tablegrid">
+
+  
+<p>
+Status Word, Actual Position, Touch Probe Status, Touch
+  Probe1 Pos1, Touch Probe1 Pos2, Touch Probe2 Pos1, Touch Probe2 Pos2
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="92" valign="top" class="tablegrid">
+
+  
+<p>
+2
+</p>
+
+  
+</td>
+<td width="265" valign="top" class="tablegrid">
+
+  
+<p>
+Control Word, Target Torque, Touch Probe Function, Digital
+  Outputs
+</p>
+
+  
+</td>
+<td width="259" valign="top" class="tablegrid">
+
+  
+<p>
+Status Word, Actual Position, Touch Probe Status, Touch
+  Probe1 Pos1, Touch Probe1 Pos2, Touch Probe2 Pos1, Touch Probe2 Pos2, Digital
+  Inputs
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="92" valign="top" class="tablegrid">
+
+  
+<p>
+3
+</p>
+
+  
+</td>
+<td width="265" valign="top" class="tablegrid">
+
+  
+<p>
+Control Word, Target Torque, Digital Outputs
+</p>
+
+  
+</td>
+<td width="259" valign="top" class="tablegrid">
+
+  
+<p>
+Status Word, Actual Position, Digital Inputs
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="92" valign="top" class="tablegrid">
+
+  
+<p>
+5
+</p>
+
+  
+</td>
+<td width="265" valign="top" class="tablegrid">
+
+  
+<p>
+Control Word, Target Torque, Digital Outputs
+</p>
+
+  
+</td>
+<td width="259" valign="top" class="tablegrid">
+
+  
+<p>
+Status Word, Actual Position, Actual Current, Digital
+  Inputs
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<h2>Network Configuration</h2>
+<p>
+The Network Configuration screen shows the selected profile
+and the data mapped between master and slave.
+</p>
+<p>
+RxPDO is data from the master to the slave
+</p>
+<p>
+TxPDO is data from the slave to the master
+</p>
+<p>
+The default is:
+</p>
+<p>
+Profile No. 0 (zero)
+</p>
+<p>
+Position Control
+</p>
+<p>
+<img width="601" height="401" id="Picture 2" src="EtherCAT-Device-NetworkConfiguration_files/image001.png">
+</p>
+<p>
+Clicking on the ‘Configure…’ button allows the selection of
+device profile and control mode, either from a drop-down list of pre-defined
+maps, or by defining a custom profile.
+</p>
+<p>
+<img width="601" height="317" id="Picture 1" src="EtherCAT-Device-NetworkConfiguration_files/image002.png">
+</p>
+<p>
+Use the ‘Select Profile’ drop down to show all available
+profiles.  Either select the required profile or use ‘Define Custom Profile’ to
+create a new one.
+</p>
+<h2>Custom Profile</h2>
+<p>
+When creating a custom profile, select the data required
+using the check boxes.  For example, if axis is running in position control
+mode, but requires the addition of actual speed and actual torque and actual
+following, simply click the checkboxes
+</p>
+<p>
+<img width="192" height="361" id="Picture 4" src="EtherCAT-Device-NetworkConfiguration_files/image003.png">
+</p>
+<p>
+Once the select has been confirmed, this will create a new
+profile which can be selected in the same way as the pre-defined profiles. 
+Custom profiles are enumerated from 1000 and saved as part of the project in
+the EtherCAT extension (EC_EXTEND) file.  Once created a custom profile can be
+re-used on other axes (providing the device is the same).  
+</p>
+<h2>Apply and Restart </h2>
+<p>
+After the desired profile has been selected there are
+several options on how to apply the change.
+</p>
+<h3>Apply </h3>
+<p>
+Using the Apply button the profile selection is done in a
+way which will be lost if the controller is powered off.  The new profile is
+saved in the EC_EXTEND file, but the profile used will revert to the default
+selection of 0 (zero) after a power cycle.  
+</p>
+<p>
+<b>Cancel</b>, do not change the configuration
+</p>
+<p>
+<b>Apply</b>, change the DRIVE_PROFILE and DRIVE_MODE based
+on the selected profile, but do not re-start the network.  This means the new
+profile will be applied next time the network is re-started.  This option us
+useful is more than one device is being setup.
+</p>
+<p>
+<b>Apply and Restart Network</b>, change the DRIVE_PROFILE
+and DRIVE_MODE based on the selected profile and re-start the network.  This
+will change the profile and restart the EtherCAT network, the network will take
+a few seconds to re-start.  Once it is back to operational the new profile will
+be in use.
+</p>
+<h3>Apply and Save Startup</h3>
+<p>
+Using the Apply and Save Startup button the profile
+selection is can be saved into the MC_CONFIG file.  This means it will be
+applied when the controller starts up.  The EC_EXTEND file contains details of
+the profiles, the MC_CONFIG file selects which profile to use on startup.
+</p>
+<p>
+<b>Cancel</b>, do not change the configuration
+</p>
+<p>
+<b>Apply</b>, 
+<a name="_Hlk40505649">change MC_CONFIG to add
+the selection of DRIVE_PROFILE and DRIVE_MODE based on the selected profile</a>
+,
+but do not re-start the network or reset the controller.  This means the new
+profile will be applied next time either the network is re-started, or the
+controller is reset.  This option us useful is more than one device is being
+setup.
+</p>
+<p>
+<b>Apply and Restart Network</b>, change MC_CONFIG to add
+the selection of DRIVE_PROFILE and DRIVE_MODE based on the selected profile and
+re-start the network.  This will change the profile and restart the EtherCAT
+network, the network will take a few seconds to re-start.  Once it is back to
+operational the new profile will be in use.  As the selection is saved in
+MC_CONFIG, if you turn the controller off the new profile will be used the next
+time the controller is turned on.
+</p>
+<p>
+<b>Apply and Reset Controller</b>, change MC_CONFIG to add
+the selection of DRIVE_PROFILE and DRIVE_MODE based on the selected profile and
+reset the controller.  This will force a controller reset.  When the controller
+starts up it will apply the new profile, based on the selection in MC_CONFIG. 
+The controller will take a few seconds to re-boot.  Once it is back the new
+profile will be in use.  As the selection is saved in MC_CONFIG, if you turn
+the controller off the new profile will be used the next time the controller is
+turned on.
+</p>
+</body>
+</html>

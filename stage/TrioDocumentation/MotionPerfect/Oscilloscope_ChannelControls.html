@@ -1,0 +1,286 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>Oscilloscope, Channel Controls</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1><a name="Oscilloscope"></a>
+Oscilloscope - Channel Controls </h1>
+<p>
+<img width="198" height="51" id="Picture 1" src="Oscilloscope_ChannelControls_files/image001.png">
+</p>
+<p>
+The controls for each of the four channels are grouped
+together and are surrounded by a coloured rectangle if the channel is ON, or a
+coloured bar to the left of the group if the channel is OFF. The colour is the same
+as the trace for that channel.
+</p>
+<p>
+The group contains controls for channel operating mode,
+parameter selection and scaling.
+</p>
+<h2>Parameter </h2>
+<p>
+<img width="198" height="51" src="Oscilloscope_ChannelControls_files/image002.png">
+</p>
+<p>
+The parameters which the oscilloscope can record and display
+are selected using the pull-down list box in the upper left hand corner of each
+channel control block. Depending upon the parameter chosen, the next label
+switches between `axis' or `ch' (channel). This leads to the second pull-down
+list box which enables the user to select the required axis for a motion
+parameter, or channel for a digital input/output or analogue input parameter.
+It is also possible to plot the points held in the controller table directly,
+by selecting the `TABLE' parameter, followed by the number of a channel whose
+first/last points have been configured using the advanced options dialog. If
+the channel is not required, then `NONE' should be selected in the parameter
+list box. 
+</p>
+<h2>Axis / Channel Number </h2>
+<p>
+<img width="198" height="51" src="Oscilloscope_ChannelControls_files/image003.png">
+</p>
+<p>
+A pull-down list box which enables the user to select the
+required axis for a motion parameter, or channel for a digital input/output or
+analogue input parameter. The list box label switches between being blank if
+the oscilloscope channel is not in use, `axis' if an axis parameter has been
+selected, or `ch' if a channel parameter has been selected.
+</p>
+<h2>Operating Mode</h2>
+<p>
+<img width="198" height="51" src="Oscilloscope_ChannelControls_files/image004.png">
+</p>
+<p>
+The channel operating mode controls how the trace is
+displayed and scaled
+</p>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="28">
+
+  
+<p class="tablecontent">
+<img width="15" height="16" src="Oscilloscope_ChannelControls_files/image005.png">
+</p>
+
+  
+</td>
+<td width="573">
+
+  
+<p class="tablecontent">
+Trace off - no data gathered - trace not displayed
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="28">
+
+  
+<p class="tablecontent">
+<img width="15" height="16" src="Oscilloscope_ChannelControls_files/image006.png">
+</p>
+
+  
+</td>
+<td width="573">
+
+  
+<p class="tablecontent">
+Automatic Scaling - data gathered - trace automatically
+  scaled to fit display 
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="28">
+
+  
+<p class="tablecontent">
+<img width="15" height="16" src="Oscilloscope_ChannelControls_files/image007.png">
+</p>
+
+  
+</td>
+<td width="573">
+
+  
+<p class="tablecontent">
+Manual Scaling - data gathered - trace manually scaled
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="28">
+
+  
+<p class="tablecontent">
+<img width="15" height="16" src="Oscilloscope_ChannelControls_files/image008.png">
+</p>
+
+  
+</td>
+<td width="573">
+
+  
+<p class="tablecontent">
+Frozen - no data gathered - trace displayed as it was
+  when frozen
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<h2>Channel Data Scaling Range</h2>
+<p>
+<img width="198" height="51" src="Oscilloscope_ChannelControls_files/image009.png">
+</p>
+<p>
+In automatic scaling mode the oscilloscope calculates the
+most appropriate range real-time while the data is being captured. The displayed
+range value is not editable and is the automatically calculated by the
+oscilloscope. 
+</p>
+<p>
+In manual mode the user selects the range per grid division.
+
+</p>
+<p>
+The range can be changed by pressing the up/down buttons 
+<img width="13" height="22" src="Oscilloscope_ChannelControls_files/image010.png">
+ on the right side
+of the current range text box.
+</p>
+<h2>Locking Channel Ranges</h2>
+<p>
+<img width="198" height="104" src="Oscilloscope_ChannelControls_files/image011.png">
+</p>
+<p>
+When oscilloscope is operating in 2D or 3D mode and 2 or more
+traces respectively are used together it is possible to lock the range so that
+the same scale factor is applied for the all traces in given group. 
+</p>
+<p>
+In XYZD mode only XYZ channels are subject to locking as the
+channel for thickness usually has its own range and is not suitable for
+locking.
+</p>
+<p>
+In XYZUVW mode it is possible to lock XYZ and UVW channels separately
+because former are normally in metric units and later are in angular units.
+</p>
+<h2>Channel Data Offset </h2>
+<p>
+<img width="198" height="51" src="Oscilloscope_ChannelControls_files/image012.png">
+</p>
+<p>
+There are three controls which control the offset of the channel:
+</p>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="25">
+
+  
+<p class="tablecontent">
+<img width="13" height="22" src="Oscilloscope_ChannelControls_files/image010.png">
+</p>
+
+  
+</td>
+<td width="577">
+
+  
+<p class="tablecontent">
+In Yt mode the offset up/down buttons are used to move
+  a trace vertically on the display. This control is of particular use when two
+  or more traces have identical data, in which case they overlay each other and
+  only the uppermost trace will be seen on the display. A number can be entered
+  directly into the text box.
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="25">
+
+  
+<p class="tablecontent">
+<img width="16" height="16" src="Oscilloscope_ChannelControls_files/image013.png">
+</p>
+
+  
+</td>
+<td width="577">
+
+  
+<p class="tablecontent">
+The Zero Offset button clears the channel offset.
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="25">
+
+  
+<p class="tablecontent">
+<img width="16" height="18" src="Oscilloscope_ChannelControls_files/image014.png">
+</p>
+
+  
+</td>
+<td width="577">
+
+  
+<p class="tablecontent">
+The auto-zero button, when active (in the down
+  position), applies automatic offset to the channel. The offset edit-box and
+  Zero Offset button are disabled (greyed out). This is equivalent to AC
+  coupling on a conventional oscilloscope.
+</p>
+
+  
+<p class="tablecontent">
+When button is not active the channel offset is manually
+  adjusted. The offset edit box and Zero Offset button are enabled.
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+&nbsp;
+</p>
+</body>
+</html>

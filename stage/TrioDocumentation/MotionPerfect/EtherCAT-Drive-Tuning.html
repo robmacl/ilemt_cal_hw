@@ -1,0 +1,947 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>EtherCAT Drive Tuning</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>EtherCAT Drive Tuning</h1>
+<p>
+Tuning is a process of satisfying the servo performance by
+adjusting the servo parameters. 
+</p>
+<p>
+The process of tuning is usually an iterative process; the
+figure below shows the general flow
+</p>
+<p align="center">
+<img width="269" height="335" src="EtherCAT-Drive-Tuning_files/image001.png">
+</p>
+<h2>Parameter Classification</h2>
+<p>
+There are two types of parameters in the tuning. 
+</p>
+<ul type="disc">
+
+ 
+<li>
+Function Parameters: refers to some application function
+     selections or switches that may improve servo performance. 
+</li>
+
+ 
+<li>
+Adjustment Parameters: increasing or decreasing these
+     parameters may improve servo performance.
+</li>
+
+
+</ul>
+<h2>Servo Performance</h2>
+<p>
+<a name="_Hlk44049047">There are various indicators used to
+evaluate servo performance including bandwidth, response time, overshoot,
+steady state error, anti-load disturbance, speed ripple fluctuation, torque
+ripple, etc. The importance of these will depending on the application.</a>
+</p>
+<p>
+The table below shows examples of speed vs time graphs
+showing the comparison of before and after tuning.
+</p>
+<table class="tablegrid">
+
+ 
+<thead>
+<tr>
+<td width="161" class="tablegrid">
+
+   
+<p class="TableHeading">
+<a name="_Hlk44049175"><span style='font-family:"Calibri",sans-serif'>Indicator</span></a>
+</p>
+
+   
+</td>
+<td width="208" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Before tuning</span></p>
+
+   
+</td>
+<td width="231" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>After tuning</span></p>
+
+   
+</td>
+</tr>
+</thead>
+
+ 
+<tr>
+<td width="161" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Speed
+  step response</span></p>
+
+  
+</td>
+<td width="208" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'><img width="163" height="125" src="EtherCAT-Drive-Tuning_files/image002.png">
+</span></p>
+
+  
+</td>
+<td width="231" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'><img width="163" height="125" src="EtherCAT-Drive-Tuning_files/image003.png">
+</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="161" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Position
+  following</span></p>
+
+  
+</td>
+<td width="208" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'><img width="163" height="115" src="EtherCAT-Drive-Tuning_files/image004.png">
+</span></p>
+
+  
+</td>
+<td width="231" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'><img width="163" height="115" src="EtherCAT-Drive-Tuning_files/image005.png">
+</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="161" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Anti-load
+  disturbance</span></p>
+
+  
+</td>
+<td width="208" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'><img width="163" height="115" src="EtherCAT-Drive-Tuning_files/image006.png">
+</span></p>
+
+  
+</td>
+<td width="231" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'><img width="163" height="115" src="EtherCAT-Drive-Tuning_files/image007.png">
+</span></p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+&nbsp;
+</p>
+<h2>Control Block Diagram</h2>
+<p>
+<a name="_Hlk44049269">When tuning a servo drive is if
+helpful to understand the servo control principle used.  The figure below shows
+the servo control block diagram. The position loop, the speed loop and the torque
+loop are cascaded structures, corresponding to the position control mode, the
+speed control mode and the torque control mode respectively.</a>
+</p>
+<span style='font-family:"Calibri",sans-serif'><br clear="all">
+
+</span><p align="center">
+<a name="_Hlk44049312"><img width="595" height="173" src="EtherCAT-Drive-Tuning_files/image008.png">
+</a>
+</p>
+<p class="TableNote" style="margin-left:0cm">
+<a name="_Hlk44049323"><b><span style='font-family:"Calibri",sans-serif'>NOTE</span></b></a>
+<span style='font-family:"Calibri",sans-serif'>: only the basic tuning
+parameters during the tuning are shown in the figure.</span></p>
+<h2>Tuning Process</h2>
+<p>
+<a name="_Hlk44049374">The drive provides a variety of tuning
+methods.  Generally, for tuning the drive follow the process below</a>
+.
+</p>
+<p align="center">
+<a name="_Hlk44049391"><img width="461" height="576" src="EtherCAT-Drive-Tuning_files/image009.png">
+</a>
+</p>
+<p>
+&nbsp;
+</p>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="100" class="tablegrid">
+
+  
+<p class="CAUTIONHeading">
+<a name="_Hlk44049447"><img width="67" height="67" src="EtherCAT-Drive-Tuning_files/image010.png">
+</a>
+</p>
+
+  
+</td>
+<td width="511" class="tablegrid">
+
+  
+<p class="CAUTIONText">
+It will be necessary to perform the
+  tuning operation again if the motor has been disassembled or the load device
+  had been replaced. 
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+&nbsp;
+</p>
+<h2>Precautions Before Tuning</h2>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="102" class="tablegrid">
+
+  
+<p class="CAUTIONHeading">
+<a name="_Hlk44049484"><img width="67" height="67" src="EtherCAT-Drive-Tuning_files/image011.png">
+</a>
+</p>
+
+  
+</td>
+<td width="510" class="tablegrid">
+
+  
+<p class="CAUTIONTextList" style="margin-left:14.2pt">
+Before performing the tuning
+  operation, make sure the limit function is available.
+</p>
+
+  
+<p class="CAUTIONTextList" style="margin-left:1.35pt;text-indent:-.05pt">
+Before
+  performing the tuning operation, make sure that an emergency stop can be
+  performed at any time. 
+</p>
+
+  
+<p class="CAUTIONTextList" style="margin-left:1.35pt;text-indent:-1.35pt">
+Before
+  performing the tuning operation, you shall set the torque limit according to
+  actual condition. 
+</p>
+
+  
+<p class="CAUTIONTextList" style="margin-left:14.2pt">
+Never touch the moving parts
+  during the tuning operation. 
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+&nbsp;
+</p>
+<h2>Tuning Modes</h2>
+<p>
+<a name="_Hlk44049770">The drive supports 3
+different tuning modes and different features are available in each mode.  </a>
+</p>
+<p>
+<b>Tuning-less</b>:
+
+the drive performs auto-tuning to obtain a stable response regardless of
+the type of machine or changes in the load. 
+</p>
+<p>
+<b>One-Parameter Auto-Tuning</b>: 
+similar to the tuning-less function but requires an inertia
+measurement of the load and uses a rigidity parameter to control the system
+bandwidth. 
+</p>
+<p>
+<b>Manual Tuning</b>: 
+all gain terms are manually adjusted
+</p>
+<p>
+The table below show a summary functions available
+in each mode:
+</p>
+<table class="tablegrid">
+
+ 
+<thead>
+<tr>
+<td width="54%" class="tablegrid">
+
+   
+<p>
+&nbsp;Function
+</p>
+
+   
+</td>
+<td width="14%" class="tablegrid">
+
+   
+<p>
+Tuning-
+l
+ess
+</p>
+
+   
+</td>
+<td width="19%" class="tablegrid">
+
+   
+<p>
+One-Parameter
+   
+</p>
+
+   
+</td>
+<td width="10%" class="tablegrid">
+
+   
+<p>
+Manual
+</p>
+
+   
+</td>
+</tr>
+</thead>
+
+ 
+<tr>
+<td width="54%" class="tablegrid">
+
+  
+<p>
+Feedforward
+
+  (Velocity and Torque)
+</p>
+
+  
+</td>
+<td width="14%" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+<td width="19%" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+<td width="10%" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="54%" class="tablegrid">
+
+  
+<p>
+Friction Compensation
+</p>
+
+  
+</td>
+<td width="14%" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+<td width="19%" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+<td width="10%" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="54%" class="tablegrid">
+
+  
+<p>
+Feedback Speed
+  Selection
+</p>
+
+  
+</td>
+<td width="14%" class="tablegrid">
+
+  
+<p>
+No
+</p>
+
+  
+</td>
+<td width="19%" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+<td width="10%" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="54%" class="tablegrid">
+
+  
+<p>
+Load Torque
+  Compensation
+</p>
+
+  
+</td>
+<td width="14%" class="tablegrid">
+
+  
+<p>
+No
+</p>
+
+  
+</td>
+<td width="19%" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+<td width="10%" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="54%" class="tablegrid">
+
+  
+<p>
+Damping Selection
+</p>
+
+  
+</td>
+<td width="14%" class="tablegrid">
+
+  
+<p>
+No
+</p>
+
+  
+</td>
+<td width="19%" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+<td width="10%" class="tablegrid">
+
+  
+<p>
+No
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="54%" class="tablegrid">
+
+  
+<p>
+&nbsp;
+</p>
+
+  
+</td>
+<td width="14%" class="tablegrid">
+
+  
+<p>
+&nbsp;
+</p>
+
+  
+</td>
+<td width="19%" class="tablegrid">
+
+  
+<p>
+&nbsp;
+</p>
+
+  
+</td>
+<td width="10%" class="tablegrid">
+
+  
+<p>
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="54%" class="tablegrid">
+
+  
+<p>
+Automatic Vibration
+  Suppression
+</p>
+
+  
+</td>
+<td width="14%" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+<td width="19%" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+<td width="10%" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="54%" class="tablegrid">
+
+  
+<p>
+Intermediate Frequency
+  Vibration Suppression
+</p>
+
+  
+</td>
+<td width="14%" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+<td width="19%" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+<td width="10%" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="54%" class="tablegrid">
+
+  
+<p>
+Notch Filter
+</p>
+
+  
+</td>
+<td width="14%" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+<td width="19%" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+<td width="10%" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="54%" class="tablegrid">
+
+  
+<p>
+Load Oscillation
+  Suppression
+</p>
+
+  
+</td>
+<td width="14%" class="tablegrid">
+
+  
+<p>
+No
+</p>
+
+  
+</td>
+<td width="19%" class="tablegrid">
+
+  
+<p>
+No
+</p>
+
+  
+</td>
+<td width="10%" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="54%" class="tablegrid">
+
+  
+<p>
+&nbsp;
+</p>
+
+  
+</td>
+<td width="14%" class="tablegrid">
+
+  
+<p>
+&nbsp;
+</p>
+
+  
+</td>
+<td width="19%" class="tablegrid">
+
+  
+<p>
+&nbsp;
+</p>
+
+  
+</td>
+<td width="10%" class="tablegrid">
+
+  
+<p>
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="54%" class="tablegrid">
+
+  
+<p>
+P / PI Switching
+</p>
+
+  
+</td>
+<td width="14%" class="tablegrid">
+
+  
+<p>
+No
+</p>
+
+  
+</td>
+<td width="19%" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+<td width="10%" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="54%" class="tablegrid">
+
+  
+<p>
+Gain Switching
+</p>
+
+  
+</td>
+<td width="14%" class="tablegrid">
+
+  
+<p>
+No
+</p>
+
+  
+</td>
+<td width="19%" class="tablegrid">
+
+  
+<p>
+No
+</p>
+
+  
+</td>
+<td width="10%" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="54%" class="tablegrid">
+
+  
+<p>
+Model Following
+  Control
+</p>
+
+  
+</td>
+<td width="14%" class="tablegrid">
+
+  
+<p>
+No
+</p>
+
+  
+</td>
+<td width="19%" class="tablegrid">
+
+  
+<p>
+No
+</p>
+
+  
+</td>
+<td width="10%" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+&nbsp;
+</p>
+
+
+
+</body>
+</html>

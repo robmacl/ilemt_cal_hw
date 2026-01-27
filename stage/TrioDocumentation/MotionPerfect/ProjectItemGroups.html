@@ -1,0 +1,293 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>Project Item Groups</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>Project Item Groups</h1>
+<p>
+Grouping is available from 
+<i>Motion</i> Perfect version
+4.3. 
+</p>
+<p>
+A group is a way to separate items in the project (BASIC
+programs, libraries, IEC 
+tasks
+…) by their semantics or
+any other criteria.
+</p>
+<p>
+ A group is displayed in the project tree and all the items
+in it are displayed below the group name:
+</p>
+<p>
+<img width="246" height="192" id="Image1" src="ProjectItemGroups_files/image001.png">
+</p>
+<h2>Group context menu</h2>
+<p>
+Group items in the tree have their own context menu
+described below:
+</p>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="108" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Operation
+</p>
+
+  
+</td>
+<td width="524" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Notes
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="108" valign="top" class="tablegrid">
+
+  
+<p>
+New
+</p>
+
+  
+</td>
+<td width="524" valign="top" class="tablegrid">
+
+  
+<p>
+Create a new empty program (see &quot;
+<a href="NewProgram.html"><span class="InternetLink">Creating a New Program</span></a>
+&quot;)
+  or item of other type and add it to the group
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="108" valign="top" class="tablegrid">
+
+  
+<p>
+Load…
+</p>
+
+  
+</td>
+<td width="524" valign="top" class="tablegrid">
+
+  
+<p>
+Load a program (or an item of other type) from disk and
+  add it to the group
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="108" valign="top" class="tablegrid">
+
+  
+<p>
+Compile All
+</p>
+
+  
+</td>
+<td width="524" valign="top" class="tablegrid">
+
+  
+<p>
+Compile all programs and items in the group
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="108" valign="top" class="tablegrid">
+
+  
+<p>
+Stop All (Halt)
+</p>
+
+  
+</td>
+<td width="524" valign="top" class="tablegrid">
+
+  
+<p>
+Stop all running programs in the group
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="108" valign="top" class="tablegrid">
+
+  
+<p>
+Create Package From Group
+</p>
+
+  
+</td>
+<td width="524" valign="top" class="tablegrid">
+
+  
+<p>
+Create a new or updated package from the items in the
+  group. 
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="108" valign="top" class="tablegrid">
+
+  
+<p>
+Rename
+</p>
+
+  
+</td>
+<td width="524" valign="top" class="tablegrid">
+
+  
+<p>
+Rename the group
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="108" valign="top" class="tablegrid">
+
+  
+<p>
+Ungroup
+</p>
+
+  
+</td>
+<td width="524" valign="top" class="tablegrid">
+
+  
+<p>
+Move all programs and items out of the group and delete
+  it. The programs and items remain in the project ungrouped.
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="108" valign="top" class="tablegrid">
+
+  
+<p>
+Delete…
+</p>
+
+  
+</td>
+<td width="524" valign="top" class="tablegrid">
+
+  
+<p>
+Remove all the programs and other items from the group as
+  well as the group itself.
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<h2>Moving an item to a group</h2>
+<p>
+Most of items in the project can be moved to a group or
+moved outside a group if they are in one. This can be done in any of the
+following ways:
+</p>
+<p class="MsoListParagraph" style="text-indent:-18.0pt">
+-
+<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>from the target item’s context menu:
+</p>
+<p>
+<img border="0" width="534" height="409" id="Image2" src="ProjectItemGroups_files/image002.png">
+</p>
+<p style="margin-left:36.0pt">
+The list of available groups is
+displayed under “Group” menu item. The current group to which the item belongs
+is checked. This menu is also available when more than one item is selected.
+</p>
+<p class="MsoListParagraph" style="text-indent:-18.0pt">
+-
+<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>drag target item(s) and drop it on to existing group or group member.
+</p>
+<h2>Creating a group</h2>
+<p>
+A new group can be created by moving an item to it. This is
+done from the item’s context menu “Group”&#8594;”&lt;Create new group&gt;” and
+choosing a group name. The context menu “Group” is also available when we have
+several selected items into Controller Tree. 
+</p>
+<p>
+A group is automatically deleted when empty.
+</p>
+<h2>The group as a source of a package generation</h2>
+<p>
+A group is used as a source of package generation. More
+information can be found in 
+<a href="Package_Authoring.html"><span class="InternetLink">Package Authoring</span></a>
+ topic.
+</p>
+<h2>Related topics:</h2>
+<p>
+<a href="ControllerTree.html">Controller tree</a>
+</p>
+<p>
+<a href="Package_Authoring.html"><span class="InternetLink">Package
+Authoring</span></a>
+</p>
+</body>
+</html>

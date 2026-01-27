@@ -1,0 +1,151 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>Oscilloscope, View Modes</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>Oscilloscope – View Modes</h1>
+<p>
+The oscilloscope has four visualization modes. 
+</p>
+<ul style="list_style_type:disc">
+<li class="indent-list-first">
+<a href="#_Yt_Mode">Yt Mode</a>
+</li>
+<li class="indent-list-middle">
+<a href="#_XY_Mode">XY Mode</a>
+</li>
+<li class="indent-list-middle">
+<a href="#_XY_Mode_with">XY Mode with Uniform Scaling</a>
+</li>
+<li class="indent-list-middle">
+<a href="#_XYZ_Mode">XYZ Mode</a>
+</li>
+<li class="indent-list-middle">
+<a href="#_XYZD_Mode">XYZD Mode</a>
+</li>
+<li class="indent-list-last">
+<a href="#_XYZUVW_Mode">XYZUVW Mode</a>
+</li>
+</ul>
+<h2><a name="_Yt_Mode"></a>
+<a name="Yt_Mode"></a>
+Yt Mode</h2>
+<p>
+<b><img border="0" width="602" height="437" src="Oscilloscope_ViewModes_files/image001.png">
+</b></p>
+<p>
+This is the normal operation mode for an oscilloscope where
+each set of gathered data is plotted against time.
+</p>
+<h2><a name="_XY_Mode"></a>
+<a name="XY_Mode"></a>
+XY Mode</h2>
+<h2><img border="0" width="601" height="375" src="Oscilloscope_ViewModes_files/image002.png">
+</h2>
+<p>
+In this mode channels are grouped in pairs and the values
+form one channel are plotted against the values of the other one in the pair.
+The grid is stretched to uniformly fit the view and it is not possible to zoom
+and pan it.
+</p>
+<h2><a name="_XY_Mode_with"></a>
+<a name="XY_Uniform_Mode"></a>
+XY Mode with
+Uniform Scaling</h2>
+<h2><img border="0" width="602" height="382" src="Oscilloscope_ViewModes_files/image003.png">
+</h2>
+<p>
+This mode is similar to normal XY Mode and channels are
+grouped in pairs to form a 2D curve. The main difference is that the grid is
+not stretched to fit the view but instead the same scale factor is applied to X
+and Y directions. In this mode it is possible zoom in and out and also to pan
+the view to the desired part of the curve.
+</p>
+<p>
+Panning is performed by pressing the left mouse button and
+moving the mouse while the button is depressed. It is also possible to pan
+using keyboard arrow keys.
+</p>
+<p>
+Zooming can be performed by using mouse wheel when available
+or by pressing the middle mouse button and moving the mouse up or down while
+the button is depressed. It is also possible to zoom using the keyboard with
+Shift-Up and Shift-Down key combinations.
+</p>
+<h2><a name="_XYZ_Mode"></a>
+<a name="XYZ_Mode"></a>
+XYZ Mode</h2>
+<h2><img border="0" width="602" height="382" src="Oscilloscope_ViewModes_files/image004.png">
+</h2>
+<p>
+In this mode three channels are grouped together to form a
+3D curve and the captured values of the channels represent X, Y and Z
+coordinates of the control points. It is possible to orient, pan and zoom the
+3D view in order to visualize better part of interest.
+</p>
+<p>
+Rotating the view is performed by pressing the right mouse
+button and moving the mouse while the button is depressed. It is also possible
+to rotate the view using the keyboard arrow keys while holding Control modifier
+key.
+</p>
+<p>
+Panning is performed by pressing the left mouse button and
+moving the mouse
+<a name="__DdeLink__300_1813036499"></a>
+ while the button is
+depressed. It is also possible to pan using keyboard arrow keys.
+</p>
+<p>
+<a name="__DdeLink__305_1813036499"></a>
+Zooming can be
+performed by using mouse wheel when available or by pressing the middle mouse
+button and moving the mouse up or down while the button is depressed. It is
+also possible to zoom using the keyboard with Shift-Up and Shift-Down key
+combinations.
+</p>
+<h2><a name="_XYZD_Mode"></a>
+<a name="XYZD_Mode"></a>
+XYZD Mode</h2>
+<h2><img border="0" width="602" height="431" src="Oscilloscope_ViewModes_files/image005.png">
+</h2>
+<p>
+The XYZD mode allows to visualize processes like welding and
+gluing. It is a 3D visualization mode where four channels are used together.
+The captured values of the first three channels represent X, Y and Z
+coordinates of the control points and the values of the fourth channel
+represent the thickness/size of the control point. The values of the thickness
+channel are transformed based on selected scaling factor and offset and normalized
+by clamping to the range of [0, 1]. Thus normalized values are mapped linearly
+between minimum thickness defined by trace size and maximum control point thickness
+as defined in settings. 
+</p>
+<p>
+&nbsp;
+</p>
+<h2><a name="_XYZUVW_Mode"></a>
+<a name="XYZUVW_Mode"></a>
+XYZUVW Mode</h2>
+<h2><img border="0" width="602" height="464" id="Picture 1" src="Oscilloscope_ViewModes_files/image006.png">
+</h2>
+<p>
+The XYZUVW mode allows to visualize 3D position and
+orientation at the same time. It is a 3D visualization mode where six channels
+are used together. The captured values of the first three channels represent X,
+Y and Z positional coordinates of the control points and the values of the last
+three channels called U, V and W represent consecutive rotations around X, Y
+and Z axes to form the final orientation of the control point. The values of
+the U, V and W channel can be in degrees or radians. Orientation is displayed
+as 3 orthogonal axes originating from a control point centre. It can be drawn
+red for oX, green for oY and blue for oZ axis or using channel colours. In
+order keep 3D view not too cluttered, orientation axes might not be displayed
+for every control point depending on sampling rate and zoom factor of the view.
+</p>
+<p>
+&nbsp;
+</p>
+</body>
+</html>

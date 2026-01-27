@@ -1,0 +1,2282 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>EtherCAT Drive Basic Setup</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>EtherCAT Drive Basic Setup</h1>
+<p>
+The Basic Setup page allows easy access to drive parameters
+that are often required during basic drive commissioning.
+</p>
+<p>
+<a href="#_Power_Supply">Power supply</a>
+</p>
+<p>
+<a href="#_Motor">Motor</a>
+</p>
+<p>
+<a href="#_Torque_Limit">Torque Limit</a>
+</p>
+<p>
+<a href="#_Stop_Method">Stop Method</a>
+</p>
+<p>
+<a href="#_Motor_Brake_Assignment">Motor Brake Assignment</a>
+</p>
+<p>
+<a href="#_Brake_Control">Brake Control</a>
+</p>
+<p>
+&nbsp;
+</p>
+<h2><a name="_Power_Supply"></a>
+Power Supply</h2>
+<p>
+The main circuit and control circuit of the DX4 can be
+operated with AC or DC power.  For AC power either, single-phase or three-phase
+power can be used.  Select the appropriate setting for the power supply from
+using the drop-down options. 
+</p>
+<table class="tablegrid">
+
+ 
+<thead>
+<tr>
+<td width="76" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Parameter</span></p>
+
+   
+</td>
+<td width="76" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Setting</span></p>
+
+   
+</td>
+<td width="444" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Meaning</span></p>
+
+   
+</td>
+</tr>
+</thead>
+
+ 
+<tr>
+<td width="76" rowspan="3" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn007.1</span></p>
+
+  
+</td>
+<td width="76" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>0</span></p>
+
+  
+</td>
+<td width="444" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Use
+  a single-phase AC power supply. </span></p>
+
+  
+<p class="TableText">
+<b><span style='font-family:"Calibri",sans-serif'>NOTE</span></b><span style='font-family:"Calibri",sans-serif'>: for the Drives of
+  DX4-120A* and DX1-130A*, this setting is unavailable. </span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="76" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>1
+  [Default]</span></p>
+
+  
+</td>
+<td width="444" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Use
+  a three-phase AC power supply. </span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="76" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>2</span></p>
+
+  
+</td>
+<td width="444" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Use
+  a DC power supply. </span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="76" rowspan="2" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn007.3</span></p>
+
+  
+</td>
+<td width="76" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>0</span></p>
+
+  
+</td>
+<td width="444" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>AC
+  power supply frequency is 50Hz. </span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="76" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>1</span></p>
+
+  
+</td>
+<td width="444" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>AC
+  power supply frequency is 60Hz. </span></p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+Changing the power supply setting will require the drive to
+be restarted.
+</p>
+<p>
+An alarm A.24 (Main Circuit Power Supply Wiring Error) may
+occurred if the power supply selection does not match the actual power supply. 
+</p>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="100" class="tablegrid">
+
+  
+<p class="CAUTIONHeading">
+<img border="0" width="67" height="67" src="EtherCAT-Drive-BasicSetup_files/image001.png">
+</p>
+
+  
+</td>
+<td width="503" class="tablegrid">
+
+  
+<p class="CAUTIONTextList" style="margin-left:0cm;text-indent:0cm">
+Connect to the
+  specified terminal for power supply: In the case of an AC power supply,
+  connect the L1, L2, L3 terminals and L1C, L2C terminals. 
+<br>
+
+  In the case of a DC power supply, connect the P2 terminal to the positive
+  pole, and connect the N terminal to negative pole. 
+</p>
+
+  
+<p class="CAUTIONTextList" style="margin-left:0cm;text-indent:0cm">
+Be sure to set the
+  Power Supply Selection (Pn007.1) before using a DC power supply, to prevent damaging
+  the internal components of the Drive. 
+</p>
+
+  
+<p class="CAUTIONTextList" style="margin-left:0cm;text-indent:0cm">
+Set the fuse on the
+  power supply wiring when using a DC power supply. 
+</p>
+
+  
+<p class="CAUTIONTextList" style="margin-left:0cm;text-indent:0cm">
+The Drive does not
+  perform regenerative processing when using the DC power input.  Regenerative
+  energy processing should be performed on the power supply side when using a
+  DC supply. 
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+&nbsp;
+</p>
+<h2><a name="_Motor"></a>
+Motor</h2>
+<p>
+The rotation direction of the motor can be switched by
+setting Motor Direction (Pn001.0).
+</p>
+<p>
+The standard setting for Forward Rotation is counter-clockwise
+(CCW) as viewed from the shaft end the motor. 
+</p>
+<table class="tablegrid">
+
+ 
+<thead>
+<tr>
+<td width="76" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Parameter</span></p>
+
+   
+</td>
+<td width="159" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Setting</span></p>
+
+   
+</td>
+<td width="144" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Reference</span></p>
+
+   
+</td>
+<td width="236" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Diagram</span></p>
+
+   
+</td>
+</tr>
+</thead>
+
+ 
+<tr>
+<td width="76" rowspan="4" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn001.0</span></p>
+
+  
+</td>
+<td width="159" rowspan="2" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>0:
+  CCW=Forward</span></p>
+
+  
+</td>
+<td width="144" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Forward
+  Reference</span></p>
+
+  
+</td>
+<td width="236" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'><img border="0" width="129" height="71" id="Picture 1" src="EtherCAT-Drive-BasicSetup_files/image002.png">
+</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="144" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Reverse
+  Reference</span></p>
+
+  
+</td>
+<td width="236" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'><img border="0" width="129" height="71" src="EtherCAT-Drive-BasicSetup_files/image003.png">
+</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="159" rowspan="2" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>1:
+  CW=Reverse</span></p>
+
+  
+</td>
+<td width="144" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Forward
+  Reference</span></p>
+
+  
+</td>
+<td width="236" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'><img border="0" width="130" height="71" src="EtherCAT-Drive-BasicSetup_files/image004.png">
+</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="144" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Reverse
+  Reference</span></p>
+
+  
+</td>
+<td width="236" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'><img border="0" width="145" height="69" src="EtherCAT-Drive-BasicSetup_files/image005.png">
+</span></p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+&nbsp;
+</p>
+<p>
+The absolute encoder records the position even when the
+drive power supply is off.  This operation requires the encoder to have a
+battery power supply, separate to the encoder supply generated by the drive. 
+If an absolute encoder is fitted, the encoder will expect a battery supply.  If
+no battery supply is present a fault will be generated (either A.47 or A.48). 
+To ignore the battery error and treat the absolute encoder as an incremental
+encoder (use only the single revolution data) set the Absolute Encoder Usage
+(Pn002.2) to Incremental.
+</p>
+<table class="tablegrid">
+
+ 
+<thead>
+<tr>
+<td width="104" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Parameter</span></p>
+
+   
+</td>
+<td width="113" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Setting</span></p>
+
+   
+</td>
+<td width="397" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Meaning</span></p>
+
+   
+</td>
+</tr>
+</thead>
+
+ 
+<tr>
+<td width="104" rowspan="2" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn002.2</span></p>
+
+  
+</td>
+<td width="113" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>0
+  [Default]</span></p>
+
+  
+</td>
+<td width="397" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Use
+  the encoder as an absolute encoder.</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="113" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>1</span></p>
+
+  
+</td>
+<td width="397" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Use
+  the encoder as an incremental encoder.</span></p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+Changing the absolute encoder usage setting will require the
+drive to be restarted.
+</p>
+<p>
+&nbsp;
+</p>
+<h2><a name="_Torque_Limit"></a>
+Torque Limit</h2>
+<p>
+The maximum output torque will always be limited to the specified
+forward torque limit (Pn401) and reverse torque limit (Pn402).  The torque
+limit can be used to prevent excessive force if required.
+</p>
+<table class="tablegrid">
+
+ 
+<thead>
+<tr>
+<td width="104" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Parameter</span></p>
+
+   
+</td>
+<td width="236" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Name</span></p>
+
+   
+</td>
+<td width="82" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Range</span></p>
+
+   
+</td>
+<td class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Unit</span></p>
+
+   
+</td>
+<td class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Default</span></p>
+
+   
+</td>
+</tr>
+</thead>
+
+ 
+<tr>
+<td width="104" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn401</span></p>
+
+  
+</td>
+<td width="236" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Forward
+  Internal Torque Limit</span></p>
+
+  
+</td>
+<td width="82" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>0
+  to 350</span></p>
+
+  
+</td>
+<td class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>%</span></p>
+
+  
+</td>
+<td class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>350</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="104" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn402</span></p>
+
+  
+</td>
+<td width="236" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Reverse
+  Internal Torque Limit</span></p>
+
+  
+</td>
+<td width="82" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>0
+  to 350</span></p>
+
+  
+</td>
+<td class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>%</span></p>
+
+  
+</td>
+<td class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>350</span></p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+&nbsp;
+</p>
+<p>
+<img border="0" width="413" height="173" src="EtherCAT-Drive-BasicSetup_files/image006.png">
+</p>
+<p>
+If the setting of Pn401 or Pn402 is too low, the torque may
+be insufficient for acceleration or deceleration of the Motor. 
+</p>
+<p>
+&nbsp;
+</p>
+<h2><a name="_Stop_Method"></a>
+Stop Method</h2>
+<p>
+The stop method controls the action the drive will take when
+an alarm condition or other internal stop condition occurs.  The stop method is
+split into 2 actions; the method used to stop the motor and the action taken on
+once the motor is stopped.
+</p>
+<p>
+There are four methods to stop the motor when an alarm occurs.
+
+</p>
+<table class="tablegrid">
+
+ 
+<thead>
+<tr>
+<td width="198" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Stop method</span></p>
+
+   
+</td>
+<td width="410" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Meaning</span></p>
+
+   
+</td>
+</tr>
+</thead>
+
+ 
+<tr>
+<td width="198" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Stop
+  by dynamic brake</span></p>
+
+  
+</td>
+<td width="410" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>The
+  electric circuits are internally connected to stop the motor quickly. </span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="198" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Coast
+  to a stop</span></p>
+
+  
+</td>
+<td width="410" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>The
+  motor stops naturally due to friction during operation.</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="198" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Reverse
+  brake</span></p>
+
+  
+</td>
+<td width="410" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Emergency
+  stop torque is used to decelerate the motor to a stop.</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="198" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Do
+  not stop, regard as a warning</span></p>
+
+  
+</td>
+<td width="410" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Regards
+  Alarms as the Warnings, and the motor will not be stopped.</span></p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+There are four states once the motor has stopped:
+</p>
+<table class="tablegrid">
+
+ 
+<thead>
+<tr>
+<td width="198" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Holding action</span></p>
+
+   
+</td>
+<td width="410" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Meaning</span></p>
+
+   
+</td>
+</tr>
+</thead>
+
+ 
+<tr>
+<td width="198" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Coast</span></p>
+
+  
+</td>
+<td width="410" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>The
+  drive does not control the motor (The machine will move in response to a
+  force from the load). </span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="198" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Dynamic
+  Brake (DB)</span></p>
+
+  
+</td>
+<td width="410" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>The
+  electric circuits are internally connected to hold the motor. </span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="198" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Zero
+  clamping</span></p>
+
+  
+</td>
+<td width="410" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>A
+  position loop is created and the motor remains stopped at a position
+  reference of 0. (The current stop position is held.) </span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="198" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Operation</span></p>
+
+  
+</td>
+<td width="410" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>The
+  drive continues to control the motor.</span></p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+The stop method selection is done based one alarm groups. 
+The groups are:
+</p>
+<ul type="disc">
+
+ 
+<li>
+Servo OFF, STO and Gr.1 alarms
+</li>
+
+ 
+<li>
+Overtravel
+</li>
+
+ 
+<li>
+Gr.2 alarms 
+</li>
+
+
+</ul>
+<p>
+Each group can have a sperate selection of stop method and holding
+action.
+</p>
+<h3>Servo OFF, STO and Gr.1 alarms </h3>
+<table class="tablegrid">
+
+ 
+<thead>
+<tr>
+<td width="76" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Parameter</span></p>
+
+   
+</td>
+<td width="95" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Setting</span></p>
+
+   
+</td>
+<td width="265" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Stop Method</span></p>
+
+   
+</td>
+<td width="161" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Holding Action</span></p>
+
+   
+</td>
+</tr>
+</thead>
+
+ 
+<tr>
+<td width="76" rowspan="3" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn003.0</span></p>
+
+  
+</td>
+<td width="95" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>0
+  [Default]</span></p>
+
+  
+</td>
+<td width="265" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Stop
+  by dynamic brake</span></p>
+
+  
+</td>
+<td width="161" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Coast</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="95" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>1</span></p>
+
+  
+</td>
+<td width="265" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Stop
+  by dynamic brake</span></p>
+
+  
+</td>
+<td width="161" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Dynamic
+  Brake</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="95" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>2</span></p>
+
+  
+</td>
+<td width="265" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Coast
+  to a stop</span></p>
+
+  
+</td>
+<td width="161" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Coast</span></p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+Changing the absolute encoder usage setting will require the
+drive to be restarted.
+</p>
+<h3>Overtravel</h3>
+<table class="tablegrid">
+
+ 
+<thead>
+<tr>
+<td width="76" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Parameter</span></p>
+
+   
+</td>
+<td width="95" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Setting</span></p>
+
+   
+</td>
+<td width="265" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Stop Method</span></p>
+
+   
+</td>
+<td width="161" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Holding Action</span></p>
+
+   
+</td>
+</tr>
+</thead>
+
+ 
+<tr>
+<td width="76" rowspan="4" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn003.1</span></p>
+
+  
+</td>
+<td width="95" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>0
+  [Default]</span></p>
+
+  
+</td>
+<td width="265" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Stop
+  by dynamic brake</span></p>
+
+  
+</td>
+<td width="161" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Coast</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="95" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>1</span></p>
+
+  
+</td>
+<td width="265" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Stop
+  by dynamic brake</span></p>
+
+  
+</td>
+<td width="161" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Dynamic
+  Brake</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="95" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>2</span></p>
+
+  
+</td>
+<td width="265" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Reverse
+  brake</span></p>
+
+  
+</td>
+<td width="161" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Zero
+  clamping</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="95" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>3</span></p>
+
+  
+</td>
+<td width="265" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Reverse
+  brake</span></p>
+
+  
+</td>
+<td width="161" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Coast</span></p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+Changing the absolute encoder usage setting will require the
+drive to be restarted.
+</p>
+<h3>Gr.2 Alarms </h3>
+<table class="tablegrid">
+
+ 
+<thead>
+<tr>
+<td width="76" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Parameter</span></p>
+
+   
+</td>
+<td width="95" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Setting</span></p>
+
+   
+</td>
+<td width="265" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Stop Method</span></p>
+
+   
+</td>
+<td width="161" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Holding Action</span></p>
+
+   
+</td>
+</tr>
+</thead>
+
+ 
+<tr>
+<td width="76" rowspan="6" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn004.0</span></p>
+
+  
+</td>
+<td width="95" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>0
+  [Default]</span></p>
+
+  
+</td>
+<td width="265" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Stop
+  by dynamic brake</span></p>
+
+  
+</td>
+<td width="161" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Coast</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="95" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>1</span></p>
+
+  
+</td>
+<td width="265" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Stop
+  by dynamic brake</span></p>
+
+  
+</td>
+<td width="161" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Dynamic
+  Brake</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="95" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>2</span></p>
+
+  
+</td>
+<td width="265" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Coast
+  to a stop</span></p>
+
+  
+</td>
+<td width="161" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Coast</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="95" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>3</span></p>
+
+  
+</td>
+<td width="265" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Reverse
+  brake</span></p>
+
+  
+</td>
+<td width="161" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Dynamic
+  Brake</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="95" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>4</span></p>
+
+  
+</td>
+<td width="265" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Reverse
+  brake</span></p>
+
+  
+</td>
+<td width="161" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Coast</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="95" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>5</span></p>
+
+  
+</td>
+<td width="265" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Do
+  not stop, regard as a warning</span></p>
+
+  
+</td>
+<td width="161" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Operation</span></p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+Changing the absolute encoder usage setting will require the
+drive to be restarted.
+</p>
+<h3>Reverse Brake</h3>
+<p>
+If ‘Reverse brake’ is selected, the motor will be
+decelerated to a stop using the torque set in Pn405 as the maximum torque. 
+</p>
+<table class="tablegrid">
+
+ 
+<thead>
+<tr>
+<td width="76" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Parameter</span></p>
+
+   
+</td>
+<td width="265" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Name</span></p>
+
+   
+</td>
+<td width="87" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Range</span></p>
+
+   
+</td>
+<td width="47" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Unit</span></p>
+
+   
+</td>
+<td width="59" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Default</span></p>
+
+   
+</td>
+</tr>
+</thead>
+
+ 
+<tr>
+<td width="76" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn405</span></p>
+
+  
+</td>
+<td width="265" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Reverse
+  Brake Torque Limit</span></p>
+
+  
+</td>
+<td width="87" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>0
+  to 350</span></p>
+
+  
+</td>
+<td width="47" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>%</span></p>
+
+  
+</td>
+<td width="59" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>300</span></p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+&nbsp;
+</p>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="94" class="tablegrid">
+
+  
+<p class="CAUTIONHeading">
+<img border="0" width="38" height="48" src="EtherCAT-Drive-BasicSetup_files/image007.png">
+</p>
+
+  
+</td>
+<td width="530" class="tablegrid">
+
+  
+<p class="NotesTextList" style="margin-left:0cm;text-indent:   0cm">
+This setting is a percentage of the rated torque (i.e.
+  the rated torque is 100%).
+</p>
+
+  
+<p class="NotesTextList" style="margin-left:0cm;text-indent:   0cm">
+The default setting is 300%. This setting is large
+  enough to allow the motor to be operated at the maximum torque. However, the
+  maximum emergency stop torque that can actually be used is the maximum torque
+  of the motor. 
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+&nbsp;
+</p>
+<h2><a name="_Motor_Brake_Assignment"></a>
+Motor Brake
+Assignment</h2>
+<p>
+If the motor has a holding brake a digital output on the
+drive can be assigned for brake control.  Any of the digital outputs on the
+drive can be configured as the brake control output.  The assignment is made by
+selecting the required output from the drop down.  This will update the
+appropriate sub-index of Pn511.
+</p>
+<p>
+Selecting a digital output will enable the brake control
+timing parameters.
+</p>
+<p>
+&nbsp;
+</p>
+<h2><a name="_Brake_Control"></a>
+Brake Control</h2>
+<p>
+A holding brake is used to hold the position of the moving
+part of the machine when the drive is turned off, so that moving part does not
+move due to gravity or an external force.
+</p>
+<p>
+This brake can be either built into a motor or can be
+provided as a separate component. 
+</p>
+<p>
+The holding brake is used in the following cases. 
+</p>
+<p>
+<img border="0" width="519" height="173" src="EtherCAT-Drive-BasicSetup_files/image008.png">
+</p>
+<p>
+&nbsp;
+</p>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="103" class="tablegrid">
+
+  
+<p class="CAUTIONHeading">
+<img border="0" width="67" height="67" src="EtherCAT-Drive-BasicSetup_files/image009.png">
+</p>
+
+  
+</td>
+<td width="518" class="tablegrid">
+
+  
+<p class="CAUTIONText">
+The brake integrated into the motor is
+  a de-energization brake. It is used only to hold the motor once stationary and
+  cannot be used for braking. 
+</p>
+
+  
+<p class="CAUTIONText">
+Use the holding brake only to hold a motor
+  that is stationary. 
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<h3><a name="_Toc24465738">Brake
+Operating Sequence</a>
+</h3>
+<p>
+The time required to release the brake and the time required
+to brake should be considered to determine the brake operation timing, as
+described below. 
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+<img border="0" width="470" height="298" src="EtherCAT-Drive-BasicSetup_files/image010.png">
+</p>
+<p class="TableNote" style="margin-left:0cm">
+<span style='font-family: "Calibri",sans-serif'>(1): The brake delay times for motors with Holding
+Brakes. <br>
+
+(2): Before you output a reference from the host controller to the drive, wait
+for at least 50 ms plus the time required to release the brake after you send
+the S-ON command. <br>
+
+(3): Use Pn506 (Brake Engage Delay Time), Pn507 (Brake Engage Speed Threshold),
+and Pn508 (Brake Engage Timeout) to set the timing of brake operation. </span></p>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="92" class="tablegrid">
+
+  
+<p class="CAUTIONHeading">
+<span style='font-family:"Calibri",sans-serif'><img border="0" width="38" height="48" src="EtherCAT-Drive-BasicSetup_files/image011.png">
+</span></p>
+
+  
+</td>
+<td width="525" class="tablegrid">
+
+  
+<p class="CAUTIONText">
+Time required
+  to release brake: The time from when the brake signal is turned ON until the
+  brake is actually released. 
+</p>
+
+  
+<p class="CAUTIONText">
+Time required
+  to brake: The time from when the brake signal is turned OFF until the brake
+  actually operates. 
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+&nbsp;
+</p>
+<h3>Brake Control when Motor is Stationary</h3>
+<p>
+Disabled -&gt; Enabled
+</p>
+<p>
+The brake disengage delay time controls the sequence and
+delay of brake signal when the drive changes from disabled to enabled when the
+motor is stationary.
+</p>
+<table class="tablegrid">
+
+ 
+<thead>
+<tr>
+<td width="95" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Parameter</span></p>
+
+   
+</td>
+<td width="235" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Name</span></p>
+
+   
+</td>
+<td class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Range</span></p>
+
+   
+</td>
+<td class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Unit</span></p>
+
+   
+</td>
+<td class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Default</span></p>
+
+   
+</td>
+</tr>
+</thead>
+
+ 
+<tr>
+<td width="95" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn505</span></p>
+
+  
+</td>
+<td width="235" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Brake
+  Disengage Delay Time</span></p>
+
+  
+</td>
+<td class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>-2000
+  to 2000</span></p>
+
+  
+</td>
+<td class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>ms</span></p>
+
+  
+</td>
+<td class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>0</span></p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p class="TableNote">
+&nbsp;
+</p>
+<p>
+If Pn505 is a positive value, when the Servo ON command is
+received, the brake signal will change first, and then power will be supplied
+to the motor after the delay time. 
+</p>
+<p class="TableNote" style="margin-left:0cm">
+<span style='font-family: "Calibri",sans-serif'>&nbsp;</span></p>
+<p class="TableNote" style="margin-left:0cm">
+<span style='font-family: "Calibri",sans-serif'><img border="0" width="432" height="123" src="EtherCAT-Drive-BasicSetup_files/image012.png">
+</span><span style='font-family:"Calibri",sans-serif'><br>
+
+<br>
+
+</span></p>
+<p>
+If Pn505 is a negative value, when the Servo ON command is
+received, the power will be supplied to the motor immediately, then the brake signal
+will change after the delay time. 
+</p>
+<p>
+<b>&nbsp;</b></p>
+<p>
+<b><img border="0" width="433" height="126" src="EtherCAT-Drive-BasicSetup_files/image013.png">
+</b></p>
+<p>
+&nbsp;
+</p>
+<p>
+Enabled -&gt; Disabled
+</p>
+<p>
+The brake engage delay time controls the delay between the brake
+signal and motor power when the drive changes from enabled to disabled when the
+motor is stationary.
+</p>
+<table class="tablegrid">
+
+ 
+<thead>
+<tr>
+<td width="94" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Parameter</span></p>
+
+   
+</td>
+<td width="237" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Name</span></p>
+
+   
+</td>
+<td width="95" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Range</span></p>
+
+   
+</td>
+<td width="44" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Unit</span></p>
+
+   
+</td>
+<td width="60" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Default</span></p>
+
+   
+</td>
+</tr>
+</thead>
+
+ 
+<tr>
+<td width="94" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn506</span></p>
+
+  
+</td>
+<td width="237" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Brake
+  Engage Delay Time</span></p>
+
+  
+</td>
+<td width="95" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>0
+  to 500</span></p>
+
+  
+</td>
+<td width="44" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>10ms</span></p>
+
+  
+</td>
+<td width="60" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>0</span></p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+When the motor is used to control a vertical axis, the
+machine moving part may move slightly due to gravity or an external force. 
+</p>
+<p>
+This slight motion can be eliminated by setting the Brake
+Engage Delay Time (Pn506) so that power supply to the motor is stopped after
+the brake is applied. 
+</p>
+<p>
+<img border="0" width="420" height="128" src="EtherCAT-Drive-BasicSetup_files/image014.png">
+</p>
+<p>
+&nbsp;
+</p>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="102" class="tablegrid">
+
+  
+<p class="CAUTIONHeading">
+<img border="0" width="67" height="67" src="EtherCAT-Drive-BasicSetup_files/image015.png">
+</p>
+
+  
+</td>
+<td width="514" class="tablegrid">
+
+  
+<p class="CAUTIONText">
+Power supply
+  to the Motor will be stopped immediately when an alarm occurs, regardless of
+  the setting of this parameter. The machine moving part may move due to
+  gravity or an external force before the brake is applied. 
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+&nbsp;
+</p>
+<h3>Brake Control when Motor is In Motion</h3>
+<p>
+If an alarm occurs or the Servo OFF command is received while
+the motor is operating, the motor will start stopping and the brake signal will
+be turned OFF. You can adjust the timing of brake signal output by setting the Brake
+Engage Timeout (Pn508). 
+</p>
+<p>
+&nbsp;
+</p>
+<table class="tablegrid">
+
+ 
+<thead>
+<tr>
+<td width="95" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Parameter</span></p>
+
+   
+</td>
+<td width="236" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Name</span></p>
+
+   
+</td>
+<td width="94" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Range</span></p>
+
+   
+</td>
+<td width="44" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Unit</span></p>
+
+   
+</td>
+<td width="54" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Default</span></p>
+
+   
+</td>
+</tr>
+</thead>
+
+ 
+<tr>
+<td width="95" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn507</span></p>
+
+  
+</td>
+<td width="236" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Brake
+  Enable Speed Threshold</span></p>
+
+  
+</td>
+<td width="94" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>10
+  to 100</span></p>
+
+  
+</td>
+<td width="44" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>1rpm</span></p>
+
+  
+</td>
+<td width="54" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>100</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="95" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn508</span></p>
+
+  
+</td>
+<td width="236" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Brake
+  Enable Waiting Time</span></p>
+
+  
+</td>
+<td width="94" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>10
+  to 100</span></p>
+
+  
+</td>
+<td width="44" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>10ms</span></p>
+
+  
+</td>
+<td width="54" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>50</span></p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+<img border="0" width="501" height="262" src="EtherCAT-Drive-BasicSetup_files/image016.png">
+</p>
+<p>
+The brake signal changes when either of the following
+conditions is satisfied: 
+</p>
+<ul type="disc">
+
+ 
+<li>
+When the motor speed falls below the level set in Pn507
+     after the power to the motor is turned OFF. 
+</li>
+
+ 
+<li>
+When the time set in Pn508 is exceeded after the power to
+     the motor is turned OFF. 
+</li>
+
+
+</ul>
+<p>
+&nbsp;
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+&nbsp;
+</p>
+</body>
+</html>

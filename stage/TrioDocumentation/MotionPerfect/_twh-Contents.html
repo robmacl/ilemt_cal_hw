@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8"/>
+      <meta name="GENERATOR" content="Trio&reg; HelpGen">
+      <link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+<script src="http://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous" ></script>
+      <script>
+const selectedColour = "#ddddee";
+
+$(document).ready(function()
+{
+	$(".treemenu li > ul").each(function()
+	{
+		var prnt = $(this).parent();
+
+		prnt.addClass("parent");
+		prnt.addClass("ulclosed");
+		prnt.children("ul").slideUp("fast");    					
+	});
+
+	$(".treemenu li.parent > a").click(function()
+	{
+		var prnt = $(this).parent();
+		
+		if (prnt.hasClass("ulopen"))
+		{
+			prnt.removeClass("ulopen");
+			prnt.addClass("ulclosed");
+			prnt.children("ul").slideUp("fast");    					
+		}
+		else if (prnt.hasClass("ulclosed"))
+		{
+			prnt.removeClass("ulclosed");
+			prnt.addClass("ulopen");
+			prnt.children("ul").slideDown("fast");    					
+		}
+	});
+
+	$("body").on("help-page-changed", function(e, fileName)
+	{
+		var thisHref;
+		var thisFileName;
+		var sPos;
+		
+		$(".treemenu li > a").each(function()
+		{
+			thisHref = $(this).attr("href");
+			sPos = thisHref.lastIndexOf("/");
+							
+			if (sPos > 0)
+				thisFileName = thisHref.substr(sPos + 1);
+			else
+				thisFileName = thisHref;
+
+			if (thisFileName == fileName)
+				$(this).css("background-color", selectedColour);
+			else
+				$(this).css("background-color", "transparent");
+		});    				
+	});   			
+});
+			
+      </script>
+   </head>
+
+   <body>
+      <div class="treemenu">
+         <ul>
+            <li>
+               <a href="Introduction.html" target="help-content-frame">Introduction</a>
+            </li>
+            <li>
+               <a href="SystemRequirements.html" target="help-content-frame">System Requirements</a>
+            </li>
+            <li>
+               <a href="Connecting.html" target="help-content-frame">Connecting to a Controller</a>
+               <ul>
+                  <li>
+                     <a href="InitialConnection.html" target="help-content-frame">Initial Connection</a>
+                  </li>
+                  <li>
+                     <a href="ConnectionDialog.html" target="help-content-frame">Connection Dialog</a>
+                  </li>
+                  <li>
+                     <a href="SimulatorManager.html" target="help-content-frame">Simulator Manager</a>
+                  </li>
+               </ul>
+            </li>
+            <li>
+               <a href="OperatingModes.html" target="help-content-frame">Operating Modes</a>
+            </li>
+            <li>
+               <a href="MainWindow.html" target="help-content-frame">Main Window</a>
+               <ul>
+                  <li>
+                     <a href="MainMenu.html" target="help-content-frame">Main Menu</a>
+                  </li>
+                  <li>
+                     <a href="MainToolbar.html" target="help-content-frame">Main Toolbar</a>
+                  </li>
+                  <li>
+                     <a href="ControllerTree.html" target="help-content-frame">Controller Tree</a>
+                  </li>
+                  <li>
+                     <a href="ProjectTree.html" target="help-content-frame">Project Tree</a>
+                  </li>
+                  <li>
+                     <a href="OutputWindow.html" target="help-content-frame">Output Window</a>
+                  </li>
+               </ul>
+            </li>
+            <li>
+               <a href="Solution.html" target="help-content-frame">Solutions</a>
+               <ul>
+                  <li>
+                     <a href="SolutionManager.html" target="help-content-frame">Solution Manager</a>
+                  </li>
+               </ul>
+            </li>
+            <li>
+               <a href="Project.html" target="help-content-frame">Projects</a>
+               <ul>
+                  <li>
+                     <a href="Project_Create.html" target="help-content-frame">Creating a New Project</a>
+                  </li>
+                  <li>
+                     <a href="ProjectCheck.html" target="help-content-frame">Project Check</a>
+                  </li>
+                  <li>
+                     <a href="ControllerProjectDialog.html" target="help-content-frame">Controller Project Dialog</a>
+                  </li>
+                  <li>
+                     <a href="ProjectItemGroups.html" target="help-content-frame">Project Item Groups</a>
+                  </li>
+                  <li>
+                     <a href="Packages.html" target="help-content-frame">Packages</a>
+                     <ul>
+                        <li>
+                           <a href="Package_Add.html" target="help-content-frame">Add Package to a Project</a>
+                        </li>
+                        <li>
+                           <a href="Package_ContextMenu.html" target="help-content-frame">Package Context Menu</a>
+                        </li>
+                        <li>
+                           <a href="Package_Authoring.html" target="help-content-frame">Package Authoring</a>
+                        </li>
+                        <li>
+                           <a href="Package_AuthoringExample.html" target="help-content-frame">Package Authoring Example</a>
+                        </li>
+                        <li>
+                           <a href="PackageManager.html" target="help-content-frame">Package Manager</a>
+                        </li>
+                        <li>
+                           <a href="Package_Update.html" target="help-content-frame">Updating Packages</a>
+                        </li>
+                     </ul>
+                  </li>
+                  <li>
+                     <a href="ProjectTemplates.html" target="help-content-frame">Project Templates</a>
+                     <ul>
+                        <li>
+                           <a href="ProjectTemplate_PreinstalledTemplates.html" target="help-content-frame">Pre-installed Templates</a>
+                        </li>
+                        <li>
+                           <a href="ProjectTemplate_UserTemplates.html" target="help-content-frame">User Templates</a>
+                        </li>
+                        <li>
+                           <a href="ProjectTemplate_Creation.html" target="help-content-frame">Template Creation</a>
+                        </li>
+                        <li>
+                           <a href="ProjectTemplate_Manager.html" target="help-content-frame">Template Manager</a>
+                        </li>
+                        <li>
+                           <a href="ProjectTemplate_Updates.html" target="help-content-frame">Updating Templates</a>
+                        </li>
+                     </ul>
+                  </li>
+                  <li>
+                     <a href="ProjectEncryption.html" target="help-content-frame">Project Encryption</a>
+                     <ul>
+                        <li>
+                           <a href="ProjectEncryption-EncryptProject.html" target="help-content-frame">Project Encryption, Encrypt Project</a>
+                        </li>
+                        <li>
+                           <a href="ProjectEncryption-GenerateProjectKey.html" target="help-content-frame">Project Encryption, Generation a Project Key</a>
+                        </li>
+                        <li>
+                           <a href="ProjectEncryption-GenerateValidationKeys.html" target="help-content-frame">Project Encryption, Validation Keys</a>
+                        </li>
+                        <li>
+                           <a href="ProjectEncryption-StoreUserSecurityCode.html" target="help-content-frame">Project Encryption, Storing a User Secutirty Code</a>
+                        </li>
+                     </ul>
+                  </li>
+                  <li>
+                     <a href="SharedProjectDevelopment.html" target="help-content-frame">Shared Project Development</a>
+                  </li>
+               </ul>
+            </li>
+            <li>
+               <a href="Programs.html" target="help-content-frame">Programs</a>
+               <ul>
+                  <li>
+                     <a href="NewProgram.html" target="help-content-frame">New Program</a>
+                  </li>
+               </ul>
+            </li>
+            <li>
+               <a href="ProgramEditor.html" target="help-content-frame">Program Editor</a>
+               <ul>
+                  <li>
+                     <a href="GoTo.html" target="help-content-frame">Go To Window</a>
+                  </li>
+               </ul>
+            </li>
+            <li>
+               <a href="GlobalData.html" target="help-content-frame">Global Data</a>
+               <ul>
+                  <li>
+                     <a href="APISymbols.html" target="help-content-frame">API Symbols</a>
+                  </li>
+                  <li>
+                     <a href="AutoBindings.html" target="help-content-frame">Auto Bindings</a>
+                  </li>
+                  <li>
+                     <a href="DataTypes.html" target="help-content-frame">Data Types</a>
+                  </li>
+                  <li>
+                     <a href="GlobalVariables.html" target="help-content-frame">Global Variables</a>
+                  </li>
+               </ul>
+            </li>
+            <li>
+               <a href="SpecialPrograms_Files.html" target="help-content-frame">Special Programs and Files</a>
+               <ul>
+                  <li>
+                     <a href="MC_CONFIGFile.html" target="help-content-frame">MC_CONFIG File</a>
+                     <ul>
+                        <li>
+                           <a href="MC_CONFIGEditor.html" target="help-content-frame">MC_CONFIG Editor</a>
+                        </li>
+                     </ul>
+                  </li>
+                  <li>
+                     <a href="STARTUP_Program.html" target="help-content-frame">STARTUP Program</a>
+                     <ul>
+                        <li>
+                           <a href="ModifySTARTUP.html" target="help-content-frame">Modify STARTUP program</a>
+                        </li>
+                     </ul>
+                        </li>
+               </ul>
+            </li>
+            <li>
+               <a href="RecipeSupport.html" target="help-content-frame">Recipe Support</a>
+            </li>
+            <li>
+               <a href="AlarmSupport.html" target="help-content-frame">Alarm Support</a>
+            </li>
+            <li>
+               <a href="RecentWorkDialog.html" target="help-content-frame">Recent Work</a>
+            </li>
+            <li>
+               <a href="Tools.html" target="help-content-frame">Tools</a>
+               <ul>
+                  <li>
+                     <a href="Terminal.html" target="help-content-frame">Terminal</a>
+                     <ul>
+                        <li>
+                           <a href="TerminalScripting.html" target="help-content-frame">Terminal Scripting</a>
+                        </li>
+                     </ul>
+                  </li>
+                  <li>
+                     <a href="AxisParameters.html" target="help-content-frame">Axis Parameters</a>
+                  </li>
+                  <li>
+                     <a href="DigitalIOViewer.html" target="help-content-frame">Digital I/O Viewer</a>
+                  </li>
+                  <li>
+                     <a href="AnalogueIOViewer.html" target="help-content-frame">Analogue I/O Viewer</a>
+                  </li>
+                  <li>
+                     <a href="TableViewer.html" target="help-content-frame">Table Viewer</a>
+                  </li>
+                  <li>
+                     <a href="VRViewer.html" target="help-content-frame">VR Viewer</a>
+                  </li>
+                  <li>
+                     <a href="WatchVariables.html" target="help-content-frame">Watch Variables</a>
+                  </li>
+                  <li>
+                     <a href="Options.html" target="help-content-frame">Options</a>
+                     <ul>
+                        <li>
+                           <a href="Options_General.html" target="help-content-frame">Options, General</a>
+                           <ul>
+                              <li>
+                                 <a href="Options_General-Misc.html" target="help-content-frame">Options, General, Miscellaneous</a>
+                              </li>
+                              <li>
+                                 <a href="Options_General-Startup.html" target="help-content-frame">Options, General, Startup</a>
+                              </li>
+                              <li>
+                                 <a href="Options_General-RefreshRates.html" target="help-content-frame">Options, General, Refresh Rates</a>
+                              </li>
+                              <li>
+                                 <a href="Options_General-3D.html" target="help-content-frame">Options, General, 3D Representation</a>
+                              </li>
+                           </ul>
+                        </li>
+                        <li>
+                           <a href="Options_ProgramEditor.html" target="help-content-frame">Options, Program Editor</a>
+                           <ul>
+                              <li>
+                                 <a href="Options_ProgramEditor-General.html" target="help-content-frame">Options, Program Editor, General</a>
+                              </li>
+                              <li>
+                                 <a href="Options_ProgramEditor-FontsAndColours.html" target="help-content-frame">Options, Program Editor, Fonts and Colours</a>
+                              </li>
+                              <li>
+                                 <a href="Options_ProgramEditor-Formatting.html" target="help-content-frame">Options, Program Editor, Formatting</a>
+                              </li>
+                           </ul>
+                        </li>
+                        <li>
+                           <a href="Options_Language.html" target="help-content-frame">Options, Language</a>
+                        </li>
+                        <li>
+                           <a href="Options_Project.html" target="help-content-frame">Options, Project</a>
+                        </li>
+                        <li>
+                           <a href="Options_Diagnostics.html" target="help-content-frame">Options, Diagnostics</a>
+                        </li>
+                        <li>
+                           <a href="Options_AxisParameters.html" target="help-content-frame">Options, Axis Parameters Tool</a>
+                        </li>
+                        <li>
+                           <a href="Options_Terminal.html" target="help-content-frame">Options, Terminal</a>
+                        </li>
+                        <li>
+                           <a href="Options_Oscilloscope.html" target="help-content-frame">Options, Oscilloscope</a>
+                        </li>
+                        <li>
+                           <a href="Options_Plugins.html" target="help-content-frame">Options, Plug-in Configuration</a>
+                        </li>
+                        <li>
+                           <a href="Options_HMI_Designer.html" target="help-content-frame">Options, HMI Designer</a>
+                           <ul>
+                              <li>
+                                 <a href="Options_HMI_Designer-General.html" target="help-content-frame">Options, HMI Designer, General</a>
+                              </li>
+                              <li>
+                                 <a href="Options_HMI_Designer-FontsAndColours.html" target="help-content-frame">Options, HMI Designer, Fonts and Colours</a>
+                              </li>
+                           </ul>
+                        </li>
+                        <li>
+                           <a href="Options_IEC61131.html" target="help-content-frame">Options, IEC61131-3 Editing</a>
+                           <ul>
+                              <li>
+                                 <a href="Options_IEC61131-General.html" target="help-content-frame">Options, IEC61131-3 Editing, General</a>
+                              </li>
+                              <li>
+                                 <a href="Options_IEC61131-FontsAndColours.html" target="help-content-frame">Options, IEC61131-3 Editing - Fonts and Colours</a>
+                              </li>
+                           </ul>
+                        </li>
+                        <li>
+                           <a href="Options_RobotTool.html" target="help-content-frame">Options, Robot Tool</a>
+                        </li>
+                     </ul>
+                  </li>
+                  <li>
+                     <a href="Diagnostics.html" target="help-content-frame">Diagnostics</a>
+                  </li>
+                  <li>
+                     <a href="JogAxes.html" target="help-content-frame">Jog Axes</a>
+                  </li>
+                  <li>
+                     <a href="Oscilloscope.html" target="help-content-frame">Oscilloscope</a>
+                     <ul>
+                        <li>
+                           <a href="Oscilloscope_ChannelControls.html" target="help-content-frame">Oscilloscope, Channel Controls</a>
+                        </li>
+                        <li>
+                           <a href="Oscilloscope_HorizontalControls.html" target="help-content-frame">Oscilloscope, Horizontal Controls</a>
+                        </li>
+                        <li>
+                           <a href="Oscilloscope_Settings.html" target="help-content-frame">Oscilloscope, Settings</a>
+                        </li>
+                        <li>
+                           <a href="Oscilloscope_ViewModes.html" target="help-content-frame">Oscilloscope, View Modes</a>
+                        </li>
+                     </ul>
+                  </li>
+                  <li>
+                     <a href="IntelligentDrives.html" target="help-content-frame">Intelligent Drives</a>
+                     <ul>
+                        <li>
+                           <a href="EtherCAT-ModifyStartup.html" target="help-content-frame">Modify STARTUP</a>
+                        </li>
+                        <li>
+                           <a href="IntelligentDrives_EtherCAT.html" target="help-content-frame">Intelligent Drives - EtherCAT</a>
+                           <ul>
+                              <li>
+                                 <a href="EtherCAT-Device-Info.html" target="help-content-frame">EtherCAT Device Info</a>
+                                 <ul>
+                                    <li>
+                                       <a href="EtherCAT-Device-FirmwareUpgrade.html" target="help-content-frame">EtherCAT Device Update Firmware/FPGA</a>
+                                    </li>
+                                    <li>
+                                       <a href="EtherCAT-Device-NetworkConfiguration.html" target="help-content-frame">EtherCAT Device Network Configuration</a>
+                                    </li>
+                                    <li>
+                                       <a href="EtherCAT-Device-CoEObjects.html" target="help-content-frame">EtherCAT Device CoE Objects</a>
+                                       <ul>
+                                          <li>
+                                             <a href="EtherCAT-Device-CoEObjects-DX4.html" target="help-content-frame">EtherCAT Device CoE Objects DX4</a>
+                                          </li>
+                                       </ul>
+                                          </li>
+                                 </ul>
+                              </li>
+                              <li>
+                                 <a href="EtherCAT-Drive-MotorInfo.html" target="help-content-frame">EtherCAT Drive Motor Info</a>
+                                 <ul>
+                                    <li>
+                                       <a href="EtherCAT-Drive-BasicSetup.html" target="help-content-frame">EtherCAT Drive Basic Setup</a>
+                                    </li>
+                                    <li>
+                                       <a href="EtherCAT-Drive-Tuning.html" target="help-content-frame">EtherCAT Drive Tuning</a>
+                                       <ul>
+                                          <li>
+                                             <a href="EtherCAT-Drive-Tuningless.html" target="help-content-frame">EtherCAT Drive Tuningless</a>
+                                          </li>
+                                          <li>
+                                             <a href="EtherCAT-Drive-OneParameterAutoTuning.html" target="help-content-frame">EtherCAT Drive One Parameter Auto Tuning</a>
+                                          </li>
+                                          <li>
+                                             <a href="EtherCAT-Drive-ManualTuning.html" target="help-content-frame">EtherCAT Drive Manual Tuning</a>
+                                          </li>
+                                          <li>
+                                             <a href="EtherCAT-Drive-SwitchTuningMode.html" target="help-content-frame">EtherCAT Drive Switch Tuning Mode</a>
+                                          </li>
+                                          <li>
+                                             <a href="EtherCAT-Drive-LoadInertia.html" target="help-content-frame">EtherCAT Drive Inertia Detection</a>
+                                          </li>
+                                          <li>
+                                             <a href="EtherCAT-Drive-ParameterAutoTuning.html" target="help-content-frame">EtherCAT Drive Parameter Auto Tuning</a>
+                                          </li>
+                                       </ul>
+                                    </li>
+                                    <li>
+                                       <a href="EtherCAT-Drive-Scope.html" target="help-content-frame">EtherCAT Drive Scope</a>
+                                    </li>
+                                    <li>
+                                       <a href="EtherCAT-Drive-Alarms.html" target="help-content-frame">EtherCAT Drive Alarms</a>
+                                    </li>
+                                    <li>
+                                       <a href="EtherCAT-Drive-Monitor.html" target="help-content-frame">EtherCAT Drive Monitor</a>
+                                    </li>
+                                    <li>
+                                       <a href="EtherCAT-Drive-Parameters.html" target="help-content-frame">EtherCAT Drive Parameters</a>
+                                       <ul>
+                                          <li>
+                                             <a href="EtherCAT-Drive-ImportParameters.html" target="help-content-frame">EtherCAT Drive Import Parameters</a>
+                                          </li>
+                                          <li>
+                                             <a href="EtherCAT-Drive-ExportParameters.html" target="help-content-frame">EtherCAT Drive Export Parameters</a>
+                                          </li>
+                                       </ul>
+                                    </li>
+                                    <li>
+                                       <a href="EtherCAT-Drive-Jog.html" target="help-content-frame">EtherCAT Drive Jog</a>
+                                    </li>
+                                    <li>
+                                       <a href="EtherCAT-Drive-PJog.html" target="help-content-frame">EtherCAT Drive Program Jog</a>
+                                    </li>
+                                 </ul>
+                              </li>
+                              <li>
+                                 <a href="EtherCAT-ESI-Import.html" target="help-content-frame">EtherCAT ESI Import</a>
+                                 <ul>
+                                    <li>
+                                       <a href="EtherCAT-EC_EXTEND-Editor.html" target="help-content-frame">EtherCAT EC_EXTEND Editor</a>
+                                    </li>
+                                 </ul>
+                              </li>
+                              <li>
+                                 <a href="EtherCAT-DatabaseBrowser.html" target="help-content-frame">EtherCAT Database Browser</a>
+                              </li>
+                              <li>
+                                 <a href="EtherCAT-Diagnostics.html" target="help-content-frame">EtherCAT Diagnostics</a>
+                              </li>
+                           </ul>
+                        </li>
+                        <li>
+                           <a href="IntelligentDrives_RTEX.html" target="help-content-frame">Intelligent Drives - RTEX</a>
+                           <ul>
+                              <li>
+                                 <a href="RTEX-Overview.html" target="help-content-frame">RTEX Overview</a>
+                              </li>
+                              <li>
+                                 <a href="RTEX-Drive.html" target="help-content-frame">RTEX Drive Dialog</a>
+                              </li>
+                           </ul>
+                              </li>
+                     </ul>
+                  </li>
+                  <li>
+                     <a href="RobotDefinitions.html" target="help-content-frame">Robot Definitions</a>
+                  </li>
+                  <li>
+                     <a href="RobotTool.html" target="help-content-frame">Robot Tool</a>
+                     <ul>
+                        <li>
+                           <a href="RobotTool_GTA.html" target="help-content-frame">Robot Tool - GTAs</a>
+                        </li>
+                        <li>
+                           <a href="RobotTool_RobotFrame.html" target="help-content-frame">Robot Tool - Robot Frame</a>
+                        </li>
+                        <li>
+                           <a href="RobotTool_ObjectFrame.html" target="help-content-frame">Robot Tool - Object Frame</a>
+                        </li>
+                        <li>
+                           <a href="RobotTool_ToolOffset.html" target="help-content-frame">Robot Tool - Tool Offset</a>
+                        </li>
+                        <li>
+                           <a href="RobotTool_CollisionObject.html" target="help-content-frame">Robot Tool - Collision Object</a>
+                        </li>
+                     </ul>
+                  </li>
+                  <li>
+                     <a href="RobotJogTool.html" target="help-content-frame">Robot Jog Tool</a>
+                  </li>
+               </ul>
+            </li>
+            <li>
+               <a href="ControllerTools.html" target="help-content-frame">Controller Tools</a>
+               <ul>
+                  <li>
+                     <a href="CommunicationsSetup.html" target="help-content-frame">Communications Setup</a>
+                  </li>
+                  <li>
+                     <a href="FeatureConfiguration.html" target="help-content-frame">Feature Configuration</a>
+                  </li>
+                  <li>
+                     <a href="MemoryCardManager.html" target="help-content-frame">Memory Card Manager</a>
+                  </li>
+                  <li>
+                     <a href="LoadSystem.html" target="help-content-frame">Load System Firmware</a>
+                  </li>
+                  <li>
+                     <a href="FPGAProgrammer.html" target="help-content-frame">FPGA Programmer</a>
+                  </li>
+                  <li>
+                     <a href="DirectoryViewer.html" target="help-content-frame">Directory Viewer</a>
+                  </li>
+                  <li>
+                     <a href="ProcessViewer.html" target="help-content-frame">Process Viewer</a>
+                  </li>
+                  <li>
+                     <a href="ImportExportValues.html" target="help-content-frame">Import / Export Values</a>
+                  </li>
+                  <li>
+                     <a href="Lock_UnlockController.html" target="help-content-frame">Lock / Unlock Controller</a>
+                  </li>
+                  <li>
+                     <a href="DateAndTime.html" target="help-content-frame">Date and Time</a>
+                  </li>
+               </ul>
+            </li>
+            <li>
+               <a href="BackupManager.html" target="help-content-frame">Backup Manager</a>
+            </li>
+            <li>
+               <a href="RobotProjects.html" target="help-content-frame">Robot Projects</a>
+               <ul>
+                  <li>
+                     <a href="RobotProject_ContextMenu.html" target="help-content-frame">Robot Project Context Menu</a>
+                  </li>
+               </ul>
+            </li>
+            <li>
+               <a href="SetupUniplayHMIDevice.html" target="help-content-frame">Set Up Uniplay HMI device</a>
+            </li>
+            <li>
+               <a href="ShortcutKeys.html" target="help-content-frame">Shortcut Keys</a>
+            </li>
+            <li>
+               <a href="Glossary.html" target="help-content-frame">Glossary</a>
+            </li>
+         </ul>
+      </div>
+   </body>
+</html>

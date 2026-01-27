@@ -1,0 +1,1860 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>EtherCAT Drive Manual Tuning</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>EtherCAT Drive Manual Tuning</h1>
+<p>
+<a href="EtherCAT-Drive-SwitchTuningMode.html">Change Tuning
+Mode</a>
+</p>
+<p>
+<a href="EtherCAT-Drive-LoadInertia.html">Inertia Detection</a>
+</p>
+<p>
+<a href="EtherCAT-Drive-ParameterAutoTuning.html">Parameter
+Auto-Tuning</a>
+</p>
+<p>
+In the Manual Tuning, the gain parameters are manually adjusted
+without using the autotune parameter adjustment module, until the desired
+performance is achieved. 
+</p>
+<h2>Block Diagram</h2>
+<p>
+The control law block diagram shown in
+Motion Perfect allows easy access to all the parameters required for manual
+tuning.
+</p>
+<p>
+<img border="0" width="602" height="639" src="EtherCAT-Drive-ManualTuning_files/image001.png">
+</p>
+<p>
+Clicking on a block will open a dialog showing the relevant
+parameters.  For example, clicking on the Speed Control block will show:
+</p>
+<p>
+<img border="0" width="601" height="130" src="EtherCAT-Drive-ManualTuning_files/image002.png">
+</p>
+<h2><a name="_Position,_Velocity,_Torque"></a>
+Position,
+Velocity, Torque tuning</h2>
+<p>
+The figure below shows the block diagram in Manual Tuning.
+</p>
+<p align="center">
+<img border="0" width="643" height="239" src="EtherCAT-Drive-ManualTuning_files/image003.png">
+</p>
+<p>
+It is necessary to adjust the three-loop control parameters
+of the Servo from the inside out, that is, the adjustment sequence is 
+Torque loop
+ &#8594; 
+Speed loop
+ &#8594; 
+Position loop
+. In
+addition, in order to meet the stability, the bandwidth setting should be the
+largest in the torque loop, the speed loop is the second, and the position loop
+is the smallest. 
+</p>
+<p>
+The following parameters need to be adjusted in each loop
+when performing Manual Tuning. 
+</p>
+<p class="ItemList" style="margin-left:0cm;text-indent:0cm">
+<b><span style='font-family:"Calibri",sans-serif'>Torque loop (Torque
+Control Mode) </span></b></p>
+<p class="SubItemList" style="margin-left:36.0pt;text-indent:-18.0pt">
+<span style="font-family:Symbol">&bull;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Calibri",sans-serif'>Torque
+Reference Filter Time (Tf): </span></p>
+<p class="SubItemListText" style="margin-left:36.0pt">
+<span style='font-family:"Calibri",sans-serif'>The torque reference filter applies to
+the torque reference to remove the high frequency components, which can
+effectively reduce the torque ripple of the motor output, eliminate signal
+noise and reduce the temperature rise of the motor. </span></p>
+<p class="ItemListText" style="margin-left:0cm">
+The larger the Torque Reference Filter Time,
+the better the filtering effect on the torque reference. However, the greater
+the phase lag, and the slower the torque response. Therefore, the smallest
+acceptable value should be set to obtain a larger torque loop bandwidth in the
+actual tuning. 
+</p>
+<p class="SubItemList" style="margin-left:0cm;text-indent:0cm">
+<b><span style='font-family:"Calibri",sans-serif'>Speed loop (Speed
+Control Mode)</span></b></p>
+<p class="SubItemList" style="margin-left:36.0pt;text-indent:-18.0pt">
+<span style="font-family:Symbol">&bull;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Calibri",sans-serif'>Relevant
+parameter in torque loop (Tf)</span></p>
+<p class="SubItemList" style="margin-left:36.0pt;text-indent:-18.0pt">
+<span style="font-family:Symbol">&bull;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Calibri",sans-serif'>Load
+Inertia Percentage (JL)</span></p>
+<p class="SubItemListText" style="margin-left:36.0pt">
+<span style='font-family:"Calibri",sans-serif'>Properly setting the Load Inertia
+Percentage is a prerequisite for the tuning to obtain the best performance. </span></p>
+<p class="SubItemListText" style="margin-left:36.0pt">
+<span style='font-family:"Calibri",sans-serif'>You can calculate the load inertia
+percentage, but this can be difficult and complex.  Or the drive can measure
+the inertia using the </span><a href="EtherCAT-Drive-LoadInertia.html"><span>Inertia Detection</span></a>
+<span style='font-family:"Calibri",sans-serif'> function. </span></p>
+<p class="SubItemList" style="margin-left:36.0pt;text-indent:-18.0pt">
+<span style="font-family:Symbol">&bull;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Calibri",sans-serif'>Speed
+Loop Gain (Kv), Speed Loop Integral Time (Ti)</span></p>
+<p class="SubItemListText" style="margin-left:36.0pt">
+<span style='font-family:"Calibri",sans-serif'>The speed loop is controlled using a
+Proportional-Integral Controller that contains Speed Loop Gain and Speed Loop
+Integral Time. Both determine the speed loop bandwidth and anti-disturbance
+performance of the Servo. </span></p>
+<p class="SubItemListText" style="margin-left:36.0pt">
+<span style='font-family:"Calibri",sans-serif'>In general, if you can increase the
+setting of the Speed Loop Gain, the speed loop bandwidth will be increased, and
+the anti-load disturbance performance will be better. And, if you can decrease
+the setting of the Speed Loop Integral Time, the integral action will be
+stronger, the speed loop bandwidth will be increased, and the anti-load
+disturbance performance will be better. In addition, the integral action may
+reduce the steady-state error to zero. </span></p>
+<p>
+The table below list
+s several
+commonly used adjustment methods based on the characteristics of the speed step
+response.
+</p>
+<table class="tablegrid">
+
+ 
+<thead>
+<tr>
+<td width="180" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Response Curve</span></p>
+
+   
+</td>
+<td width="217" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Description</span></p>
+
+   
+</td>
+<td width="198" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Adjustment method</span></p>
+
+   
+</td>
+</tr>
+</thead>
+
+ 
+<tr>
+<td width="180" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'><img border="0" width="155" height="106" src="EtherCAT-Drive-ManualTuning_files/image004.png">
+</span></p>
+
+  
+</td>
+<td width="217" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Speed
+  loop bandwidth is high</span></p>
+
+  
+</td>
+<td width="198" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Properly
+  decrease the Speed Loop Gain or increase the Speed Loop Integral Time. </span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="180" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'><img border="0" width="155" height="96" src="EtherCAT-Drive-ManualTuning_files/image005.png">
+</span></p>
+
+  
+</td>
+<td width="217" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Speed
+  loop damping ratio is low</span></p>
+
+  
+</td>
+<td width="198" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Properly
+  increase the Speed Loop Integral Time. </span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="180" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'><img border="0" width="155" height="96" src="EtherCAT-Drive-ManualTuning_files/image006.png">
+</span></p>
+
+  
+</td>
+<td width="217" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Steady-state
+  error is existed</span></p>
+
+  
+</td>
+<td width="198" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Properly
+  decrease the Speed Loop Integral Time. </span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="180" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'><img border="0" width="155" height="96" src="EtherCAT-Drive-ManualTuning_files/image007.png">
+</span></p>
+
+  
+</td>
+<td width="217" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Speed
+  loop bandwidth is low</span></p>
+
+  
+</td>
+<td width="198" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Properly
+  increase the Speed Loop Gain or decrease the Speed Loop Integral Time. </span></p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+It is recommended to increase the Speed Loop Gain and
+decrease the Speed Loop Integral Time to obtain a larger speed loop bandwidth. 
+</p>
+<p class="SubItemList" style="margin-left:0cm;text-indent:0cm">
+<b><span style='font-family:"Calibri",sans-serif'>Position loop
+(Position Control Mode)</span></b></p>
+<p class="SubItemList" style="margin-left:36.0pt;text-indent:-18.0pt">
+<span style="font-family:Symbol">&bull;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Calibri",sans-serif'>Relevant
+parameters in speed loop (Kv, Ti, Tf, and JL)</span></p>
+<p class="SubItemList" style="margin-left:36.0pt;text-indent:-18.0pt">
+<span style="font-family:Symbol">&bull;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Calibri",sans-serif'>Position
+Loop Gain (Kp)</span></p>
+<p class="SubItemListText" style="margin-left:36.0pt">
+<span style='font-family:"Calibri",sans-serif'>The position loop is controlled using
+a Proportional Controller that only contains the Position Loop Gain. This
+parameter determines the position loop bandwidth. If you increase the Position
+Loop Gain, the position loop bandwidth will be increased, and the anti-load
+disturbance performance will be better. However, overshooting and vibration in
+the position reference may be occurred. </span></p>
+<p class="SubItemListText" style="margin-left:36.0pt">
+<span style='font-family:"Calibri",sans-serif'>It is recommended to set the Position
+Loop Gain to a quarter of the Speed Loop Gain, and make appropriate adjustments
+based on this. </span></p>
+<h2><a name="_Block_Digram"></a>
+<a name="_Gain_Switching"></a>
+<a name="_Feed_Forward"></a>
+Feed Forward</h2>
+<p>
+Feedforward includes both speed feedforward and torque
+feedforward. 
+</p>
+<ul type="disc">
+
+ 
+<li>
+Speed feedforward can improve position response and reduce
+     position following error
+</li>
+
+ 
+<li>
+Torque feedforward can improve the speed response and
+     reduce the speed following error
+</li>
+
+
+</ul>
+<p>
+<img border="0" width="582" height="165" src="EtherCAT-Drive-ManualTuning_files/image008.png">
+</p>
+<p>
+In general, the differential of the position reference is
+used as the feedforward.  This is known as an internal feedforward reference
+and is the default mode of operation.  Other options are available for
+generating the feedforward reference.
+</p>
+<ul type="disc">
+
+ 
+<li>
+Internal Feedforward (default)
+</li>
+
+ 
+<li>
+Model Following Feedforward
+</li>
+
+ 
+<li>
+Controller Generated Feedforward
+</li>
+
+ 
+<li>
+Cubic feedforward
+</li>
+
+
+</ul>
+<p>
+<b>Internal Feedforward</b></p>
+<p>
+When using internal feedforward the reference is calculated
+using:
+</p>
+<p class="ItemList">
+<span style="font-family:Wingdings">l<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span style='font-family:"Calibri",sans-serif'>Internal Speed
+Feedforward </span><span style='font-family:"MS Gothic"'>&#65309;</span><span style='font-family:"Calibri",sans-serif'> </span></p>
+<p class="ItemList" style="text-indent:7.6pt">
+Differential of position reference × Speed
+Feedforward
+</p>
+<p class="ItemList">
+<span style="font-family:Wingdings">l<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span style='font-family:"Calibri",sans-serif'>Internal Torque
+Feedforward </span><span style='font-family:"MS Gothic"'>&#65309;</span><span style='font-family:"Calibri",sans-serif'> </span></p>
+<p class="ItemList" style="text-indent:7.6pt">
+Differential of speed reference × Load
+Inertia Percentage × Torque Feedforward
+</p>
+<p class="ItemList" style="margin-left:0cm;text-indent:0cm">
+<span style='font-family:"Calibri",sans-serif'>Increasing the feedforward
+term will tend to reduce error during periods where the reference is constant.
+i.e. during periods of constant velocity, the velocity feed forward will allow
+to the control scheme to reduce following error, however the feedforward can
+introduce overshoot.</span></p>
+<p>
+In addition, it may be required to filter the noise caused
+by the differential for the feedforward. Increasing the filter time will reduce
+the noise but may increase the overshoot.
+</p>
+<p>
+In the case of high rotation speed, it may be necessary to
+use set Pn005.0 to 2.
+</p>
+<h2>Gain Switching</h2>
+<p>
+In manual tuning mode a gain switching function can be used
+which allows the drive to swap between two sets of gain parameters based on
+operating conditions.  The figure below shows an example, the ‘positioning’ gain
+terms focus on the performance such as position ripples and positional
+rigidity, while the ‘moving’ gain terms focus on the performance such as
+following error.  In this case, two switchable groups of gain parameters are
+required to meet the servo performance.
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+<img border="0" width="288" height="125" src="EtherCAT-Drive-ManualTuning_files/image009.png">
+</p>
+<p>
+Gain switching can be enabled by changing Pn121.  The
+conditions for gain switching are selected from a drop down.  Options are:
+</p>
+<ul type="disc">
+
+ 
+<li>
+Fixed to first group gains.
+</li>
+
+ 
+<li>
+Use digital input (G-SEL) as the condition.
+</li>
+
+ 
+<li>
+Use torque reference as the condition (threshold setting:
+     Pn117).
+</li>
+
+ 
+<li>
+Use position deviation counter as the condition (threshold
+     setting: Pn118).
+</li>
+
+ 
+<li>
+Use acceleration as the condition (threshold setting:
+     Pn119).
+</li>
+
+ 
+<li>
+Use speed reference as the condition (threshold setting:
+     Pn120).
+</li>
+
+ 
+<li>
+Use position reference as the condition (threshold
+     setting: Pn123).
+</li>
+
+ 
+<li>
+Use actual speed as the condition (threshold setting:
+     Pn124).
+</li>
+
+ 
+<li>
+Use position reference (Pn123) and actual speed (Pn124) as
+     the condition.
+</li>
+
+ 
+<li>
+Fixed to second group gains.
+</li>
+
+ 
+<li>
+Use positioning completed flag as the condition.
+</li>
+
+
+</ul>
+<p>
+Changing the gain switching condition will require the drive
+to be restarted.
+</p>
+<p>
+Once gain switching is selected the switch conditions will
+be shown.
+</p>
+<p>
+<img border="0" width="602" height="215" src="EtherCAT-Drive-ManualTuning_files/image010.png">
+</p>
+<p>
+And any additional gain terms parameters
+will be available from the control law block diagram
+</p>
+<p>
+<img border="0" width="601" height="115" src="EtherCAT-Drive-ManualTuning_files/image011.png">
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+The parameters for the first gain and the second gain terms are
+as follows.
+</p>
+<table class="tablegrid">
+
+ 
+<thead>
+<tr>
+<td width="196" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Parameter</span></p>
+
+   
+</td>
+<td width="85" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>First Gain</span></p>
+
+   
+</td>
+<td width="95" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Second Gain</span></p>
+
+   
+</td>
+</tr>
+</thead>
+
+ 
+<tr>
+<td width="196" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Speed
+  Loop Gain</span></p>
+
+  
+</td>
+<td width="85" valign="top" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn102</span></p>
+
+  
+</td>
+<td width="95" valign="top" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn107</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="196" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Speed
+  Loop Integral Time</span></p>
+
+  
+</td>
+<td width="85" valign="top" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn103</span></p>
+
+  
+</td>
+<td width="95" valign="top" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn108</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="196" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Position
+  Loop Gain</span></p>
+
+  
+</td>
+<td width="85" valign="top" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn104</span></p>
+
+  
+</td>
+<td width="95" valign="top" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn109</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="196" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Torque
+  Command Filter Time</span></p>
+
+  
+</td>
+<td width="85" valign="top" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn105</span></p>
+
+  
+</td>
+<td width="95" valign="top" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn110</span></p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+&nbsp;
+</p>
+<h2>Use Case</h2>
+<p>
+Applicable for applications where the motor / load inertia
+mismatch is no more than 50 times.
+</p>
+<p>
+Applicable for applications of any motor speed. 
+</p>
+<h2>Parameters</h2>
+<p>
+The parameters for manual tuning are:
+</p>
+<table class="tablegrid">
+
+ 
+<thead>
+<tr>
+<td width="167" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Block</span></p>
+
+   
+</td>
+<td width="96" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Parameter</span></p>
+
+   
+</td>
+<td width="321" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Name</span></p>
+
+   
+</td>
+</tr>
+</thead>
+
+ 
+<tr>
+<td width="167" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Position
+  Control</span></p>
+
+  
+</td>
+<td width="96" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn104</span></p>
+
+  
+</td>
+<td width="321" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Position
+  Loop Gain</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="167" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Position
+  Control</span></p>
+
+  
+</td>
+<td width="96" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn109</span></p>
+
+  
+</td>
+<td width="321" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Second
+  Position Loop Gain</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="167" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Speed
+  Feedforward</span></p>
+
+  
+</td>
+<td width="96" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn112</span></p>
+
+  
+</td>
+<td width="321" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Speed
+  Feedforward</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="167" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Speed
+  Feedforward</span></p>
+
+  
+</td>
+<td width="96" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn113</span></p>
+
+  
+</td>
+<td width="321" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Speed
+  Feedforward Filter Time</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="167" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Speed
+  Control</span></p>
+
+  
+</td>
+<td width="96" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn102</span></p>
+
+  
+</td>
+<td width="321" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Speed
+  Loop Gain</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="167" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Speed
+  Control</span></p>
+
+  
+</td>
+<td width="96" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn107</span></p>
+
+  
+</td>
+<td width="321" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Second
+  Speed Loop Gain</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="167" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Speed
+  Control</span></p>
+
+  
+</td>
+<td width="96" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn103</span></p>
+
+  
+</td>
+<td width="321" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Speed
+  Loop Integral Time</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="167" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Speed
+  Control</span></p>
+
+  
+</td>
+<td width="96" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn108</span></p>
+
+  
+</td>
+<td width="321" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Second
+  Speed Loop Integral Time</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="167" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Speed
+  Control</span></p>
+
+  
+</td>
+<td width="96" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn106</span></p>
+
+  
+</td>
+<td width="321" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Load
+  Inertia Percentage</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="167" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Torque
+  Feedforward</span></p>
+
+  
+</td>
+<td width="96" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn114</span></p>
+
+  
+</td>
+<td width="321" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Torque
+  Feedforward</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="167" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Torque
+  Feedforward</span></p>
+
+  
+</td>
+<td width="96" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn115</span></p>
+
+  
+</td>
+<td width="321" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Torque
+  Feedforward Filter Time</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="167" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Anti-resonance
+  Filter</span></p>
+
+  
+</td>
+<td width="96" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn173</span></p>
+
+  
+</td>
+<td width="321" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Frequency
+  of Vibration Suppression Filter</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="167" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Anti-resonance
+  Filter</span></p>
+
+  
+</td>
+<td width="96" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn175</span></p>
+
+  
+</td>
+<td width="321" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Vibration
+  Suppression</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="167" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Speed
+  Filter</span></p>
+
+  
+</td>
+<td width="96" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn135</span></p>
+
+  
+</td>
+<td width="321" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Encoder
+  Speed Filter Time</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="167" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Notch
+  Filter</span></p>
+
+  
+</td>
+<td width="96" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn181</span></p>
+
+  
+</td>
+<td width="321" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Frequency
+  of Notch Filter 1</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="167" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Notch
+  Filter</span></p>
+
+  
+</td>
+<td width="96" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn182</span></p>
+
+  
+</td>
+<td width="321" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Depth
+  of Notch Filter 1</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="167" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Notch
+  Filter</span></p>
+
+  
+</td>
+<td width="96" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn183</span></p>
+
+  
+</td>
+<td width="321" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Width
+  of Notch Filter 1</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="167" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Notch
+  Filter</span></p>
+
+  
+</td>
+<td width="96" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn184</span></p>
+
+  
+</td>
+<td width="321" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Frequency
+  of Notch Filter 2</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="167" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Notch
+  Filter</span></p>
+
+  
+</td>
+<td width="96" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn185</span></p>
+
+  
+</td>
+<td width="321" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Depth
+  of Notch Filter 2</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="167" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Notch
+  Filter</span></p>
+
+  
+</td>
+<td width="96" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn186</span></p>
+
+  
+</td>
+<td width="321" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Width
+  of Notch Filter 2</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="167" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Notch
+  Filter</span></p>
+
+  
+</td>
+<td width="96" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn187</span></p>
+
+  
+</td>
+<td width="321" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Frequency
+  of Notch Filter 3</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="167" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Notch
+  Filter</span></p>
+
+  
+</td>
+<td width="96" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn188</span></p>
+
+  
+</td>
+<td width="321" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Depth
+  of Notch Filter 3</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="167" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Notch
+  Filter</span></p>
+
+  
+</td>
+<td width="96" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn189</span></p>
+
+  
+</td>
+<td width="321" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Width
+  of Notch Filter 3</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="167" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Torque
+  Filter</span></p>
+
+  
+</td>
+<td width="96" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn105</span></p>
+
+  
+</td>
+<td width="321" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Torque
+  Reference Filter Time</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="167" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Torque
+  Filter</span></p>
+
+  
+</td>
+<td width="96" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn110</span></p>
+
+  
+</td>
+<td width="321" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Second
+  Torque Reference Filter Time</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="167" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Torque
+  Limit</span></p>
+
+  
+</td>
+<td width="96" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn401</span></p>
+
+  
+</td>
+<td width="321" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Forward
+  Internal Torque Limit</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="167" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Torque
+  Limit</span></p>
+
+  
+</td>
+<td width="96" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn402</span></p>
+
+  
+</td>
+<td width="321" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Reverse
+  Internal Torque Limit</span></p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<h2>Restrictions</h2>
+<p>
+The following table shows a summary of functions available
+in manual tuning mode 
+</p>
+<p>
+&nbsp;
+</p>
+<table class="tablegrid">
+
+ 
+<thead>
+<tr>
+<td width="342" class="tablegrid">
+
+   
+<p>
+&nbsp;Function
+</p>
+
+   
+</td>
+<td width="64" class="tablegrid">
+
+   
+<p>
+Manual
+</p>
+
+   
+</td>
+</tr>
+</thead>
+
+ 
+<tr>
+<td width="342" class="tablegrid">
+
+  
+<p>
+Damping Selection
+</p>
+
+  
+</td>
+<td width="64" class="tablegrid">
+
+  
+<p>
+No
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="342" class="tablegrid">
+
+  
+<p>
+P / PI Switching
+</p>
+
+  
+</td>
+<td width="64" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="342" class="tablegrid">
+
+  
+<p>
+Gain Switching
+</p>
+
+  
+</td>
+<td width="64" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="342" class="tablegrid">
+
+  
+<p>
+Notch Filter
+</p>
+
+  
+</td>
+<td width="64" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="342" class="tablegrid">
+
+  
+<p>
+Automatic Vibration
+  Suppression
+</p>
+
+  
+</td>
+<td width="64" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="342" class="tablegrid">
+
+  
+<p>
+Intermediate Frequency
+  Vibration Suppression
+</p>
+
+  
+</td>
+<td width="64" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="342" class="tablegrid">
+
+  
+<p>
+Velocity Feedforward
+</p>
+
+  
+</td>
+<td width="64" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="342" class="tablegrid">
+
+  
+<p>
+Torque Feedforward
+</p>
+
+  
+</td>
+<td width="64" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="342" class="tablegrid">
+
+  
+<p>
+Friction Compensation
+</p>
+
+  
+</td>
+<td width="64" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="342" class="tablegrid">
+
+  
+<p>
+Model Following
+  Control
+</p>
+
+  
+</td>
+<td width="64" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="342" class="tablegrid">
+
+  
+<p>
+Load Oscillation
+  Suppression
+</p>
+
+  
+</td>
+<td width="64" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="342" class="tablegrid">
+
+  
+<p>
+Feedback Speed
+  Selection
+</p>
+
+  
+</td>
+<td width="64" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="342" class="tablegrid">
+
+  
+<p>
+Load Torque
+  Compensation
+</p>
+
+  
+</td>
+<td width="64" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+&nbsp;
+</p>
+<p>
+&nbsp;
+</p>
+</body>
+</html>

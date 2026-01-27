@@ -1,0 +1,474 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>Oscilloscope, Settings</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1><a name="_Capture_Configuration"></a>
+Oscilloscope -
+Settings </h1>
+<p>
+When the &quot;Settings&quot; button is pressed or
+&quot;Settings/Settings&quot; is selected from the oscilloscope main menu, the
+oscilloscope configuration dialog is displayed, as shown below. Click the mouse
+button over the various controls to reveal further information. It contains
+three main sections:
+</p>
+<ul type="disc">
+
+ 
+<li>
+<a href="#_Capture_Related_Settings">Capture</a>
+</li>
+
+ 
+<li>
+<a href="#_Oscilloscope_-_Viewer">Viewer</a>
+</li>
+
+ 
+<li>
+<a href="#_Oscilloscope_–_3D">3D Viewer</a>
+</li>
+
+
+</ul>
+<h2><a name="_Capture_Related_Settings"></a>
+Capture Related
+Settings</h2>
+<h3><img border="0" width="602" height="378" src="Oscilloscope_Settings_files/image001.jpg">
+</h3>
+<h3>Samples per division </h3>
+<p>
+The oscilloscope defaults to recording five points per
+horizontal (time base) grid division. This value can be adjusted using the
+adjacent scrollbar. 
+</p>
+<p>
+To achieve the fastest possible sample rate it is necessary
+to reduce the number of samples per grid division to 1, and increase the time
+base scale to its fastest value (1 servo period per grid division). 
+</p>
+<p>
+It should be noted that the trace might not be plotted
+completely to the right hand side of the display, depending upon the time base
+scale and number of samples per grid division. 
+</p>
+<h3>Table Range User for Data Capture </h3>
+<p>
+The controller records the required parameter data values in
+the controller as table data prior to uploading these values to the
+oscilloscope tool. By default, 
+<i>Motion</i> Perfect uses a block of table
+values at the top of table memory. However, if this conflicts with programs
+running on the controller which might also require this section of the table,
+then the lower table value can be reset. 
+</p>
+<p>
+If the table memory is set manually the user specifies the
+start of the table block and the upper value is adjusted automatically
+depending on the space needed to capture trace data. 
+</p>
+<h3>Automatically Restart Trigger</h3>
+<p>
+The oscilloscope is automatically rearmed at the end of each
+capture cycle when operating in manual repeat trigger mode if the controller
+supports this feature. This improves capturing by lowering the delay between
+the consecutive capture cycles.
+</p>
+<h3>Use FIFO for Data Transfer</h3>
+<p>
+If the controller supports this feature, the captured data
+is transferred between the controller and the PC using a FIFO pipe and text
+transfer protocol over dedicated TCP port.
+</p>
+<p class="note">
+This is still an experimental feature and there may be issues, in
+particular when SCOPE_DELAY is set to negative values.
+</p>
+<h3>Table Data Graph </h3>
+<p>
+The user can specify the number of points per division for
+table data display or that it is fitted to the display.
+</p>
+<p>
+It is possible to plot controller table values directly, in
+which case the table limit text boxes enable the user to enter up to eight
+table ranges. Ranges of table data can be added or removed as required (up to
+the maximum of 8). 
+</p>
+<h4>Interleaved Table Ranges</h4>
+<p>
+Interleaved table ranges occur when the data for more than
+one trace is stored with the point data grouped together as shown below:
+</p>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="111" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+TABLE address
+</p>
+
+  
+</td>
+<td width="67" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Trace#
+</p>
+
+  
+</td>
+<td width="93" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Data Point#
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="111" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+1000
+</p>
+
+  
+</td>
+<td width="67" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+0
+</p>
+
+  
+</td>
+<td width="93" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+0
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="111" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+1001
+</p>
+
+  
+</td>
+<td width="67" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+1
+</p>
+
+  
+</td>
+<td width="93" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+0
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="111" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+1002
+</p>
+
+  
+</td>
+<td width="67" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+0
+</p>
+
+  
+</td>
+<td width="93" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+1
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="111" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+1003
+</p>
+
+  
+</td>
+<td width="67" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+1
+</p>
+
+  
+</td>
+<td width="93" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+1
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="111" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+1004
+</p>
+
+  
+</td>
+<td width="67" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+0
+</p>
+
+  
+</td>
+<td width="93" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+2
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="111" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+1005
+</p>
+
+  
+</td>
+<td width="67" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+1
+</p>
+
+  
+</td>
+<td width="93" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+2
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="111" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+…
+</p>
+
+  
+</td>
+<td width="67" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+<td width="93" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+With this data you would set the start of range 0 to 1000,
+the start of range 1 to 1001 and the step for both ranges to 2. For using
+contiguous blocks of table for each range, step should be set to 1. See below:
+</p>
+<p>
+<img border="0" width="602" height="378" id="Picture 1" src="Oscilloscope_Settings_files/image002.jpg">
+</p>
+<h3>Parameter Checks </h3>
+<p>
+If analogue inputs are being recorded, then the fastest
+oscilloscope resolution (sample rate) is the number of analogue channels in
+milliseconds ( i.e. 2 analogue inputs infers the fastest sample rate is 2msec).
+The resolution is calculated by dividing the time base scale value by the
+number of samples per grid division. 
+</p>
+<p>
+It is not possible to enter table channel values in excess
+of the controllers maximum TABLE size, nor to enter a lower oscilloscope table
+value. Increasing the samples per grid division to a value which causes the
+upper oscilloscope table value to exceed the controller maximum table value is
+also not permitted. 
+</p>
+<p>
+If the number of samples per grid division is increased, and
+subsequently the time base scale is set to a faster value which causes an
+unobtainable resolution, the oscilloscope automatically resets the number of
+samples per grid division.
+</p>
+<p>
+Before the oscilloscope is triggered a sample quantization
+check is done to make sure that it is possible to gather the data at the sample
+interval requested. This may cause the number of samples per division to be
+adjusted so that the controller is able to gather the data at a sample period
+which is a whole number of servo cycles.
+</p>
+<span style='font-family:"Calibri",sans-serif'><br clear="all">
+
+</span><h2><a name="_Oscilloscope_-_Viewer"></a>
+Oscilloscope - Viewer
+Settings</h2>
+<p>
+<img border="0" width="602" height="378" src="Oscilloscope_Settings_files/image003.jpg">
+</p>
+<p>
+This allows the user to change the display parameters used
+by the oscilloscope including:
+</p>
+<ul style="list_style_type:disc">
+<li class="indent-list-first">
+Background colour
+</li>
+<li class="indent-list-middle">
+Grid colour and line thickness
+</li>
+<li class="indent-list-middle">
+Trace colour, line thickness and data point size
+</li>
+<li class="indent-list-middle">
+Cursor colour and line thickness
+</li>
+<li class="indent-list-middle">
+Font used to display text
+</li>
+<li class="indent-list-last">
+Maximum number of data sets displayed in auto-repeat trigger mode
+</li>
+</ul>
+<span style='font-family:"Calibri",sans-serif'><br clear="all">
+
+</span><h2><a name="_Oscilloscope_–_3D"></a>
+Oscilloscope – 3D Viewer
+Settings</h2>
+<p>
+<img border="0" width="602" height="378" src="Oscilloscope_Settings_files/image004.jpg">
+</p>
+<p>
+In 3D visualisation mode some of the settings from previous
+section are used like colours and thickness of visual elements. This page
+allows the user to change the display parameters used specific for 3D
+visualization mode like:
+</p>
+<ul type="disc">
+
+ 
+<li>
+3D shape (smoothness) of control points and
+     interconnecting line segments
+</li>
+
+ 
+<li>
+Maximum control point thickness in XYZD mode
+</li>
+
+ 
+<li>
+Colour, size and distance between orientation markers in
+     XYZUVW mode
+</li>
+
+ 
+<li>
+3D rendering material and light properties.
+</li>
+
+
+</ul>
+
+
+
+
+
+
+</body>
+</html>

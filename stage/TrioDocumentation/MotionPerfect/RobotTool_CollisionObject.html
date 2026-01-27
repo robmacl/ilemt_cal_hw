@@ -1,0 +1,71 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>Robot Tool - Collision Object</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>Collision Objects</h1>
+<p>
+A collision object specifies the Oriented Bounding Box (OBB)
+around the real object in a scene and is used by collision detect algorithm. Collision
+objects are presented as a set of 9 values:
+</p>
+<p style="margin-left:36.0pt;text-indent:-18.0pt">
+-
+<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>X, Y, Z – for the coordinates of the centre of OBB in millimetres
+</p>
+<p style="margin-left:36.0pt;text-indent:-18.0pt">
+-
+<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>U, V, W – for the angular orientation of OBB in degrees.
+</p>
+<p style="margin-left:36.0pt;text-indent:-18.0pt">
+-
+<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>DX, DY, DZ – for the distance from centre to sides of OBB in millimetres
+</p>
+<p>
+An array of 32 collision object definitions is available for
+use to all programs. A unique name can be assigned to each collision object to
+be used to identify and reference it in programs. 
+</p>
+<p>
+The robot tool displays a list of already defined collision
+objects. 
+</p>
+<p>
+<img width="602" height="516" id="Picture 1" src="RobotTool_CollisionObject_files/image001.png">
+</p>
+<h2>Adding or Modifying a Collision Object</h2>
+<p>
+By pressing the 
+<img width="29" height="26" src="RobotTool_CollisionObject_files/image002.png">
+ button the operator can
+directly type-in a new collision object or modify the coordinates or the name
+of a previously defined entry. 
+</p>
+<p>
+<img width="225" height="251" src="RobotTool_CollisionObject_files/image003.png">
+</p>
+<p>
+By pressing the ‘Apply’ button the changes are stored to the
+controller.
+</p>
+<h2>Deleting a Collision Object</h2>
+<p>
+By pressing the 
+<img width="25" height="25" src="RobotTool_CollisionObject_files/image004.png">
+button the data stored in
+selected collision object entries will be deleted and they will become empty.
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+&nbsp;
+</p>
+</body>
+</html>

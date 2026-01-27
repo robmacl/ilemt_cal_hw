@@ -1,0 +1,4325 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>Controller Tree</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>Controller Tree</h1>
+<p>
+The controller tree can be displayed when 
+<i>Motion</i>
+Perfect is operating in &quot;Tool Mode&quot; or in &quot;Sync Mode&quot;. It
+contains information about the controller connected to 
+<i>Motion</i> Perfect
+and its contents.
+</p>
+<p>
+<img width="262" height="671" id="Picture 1" src="ControllerTree_files/image001.jpg">
+</p>
+<p>
+The tree consists of a header section and the tree body.
+</p>
+<h2>Tree Header</h2>
+<p>
+The tree header contains basic information about the
+controller plus some important controls. The top of the header contains a
+pictorial representation of the controller, the controller model (MC464 in the
+case above), the product number of the controller (if applicable), the system
+software version number, an &quot;Axis Status&quot; indicator, a System Status indicator
+and a &quot;Reset MC&quot; control. The bottom of the header contains three
+button controls: &quot;Motion Stop&quot;, &quot;Drive Enable&quot; and
+&quot;Halt Programs&quot;
+</p>
+<h3>Controller Information</h3>
+<p>
+The controller is shown as an icon to the left of the
+header. The controller model and system software version are displayed towards
+the top of the header. If the mouse cursor is moved over the icon a tooltip is
+displayed giving some basic information about the controller.
+</p>
+<p>
+<img width="260" height="151" id="Picture 5" src="ControllerTree_files/image002.png">
+</p>
+<h3>&quot;Axis Status&quot; Indicator</h3>
+<p>
+This control shows the axis error status of the controller.
+It is a passive control when there is no error, displaying the message “Axis
+Status: OK”. When an error occurs the control becomes coloured red and acts as
+a button which, when clicked, will clear the axis error(s) on the controller.
+</p>
+<p class="note">
+Some errors, notably hardware errors, cannot be cleared by
+clicking the &quot;Axis Status&quot; button.
+</p>
+<h3>&quot;System&quot; Status Indicator</h3>
+<p>
+This control shows the system error status of the
+controller. It is a passive control when there is no error, displaying the
+message “System: OK”. When an error occurs the becomes coloured red and acts as
+a button which, when clicked, will attempt to clear the system error(s) on the
+controller, although in many cases this is not possible and some other manual
+intervention will be required.
+</p>
+<h3>&quot;Reset MC&quot; Control</h3>
+<p>
+This control acts as a status indicator and a reset button.
+If the MC_CONFIG program on the controller has been created, changed or deleted
+since the controller was last reset, the control is highlighted  
+<img width="77" height="26" id="Picture 2" src="ControllerTree_files/image003.png">
+ indicating
+that the controller needs to be reset before programs can be run again.
+Otherwise the control appears as a normal button. When in either state,
+clicking on the control will reset the controller.
+</p>
+<h3>“Flash” Status Indicator</h3>
+<p>
+This indicates, by turning red, when the controller is
+writing to its “flash” EEPROM memory.
+</p>
+<p class="warning">
+Do not remove power from the controller whilst the “Flash”
+status indicator shows red as doing so may corrupt the contents for the
+controller’s memory.
+</p>
+<h3>&quot;Motion Stop&quot; Button</h3>
+<p>
+Clicking on the &quot;Motion Stop&quot; button stops all
+currently running programs and empties all the move buffers on the controller
+causing all motion to stop. Its action is similar to an &quot;Emergency
+Stop&quot; button but, as it is implemented in software, it is less reliable
+that a properly implemented hardware emergency stop.
+</p>
+<p class="warning">
+It is important that a proper hardware emergency stop is
+implemented on any system. This button must not be used as a substitute.
+</p>
+<h3>&quot;Drive Enable&quot; Button</h3>
+<p>
+Clicking on this button toggles the state of the drive
+enable (watchdog output) on the controller. When drives are enabled the
+background of the button is coloured yellow.
+</p>
+<h3>&quot;Halt Programs&quot; Button</h3>
+<p>
+Clicking on this button halts all currently running programs
+but does not stop current or buffered moves.
+</p>
+<p class="tip">
+Use the &quot;Motion Stop&quot; button if you want to stop the
+motion as well as the programs.
+</p>
+<h2>Tree Body</h2>
+<p>
+The body of the tree contains information in several
+expandable sections:
+</p>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="118" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Section Name
+</p>
+
+  
+</td>
+<td width="473" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Contents
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="118" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Programs
+</p>
+
+  
+</td>
+<td width="473" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Programs and files stored on the controller.
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="118" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Temporary Files
+</p>
+
+  
+</td>
+<td width="473" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+A list of the temporary currently files on the
+  controller.
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="118" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Axes
+</p>
+
+  
+</td>
+<td width="473" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Maximum axis information plus a list of the axes
+  defined as visible.
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="118" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Memory
+</p>
+
+  
+</td>
+<td width="473" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Memory related information.
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="118" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Modules
+</p>
+
+  
+</td>
+<td width="473" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Interface modules connected to the controller.
+</p>
+
+  
+<p class="note">
+This is only displayed if the controller supports expansion
+  modules.
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="118" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Configuration
+</p>
+
+  
+</td>
+<td width="473" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Controller configuration information.
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<h3><a name="Programs"></a>
+Programs</h3>
+<p>
+These are the programs and files stored on the controller.
+The following types of item can be stored on the controller:
+</p>
+<ul style="list_style_type:disc">
+<li class="indent-list-first">
+TrioBASIC program
+</li>
+<li class="indent-list-middle">
+TrioBASIC library
+</li>
+<li class="indent-list-middle">
+Text file
+</li>
+<li class="indent-list-middle">
+MC_CONFIG program (one only)
+</li>
+<li class="indent-list-middle">
+EC_EXTEND configuration (one only)
+</li>
+<li class="indent-list-middle">
+Cam Library - cam profile(s) produced by CamGen (one only).
+</li>
+<li class="indent-list-middle">
+HMI project containing one or more HMI page definitions (one only
+and not available on all controllers).
+</li>
+<li class="indent-list-middle">
+HMI library containing one or more HMI page definitions to be
+used by HMI project (not available on all controllers).
+</li>
+<li class="indent-list-middle">
+IEC 61131-3 task containing one or more programs in one or more
+of the IEC 61131-3 defined program types (not available on all controllers).
+</li>
+<li class="indent-list-middle">
+IEC 61131-3 library containing one or more programs in one or
+more of the IEC 61131-3 defined program types (not available on all
+controllers).
+</li>
+<li class="indent-list-middle">
+Robot program
+</li>
+<li class="indent-list-last">
+Robot TrioBASIC program
+</li>
+</ul>
+<p>
+In this section more than one item can be selected to
+participate in the subsequent operations.
+</p>
+<p>
+It is now possible to group one or more items in a project
+based on some criteria that user defines. Movement to into or out of group can
+be done via drag &amp; drop.
+</p>
+<p>
+A package can later be created from the items in a group and
+all items are encrypted during package creation process. For the items to
+become part of the package they have to be encryptable.
+</p>
+<p>
+Robot program and robot TrioBASIC programs automatically
+become part of robot project which is dedicated group inside the main project.
+Robot project allows set of actions like save or load to be applied to all
+items inside it.
+</p>
+<p>
+The &quot;Programs&quot; item in the tree has a context menu
+to allow creation of programs and some operations on all programs as follows:
+</p>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="120" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Menu Entry
+</p>
+
+  
+</td>
+<td width="496" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Operation
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="120" valign="top" class="tablegrid">
+
+  
+<p>
+New
+</p>
+
+  
+</td>
+<td width="496" valign="top" class="tablegrid">
+
+  
+<p>
+Create a new empty program (see &quot;
+<a href="NewProgram.html"><span class="InternetLink">Creating a New Program</span></a>
+&quot;)
+  or item of other type and add it to the project
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="120" valign="top" class="tablegrid">
+
+  
+<p>
+Load…
+</p>
+
+  
+</td>
+<td width="496" valign="top" class="tablegrid">
+
+  
+<p>
+Load a program (or an item of other type) from disk and
+  add it to the project
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="120" valign="top" class="tablegrid">
+
+  
+<p>
+Add Package…
+</p>
+
+  
+</td>
+<td width="496" valign="top" class="tablegrid">
+
+  
+<p>
+Add package to the project
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="120" valign="top" class="tablegrid">
+
+  
+<p>
+Compile all
+</p>
+
+  
+</td>
+<td width="496" valign="top" class="tablegrid">
+
+  
+<p>
+Compile all compilable programs in the project
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="120" valign="top" class="tablegrid">
+
+  
+<p>
+Stop All (Halt)
+</p>
+
+  
+</td>
+<td width="496" valign="top" class="tablegrid">
+
+  
+<p>
+Stop all running programs in the project
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="120" valign="top" class="tablegrid">
+
+  
+<p>
+Delete All Programs
+</p>
+
+  
+</td>
+<td width="496" valign="top" class="tablegrid">
+
+  
+<p>
+Delete all programs in the project
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+The program entries in the tree allow the user to run,
+pause, stop and compile the program by means of a set if icons after each
+program entry.
+</p>
+<p>
+<img border="0" width="234" height="101" id="Picture 13" src="ControllerTree_files/image004.png">
+</p>
+<p>
+When a program is running it has an extra entry in the tree
+representing the running instance, showing the process number. 
+</p>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="42" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Icon
+</p>
+
+  
+</td>
+<td width="127" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Menu Entry
+</p>
+
+  
+</td>
+<td width="447" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Notes
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="42" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+<img border="0" width="10" height="13" id="Picture 4" src="ControllerTree_files/image005.png">
+</p>
+
+  
+</td>
+<td width="127" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Run
+</p>
+
+  
+</td>
+<td width="447" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Run the program. Also run a paused instance from its
+  current (paused) position
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="42" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+<img border="0" width="10" height="13" id="Picture 6" src="ControllerTree_files/image006.png">
+</p>
+
+  
+</td>
+<td width="127" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Run another instance
+</p>
+
+  
+</td>
+<td width="447" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Run another instance of a program on a different
+  process from currently running instance(s)
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="42" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+<img border="0" width="10" height="13" id="Picture 8" src="ControllerTree_files/image007.png">
+</p>
+
+  
+</td>
+<td width="127" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Pause
+</p>
+
+  
+</td>
+<td width="447" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Pause running program or step non-running program to
+  first line
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="42" valign="top" class="tablegrid">
+
+  
+<p>
+<img border="0" width="10" height="13" id="Picture 12" src="ControllerTree_files/image008.png">
+</p>
+
+  
+</td>
+<td width="127" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Step
+</p>
+
+  
+</td>
+<td width="447" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Step program onto next line
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="42" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+<img border="0" width="10" height="13" id="Picture 9" src="ControllerTree_files/image009.png">
+</p>
+
+  
+</td>
+<td width="127" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Stop
+</p>
+
+  
+</td>
+<td width="447" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Only available when program is running
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="42" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+<img border="0" width="10" height="13" id="Picture 10" src="ControllerTree_files/image010.png">
+</p>
+
+  
+</td>
+<td width="127" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Compile
+</p>
+
+  
+</td>
+<td width="447" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Icon shows that the program is not compiled
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="42" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+<img border="0" width="10" height="13" id="Picture 11" src="ControllerTree_files/image011.png">
+</p>
+
+  
+</td>
+<td width="127" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Compile
+</p>
+
+  
+</td>
+<td width="447" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Icon shows that the program is already compiled.
+</p>
+
+  
+<p class="tablecontent">
+Not available when program is running
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+Each program entry has a context menu which contains
+appropriate operations for the program selected.
+</p>
+<h4><a name="Trio_BASIC_Programs"></a>
+Trio BASIC Programs</h4>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="91" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Operation
+</p>
+
+  
+</td>
+<td width="436" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Notes
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Hotkey
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="91" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Edit
+</p>
+
+  
+</td>
+<td width="436" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Open the program in the editor. If the program is
+  running it will be opened in read-only mode
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="91" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Run
+</p>
+
+  
+</td>
+<td width="436" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Run the program. Also run a paused instance from its
+  current (paused) position
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="91" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Run on Process
+</p>
+
+  
+</td>
+<td width="436" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Run an instance of the program on a specified process
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="91" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Step
+</p>
+
+  
+</td>
+<td width="436" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Step program onto next line. Also used to pause a
+  program which is currently running
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="91" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Stop
+</p>
+
+  
+</td>
+<td width="436" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Stop all running instances of the program
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="91" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Compile
+</p>
+
+  
+</td>
+<td width="436" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Compile the program (not available when the program is
+  running)
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="91" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Rename
+</p>
+
+  
+</td>
+<td width="436" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Rename the program (not available when the program is
+  running).
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+F2
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="91" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Copy
+</p>
+
+  
+</td>
+<td width="436" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Make a copy the program within the project (not
+  available when the program is running)
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="91" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Delete
+</p>
+
+  
+</td>
+<td width="436" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Delete the program (not available when the program is
+  running). This operation is available also when more than one item is
+  selected. 
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Delete
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="91" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Group
+</p>
+
+  
+</td>
+<td width="436" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Move the program into or out of a group. This operation
+  is available also when more than one item is selected. Operation can be
+  performed also with drag &amp; drop the program into or out of a group.
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="91" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Set AUTORUN
+</p>
+
+  
+</td>
+<td width="436" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Sets if a program will be automatically started when
+  the controller is powered on and which process it will run on
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="91" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Properties
+</p>
+
+  
+</td>
+<td width="436" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Displays the program's properties
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<h4>Trio BASIC Programs (running instance)</h4>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="82" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Operation
+</p>
+
+  
+</td>
+<td width="534" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Notes
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="82" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Debug
+</p>
+
+  
+</td>
+<td width="534" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Open the program in the editor. If the program is
+  running it will be paused
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="82" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Continue
+</p>
+
+  
+</td>
+<td width="534" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Run the program from its currently paused position
+  (only available when program is paused)
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="82" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Step
+</p>
+
+  
+</td>
+<td width="534" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Step program onto next line. Also used to pause the
+  program if it is currently running
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="82" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Stop
+</p>
+
+  
+</td>
+<td width="534" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Stop this instance of the program
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<h4>Trio BASIC Libraries</h4>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="82" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Operation
+</p>
+
+  
+</td>
+<td width="445" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Notes
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Hotkey
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="82" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Edit
+</p>
+
+  
+</td>
+<td width="445" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Open the library in the editor. If a program that uses
+  the library is running the library will be opened in read-only mode
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="82" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Rename
+</p>
+
+  
+</td>
+<td width="445" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Rename the library (not available if a program that
+  uses the library is running)
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+F2
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="82" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Copy
+</p>
+
+  
+</td>
+<td width="445" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Make a copy the library within the project (not
+  available when a program that uses the library is running)
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="82" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Delete
+</p>
+
+  
+</td>
+<td width="445" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Delete the library (not available when any program that
+  uses the library is running). This operation is available also when more than
+  one item is selected.
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Delete
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="82" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Group
+</p>
+
+  
+</td>
+<td width="445" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Move the library into or out of a group. This operation
+  is available also when more than one item is selected. Operation can be
+  performed also with drag &amp; drop the library into or out of a group.
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="82" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Properties
+</p>
+
+  
+</td>
+<td width="445" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Displays the library's properties
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<h4>MC_CONFIG program</h4>
+<p>
+The options are the same as those for a 
+<a href="#Trio_BASIC_Programs"><span class="InternetLink">Trio BASIC program</span></a>
+
+except that &quot;Rename&quot;, &quot;Copy&quot; and &quot;Set AUTORUN&quot;
+operations are not available.
+</p>
+<h4>Encrypted Trio BASIC programs</h4>
+<p>
+The options are the same as those for a 
+<a href="#Trio_BASIC_Programs"><span class="InternetLink">Trio BASIC program</span></a>
+
+except that &quot;Edit&quot;, &quot;Step&quot;, &quot;Rename&quot; and
+&quot;Copy&quot; operations are not available.
+</p>
+<h4>Text Files</h4>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="82" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Operation
+</p>
+
+  
+</td>
+<td width="445" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Notes
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Hotkey
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="82" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Edit
+</p>
+
+  
+</td>
+<td width="445" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Open the text file in the editor
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="82" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Rename
+</p>
+
+  
+</td>
+<td width="445" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Rename the text file
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+F2
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="82" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Copy
+</p>
+
+  
+</td>
+<td width="445" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Make a copy the text file within the project
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="82" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Delete
+</p>
+
+  
+</td>
+<td width="445" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Delete the text file. This operation is available also
+  when more than one item is selected.
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Delete
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="82" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Group
+</p>
+
+  
+</td>
+<td width="445" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Move the text file into or out of a group. This
+  operation is available also when more than one item is selected. Operation
+  can be performed also with drag &amp; drop the 
+file
+
+  into or out of a group.
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="82" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Properties
+</p>
+
+  
+</td>
+<td width="445" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Displays the text file's properties
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<h4>Cam Libraries</h4>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="123" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Operation
+</p>
+
+  
+</td>
+<td width="404" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Notes
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Hotkey
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="123" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Add New Cam Profile
+</p>
+
+  
+</td>
+<td width="404" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Add a new profile to the library
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="123" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Delete All Profiles
+</p>
+
+  
+</td>
+<td width="404" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Delete all profiles from the library
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="123" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Delete Cam Library
+</p>
+
+  
+</td>
+<td width="404" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Delete the library including all the profiles contained
+  in it.
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Delete
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="123" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Group
+</p>
+
+  
+</td>
+<td width="404" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Move the library into or out of a group. This operation
+  is available also when more than one item is selected. Operation can be
+  performed also with drag &amp; drop the cam library into or out of a group.
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<h4>Cam Profiles</h4>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="96" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Operation
+</p>
+
+  
+</td>
+<td width="431" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Notes
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Hotkey
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="96" valign="top" class="tablegrid">
+
+  
+<p>
+Edit
+</p>
+
+  
+</td>
+<td width="431" valign="top" class="tablegrid">
+
+  
+<p>
+Edit the profile using the CamGen tool.
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p>
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="96" valign="top" class="tablegrid">
+
+  
+<p>
+Rename
+</p>
+
+  
+</td>
+<td width="431" valign="top" class="tablegrid">
+
+  
+<p>
+Rename the profile.
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p>
+F2
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="96" valign="top" class="tablegrid">
+
+  
+<p>
+Save to File …
+</p>
+
+  
+</td>
+<td width="431" valign="top" class="tablegrid">
+
+  
+<p>
+Save to profile to disk in an external format (e.g. csv).
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p>
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="96" valign="top" class="tablegrid">
+
+  
+<p>
+Delete
+</p>
+
+  
+</td>
+<td width="431" valign="top" class="tablegrid">
+
+  
+<p>
+Delete the profile.
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p>
+Delete
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<h4>IEC Tasks</h4>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Operation
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Notes
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Hotkey
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Add New IEC&nbsp;61131&#8209;3 Program
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Add New IEC&nbsp;61131&#8209;3 program to the task
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Load IEC&nbsp;61131&#8209;3 Program
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Load an IEC&nbsp;61131&#8209;3 program from disk and
+  add to the task
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Add New Spy List
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Add a new IEC&nbsp;61131&#8209;3 spy list for the task
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Open IEC&nbsp;61131&#8209;3 Variables
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Open the IEC&nbsp;61131&#8209;3 variables editor for
+  the task
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Open IEC&nbsp;61131&#8209;3 Types
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Open the IEC&nbsp;61131&#8209;3 types editor for the
+  task
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Compile IEC&nbsp;61131&#8209;3 Programs
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Compile all programs in the IEC&nbsp;61131&#8209;3 task
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Run
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Run the task
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Run on Process
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Run another instance of the task on a different process
+  from currently running instance(s)
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Stop
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Stop all running instances of the task. 
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Executable Info
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Display the task executable information (only available
+  when the task is running)
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Set AUTORUN
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Sets if the IEC&nbsp;61131&#8209;3 task will be
+  automatically started when the controller is powered on and which process it
+  will run on.
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Rename
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Rename the IEC&nbsp;61131&#8209;3 task (not available
+  when the task is running)
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+F2
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Delete
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Delete the IEC&nbsp;61131&#8209;3 task (not available
+  when the task is running)
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Delete
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Group
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Move the IEC&nbsp;61131&#8209;3 task into or out of a
+  group. This operation is available also when more than one item is selected.
+  Operation can be performed also with drag &amp; drop the cam library into or
+  out of a group.
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Save to Disk
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Saves all the IEC&nbsp;61131&#8209;3 programs in the
+  IEC task to disk
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Program Execution Order
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Controls the execution order of the IEC&nbsp;61131&#8209;3
+  programs in the task.
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+IEC 61131-3 Settings
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+View and change the settings for IEC 61131-3
+  programming
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<h4>IEC Libraries</h4>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="131" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Operation
+</p>
+
+  
+</td>
+<td width="396" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Notes
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Hotkey
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="131" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Add New IEC&nbsp;61131&#8209;3 Program
+</p>
+
+  
+</td>
+<td width="396" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Add New IEC&nbsp;61131&#8209;3 program to the library
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="131" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Load IEC&nbsp;61131&#8209;3 Program
+</p>
+
+  
+</td>
+<td width="396" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Load an IEC&nbsp;61131&#8209;3 program from disk and
+  add to the library
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="131" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Open IEC&nbsp;61131&#8209;3 Variables
+</p>
+
+  
+</td>
+<td width="396" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Open the IEC&nbsp;61131&#8209;3 variables editor for
+  the library
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="131" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Open IEC&nbsp;61131&#8209;3 Types
+</p>
+
+  
+</td>
+<td width="396" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Open the IEC&nbsp;61131&#8209;3 types editor for the
+  library
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="131" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Rename
+</p>
+
+  
+</td>
+<td width="396" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Rename the IEC&nbsp;61131&#8209;3 library (not
+  available when a task that is using the library is running)
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+F2
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="131" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Delete
+</p>
+
+  
+</td>
+<td width="396" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Delete the IEC&nbsp;61131&#8209;3 library (not
+  available when a task that is using the library is running) This operation is
+  available also when more than one item is selected. Operation can be
+  performed also with drag &amp; drop the cam library into or out of a group.
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Delete
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="131" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Save to Disk
+</p>
+
+  
+</td>
+<td width="396" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Saves all the IEC&nbsp;61131&#8209;3 programs in the
+  IEC library to disk
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="131" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+IEC 61131-3 Settings
+</p>
+
+  
+</td>
+<td width="396" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+View and change the settings for IEC 61131-3
+  programming
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<h4>IEC Programs</h4>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Operation
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Notes
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Edit
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Open the IEC&nbsp;61131&#8209;3 program in the editor.
+  If the program is running it will be opened in read-only mode
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Save to Disk
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Saves all the IEC&nbsp;61131&#8209;3 programs in the
+  IEC task to disk
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Open IEC&nbsp;61131&#8209;3 Variables
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Open the IEC&nbsp;61131&#8209;3 variables editor for
+  the task
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Open IEC&nbsp;61131&#8209;3 Types
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Open the IEC&nbsp;61131&#8209;3 types editor
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Rename
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Rename the IEC&nbsp;61131&#8209;3 program (not
+  available when the owning IEC task is running)
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+F2
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Delete
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Delete the IEC&nbsp;61131&#8209;3 program (not
+  available when the owning IEC task is running). 
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Delete
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Properties
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Displays the IEC&nbsp;61131&#8209;3 program's
+  properties
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<h4>IEC Spy Lists</h4>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Operation
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Notes
+</p>
+
+  
+</td>
+<td width="85" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Edit
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Open the spy list editor
+</p>
+
+  
+</td>
+<td width="85" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Rename
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Rename the spy list
+</p>
+
+  
+</td>
+<td width="85" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+F2
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Delete
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Delete the spy list
+</p>
+
+  
+</td>
+<td width="85" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Delete
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Properties
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Displays the spy list's properties
+</p>
+
+  
+</td>
+<td width="85" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<h4>HMI Designs or Libraries</h4>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Operation
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Notes
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Hotkey
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Add Page
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Add a new HMI page to the design or library
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Import Page
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Import an HMI page into the design or library
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Add Image
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Add an image to the design or library
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Auto-purge unused images
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+If checked automatically purge unused images
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Rename
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Rename the design or library
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+F2
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Copy
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Copy the library within the project (disabled for
+  design)
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Remove HMI Design
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Delete the whole design or library
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Delete
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Update device software
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Update Uniplay device software (only available if a
+  suitable HMI device is connected)
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Save and Upload
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Saves the design or library and uploads it to the
+  controller (and connected HMI)
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="121" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Properties
+</p>
+
+  
+</td>
+<td width="406" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Displays design's or library’s properties
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<h4>HMI Pages</h4>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="99" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Operation
+</p>
+
+  
+</td>
+<td width="428" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Notes
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Hotkey
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="99" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Edit
+</p>
+
+  
+</td>
+<td width="428" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Edit the page in the HMI page editor
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="99" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Rename
+</p>
+
+  
+</td>
+<td width="428" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Rename the page
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+F2
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="99" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Copy
+</p>
+
+  
+</td>
+<td width="428" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Creates a copy of the page and adds to the selected
+  design or library
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="99" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Move
+</p>
+
+  
+</td>
+<td width="428" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Move the page to design or library. Operation can be
+  performed also with drag &amp; drop. 
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="99" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Remove Page
+</p>
+
+  
+</td>
+<td width="428" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Delete the page
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="99" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Start-up Page
+</p>
+
+  
+</td>
+<td width="428" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Sets the page as the Start-up page for the design (if
+  checked)
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="99" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Show on device
+</p>
+
+  
+</td>
+<td width="428" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Displays the page on a connected Uniplay HMI device
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<h4>HMI Images (List)</h4>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="190" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Operation
+</p>
+
+  
+</td>
+<td width="326" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Notes
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="190" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Add Image
+</p>
+
+  
+</td>
+<td width="326" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Add an image to the design or library
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="190" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Purge Unused
+</p>
+
+  
+</td>
+<td width="326" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Purge unused images
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="190" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Auto-purge unused images
+</p>
+
+  
+</td>
+<td width="326" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Automatically purge unused images (if checked)
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<h4>HMI Images (individual image)</h4>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="82" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Operation
+</p>
+
+  
+</td>
+<td width="445" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Notes
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Hotkey
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="82" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Rename
+</p>
+
+  
+</td>
+<td width="445" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Rename the image
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+F2
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="82" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Modify
+</p>
+
+  
+</td>
+<td width="445" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Change the image or its display settings
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="82" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Remove
+</p>
+
+  
+</td>
+<td width="445" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Delete the image
+</p>
+
+  
+</td>
+<td width="89" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Delete
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<h4>Groups</h4>
+<p>
+For more information on using
+groups please visit “
+<a href="ProjectItemGroups.html">Project Item Groups</a>
+”
+topic.
+</p>
+<h4>Packages</h4>
+<p>
+For more information on using
+packages please visit “
+<a href="Package_ContextMenu.html">Packages Context Menu</a>
+”
+topic.
+</p>
+<h4>Robot project</h4>
+<p>
+For more information please visit
+“
+<a href="RobotProject_ContextMenu.html"><span class="InternetLink">Robot Project
+Context Menu</span></a>
+” topic.
+</p>
+<h3>Axes</h3>
+<p>
+Shows axis information in the form of a list. This includes:
+</p>
+<ul style="list_style_type:disc">
+<li class="indent-list-first">
+The maximum number of various types of axis is given in a list.
+</li>
+<li class="indent-list-last">
+Axes which are specified as visible by the user. To specify which
+axes are to be shown, right click on axes and select  &quot;Show/Hide
+Axes…&quot; to display the &quot;Show/Hide Axes&quot; dialog and select which
+axes to display. The assigned axis names (if specified) are displayed along
+with the axis number.
+</li>
+</ul>
+<p>
+<img border="0" width="558" height="372" id="Picture 14" src="ControllerTree_files/image012.jpg">
+</p>
+<h3>Memory</h3>
+<p>
+This shows various memory related items as follows:
+</p>
+<h4>VR</h4>
+<p>
+The maximum number of VR variables allowed. Double clicking
+on this launches the VR Viewer tool.
+</p>
+<h4>TABLE</h4>
+<p>
+The size (in values) of the TABLE memory area. Double
+clicking on this launches the Table Viewer Tool.
+</p>
+<h4>Local Variables</h4>
+<p>
+Double clicking on this launches the variable viewer tool.
+</p>
+<h4>Free Program Space</h4>
+<p>
+The number of bytes of unused memory available for storing
+programs.
+</p>
+<h3>Modules</h3>
+<p>
+This give a list of the modules connected to a controller.
+Currently this only supports the local modules of a modular controller such as
+the MC464.
+</p>
+<h3>Configuration</h3>
+<p>
+Shows the current controller configuration and allows the
+user to change some user configurable features, such as enabled features (using
+feature enable codes) and communications link parameters.
+</p>
+</body>
+</html>

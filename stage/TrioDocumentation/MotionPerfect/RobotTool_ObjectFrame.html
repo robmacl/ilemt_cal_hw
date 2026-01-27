@@ -1,0 +1,184 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>Robot Tool - Object Frame</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>Object Frames</h1>
+<p>
+The object frame is a transformation
+between the global coordinate system and the coordinate system of an object
+that is manipulated by the robot. By using object frames it is possible for
+target points to be defined with respect in the coordinate system of the
+object. Similar to the target points it is presented as a set of 6 values:
+</p>
+<p style="margin-left:36.0pt;text-indent:-18.0pt">
+-
+<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>X, Y, Z – for the coordinates of the offset in
+millimeters
+</p>
+<p style="margin-left:36.0pt;text-indent:-18.0pt">
+-
+<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>U, V, W – for the angular orientation of in
+degrees.
+</p>
+<p>
+An array of 31 object frame definitions is
+available for use to all programs. A unique name can be assigned to each object
+frame to be used to identify and reference it in programs. 
+</p>
+<p>
+The robot tool displays a list of already defined
+object frames. 
+</p>
+<p>
+<img width="602" height="502" id="Picture 1" src="RobotTool_ObjectFrame_files/image001.png">
+</p>
+<h2>Object Frame Constructor</h2>
+<p>
+The object frame can be constructed using a
+wizard provided by the robot tool. There are two modes of operation: 
+</p>
+<p style="margin-left:36.0pt;text-indent:-18.0pt">
+-
+<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Using single point – to define the frame as a
+translation only
+</p>
+<p style="margin-left:36.0pt;text-indent:-18.0pt">
+-
+<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Using three points – in which case translation
+as well an orientation can be calculated.
+</p>
+<h3>Single Point Mode</h3>
+<p>
+In that mode the operator takes a single
+point which defines the base or the origin of the object coordinate system.
+</p>
+<p>
+<img width="376" height="540" src="RobotTool_ObjectFrame_files/image002.png">
+</p>
+<p>
+The point is captured using the robot jog
+tool user interface.
+</p>
+<p>
+<img width="593" height="468" src="RobotTool_ObjectFrame_files/image003.png">
+</p>
+<p>
+The operator should adjust the robot
+position and orientation until the tip goes as close as possible to the origin
+of object coordinate system.
+</p>
+<p>
+Pressing the ‘Capture’ button accepts the
+point and closes the robot jog tool.
+</p>
+<p>
+The corresponding button changes its state
+and displays the coordinates of the captured point.
+</p>
+<p>
+<img width="376" height="540" src="RobotTool_ObjectFrame_files/image004.png">
+</p>
+<p>
+The object frame is now ready to be stored
+and the operator can select a unique name for it so that it can be referenced
+in programs.
+</p>
+<p>
+Pressing ‘Done’ button stores the object
+frame on the controller.
+</p>
+<h3>Three Points Mode</h3>
+<p>
+In this mode the operator has to capture
+three points as follows:
+</p>
+<p style="margin-left:36.0pt;text-indent:-18.0pt">
+-
+<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>First point should be at the base or the origin
+of the object coordinate system;
+</p>
+<p style="margin-left:36.0pt;text-indent:-18.0pt">
+-
+<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Second point should on the X axis of the object
+coordinate system;
+</p>
+<p style="margin-left:36.0pt;text-indent:-18.0pt">
+-
+<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Third point should on the Y axis of the object
+coordinate system. 
+</p>
+<p>
+<img width="376" height="724" src="RobotTool_ObjectFrame_files/image005.png">
+</p>
+<p>
+Points are captured using the robot jog tool window.
+</p>
+<p>
+The operator should adjust the robot
+position and orientation until the tip goes as close as possible to the desired
+target point.
+</p>
+<p>
+Pressing the appropriate ‘Capture’ button
+accepts the point and closes the robot jog tool.
+</p>
+<p>
+The corresponding button changes its state
+and displays the coordinates of the captured point.
+</p>
+<p>
+<img width="376" height="724" src="RobotTool_ObjectFrame_files/image006.png">
+</p>
+<p>
+When three points are captured the object
+frame is ready to be stored and the operator can select a unique name for it so
+that it can be referenced in programs.
+</p>
+<p>
+It is also possible to select the alignment
+axis to be +X or +Y. That allows the operator to select which of these two axes
+is captured more accurately and should take precedence in calculations.
+</p>
+<p>
+Pressing the ‘Done’ button stores the
+object frame on the controller.
+</p>
+<h2>Modifying Object Frame</h2>
+<p>
+By pressing 
+<img width="29" height="26" src="RobotTool_ObjectFrame_files/image007.png">
+ button the operator can directly type-in a new object frame or
+modify the coordinates or the name of a previously defined entry. That is
+particularly useful when the orientation of the object frame needs to be
+adjusted.
+</p>
+<p>
+<img width="206" height="244" src="RobotTool_ObjectFrame_files/image008.png">
+</p>
+<p>
+Pressing the ‘Apply’ button stores the
+changes on the controller.
+</p>
+<h2>Deleting an Object Frame</h2>
+<p>
+By pressing 
+<img width="25" height="25" src="RobotTool_ObjectFrame_files/image009.png">
+button the data stored in selected object frame entries will be
+deleted and they will become empty.
+</p>
+<p>
+&nbsp;
+</p>
+</body>
+</html>

@@ -1,0 +1,152 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>Project Encryption, Generation a Project Key</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>Generating a Project Key</h1>
+<p>
+The project key generation process involves 3 stages as
+follows:
+</p>
+<ol start="1" type="1">
+
+ 
+<li>
+Enter the Project Password
+</li>
+
+ 
+<li>
+Select the project key type
+</li>
+
+ 
+<li>
+Entering the corresponding security code
+</li>
+
+
+</ol>
+<h2>Project Password</h2>
+<p>
+The process starts with entering the same password, that is
+used for project encryption. When a project has been encrypted already and the
+project encryptor main window have not been yet closed, the last user password
+is remembered for user's convenience.
+</p>
+<p>
+<img width="600" height="400" id="Picture 11" src="ProjectEncryption-GenerateProjectKey_files/image001.jpg">
+</p>
+<h2 style="margin-left:28.8pt;text-indent:-28.8pt">Selecting Project Key Type</h2>
+<p>
+There are three options available:
+</p>
+<ul type="disc">
+
+ 
+<li>
+using Controller Security Code
+</li>
+
+ 
+<li>
+using User Security Code
+</li>
+
+ 
+<li>
+using OEM Security Code
+</li>
+
+
+</ul>
+<p>
+<img width="600" height="400" id="Picture 10" src="ProjectEncryption-GenerateProjectKey_files/image002.jpg">
+</p>
+<p>
+When using Controller Security Code, the decryption
+&quot;Project Key&quot; is derived from &quot;Project Password&quot; and Motion
+Coordinator's unique security code. 
+</p>
+<p>
+When using User Security Code, the decryption &quot;Project
+Key&quot; is derived from &quot;Project Password&quot; and a custom
+user-supplied User Security Code&quot;.
+</p>
+<p>
+When using OEM Security Code, the decryption &quot;Project
+Key&quot; is derived from &quot;Project Password&quot; and a custom
+OEM-supplied security code.
+</p>
+<h2>Entering a security code</h2>
+<p>
+The next step is to generate a decryption &quot;Project
+Key&quot; by entering a valid security code
+</p>
+<p>
+When a valid security code is entered the corresponding
+project key is generated automatically. Both the project key dialog in Motion
+Perfect and the project encryptor main window have copy and paste buttons to
+make transferring the number between the applications easier.
+</p>
+<p>
+&nbsp;
+</p>
+<h3>Using a Controller Security Code</h3>
+<p>
+<img width="600" height="400" id="Picture 9" src="ProjectEncryption-GenerateProjectKey_files/image003.jpg">
+</p>
+<p>
+When started from within Motion Perfect, and Motion Perfect
+is connected to a Motion Coordinator, the Controller Security Code will be
+automatically filled in. Otherwise, the controller security code, or the user
+security code, or the OEM security code, must be entered into the controller
+security code text entry box.
+</p>
+<p>
+The controller security code is a 15-digit numeric code
+which is used to identify the Motion Coordinator and part of its hardware
+configuration. This can be obtained from the Feature Enable tool in Motion
+Perfect of from the project key dialog which Motion Perfect displays when an
+encrypted project is specified for loading. Windows copy and paste can be used
+to make the process easier.
+</p>
+<p>
+&nbsp;
+</p>
+<h3>Using a User Security Code</h3>
+<p>
+<img width="600" height="400" id="Picture 8" src="ProjectEncryption-GenerateProjectKey_files/image004.jpg">
+</p>
+<p>
+When User Security Code feature is enabled on the Motion
+Coordinator, users can set a custom security code, that is stored on the Motion
+Coordinator. The same code should be used when generating the decryption
+&quot;Project Key&quot;. When an encrypted project is loaded on the Motion
+Coordinator, it is decrypted with the decryption &quot;Project Key&quot; that
+is compared against the stored User Security Code on the Motion Coordinator.
+</p>
+<p>
+&nbsp;
+</p>
+<h3>Using an OEM Security Code</h3>
+<p>
+<img width="600" height="400" id="Picture 7" src="ProjectEncryption-GenerateProjectKey_files/image005.jpg">
+</p>
+<p>
+When OEM Security Code feature is enabled on the Motion
+Coordinator, equipment manufacturers can set a custom security code, that is
+stored on the Motion Coordinator. The same code should be used when generating
+the decryption &quot;Project Key&quot;. When an encrypted project is loaded on
+the Motion Coordinator, it is decrypted with the decryption &quot;Project
+Key&quot; that is compared against the stored OEM Security Code on the Motion
+Coordinator.
+</p>
+<p>
+&nbsp;
+</p>
+</body>
+</html>

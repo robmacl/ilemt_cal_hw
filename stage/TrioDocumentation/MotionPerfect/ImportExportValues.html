@@ -1,0 +1,197 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>Import / Export Values</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>Import / Export Values</h1>
+<p>
+This allows the user to import or export ranges of TABLE or
+VR values. Values are directly written to or read from the controller being
+read from or written to files on the PC.
+</p>
+<h2>Supported File Formats</h2>
+<p>
+The following file formats are supported:
+</p>
+<table class="tablegrid">
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+File Type
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Extension
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Description
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+BASIC code
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+BAS
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+TrioBASIC program code to assign the TABLE or VR
+  values.
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Comma Separated Value
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+CSV
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+A file containing lines consisting of pairs of comma
+  separated values of the form:
+</p>
+
+  
+<p class="codeexample">
+Index,value
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+List
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+LST
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+A file containing lines of the form:
+</p>
+
+  
+<p class="codeexample">
+Index;value
+</p>
+
+  
+<p class="tablecontent">
+Or
+</p>
+
+  
+<p class="codeexample">
+Index;value0,value1, … ,valueN
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<h2>Import</h2>
+<p>
+A standard file selector dialog is displayed to allow the
+user to select he file containing values to import. After selecting the file
+the Import Values dialog is displayed allowing the user to select a destination
+(TABLE or VR) and a start address/index for the import.
+</p>
+<p>
+<img width="325" height="252" id="Picture 1" src="ImportExportValues_files/image001.png">
+</p>
+<p>
+Clicking on &quot;Restore original range&quot; changes the
+start address/index back to that specified in the file.
+</p>
+<h2>Export</h2>
+<p>
+The export values dialog is displayed allowing the user to
+select the source of the values (TABLE or VR), the start address/index and
+either the edd address/index or the number of values to export.
+</p>
+<p>
+<img width="325" height="245" id="Picture 2" src="ImportExportValues_files/image002.png">
+</p>
+<p>
+On closing this, a standard save dialog is displayed,
+allowing the user to specify the file name and type required.
+</p>
+</body>
+</html>

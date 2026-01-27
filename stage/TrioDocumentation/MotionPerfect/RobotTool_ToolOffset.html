@@ -1,0 +1,183 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>Robot Tool - Tool Offset</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>Robot Tool – Tool Offset</h1>
+<p>
+The tool offset is a transformation between the mount on the
+last joint of the robot and the tip of the tool. Similar to the target points
+it is presented as a set of 6 values:
+</p>
+<p style="margin-left:36.0pt;text-indent:-18.0pt">
+-
+<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>X, Y, Z – for the coordinates of the offset in millimetres
+</p>
+<p style="margin-left:36.0pt;text-indent:-18.0pt">
+-
+<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>U, V, W – for the angular orientation of the tip in degrees.
+</p>
+<p>
+Since firmware version 2.0290 collision detection
+functionality has been added. For tools additional set of 6 parameters defines
+so called Oriented Bounding Box (OBB) around the tool:
+</p>
+<p style="margin-left:36.0pt;text-indent:-18.0pt">
+-
+<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>CX, CY, CZ – the coordinates of the centre of the OBB
+</p>
+<p style="margin-left:36.0pt;text-indent:-18.0pt">
+-
+<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>DX, DY, DZ – distances from the centre to each side of the OBB
+</p>
+<p>
+An array of 31 tool definitions is available for use to all
+programs. Unique name can be assigned to each tool to be used to identify and
+reference it in programs. 
+</p>
+<p>
+The robot tool displays a list of already defined tools. It
+can display tool info in 3 modes:
+</p>
+<p style="margin-left:36.0pt;text-indent:-18.0pt">
+-
+<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>offset and orientation only
+</p>
+<p>
+<img width="602" height="502" id="Picture 1" src="RobotTool_ToolOffset_files/image001.png">
+</p>
+<p style="margin-left:36.0pt;text-indent:-18.0pt">
+-
+<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>collision data only
+</p>
+<p>
+<img width="602" height="516" src="RobotTool_ToolOffset_files/image002.png">
+</p>
+<p style="margin-left:36.0pt;text-indent:-18.0pt">
+-
+<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>both offset and orientation and collision data
+</p>
+<p>
+<img width="601" height="463" src="RobotTool_ToolOffset_files/image003.png">
+</p>
+<h2>Calibrating a Tool</h2>
+<p>
+The tool offset can be calculated by performing a
+calibration procedure. It is possible to select 4 to 6 points to be captured.
+</p>
+<p>
+<img width="334" height="542" src="RobotTool_ToolOffset_files/image004.png">
+</p>
+<p>
+During the calibration procedure the robot has to be moved
+to different positions and orientations trying to keep the tip of the tool as
+close as possible to a pre-selected point in 3D space. Usually a calibration
+object is fixed in a stable position relative the robot so that it can be used
+as a reference point.
+</p>
+<p>
+The points are captured using the 
+<a href="RobotJogTool.html">Robot
+Jog Tool</a>
+ user interface.
+</p>
+<p>
+<img border="0" width="593" height="468" src="RobotTool_ToolOffset_files/image005.png">
+</p>
+<p>
+The operator should tune the robot position and orientation
+until the tip goes as close as possible to the reference object. 
+</p>
+<p>
+By pressing the ‘Capture’ button the point is accepted and
+stored in the calibration wizard and robot jog tool is closed.
+</p>
+<p>
+The corresponding button changes its state and displays the
+coordinates of the captured point with respect to the tool mount at the last
+joint of the arm.
+</p>
+<p>
+<img border="0" width="334" height="542" src="RobotTool_ToolOffset_files/image006.png">
+</p>
+<p>
+Then the operator can continue by capturing the next point.
+</p>
+<p>
+Once enough points are captured the calibration algorithm
+will attempt to calculate the tool offset based on the input points that are
+collected.
+</p>
+<p>
+<img border="0" width="334" height="555" src="RobotTool_ToolOffset_files/image007.png">
+</p>
+<p>
+The outcome of the calculation will be displayed in the
+‘Result’ section as X, Y, Z coordinates as well as a standard deviation which
+is a measure of how well the captured points are grouped after applying the
+calculated tool offset to them.
+</p>
+<p>
+For each captured point an individual deviation value is
+displayed as well. It can be used as an indication for the quality of the point
+and the operator can decide to recapture some of the points in order to improve
+the calibration.
+</p>
+<p>
+By pressing the ‘Calibrate’ button the tool offset data will
+be stored to the controller.
+</p>
+<p>
+The operator can select the name of the tool as well which
+should be unique as it is used to reference the tool in programs.
+</p>
+<p>
+The algorithm for calculation of the calibration uses TABLE
+range on the controller to store the captured points and to receive the result.
+It is possible to adjust the used range:
+</p>
+<h2><img border="0" width="322" height="90" src="RobotTool_ToolOffset_files/image008.png">
+</h2>
+<h2>Modifying Tool Offset And Collision Info</h2>
+<p>
+By pressing 
+<img border="0" width="29" height="26" src="RobotTool_ToolOffset_files/image009.png">
+ button the operator can directly
+type-in a new tool offset or to modify the coordinates or the name of
+previously defined entry. That is particularly useful when the orientation of
+the tool coordinate system is different than the one of the last joint of the
+robot and needs to be adjusted.
+</p>
+<p>
+<img border="0" width="211" height="381" src="RobotTool_ToolOffset_files/image010.png">
+</p>
+<p>
+By pressing the ‘Calibrate…’ button it is possible to launch
+the calibration wizard.
+</p>
+<p>
+By pressing the ‘Apply’ button the changes are stored to the
+controller.
+</p>
+<h2>Deleting a Tool</h2>
+<p>
+By pressing 
+<img border="0" width="25" height="25" src="RobotTool_ToolOffset_files/image011.png">
+button the data stored in
+selected tool definition entries will be deleted and they will become empty.
+</p>
+<p>
+&nbsp;
+</p>
+</body>
+</html>

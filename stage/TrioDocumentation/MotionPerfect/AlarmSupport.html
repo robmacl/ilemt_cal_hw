@@ -1,0 +1,211 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>Alarm Support</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>Alarm support</h1>
+<p>
+A built-in functionality for alarm support is based on a new
+type of data on the controller called Alarm Definitions project item.
+</p>
+<p>
+&nbsp;
+</p>
+<h2>Alarm definitions</h2>
+<p>
+<img width="547" height="245" src="AlarmSupport_files/image004.png" alt="A screenshot of a computer&#10;&#10;Description automatically generated">
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+The alarm definitions controller data item is a dedicated
+data structure that holds the defined alarms with their parameters (data
+fields). There are set of mandatory parameters for each alarm. One can add additional
+(custom) data parameters if the project design requres it.
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+Here is a sample content of the alarm definitions file
+opened in the dedicated MotionPerfect editor:
+</p>
+<p>
+<img width="602" height="194" src="AlarmSupport_files/image005.png" alt="A screenshot of a computer&#10;&#10;Description automatically generated">
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+The mandatory fields are described below.
+</p>
+<ul style="list_style_type:disc">
+<li class="indent-list-first">
+<span class="MsoIntenseEmphasis">Name</span> – Alarm name as a text
+</li>
+<li class="indent-list-middle">
+<span class="MsoIntenseEmphasis">Alarm code</span> – arbitrary
+number that identifies the particular alarm. It can be used in project help documentation
+or with BASIC functions from the AlarmSupport package
+</li>
+<li class="indent-list-middle">
+<span class="MsoIntenseEmphasis">Raise condition</span> – a
+condition that resolves to zero or non-zero value. This is the alarm trigger
+condition. It is in Trio BASIC format and is entered as a text (BASIC code).
+</li>
+<li class="indent-list-middle">
+<span class="MsoIntenseEmphasis">Clear condition</span> – same as
+Raise condition, but defines the alarm clear trigger. If not entered (default)
+the opposite to Raise condition is assumed. Use with care! 
+<br>
+
+Using this condition we can implement alarm threshold tolerance. For example
+raise condition can be AIN(1) &gt; 100, clear condition can be AIN(1) &lt; 90.
+That would filter out AIN(1) oscillations between value of 90 and 100 before
+the alarm is cleared.
+</li>
+<li class="indent-list-middle">
+<span class="MsoIntenseEmphasis">Indicator object</span> – a data
+object on the controller that is set to value of 1 when the alarm is raised and
+to value of 0 when the alarm is cleared. This object can be used further in
+programs as an alarm signal (state) or in HMI designs
+</li>
+<li class="indent-list-middle">
+<span class="MsoIntenseEmphasis">Description</span> – text
+description of the alarms. Can be used for information as well as in the UI
+(HMI).
+</li>
+<li class="indent-list-last">
+<span class="MsoIntenseEmphasis">Class</span> – alarm class. The
+class determines the alarm outlook in the UI and other specifics – like
+acknowledge state support.
+</li>
+</ul>
+<p>
+There are three pre-defined alarm classes at
+present:
+</p>
+<p>
+<img width="317" height="409" src="AlarmSupport_files/image006.png" alt="A screenshot of a computer screen&#10;&#10;Description automatically generated">
+</p>
+<p>
+The alarm message outlook (respected by HMI
+implementation) can be changed from here.
+</p>
+<span style='font-family:"Calibri",sans-serif'><br clear="all">
+
+</span><p>
+&nbsp;
+</p>
+<h2>Alarm server program</h2>
+<p>
+The alarm server program is delivered from the alarm
+definitions. Its purpose is to watch for alarm trigger (raise or clear)
+conditions. When an alarm trigger condition has changed the program does the
+following:
+</p>
+<ol style="list_style_type:decimal">
+<li class="indent-list-first">
+Emits
+a specific channel #9 notification message. This is used internally by the HMI
+(Uniplay) device.
+</li>
+<li class="indent-list-last">
+Set
+the indicator object to 1 or 0 respecting the alarm state.
+</li>
+</ol>
+<p>
+The alarm server program is generated automatically by
+MotionPerfect. There are two options for its code generation:
+</p>
+<h3>Alarm server program (standalone process)</h3>
+<p>
+&nbsp;
+</p>
+<p>
+<img width="525" height="90" src="AlarmSupport_files/image007.png" alt="A screenshot of a computer&#10;&#10;Description automatically generated">
+<br>
+<br>
+</p>
+<p>
+This option shall be chosen when a stand-alone ALARM_SERVER
+basic program is needed. This program is generated from the content of Alarm
+definitions. When run it will watch for alarm trigger conditions and dispatch
+appropriate events. Also set the indicator objects for the alarms as per alarm
+definitions. There are different options that facilitate generation and running
+the program. The program appears in the Project tree as a normal BASIC program
+and can be operated as such. Modifying this program by hand is not advised as
+it may get overwritten by MotionPerfect at some point.
+</p>
+<p>
+&nbsp;
+</p>
+<h3>Alarm server library (functions)</h3>
+<p>
+<img width="467" height="82" src="AlarmSupport_files/image008.png" alt="A screenshot of a computer&#10;&#10;Description automatically generated">
+</p>
+<p>
+This option can be chosen when the project would not need a
+dedicated process running the alarm server code. A BASIC library is generated
+instead. It has two functions – initializer and alarm check function. The
+project developer would need to call the library initializer function once and
+then periodically call the alarm check function. Such a case might be suitable
+for projects with limited process count or when the alarm check should be done
+on a certain period. Please be aware that calling the alarm check function too
+often (times per second) may lead to controller performance hit.
+</p>
+<p>
+Please refer to the generated library code for details.
+</p>
+<p>
+&nbsp;
+</p>
+<h2>Uniplay (HMI) alarm support</h2>
+<p>
+Uniplay supports corresponding UI components for displaying
+the alarm state and the alarm event log. Please refer the HMI help for more
+details.
+</p>
+<p>
+&nbsp;
+</p>
+<h2>Using alarms in your project</h2>
+<ol style="list_style_type:decimal">
+<li class="indent-list-first">
+Design
+and create your alarm definitions data file (
+<img width="16" height="16" id="Picture 1" src="AlarmSupport_files/image009.png">
+) using the dedicated
+editor in Motion Perfect. Alarms Support package will be needed in your
+project. MotionPerfect will suggest adding it. Otherwise, you can add it
+manually via the standard project 
+<a href="Package_Add.html">package management</a>
+.
+</li>
+<li class="indent-list-middle">
+Set
+alarm server generation options as appropriate to your project. Make sure you
+generate the alarm server program code from the latest changes to alarm
+definitions.
+</li>
+<li class="indent-list-middle">
+(If
+required) Build your HMI design using the alarm components available from the
+Toolbox specify. A dedicated script function is available for extended alarm
+utilization (see the HMI alarm topic for details).
+</li>
+<li class="indent-list-last">
+(If
+required) Build your programs or IEC logic around alarm indicator objects.
+</li>
+</ol>
+
+
+
+</body>
+</html>

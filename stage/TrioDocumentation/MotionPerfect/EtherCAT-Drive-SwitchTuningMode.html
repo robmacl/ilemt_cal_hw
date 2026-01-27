@@ -1,0 +1,276 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>EtherCAT Drive Switch Tuning Mode</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>EtherCAT Drive Change Tuning Mode</h1>
+<p>
+The Change Tuning Mode function is used to calculate swap
+between the three supported tuning modes. This tool is available in all tuning
+modes
+</p>
+<p>
+<img width="601" height="366" src="EtherCAT-Drive-SwitchTuningMode_files/image001.jpg">
+</p>
+<p>
+Selecting this function will launch a wizard which will
+guide the change of tuning mode.
+</p>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="100" class="tablegrid">
+
+  
+<p class="CAUTIONHeading">
+<img width="67" height="67" src="EtherCAT-Drive-SwitchTuningMode_files/image002.png">
+</p>
+
+  
+</td>
+<td width="503" class="tablegrid">
+
+  
+<p class="CAUTIONTextList">
+Stop the
+  Motor running before performing this function. 
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+&nbsp;
+</p>
+<p>
+The wizard will perform all necessary parameter changes,
+synchronise Motion Perfect and then re-start the drive to allow the change of
+tuning mode to take effect. 
+</p>
+<table class="tablegrid">
+
+ 
+<thead>
+<tr>
+<td width="73" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Parameter</span></p>
+
+   
+</td>
+<td width="113" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Setting</span></p>
+
+   
+</td>
+<td width="340" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Meaning</span></p>
+
+   
+</td>
+<td width="83" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Classification</span></p>
+
+   
+</td>
+</tr>
+</thead>
+
+ 
+<tr>
+<td width="73" rowspan="5" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn100</span></p>
+
+  
+</td>
+<td width="113" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>1
+  [Default]</span></p>
+
+  
+</td>
+<td width="340" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Tuning-less</span></p>
+
+  
+</td>
+<td width="83" rowspan="5" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Function</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="113" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>2</span></p>
+
+  
+</td>
+<td width="340" class="tablegrid">
+
+  
+<p class="TableText">
+<i><span style='font-family:"Calibri",sans-serif'>Reserved</span></i></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="113" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>3</span></p>
+
+  
+</td>
+<td width="340" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>One-Parameter
+  Auto-Tuning</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="113" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>4</span></p>
+
+  
+</td>
+<td width="340" class="tablegrid">
+
+  
+<p class="TableText">
+<i><span style='font-family:"Calibri",sans-serif'>Reserved</span></i></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="113" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>5</span></p>
+
+  
+</td>
+<td width="340" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Manual
+  tuning</span></p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+The wizard sequence is:
+</p>
+<ul type="disc">
+
+ 
+<li>
+<b>Warning screen</b>, please ensure it is safe to change
+     the tuning mode.  As this requires a restart of the drive, control of the
+     motor will be lost.
+</li>
+
+
+</ul>
+<p align="center" style="margin-left:36.0pt">
+<img width="545" height="392" id="Picture 1" src="EtherCAT-Drive-SwitchTuningMode_files/image003.png">
+</p>
+<ul type="disc">
+
+ 
+<li>
+<b>Select Tuning Mode</b>, select the new tuning mode
+</li>
+
+
+</ul>
+<p align="center" style="margin-left:36.0pt">
+<img width="545" height="392" src="EtherCAT-Drive-SwitchTuningMode_files/image004.png">
+</p>
+<ul type="disc">
+
+ 
+<li>
+<b>Reset</b>, apply the new tuning mode and restart the
+     drive
+</li>
+
+
+</ul>
+<p align="center" style="margin-left:36.0pt">
+<img width="531" height="382" src="EtherCAT-Drive-SwitchTuningMode_files/image005.png">
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+&nbsp;
+</p>
+</body>
+</html>

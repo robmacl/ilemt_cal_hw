@@ -1,0 +1,176 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>EtherCAT Diagnostics</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>EtherCAT Diagnostics Wizard</h1>
+<h2>Overview</h2>
+<p>
+The diagnostics wizard is used for the collection of
+diagnostic and debugging information and presenting it to the user in form of a
+report.
+</p>
+<h2>Configuration page</h2>
+<p>
+<img width="624" height="471" id="Picture 1" src="EtherCAT-Diagnostics_files/image001.jpg">
+</p>
+<p>
+To open the wizard double-click on the controller image in
+the 
+<a href="IntelligentDrives_EtherCAT.html">Intelligent Drives</a>
+ screen.
+</p>
+<p>
+The wizard starts with the configuration page. It contains
+user interface to select devices and which information is to be collected and
+added to the report.
+</p>
+<h3>Devices List</h3>
+<p>
+EtherCAT devices detected by the controller are presented to
+the user as a list. The user can select from which devices the diagnostic
+information will be collected. If no devices are automatically detected it is
+possible to add up to 3 custom entries by using the 
+<img border="0" width="17" height="17" src="EtherCAT-Diagnostics_files/image002.png">
+ button. These can be
+removed later by selecting an existing custom device entry in the list and
+pressing the 
+<img border="0" width="17" height="17" src="EtherCAT-Diagnostics_files/image003.png">
+ button.
+</p>
+<p>
+For custom entries the user can edit their name, slave
+position and configured address.
+</p>
+<p>
+<img border="0" width="624" height="66" src="EtherCAT-Diagnostics_files/image004.png">
+</p>
+<h3>Global Sections</h3>
+<p>
+This list represents the following sections
+from the report containing information which is not specific to a device, but
+instead is global for either the controller itself or the EtherCAT module in
+case of modular architectures:
+</p>
+<ul type="disc">
+
+ 
+<li>
+System Error – system error is retrieved
+     and presented in human readable form;
+</li>
+
+ 
+<li>
+Unit Error – unit error is retrieved and
+     units in error are reported;
+</li>
+
+ 
+<li>
+Network Configuration – EtherCAT network
+     level information is displayed like the link status and the number of
+     slaves attached;
+</li>
+
+ 
+<li>
+EtherCAT Error Log – error log is
+     collected as reported by ETHERCAT $d5 and $d6 functions.
+</li>
+
+
+</ul>
+<h3>Per Slave Sections</h3>
+<p>
+That list represents following sections
+containing information collected on per slave device basis:
+</p>
+<ul type="disc">
+
+ 
+<li>
+SII Configuration  - interrogate slave
+     information interface via ETHERCAT $61 function;
+</li>
+
+ 
+<li>
+ESC Configuration – interrogate ESC
+     registers via ETHERCAT $31 function;
+</li>
+
+ 
+<li>
+Synchronization – collect synchronization
+     related info via ESC registers;
+</li>
+
+ 
+<li>
+SDO Configuration – collect SDO
+     information as CoE objects via ETHERCAT $41 function and requires that
+     configured address is correct;
+</li>
+
+ 
+<li>
+MDP Configuration – as CoE objects via
+     ETHERCAT $41 function and requires that configured address is correct;
+</li>
+
+ 
+<li>
+Slave Diagnosis – information contained
+     in CoE $10f3 object array
+</li>
+
+
+</ul>
+<h3>Custom Configuration</h3>
+<p>
+The configuration page allows using custom
+configuration from an XML file in specific cases when standard configuration is
+not suitable.
+</p>
+<h2>Information Collection Page</h2>
+<p>
+<img border="0" width="624" height="471" src="EtherCAT-Diagnostics_files/image005.png">
+</p>
+<p>
+The wizard starts collecting data after
+configuration has been selected. It might be a lengthy process depending on the
+number of selected devices and sections. Progress is displayed on information
+collection page indicating currently processed device as well as estimation of
+the remaining time.
+</p>
+<h2>Report Page</h2>
+<p>
+<img border="0" width="624" height="471" src="EtherCAT-Diagnostics_files/image006.jpg">
+</p>
+<p>
+The report page is displayed after the
+information has been successfully collected. The information is presented in
+hierarchical form and it is possible to collapse and expand different sections.
+</p>
+<p>
+The report can be copied to the clipboard
+or printed 
+by pressing 
+<img border="0" width="23" height="23" src="EtherCAT-Diagnostics_files/image007.png">
+  and 
+<img border="0" width="39" height="23" src="EtherCAT-Diagnostics_files/image008.png">
+ buttons respectively.
+</p>
+<p>
+ ‘Send as email’ button can be used to prepare and send the
+report as an email to Trio Technical Support.
+</p>
+<p>
+&nbsp;
+</p>
+</body>
+</html>

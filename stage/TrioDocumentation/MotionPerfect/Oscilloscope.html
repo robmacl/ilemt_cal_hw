@@ -1,0 +1,643 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>Oscilloscope</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>Oscilloscope</h1>
+<p>
+<a name="Oscilloscope"></a>
+<img width="602" height="436" id="Picture 1" src="Oscilloscope_files/image001.png">
+</p>
+<p>
+The software oscilloscope can be used to trace many of the
+variables and parameters on the 
+<i>Motion</i> Coordinator, aiding program
+development and machine commissioning. 
+</p>
+<p>
+There are up to 8 channels available, each capable of
+recording at up to 1000 samples/sec, with manual cycling or program linked
+triggering. 
+</p>
+<p>
+The controller records the data at the selected frequency,
+and then uploads the information to the oscilloscope to be displayed. If a
+larger time base value is used, the data is retrieved in sections, and the
+trace is seen to be plotted in sections across the display. Exactly when the
+controller starts to record the required data depends upon whether it is in
+manual or program trigger mode. In program mode, it starts to record data when
+it encounters a 
+<b>TRIGGER</b> instruction in a program running on the controller.
+However, in manual mode it starts recording data immediately.
+</p>
+<h2>Oscilloscope Main Menu</h2>
+<p>
+There are 4 sub-menus available:
+</p>
+<ol style="list_style_type:decimal">
+<li class="indent-list-first">
+<a href="#_Traces">Traces</a>
+</li>
+<li class="indent-list-middle">
+<a href="#_Cursors">Cursors</a>
+</li>
+<li class="indent-list-middle">
+<a href="#_View">View</a>
+</li>
+<li class="indent-list-middle">
+<a href="#_Settings">Profiles</a>
+</li>
+<li class="indent-list-last">
+<a href="Oscilloscope_Settings.html">Settings</a>
+</li>
+</ol>
+<h3><a name="_Traces"></a>
+Traces</h3>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="105" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Entry
+</p>
+
+  
+</td>
+<td width="511" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Description
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="105" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Add New Trace
+</p>
+
+  
+</td>
+<td width="511" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Adds a new trace to the end of the existing trace list,
+  up to a maximum of 8
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="105" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Load
+</p>
+
+  
+</td>
+<td width="511" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Load a trace (selected from a list)
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="105" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Save
+</p>
+
+  
+</td>
+<td width="511" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Save a trace (selected from a list)
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="105" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Reset
+</p>
+
+  
+</td>
+<td width="511" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Resets a trace (selected from a list). All values
+  returned to default and the trace turned off
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="105" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Remove
+</p>
+
+  
+</td>
+<td width="511" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Remove a trace (selected from a list)
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="105" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Export Traces
+</p>
+
+  
+</td>
+<td width="511" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Exports trace data to a file. The user can select which
+  traces are stored.
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<h3><a name="_Cursors"></a>
+Cursors</h3>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="94" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Entry
+</p>
+
+  
+</td>
+<td width="522" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Description
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="94" valign="top" class="tablegrid">
+
+  
+<p>
+Add New Cursor
+</p>
+
+  
+</td>
+<td width="522" valign="top" class="tablegrid">
+
+  
+<p>
+Adds a new cursor to the end of the existing cursor list
+  up to a maximum of 8
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="94" valign="top" class="tablegrid">
+
+  
+<p>
+Map
+</p>
+
+  
+</td>
+<td width="522" valign="top" class="tablegrid">
+
+  
+<p>
+Maps a cursor onto a trace (cursor then trace selected
+  from lists)
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="94" valign="top" class="tablegrid">
+
+  
+<p>
+Reset
+</p>
+
+  
+</td>
+<td width="522" valign="top" class="tablegrid">
+
+  
+<p>
+Resets the cursor position to zero (cursor selected from
+  list)
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="94" valign="top" class="tablegrid">
+
+  
+<p>
+Remove
+</p>
+
+  
+</td>
+<td width="522" valign="top" class="tablegrid">
+
+  
+<p>
+Removes (hides) a cursor (selected from list)
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="94" valign="top" class="tablegrid">
+
+  
+<p>
+Go To
+</p>
+
+  
+</td>
+<td width="522" valign="top" class="tablegrid">
+
+  
+<p>
+Got to cursor (selected from list). This is used when
+  zoomed in and it attempts to scroll the current view until the selected
+  cursor in the centre
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="94" valign="top" class="tablegrid">
+
+  
+<p>
+Centre in View
+</p>
+
+  
+</td>
+<td width="522" valign="top" class="tablegrid">
+
+  
+<p>
+Positions the cursor (selected from a list) to the centre
+  of the current view.
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<h3><a name="_View"></a>
+View</h3>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="104" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Entry
+</p>
+
+  
+</td>
+<td width="512" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Description
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="104" valign="top" class="tablegrid">
+
+  
+<p>
+Take Snapshot
+</p>
+
+  
+</td>
+<td width="512" valign="top" class="tablegrid">
+
+  
+<p>
+Takes a snapshot of the oscilloscope trace area and copies
+  it to the Windows Clipboard
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<h3><a name="_Settings"></a>
+<a name="_Profiles"></a>
+Profiles</h3>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="116" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Entry
+</p>
+
+  
+</td>
+<td width="500" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Description
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="116" valign="top" class="tablegrid">
+
+  
+<p>
+Add New Profile
+</p>
+
+  
+</td>
+<td width="500" valign="top" class="tablegrid">
+
+  
+<p>
+Adds a new oscilloscope profile with trace and cursor
+  configuration reset to defaults
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="116" valign="top" class="tablegrid">
+
+  
+<p>
+Profile list
+</p>
+
+  
+</td>
+<td width="500" valign="top" class="tablegrid">
+
+  
+<p>
+For each defined profile there is a corresponding menu
+  entry allowing to select the profile as well as to rename, copy or delete it.
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<h3>Settings</h3>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="116" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Entry
+</p>
+
+  
+</td>
+<td width="500" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Description
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="116" valign="top" class="tablegrid">
+
+  
+<p>
+Export Settings
+</p>
+
+  
+</td>
+<td width="500" valign="top" class="tablegrid">
+
+  
+<p>
+Export the current settings to a file
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="116" valign="top" class="tablegrid">
+
+  
+<p>
+Import Settings
+</p>
+
+  
+</td>
+<td width="500" valign="top" class="tablegrid">
+
+  
+<p>
+Load a previously exported set of settings from a file
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="116" valign="top" class="tablegrid">
+
+  
+<p>
+Reset Settings
+</p>
+
+  
+</td>
+<td width="500" valign="top" class="tablegrid">
+
+  
+<p>
+Resets all the settings (including trace and cursor
+  settings) to their default values
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="116" valign="top" class="tablegrid">
+
+  
+<p>
+<a href="Oscilloscope_Settings.html">Settings</a>
+</p>
+
+  
+</td>
+<td width="500" valign="top" class="tablegrid">
+
+  
+<p>
+Allows to user to change the oscilloscope settings
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<h2>Controls </h2>
+<p>
+There are four groups of controls, one for each of the
+oscilloscope's four channels, a group of horizontal function controls and a
+group to control up to four cursors.
+</p>
+<p>
+<a href="Oscilloscope_ChannelControls.html">Oscilloscope
+Channel Controls</a>
+</p>
+<p>
+<a href="Oscilloscope_HorizontalControls.html">Oscilloscope
+Horizontal Controls</a>
+</p>
+</body>
+</html>

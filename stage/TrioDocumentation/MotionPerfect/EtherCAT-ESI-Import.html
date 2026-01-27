@@ -1,0 +1,582 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>EtherCAT ESI Import</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>EtherCAT Slave Information Import</h1>
+<p>
+Controller firmware has built-in database
+with profiles for many EtherCAT devices. Devices that are not in the database
+can be supported by adding an 
+<a href="EtherCAT-EC_EXTEND-Editor.html">EC_EXTEND</a>
+ file containing the
+corresponding device information (profile).
+</p>
+<p>
+The most important parts of a device
+profile defined in EC_EXTEND are:
+</p>
+<ul style="list_style_type:disc">
+<li class="indent-list-first">
+Vendor ID
+</li>
+<li class="indent-list-middle">
+Product ID
+</li>
+<li class="indent-list-middle">
+Profile revision
+</li>
+<li class="indent-list-middle">
+Slave type
+</li>
+<li class="indent-list-middle">
+Axis count, digital and analog IO count
+</li>
+<li class="indent-list-middle">
+Data transmitted from device (RxPDO)
+</li>
+<li class="indent-list-middle">
+Data received by device (TxPDO)
+</li>
+<li class="indent-list-middle">
+Sync manager setup
+</li>
+<li class="indent-list-last">
+SDO initialization commands
+</li>
+</ul>
+<p>
+Motion Perfect provides tools for creating
+the 
+<a href="EtherCAT-EC_EXTEND-Editor.html">EC_EXTEND</a>
+ file based on the EtherCAT Slave Information file provided by the
+device’s vendor.
+</p>
+<p class="note">
+Note : according to the EtherCAT specification,
+every EtherCAT device vendor should provide a device description file for their
+devices, the so called EtherCAT Slave Information file (ESI file). It is an xml
+file with specific structure and usually can be found on the vendor’s website.
+</p>
+<p>
+The tool auto-fills much of the necessary
+information for a device profile by parsing the ESI file. One of the most
+complex parts is defining the SDI initialization commands. The tool
+auto-generates this list depending on the RxPDO and TxPDO data.
+</p>
+<p>
+The ESI import tool can be launched from a
+couple of locations in Motion Perfect:
+</p>
+<ul style="list_style_type:disc">
+<li class="indent-list-first">
+Context menu of device/controller in EtherCAT
+network diagram
+</li>
+<li class="indent-list-middle">
+Toolbar command on EC_EXTEND text editor
+</li>
+<li class="indent-list-last">
+Toolbar command on EC_EXTEND guided editor
+</li>
+</ul>
+<p>
+The ESI import tool works in two modes:
+</p>
+<ul style="list_style_type:disc">
+<li class="indent-list-first">
+Simple mode. This mode is the default one, in
+case the device is simple enough and the tool can auto-fill the required
+information and generate EC_EXTEND file.
+</li>
+<li class="indent-list-last">
+Advanced mode. This mode is activated either by
+user request or when the device is too complex to auto-fill the required
+information.
+</li>
+</ul>
+<h1>Steps of importing ESI file</h1>
+<h2>Selecting a device</h2>
+<p>
+When launched the tool provides option to
+select for which device to create a profile for. If the device is not in the
+list, its ESI file can be imported and then the device will appear in the list
+of available devices. After selecting the device the tool can proceed to the
+next step.
+</p>
+<p>
+<img border="0" width="672" height="483" id="Picture 3" src="EtherCAT-ESI-Import_files/image011.jpg" alt="A screenshot of a social media post&#10;&#10;Description automatically generated">
+</p>
+<h2>Definition of the profile</h2>
+<h3>Working in simple mode</h3>
+<p>
+In Simple mode, the profile is specified on
+a single screen
+</p>
+<p>
+<img border="0" width="672" height="483" id="Picture 4" src="EtherCAT-ESI-Import_files/image012.jpg" alt="A screenshot of a cell phone&#10;&#10;Description automatically generated">
+</p>
+<p>
+The properties that can be modified are:
+</p>
+<ul style="list_style_type:disc">
+<li class="indent-list-first">
+Name: the name of the profile
+</li>
+<li class="indent-list-middle">
+Revision: by default it is auto-filled based on
+the ESI file, but could be changed
+</li>
+<li class="indent-list-last">
+Axis type : this property defines the axis
+control mode for servo drives and stepper motors. The possible values are
+POSITION, SPEED, TORQUE. 
+</li>
+</ul>
+<p class="note">
+Note : the selected axis type must correspond to
+the selected RxPDO and TxPDO
+</p>
+<ul style="list_style_type:disc">
+<li class="indent-list-first">
+RxPDO : data received by the device. Usually the
+device defines some built-in RxPDOs and also there are some Trio predefined
+RxPDOs which the device could support that could be selected from the drop
+down.
+</li>
+<li class="indent-list-last">
+TxPDO : data transmitted from the device. Usually
+the device defines some built-in RxPDOs and also there are some Trio predefined
+RxPDOs which the device could support that could be selected from the drop
+down.
+</li>
+</ul>
+<p class="note">
+Important: in case of multi-axes servo drives /
+stepper motors, the RxPDOs and TxPDOs contain the same set of data for every
+axis. For example a two-axes servo drive in position mode would have a RxPDO :
+CTRL_WORD, TARGET_POSITION, CTRL_WORD, TARGET_POSITION
+</p>
+<p>
+The profile can  be generated by pressing
+the “Next” button.
+</p>
+<p>
+In case more flexibility is needed, the
+tool can be switched to advanced mode by pressing the “Advanced mode” button at
+the bottom left corner of the tool.
+</p>
+<h3>Working in Advanced mode</h3>
+<p>
+In advanced mode the tool provides a couple
+of screens.
+</p>
+<h4>Profile screen</h4>
+<p>
+<img border="0" width="672" height="483" id="Picture 5" src="EtherCAT-ESI-Import_files/image013.jpg" alt="A screenshot of a cell phone&#10;&#10;Description automatically generated">
+</p>
+<p>
+Similar to the Simple mode profile screen,
+but allows only to modify the Name, Revision and Axis Type properties.
+</p>
+<h4>Slave Config screen</h4>
+<p>
+&nbsp;
+</p>
+<p>
+<img border="0" width="672" height="483" id="Picture 7" src="EtherCAT-ESI-Import_files/image014.jpg" alt="A screenshot of a social media post&#10;&#10;Description automatically generated">
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+This screen allows to modify slave
+configuration properties.
+</p>
+<p>
+Slave Group
+</p>
+<ul style="list_style_type:disc">
+<li class="indent-list-first">
+Type: This property defines the slave type. Most
+common slave types are SERVO or digital/analog input/output devoces.
+</li>
+<li class="indent-list-middle">
+Number of axes: This property defines the number
+of axes that the controller shall allocate when loading the profile for this
+device.
+</li>
+<li class="indent-list-middle">
+Digital Inputs: The number of digital inputs
+this device has and that are mapped in the TxPDO
+</li>
+<li class="indent-list-middle">
+Digital Outputs: The number of digital ouputs
+this device has and that are mapped in the RxPDO
+</li>
+<li class="indent-list-middle">
+Analogue Inputs: The number of analogue  inputs
+this device has and that are mapped in the TxPDO
+</li>
+<li class="indent-list-middle">
+Analogue Outputs: The number of analogue ouputs
+this device has and that are mapped in the RxPDO
+</li>
+<li class="indent-list-middle">
+Identification Register (Optional): in case the
+device supports Explicit Device Identification according ETG.1020/ETG.1000
+</li>
+<li class="indent-list-last">
+Control Word (Optional): 
+<span style='font-family:"Verdana",sans-serif'>defines the control word
+value used when the drive is enabled (this is the final state value) when it is
+in the operational ESM state. The value is written to CoE object 0x6040:00 or
+the SoE IDN 134.  </span></li>
+</ul>
+<p class="note">
+Note that it is also necessary to set the Control Mode property
+to USER_DEFINED (since it defines the control word enabled value.) 
+</p>
+<p>
+VR Group
+</p>
+<ul style="list_style_type:disc">
+<li class="indent-list-first">
+Input Address: the VR index of VR mapped data of
+device’s TxPDO
+</li>
+<li class="indent-list-last">
+Output Address: the VR index of VR mapped data
+of device’s RxPDO
+</li>
+</ul>
+<p>
+Mailbox Group
+</p>
+<ul style="list_style_type:disc">
+<li class="indent-list-first">
+Startup protocol : the startup mailbox protocol.
+Usually CoE
+</li>
+<li class="indent-list-middle">
+Protocols: protocols that the device supports
+</li>
+<li class="indent-list-last">
+Rate: mailbox rate in milliseconds
+</li>
+</ul>
+<p>
+Cyclic Data Group
+</p>
+<ul style="list_style_type:disc">
+<li class="indent-list-first">
+Axis Type : in case an axis is allocated for the
+device, this property determines the ATYPE that will be set for the
+corresponding axis
+</li>
+<li class="indent-list-middle">
+Control Mode: this property is related to the
+previous (Axis Type) and determines the control mode of the device.
+</li>
+<li class="indent-list-middle">
+Use Logical Read/Write : this property defines
+if the ESC supports the LRW command or the master should use the LRD and LWR.
+Default is false, which means the master shall use the LRW command. Otherwise
+the master shall use the LRD and LWR commands.
+</li>
+<li class="indent-list-last">
+State : defines at which states of the ESM the
+device supports cyclic data. Usually these are safe operational and
+operational.
+</li>
+</ul>
+<p>
+Distributed Click Group
+</p>
+<p class="MsoListParagraph" style="text-indent:-18.0pt">
+-
+<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Mode : 
+defines the Slave configuration’s Distributed
+Clock information. This is the value written to ESC regiser 0x980
+</p>
+<h4>ESC screen</h4>
+<p>
+The ESC screen displays the imported
+EtherCAT Slave Chip configuration information. Currently the Sync Manager (SM)
+configuration is supported only.
+</p>
+<p>
+<img border="0" width="672" height="483" id="Picture 6" src="EtherCAT-ESI-Import_files/image015.jpg" alt="A screenshot of a cell phone&#10;&#10;Description automatically generated">
+</p>
+<p>
+Every SM entry has the following
+properties:
+</p>
+<ul style="list_style_type:disc">
+<li class="indent-list-first">
+Index : SM’s index
+</li>
+<li class="indent-list-middle">
+Start address: SM’s logical start address
+</li>
+<li class="indent-list-middle">
+Size: SM’s size. Note that the size of the
+INPUTS and OUTPUTS are dynamic and are calculated based on the PDOs
+</li>
+<li class="indent-list-middle">
+Control byte: SM’s control byte
+</li>
+<li class="indent-list-middle">
+Enable: enable/disable this SM
+</li>
+<li class="indent-list-last">
+Function: function of SM. Possible values are
+MBOXIN, MBOXOUT, INPUTS, OUTPUTS, BOOTMBOXIN, BOOTMBOXOUT
+</li>
+</ul>
+<h4>Modules screen</h4>
+<p>
+Some devices have modular structure. For
+example a two-axis servo drive could be implemented with a modular design by
+having a module for each axis.
+</p>
+<p>
+The ESI file specifies the available and
+default modules for a device and they are shown on the Modules page.
+</p>
+<p>
+A module is always inserted into a slot.
+The slot types and module types acceptable by a slot are defined in the ESI
+file. The ESI file also might define the maximum and minimum number of times a
+particular slot type might occur.
+</p>
+<p>
+When importing the ESI file Motion Perfect
+will create a default module configuration based on the ESI file.
+</p>
+<p>
+<img border="0" width="672" height="482" id="Picture 9" src="EtherCAT-ESI-Import_files/image016.jpg">
+</p>
+<p>
+Every module has the following properties:
+</p>
+<ul style="list_style_type:disc">
+<li class="indent-list-first">
+Slot. A module is always inserted at a slot of a
+specified type. The slot name identifies uniquely the slot. The slot type is
+selected when adding the new module.
+</li>
+<li class="indent-list-middle">
+Name. The name defined in the ESI file.
+</li>
+<li class="indent-list-last">
+Id. The identification of the module as defined
+in the ESI file. This value is written to the 0xF030 configured modules address
+at initialization to configure the device. The id can be changed from the
+drop-down menu of the “Name” column.
+</li>
+</ul>
+<p>
+When trying adding a new module, the slot
+type is selected from a drop-down menu:
+</p>
+<p>
+<img border="0" width="672" height="483" id="Picture 1" src="EtherCAT-ESI-Import_files/image017.png" alt="A screenshot of a social media post&#10;&#10;Description automatically generated">
+</p>
+<p>
+The default module type will be set for the
+new slot.
+</p>
+<h4>RxPDO / TxPDO screens</h4>
+<p>
+Every EtherCAT device that participates in
+the cyclic data transfer has PDOs that are received or transmitted during
+operation.
+</p>
+<p>
+The device usually has a single PDO
+assignment object for receive (0x1C12) and a single PDO assignment object for
+transmit (0x1C13).
+</p>
+<p>
+These assignment objects contain (multiple)
+PDO mapping objects. Usually RxPDO mapping objects start at 0x1600 and TxPDO
+mapping objects start at 0x1A00.
+</p>
+<p>
+Every PDO mapping object defines a list of
+PDOs that are transmitted/received by the device.
+</p>
+<p>
+The complete list of PDO mapping objects
+which are set up in the PDO assignment object defines the full PDO profile of
+the device.
+</p>
+<p>
+Some devices have fixed PDO mapping
+objects, some of the PDO mapping objects could be mutually exclusive (i.e. only
+one of them could be set up in the PDO assignment object) and some devices have
+multiple PDO mapping objects, some of which could turned on/off and some of
+which could be mandatory.
+</p>
+<p>
+<img border="0" width="672" height="483" id="Picture 8" src="EtherCAT-ESI-Import_files/image018.jpg" alt="A screenshot of a social media post&#10;&#10;Description automatically generated">
+</p>
+<p>
+The RxPDO/TxPDO screen consists of 2 parts:
+</p>
+<ul style="list_style_type:disc">
+<li class="indent-list-first">
+Top part (Device) shows  the available PDO
+mapping objects on the device. The individual objects could be enabled/disabled
+and the PDOs in the PDO mapping objects could be edited.
+</li>
+<li class="indent-list-last">
+Bottom part (EC_EXTEND) shows the complete RxPDO
+/ TxPDO profile of the device that is going to be stored in the EC_EXTEND file.
+The list is composed of all PDOs from all enabled PDO mapping objects of the
+device
+</li>
+</ul>
+<p>
+Every PDO mapping object has the following
+properties:
+</p>
+<ul style="list_style_type:disc">
+<li class="indent-list-first">
+Enable – a PDO mapping object can be enabled or
+disabled. If it is enabled, it is added to the PDO assignment object and the
+PDOs in it are added to the cyclic data that is received/transmitted. It can be
+disabled by the user or by another PDO mapping object that is mutually
+exclusive with it. 
+</li>
+<li class="indent-list-middle">
+Fixed – read-only property defined in the ESI
+file. In case a PDO mapping object is fixed, PDOs can not be removed, added or
+modified and only the list of PDOs is defined in the ESI file.
+</li>
+<li class="indent-list-middle">
+Mandatory – read-only property defined in the
+ESI file. If a PDO mapping object is mandatory, it is always enabled and is
+added to the PDO assignment object.
+</li>
+<li class="indent-list-last">
+Excluded by – read-only property defined in the
+ESI file. PDO mapping objects could be mutually exclusive with each other.
+</li>
+</ul>
+<p class="note">
+Note : To enable a disabled mutually exclusive
+PDO mapping object, first disable the PDO mapping object that is mutually
+exclusive with it and then enable the desired PDO mapping object.
+</p>
+<p class="MsoListParagraph" style="text-indent:-18.0pt">
+-
+<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>List of PDOs (Process data objects) that are
+mapped in this PDO mapping object. Some devices have fixed PDO mapping objects
+and the PDOs in these mapping objects can not be altered. However many devices
+have configurable PDO mapping objects and PDOs can be added, removed or moved
+inside the list.
+</p>
+<p style="margin-left:18.0pt">
+Every PDO in the
+PDO mapping object has the following properties:
+</p>
+<ul style="list_style_type:disc">
+<li class="indent-list-first">
+Name (optional). The name is usually taken from
+the ESI file
+</li>
+<li class="indent-list-middle">
+Address. This is the CoE object address of the
+PDO
+</li>
+<li class="indent-list-middle">
+Map To. This is the target object in controller
+memory that the CoE object is mapped to
+</li>
+<li class="indent-list-middle">
+Length (in bytes). The length of the data of this
+object
+</li>
+<li class="indent-list-middle">
+Flags. Do not use. Must be zero.
+</li>
+<li class="indent-list-last">
+Axis Offset (read-only). Automatically
+calculated axis offset of PDO object in case of multi axes slave / modular
+device based on address, axis index, slot offset, etc.
+</li>
+</ul>
+<p style="margin-left:18.0pt">
+In case a PDO
+mapping object is not fixed, entries can be added, removed or modified.
+</p>
+<p style="margin-left:18.0pt">
+There are 3
+buttons that are enabled for every PDO mapping object when it is not fixed:
+</p>
+<ul style="list_style_type:disc">
+<li class="indent-list-first">
+Add entry. This adds a new empty entry at the
+end of the PDO mapping object
+</li>
+<li class="indent-list-middle">
+Load TRIO PDO. This displays dialog for
+selecting a predefined RxPDO/TxPDO list 
+</li>
+<li class="indent-list-last">
+Reload Predefined PDO. This reverts all
+modifications done by the user to the PDO mapping object and loads the PDOs
+defined in the ESI file for the PDO mapping object.
+</li>
+</ul>
+<h4>Init Commands screen</h4>
+<p>
+This page shows the list of initialization
+SDO commands for the device. The RxPDO and TxPDO configuration automatically
+generates a list with corresponding SDO commands. In addition, there could be
+SDO initialization commands defined in the ESI file which are appended at the
+end of the list.
+</p>
+<p>
+And it is possible to add user-defined SDO
+initialization commands at the end of the list.
+</p>
+<p>
+<img border="0" width="672" height="560" id="Picture 10" src="EtherCAT-ESI-Import_files/image019.jpg" alt="A screenshot of a cell phone&#10;&#10;Description automatically generated">
+</p>
+<p>
+&nbsp;
+</p>
+<h2>Saving the profile</h2>
+<p>
+<img border="0" width="672" height="560" id="Picture 11" src="EtherCAT-ESI-Import_files/image020.jpg" alt="A screenshot of a cell phone&#10;&#10;Description automatically generated">
+</p>
+<p>
+If the tool is operated in Tool mode from
+Motion Perfect it will generate a new EC_EXTEND file and prompt where to store
+the file.
+</p>
+<p>
+If the tool is operated in Sync mode from
+Motion Perfect there are two cases:
+</p>
+<ul style="list_style_type:disc">
+<li class="indent-list-first">
+If an EC_EXTEND file doesn’t yet exist, it will
+automatically create one and add the generated profile to it. 
+</li>
+<li class="indent-list-last">
+If an EC_EXTEND file exists already, it will 
+<a href="EtherCAT-EC_EXTEND-Editor.html">merge</a>
+ the generated profile with the existing EC_EXTEND file.
+</li>
+</ul>
+</body>
+</html>

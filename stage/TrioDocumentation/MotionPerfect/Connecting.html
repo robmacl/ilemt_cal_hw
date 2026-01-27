@@ -1,0 +1,120 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>Connecting to a Controller</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>Connecting to a Controller</h1>
+<p>
+Firstly a physical connection needs to be made between the
+PC and the controller. Normally this will be an Ethernet connection, either
+directly or over a network. Other types of connection are available for special
+purposes (such as firmware loading) or for direct connections to older
+controllers.
+</p>
+<p>
+When 
+<i>Motion</i> Perfect is first run it will go through
+more stages to make a connection as it normally remembers previous connection
+settings. See “
+<a href="InitialConnection.html">Initial Connection</a>
+” for
+details.
+</p>
+<p>
+Connecting 
+<i>Motion</i> Perfect to a controller is normally
+a two stage process:
+</p>
+<ol style="list_style_type:decimal">
+<li class="indent-list-first">
+Specify
+a set of communications parameters.
+</li>
+<li class="indent-list-last">
+Set
+an 
+<a href="OperatingModes.html">operating mode</a>
+.
+</li>
+</ol>
+<p>
+<i>Motion </i>Perfect remembers the settings for its last
+connection and uses these as defaults for the next connection.
+</p>
+<h2>Communications Parameters</h2>
+<p>
+To specify the communications parameters select “
+<a href="MainMenu.html#Controller">Controller</a>
+ / Connection Settings” from 
+<i>Motion</i>
+Perfect’s main menu or click on the connection settings indicator in the status
+bar.
+</p>
+<p>
+This will open the “
+<a href="ConnectionDialog.html">Connection
+dialog</a>
+”.  The appearance of the dialog is different depending on which
+interface has been selected.
+</p>
+<p>
+First select the interface required and then the parameters.
+
+</p>
+<p>
+To make a connection to a controller select an operating
+mode other than “Disconnected” from the “Controller” entry in the main menu or
+from the mode selector at the right end of the status bar at the bottom of the 
+<i>Motion</i>
+Perfect main window.
+</p>
+<p>
+Closing the dialog with “Apply” will update the current
+connection communication parameters. Closing it with “Apply and Connect” will
+update the current communications parameters and connect to the controller
+using the last used connection operating mode.
+</p>
+<h2>Operating Mode</h2>
+<p>
+Select an 
+<a href="OperatingModes.html">operating mode</a>
+
+from the “
+<a href="MainMenu.html#Controller">Controller</a>
+” section of the
+main menu or from the mode indicator in the status bar. 
+</p>
+<p>
+<i>Motion</i> Perfect will then try to connect to the
+controller using the selected operating mode and the previously selected
+communications parameters.
+</p>
+<h3>Project</h3>
+<p>
+If “Sync mode” was selected 
+<i>Motion</i> Perfect will try
+and synchronize the contents of the controller with the last used project. If
+the controller model is the same as the previously connected controller the
+project is automatically selected, if the controller model is different a
+dialog is displayed to allow the user to choose between modifying the project and
+cancelling the connect operation.
+</p>
+<p>
+<img border="0" width="422" height="352" id="Picture 1" src="Connecting_files/image001.png">
+</p>
+<p>
+If the user cancels then connection in “Tool Mode” is
+attempted.
+</p>
+<p>
+After cancelling the user can select a suitable option from
+the “
+<a href="MainMenu.html#Project">Project</a>
+” section of the main menu as
+needed.
+</p>
+</body>
+</html>

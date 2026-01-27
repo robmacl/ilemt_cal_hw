@@ -1,0 +1,168 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>MC_CONFIG File</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>MC_CONFIG File</h1>
+<p>
+The MC_CONFIG File is an initialisation script which can be
+used in Series 4 and later Motion Coordinators. The MC_CONFIG File, if present,
+is always run automatically at power-up. Although the MC_CONFIG file looks like
+a normal Trio BASIC program it can only contain a very limited number of
+parameter assignments. 
+</p>
+<p>
+Using the MC_CONFIG file is the recommended way to set
+system parameters. Any system parameters which are stored in flash memory on
+the controller and are not specified in the MC_CONFIG file will retain the
+value stared in flash memory. This also applies if there is no MC_CONFIG file.
+</p>
+<p class="note">
+Changes made to the MC_CONFIG file are only applied to the
+controller when it is reset. If changes are made to the MC_CONFIG file, the
+controller will not run any other programs until it has been reset.
+</p>
+<h2><a name="SupportedParameters">Supported Parameters</a>
+</h2>
+<p>
+At present the following parameters can be set:
+</p>
+<p class="fixed">
+ATYPE
+</p>
+<p class="fixed">
+AUTO_ETHERCAT
+</p>
+<p class="fixed">
+AXIS_ADDRESS
+</p>
+<p class="fixed">
+CANIO_ADDRESS
+</p>
+<p class="fixed">
+CANIO_BASE
+</p>
+<p class="fixed">
+CANIO_MODE
+</p>
+<p class="fixed">
+COMPILE_MODE
+</p>
+<p class="fixed">
+DRIVE_INDEX
+</p>
+<p class="fixed">
+DRIVE_MODE
+</p>
+<p class="fixed">
+DRIVE_PROFILE
+</p>
+<p class="fixed">
+DRIVEIO_BASE
+</p>
+<p class="fixed">
+ENCODER_BITS
+</p>
+<p class="fixed">
+HMI_PROC
+</p>
+<p class="fixed">
+IP_ADDRESS
+</p>
+<p class="fixed">
+IP_GATEWAY
+</p>
+<p class="fixed">
+IP_MEMORY_CONFIG
+</p>
+<p class="fixed">
+IP_NETMASK
+</p>
+<p class="fixed">
+IP_PROTOCOL_CONFIG
+</p>
+<p class="fixed">
+IP_PROTOCOL_CTRL
+</p>
+<p class="fixed">
+IP_TCP_TIMEOUT
+</p>
+<p class="fixed">
+IP_TCP_TX_THRESHOLD
+</p>
+<p class="fixed">
+IP_TCP_TX_TIMEOUT
+</p>
+<p class="fixed">
+MODULE_IO_MODE
+</p>
+<p class="fixed">
+MODULEIO_BASE
+</p>
+<p class="fixed">
+NODE_AXIS
+</p>
+<p class="fixed">
+NODE_AXIS_COUNT
+</p>
+<p class="fixed">
+NODE_INDEX
+</p>
+<p class="fixed">
+NODE_IO
+</p>
+<p class="fixed">
+NODE_PROFILE
+</p>
+<p class="fixed">
+PLC_CONFIG
+</p>
+<p class="fixed">
+REMOTE_PROC
+</p>
+<p class="fixed">
+SCHEDULE_TYPE
+</p>
+<p class="fixed">
+SERVO_OFFSET
+</p>
+<p class="fixed">
+SERVO_PERIOD
+</p>
+<p class="fixed">
+SLOT0_TIME
+</p>
+<p class="fixed">
+SLOT1_TIME
+</p>
+<p class="fixed">
+SLOT2_TIME
+</p>
+<p class="fixed">
+SLOT3_TIME
+</p>
+<p class="fixed">
+TEXT_FILE_LOADER_PROC
+</p>
+<p>
+Details of the parameters and commands can be found in the
+Trio BASIC command reference.
+</p>
+<p class="note">
+The list of settable parameters depends on the controller type,
+the firmware version and possibly the controller configuration. The above list
+should only be considered as a guide as to the parameters available.
+</p>
+<p>
+Editing the MC_CONFIG file is done using a dedicated 
+<a href="MC_CONFIGEditor.html">MC_CONFIG editor</a>
+.
+</p>
+<p class="fixed">
+&nbsp;
+</p>
+</body>
+</html>

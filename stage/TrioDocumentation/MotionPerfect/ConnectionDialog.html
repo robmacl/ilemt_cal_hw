@@ -1,0 +1,127 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>Connection Dialog</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>Connection Dialog</h1>
+<p>
+The connection dialog allows the user to configure a
+communications interface in order to connect to a controller. Ethernet, Serial,
+PCI and USB interfaces are supported by 
+<i>Motion</i> Perfect. It is possible
+to select a communications interface and configure it manually or choose from
+recently used connections.
+</p>
+<p>
+<img width="399" height="295" src="ConnectionDialog_files/image001.png">
+</p>
+<h2>Recent Connections</h2>
+<p>
+To choose a recent connection, click on the
+&quot;Recent&quot; button and choose a connection from the drop-down list.
+</p>
+<h2>Ethernet</h2>
+<p>
+<img width="399" height="295" id="Picture 1" src="ConnectionDialog_files/image002.png">
+</p>
+<p>
+It is possible to give the connection a name, specify the
+server IP address (IP address of the controller) and the IP port on which it
+communicates.
+</p>
+<p class="note">
+By default a controller will expect a connection from Motion
+Perfect to be made on port 23.
+</p>
+<p>
+The “Timeouts” button causes the “Timeouts” dialog to be
+displayed.
+</p>
+<h3>Timeouts Dialog</h3>
+<p>
+<img width="273" height="143" id="Picture 5" src="ConnectionDialog_files/image003.png">
+</p>
+<p>
+The “Timeouts” dialog allows the user to change the timeouts
+used for communication with the connected controller(s). Increasing the
+timeouts may be necessary to communicate reliably with a controller over a
+connection to a remote location.
+</p>
+<p class="note">
+Increasing the timeouts will mean that Motion Perfect will take
+longer to react if communication errors occur.
+</p>
+<h2>Serial</h2>
+<p>
+<img width="399" height="295" id="Picture 10" src="ConnectionDialog_files/image004.png">
+</p>
+<p>
+It is possible to select the COM interface and the
+configuration (serial link parameters) from a choice of Slow (9600,e,7,2) and
+Fast (38400,e,8,1), these being the default settings for series 2 &amp; 3 Trio 
+<i>Motion</i>
+Coordinators.
+</p>
+<h2>PCI</h2>
+<p>
+<img width="399" height="295" id="Picture 11" src="ConnectionDialog_files/image005.png">
+</p>
+<p>
+It is possible to select the board number. Board numbers are
+allocated when the PC is started up and is enumerated between 0 and the one
+less than the number of Trio PCI cards connected.
+</p>
+<h2>USB</h2>
+<p>
+<img width="399" height="295" id="Picture 13" src="ConnectionDialog_files/image006.png">
+</p>
+<p>
+It is possible to select the device number. Device numbers
+are allocated when the PC is started up and when devices are added or removed.
+It is normally enumerated between 0 and the one less than the number of Trio USB
+devices connected. Because of the nature of the internal scanning process which
+enumerates USB devices and the possibility that devices are added or removed
+after the initial scan has completed, a given device may not always have the
+same device number.
+</p>
+<p class="warning">
+It is recommended that only one Trio USB device be connected
+to a PC at any one time as the order in which the system enumerates more than
+one device cannot be guaranteed.
+</p>
+<h2>Simulator</h2>
+<p>
+It is possible to run more than one instance of the
+simulator on a single computer. When &quot;Simulator&quot; is selected in this
+dialog the default simulator IP address is displayed in the dialog. If the
+current connection is a simulator then that simulator's IP address is displayed
+when the dialogue is first opened.
+</p>
+<p>
+<img width="399" height="295" id="Picture 19" src="ConnectionDialog_files/image007.png">
+</p>
+<p>
+To connect to a simulator at a different IP address to the
+one displayed, click on the &quot;Simulator
+&nbsp;
+127.0.0.1&quot;
+to display a connection settings dialog.
+</p>
+<p>
+<img width="496" height="281" id="Picture 21" src="ConnectionDialog_files/image008.png">
+</p>
+<p>
+Normally it will only be necessary to change the IP address
+to that of the simulator to which you want to connect, or use “connect to a
+running simulator” at the bottom of the dialog and then select from the list of
+simulators displayed. If there are no simulators running, click on the “Manage
+Simulators” button to display the “
+<a href="SimulatorManager.html">Manage
+Simulators</a>
+” dialog.
+</p>
+</body>
+</html>

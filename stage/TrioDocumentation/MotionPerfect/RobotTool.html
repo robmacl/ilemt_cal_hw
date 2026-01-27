@@ -1,0 +1,102 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>Robot Tool</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>Robot Tool</h1>
+<p>
+The Robot Tool provides the ability to
+display and modify various aspects of controller configuration related to
+kinematic groups. 
+</p>
+<p class="note">
+Important: Before starting the robot tool,
+please make sure your Motion Coordinator is set up for robot support. Robot
+settings are done from 
+<a href="RobotDefinitions.html"><b>robot definitions</b></a>
+ tool which will
+generate/change ROBOT_DEFINITIONS program. The latter needs to be run once to
+set-up your Motion Coordinator for robot support.
+</p>
+<p class="note">
+&nbsp;
+</p>
+<p>
+<img border="0" width="602" height="502" id="Picture 1" src="RobotTool_files/image001.png">
+</p>
+<p>
+The tool generates/modifies the following
+programs:
+</p>
+<p style="margin-left:21.0pt;text-indent:-18.0pt">
+-
+<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>ROBOT_TOOL_AND_FRAMES – contains set commands
+for the defined tool offsets as well as object, robot frames and collision objects.
+</p>
+<p style="margin-left:21.0pt;text-indent:-18.0pt">
+-
+<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>ROBOT_GLOBAL_TARGETS – contains set commands for
+the defined GTA objects.
+</p>
+<p>
+It is not recommended to edit those
+programs outside the Robot Tool. 
+</p>
+<p>
+The user interface consists of several
+pages representing detailed information for the following items:
+</p>
+<p style="margin-left:21.0pt;text-indent:-18.0pt">
+-
+<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><a href="RobotTool_GTA.html">global targets
+(GTAs)</a>
+</p>
+<p style="margin-left:21.0pt;text-indent:-18.0pt">
+-
+<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><a href="RobotTool_ToolOffset.html">tool offsets</a>
+</p>
+<p style="margin-left:21.0pt;text-indent:-18.0pt">
+<span class="MsoHyperlink">-<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a href="RobotTool_ObjectFrame.html">object
+frames</a>
+</p>
+<p style="margin-left:21.0pt;text-indent:-18.0pt">
+-
+<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><a href="RobotTool_CollisionObject.html">collision
+objects</a>
+</p>
+<p style="margin-left:21.0pt;text-indent:-18.0pt">
+-
+<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><a href="RobotTool_RobotFrame.html">robot frames</a>
+</p>
+<p style="margin-left:3.0pt">
+&nbsp;
+</p>
+<p style="margin-left:3.0pt">
+Pressing the
+“Save to programs” button at any time will save the data from the tool to the
+corresponding programs. This will also be done automatically when the tool is
+closed.
+</p>
+<p style="margin-left:3.0pt">
+After the ROBOT_DEFINITIONS
+program has been run once a following execution of ROBOT_TOOL_AND_FRAMES and ROBOT_GLOBAL_TARGETS
+will accomplish your robot set-up.
+</p>
+<p style="margin-left:3.0pt">
+For robot
+definition and parametrization see (ROBOT_DEFINITIONS) see 
+<a href="RobotDefinitions.html">Robot Definitions</a>
+ reference.
+</p>
+</body>
+</html>

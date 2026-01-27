@@ -1,0 +1,138 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>Modify STARTUP</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>Modify STARTUP Program</h1>
+<h2>Overview</h2>
+<p>
+The software provides functionality in form of a wizard to
+automate modifications of the STARTUP program. The result of the operation of
+the wizard is one or more automatically generated sections. Each section
+contains a list of drive parameters to be set.
+</p>
+<p>
+For EtherCAT devices the STARTUP program section contains a
+list of CoE objects that are writable in the operational state and their values
+can be changed without power-cycling the device.
+</p>
+<h2>Device Selection Page</h2>
+<p>
+<img width="624" height="320" id="Picture 1" src="EtherCAT-ModifyStartup_files/image007.jpg">
+</p>
+<p>
+The device selection page is common for all
+intelligent device types. A list of all detected devices is displayed and the
+user can select which ones to add to the STARTUP program.
+</p>
+<p>
+If no intelligent devices from given type
+are selected for processing, the corresponding section in STARTUP file will not
+be processed and its content will remain the same.
+</p>
+<h2>CoE Object Selection Page - Per Device Model</h2>
+<p>
+<img width="600" height="450" src="EtherCAT-ModifyStartup_files/image008.jpg">
+</p>
+<p>
+Selected EtherCAT devices are grouped by
+their model. For each group of devices a selection page is displayed. This
+simplifies the CoE object selection procedure on a system with several devices
+of a same model. As the selection of CoE object is made for multiple devices at
+once it is possible for the corresponding check-boxes to have 3 states:
+</p>
+<ul type="disc">
+
+ 
+<li>
+checked 
+<img width="12" height="12" src="EtherCAT-ModifyStartup_files/image009.png" alt="*">
+ when the CoE
+     object is selected for all devices in the group;
+</li>
+
+ 
+<li>
+semi-checked 
+<img width="12" height="12" src="EtherCAT-ModifyStartup_files/image010.png" alt="*">
+ when the CoE
+     object is selected for some of the devices but not for all. That
+     configuration is possible when custom selection is made for each device
+     individually;
+</li>
+
+ 
+<li>
+unchecked 
+<img width="12" height="12" src="EtherCAT-ModifyStartup_files/image011.png">
+ when the CoE object is
+     not selected for store for any device.
+</li>
+
+
+</ul>
+<p>
+Press ‘Select All’ button to select all
+writable parameters for storing.
+</p>
+<p>
+Press ‘Select None’ button to select that no
+parameter will be stored for this drive model.
+</p>
+<p>
+Disabled lines in the list represent CoE
+objects that are either read-only or not writable in the operational state.
+</p>
+<h3>Configuring the List of CoE Objects</h3>
+<p>
+<img width="595" height="372" src="EtherCAT-ModifyStartup_files/image012.jpg">
+</p>
+<p>
+It is possible to customize the list of CoE
+objects by pressing ‘Configure list…’ button. The displayed user interface is
+the same as the one for configuring CoE object list in EtherCAT device info
+tool window. By default a dedicated category “STARTUP Objects” is created so
+that categories used by device info tool are not changed.
+</p>
+<h2>Selection Summary Page</h2>
+<p>
+<img width="601" height="450" src="EtherCAT-ModifyStartup_files/image013.jpg">
+</p>
+<p>
+The selection summary page is displayed
+once CoE object selections have been made for all EtherCAT devices. The values
+of selected objects are collected and displayed as well.
+</p>
+<p>
+It is possible to customize CoE object
+selection for individual devices by clicking ‘Customize’ button next to device
+description. When this button is clicked the user is again presented with the CoE
+object selection page but allowing adjustments only for that particular device.
+</p>
+<p>
+The EtherCAT STARTUP program section
+specific parameters, such as the VR used for data transfer and the channel for
+warning and error messages, can be adjusted on this page.
+</p>
+<h2>STARTUP Program Modification Page</h2>
+<p>
+<img width="601" height="450" src="EtherCAT-ModifyStartup_files/image014.jpg">
+</p>
+<p>
+The final confirmation page is displayed
+once the CoE object selection has been finalized and all values have been
+collected. 
+</p>
+<p>
+By pressing ‘Modify’ button all accumulated
+data will be written to corresponding sections of the STARTUP program.
+</p>
+<p>
+Press ‘Exit’ button to finish the wizard
+without doing any modifications to the STARTUP program.
+</p>
+</body>
+</html>

@@ -1,0 +1,167 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>EtherCAT Drive Program Jog</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>EtherCAT Drive Program Jog</h1>
+<p>
+The Program Jog function allows the operation of the drive
+and motor to be tested without running a program on the controller.  Typically,
+this is used during commissioning and tuning.
+</p>
+<p>
+The program jog motion is a sequence of two profiled moves
+of a specific distance with a programmable dwell time between moves.  Each move
+has an independent move distance, acceleration, deceleration and speed.  Both
+are profiled using a trapezoidal velocity profile.
+</p>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="102" class="tablegrid">
+
+  
+<p class="CAUTIONHeading">
+<img width="67" height="67" src="EtherCAT-Drive-PJog_files/image001.png">
+</p>
+
+  
+</td>
+<td width="514" class="tablegrid">
+
+  
+<p class="CAUTIONTextList" style="margin-left:0cm;text-indent:0cm">
+Consider the range of motion of the machine when the Program Jog
+  function is used. 
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+<a name="_Hlk40248857">Always confirm the following before
+you perform the motion tests. </a>
+</p>
+<p class="ItemList" style="margin-left:36.0pt;text-indent:-18.0pt">
+<span style="font-family:Symbol">&bull;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Calibri",sans-serif'>The
+main circuit power supply must be ON.</span></p>
+<p class="ItemList" style="margin-left:36.0pt;text-indent:-18.0pt">
+<span style="font-family:Symbol">&bull;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Calibri",sans-serif'>There
+should be no active alarms.</span></p>
+<p class="ItemList" style="margin-left:36.0pt;text-indent:-18.0pt">
+<span style="font-family:Symbol">&bull;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Calibri",sans-serif'>The
+drive must not be in Safe State (STO function should allow the drive to be
+enabled). </span></p>
+<p class="ItemList" style="margin-left:36.0pt;text-indent:-18.0pt">
+<span style="font-family:Symbol">&bull;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Calibri",sans-serif'>The
+servo must be OFF.</span></p>
+<p class="ItemList" style="margin-left:36.0pt;text-indent:-18.0pt">
+<span style="font-family:Symbol">&bull;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Calibri",sans-serif'>The
+jogging speed must be set considering the operating range of the machine.</span></p>
+<p>
+The program jog move panel shows the parameters that control
+the motion
+</p>
+<p>
+<img width="602" height="132" id="Picture 1" src="EtherCAT-Drive-PJog_files/image002.png">
+</p>
+<p>
+The program jog is a sequence of 2 moves
+performed repeatedly.  Each move has a relative distance, parameters
+controlling the profile and a dwell time, a delay before the next move is
+started.
+</p>
+<p>
+<img width="302" height="252" src="EtherCAT-Drive-PJog_files/image003.png">
+</p>
+<p>
+By changing the direction of the first move
+the sequence can be modified to perform either a round trip is a positive
+direction or a negative direction.
+</p>
+<p>
+<img width="394" height="288" src="EtherCAT-Drive-PJog_files/image004.png">
+</p>
+<p>
+The parameters controlling the program jog
+are:
+</p>
+<ul type="disc">
+
+ 
+<li>
+Move Distance: the distance to move, this
+     is a signed value where a positive value represents forward motion and a
+     negative value represents reverse motion.  The distance is specified in
+     revolutions (revs)
+</li>
+
+ 
+<li>
+Max Speed: the maximum speed of the
+     profiled velocity in revs per minuite (RPM) 
+</li>
+
+ 
+<li>
+Accel/Decel Time: the time to accelerate
+     from rest to Max Speed in milliseconds (ms).  The deceleration value is
+     the same as acceleration. 
+</li>
+
+ 
+<li>
+Dwell Time: the delay time before
+     starting the next move in milliseconds (ms)
+</li>
+
+
+</ul>
+<p>
+To initiate motion, first the drive must be enabled by
+clicking the ‘Motor enable’ button.  This will enable the ‘Run’ button.
+</p>
+<p>
+<img width="81" height="79" src="EtherCAT-Drive-PJog_files/image005.png">
+</p>
+<p>
+Clicking the ‘Run’ button will start the motion.  The
+sequence will run repeatedly until stopped by either clicking the ‘Run’ button
+or the ‘Motor enable’ – during motion clicking either will disable the axis.
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+The graph below shows an example of program jog motion.
+</p>
+<p>
+<img width="601" height="302" src="EtherCAT-Drive-PJog_files/image006.png">
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+When the drive is enabled via the ‘Motor
+enable’ button, the drive switches to a local control mode.  While in this mode
+the position change is not sent to the controller.  The controller values of
+MPOS and DPOS will not change during a jog.  When the drive is disabled, the
+update of MPOS and DPOS will continue.
+</p>
+<p>
+&nbsp;
+</p>
+</body>
+</html>

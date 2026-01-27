@@ -1,0 +1,128 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>Modify STARTUP program</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>Modify STARTUP Program</h1>
+<p>
+The 
+<a href="STARTUP_Program.html">STARTUP</a>
+ program is a user
+run TrioBASIC program used to initialize the system on power-up. It is commonly
+used to set up Axis Parameters, TABLE Areas, VR Variables, some Communications
+Parameters and Drive Parameters (when intelligent drive support is available).
+Adding Drive Parameters is handled by the appropriate drive configuration tool,
+all other data is handled by a common dialog set.
+</p>
+<p>
+When “Modify STARTUP Program…” is selected from the
+“Project” item in the main menu the user is presented with a list of things
+which can be added to the STARTUP program.
+</p>
+<p>
+<img border="0" width="162" height="190" id="Picture 2" src="ModifySTARTUP_files/image001.png">
+</p>
+<p>
+Selecting “All Sections” will display a tabbed dialog with a
+tab for each type of data which can be added to the STARTUP program (except
+drive data).
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+<img border="0" width="502" height="500" id="Picture 6" src="ModifySTARTUP_files/image002.png">
+</p>
+<p>
+If a single type of data is selected from the list the same
+dialog, but only containing the appropriate single tab. 
+</p>
+<p>
+To enable a data category tick the “Generate” check box on
+the appropriate tab. Categories which are not currently enabled have the
+category name in the tab struck out (
+<s>like this</s>).
+</p>
+<h2>Axes</h2>
+<p>
+<img border="0" width="550" height="500" id="Picture 1" src="ModifySTARTUP_files/image003.png">
+</p>
+<p>
+The axes whose parameters need to be stored should be
+selected in the axis table. After doing this click on the &quot;Axis
+Parameters&quot; button to display the &quot;Axis Parameters Selection
+Dialog&quot; which allows the user to select which parameters should be stored.
+The same parameters are stored for all selected axes. Parameter names are
+sorted alphabetically and a search facility is provided to help locate
+parameters by name. 
+</p>
+<p>
+<img border="0" width="266" height="465" id="Picture 7" src="ModifySTARTUP_files/image004.png">
+</p>
+<h3>Parameter Search</h3>
+<p>
+To search for a parameter type part of its name into the
+search box. As characters are entered into the search box the contents of the
+list is filtered to those parameters containing the string entered.
+</p>
+<p>
+<img border="0" width="266" height="294" id="Picture 8" src="ModifySTARTUP_files/image005.png">
+</p>
+<p>
+To clear the filter, click on the button 
+<img border="0" width="22" height="22" id="Picture 5" src="ModifySTARTUP_files/image006.png">
+ to
+the right of the search text box.
+</p>
+<h2>Variables</h2>
+<p>
+<img border="0" width="513" height="276" id="Picture 9" src="ModifySTARTUP_files/image007.png">
+</p>
+<p>
+VR variables can be stored by specifying variable numbers
+and ranges of variable numbers.
+</p>
+<p>
+e.g.  1,4,6-9,12-23 will store VR(1), VR(4), VR(6) to VR(9)
+and VR(12) to VR(23) 
+</p>
+<h2>Table Data</h2>
+<p>
+<img border="0" width="550" height="272" id="Picture 10" src="ModifySTARTUP_files/image008.png">
+</p>
+<p>
+TABLE values can be stored by specifying table indices and
+ranges of table indices.
+</p>
+<p>
+e.g.  1,4,6-9,12-23 will store TABLE(1), TABLE(4), TABLE (6)
+to TABLE (9) and TABLE (12) to TABLE (23) 
+</p>
+<h2>Ethernet</h2>
+<p>
+<img border="0" width="550" height="500" id="Picture 11" src="ModifySTARTUP_files/image009.png">
+</p>
+<p>
+The basic Ethernet parameters are not set using the STARTUP
+program, but using the MC_CONFIG file. The user can only store settings for
+specific protocols running over Ethernet (i.e. Modbus TCP and Ethernet IP).
+</p>
+<h2>Serial Ports</h2>
+<p>
+<img border="0" width="550" height="376" id="Picture 12" src="ModifySTARTUP_files/image010.png">
+</p>
+<p>
+The user can only control whether or not to store all the
+serial parameters.
+</p>
+<h2>Update STARTUP Program</h2>
+<p>
+When the OK button is pressed a warning dialog is displayed.
+If the User OKs this then all selected values are written to the STARTUP
+program which is then uploaded to the controller.
+</p>
+</body>
+</html>

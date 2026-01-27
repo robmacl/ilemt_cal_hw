@@ -1,0 +1,413 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>EtherCAT Drive Parameter Auto Tuning</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>EtherCAT Drive Parameter Auto-Tuning</h1>
+<p>
+The Parameter Auto-Tuning Tool uses the drives internal
+position reference generator to exercise the control and then internally adjust
+the control parameters. This tool is available when in Manual Tuning mode only.
+</p>
+<p>
+<img width="601" height="278" src="EtherCAT-Drive-ParameterAutoTuning_files/image001.jpg">
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+The tool uses the drives internal position reference
+generator to exercise the control and then internally adjust the control
+parameters. 
+</p>
+<p align="center">
+<img width="586" height="250" src="EtherCAT-Drive-ParameterAutoTuning_files/image002.png">
+</p>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="99" class="tablegrid">
+
+  
+<p class="CAUTIONHeading">
+<img width="67" height="67" src="EtherCAT-Drive-ParameterAutoTuning_files/image003.png">
+</p>
+
+  
+</td>
+<td width="497" class="tablegrid">
+
+  
+<p class="CAUTIONText">
+Since the limit function is unavailable
+  when using the tuning tool, please make sure that the movable parts have
+  sufficient travel. 
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+With the Parameter Auto-Tuning tool, the reference generator
+plans the position curve and generates the position reference as inputs to the
+position loop. 
+</p>
+<p>
+The drive will repeatedly run two moves, according to the user
+setup, until the tuning process is complete.   The sequence can be either
+position/negative or negative/positive.
+</p>
+<p>
+<img width="394" height="288" src="EtherCAT-Drive-ParameterAutoTuning_files/image004.png">
+</p>
+<p>
+The sequence for the Parameter Auto-Tuning is shown in the
+flow diagram below.
+</p>
+<p>
+<img width="365" height="461" src="EtherCAT-Drive-ParameterAutoTuning_files/image005.png">
+</p>
+<p class="Figure">
+&nbsp;
+</p>
+<p>
+The following parameters are automatically adjusted when
+using the auto-tuning tool. 
+</p>
+<table class="tablegrid">
+
+ 
+<thead>
+<tr>
+<td width="73" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Parameter</span></p>
+
+   
+</td>
+<td width="253" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Name</span></p>
+
+   
+</td>
+</tr>
+</thead>
+
+ 
+<tr>
+<td width="73" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn102</span></p>
+
+  
+</td>
+<td width="253" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Speed
+  Loop Gain</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="73" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn103</span></p>
+
+  
+</td>
+<td width="253" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Speed
+  Loop Integral Time</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="73" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn104</span></p>
+
+  
+</td>
+<td width="253" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Position
+  Loop Gain</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="73" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn105</span></p>
+
+  
+</td>
+<td width="253" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Torque
+  Command Filter Time</span></p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+&nbsp;
+</p>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="99" class="tablegrid">
+
+  
+<p class="CAUTIONHeading">
+<img width="67" height="67" src="EtherCAT-Drive-ParameterAutoTuning_files/image006.png">
+</p>
+
+  
+</td>
+<td width="501" class="tablegrid">
+
+  
+<p class="CAUTIONTextList" style="margin-left:0cm">
+<span style='font-family:"Calibri",sans-serif'>The
+  parameters are not changed when using the Auto-Tuning Tool. </span></p>
+
+  
+<p class="CAUTIONTextList" style="margin-left:0cm;text-indent:0cm">
+&nbsp;
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+At the end of the process
+there is an option to save (write) the updated parameter values to the Drive.   
+</p>
+<p>
+These parameters are only valid for Manual Tuning operation.
+</p>
+<p>
+The wizard sequence is:
+</p>
+<ul type="disc">
+
+ 
+<li>
+<b>Warning screen</b>, please ensure it is safe to change
+     the tuning mode.  As this requires a restart of the drive, control of the
+     motor will be lost.
+</li>
+
+
+</ul>
+<p align="center">
+<img width="507" height="363" id="Picture 1" src="EtherCAT-Drive-ParameterAutoTuning_files/image007.png">
+</p>
+<ul type="disc">
+
+ 
+<li>
+<b>Detect Inertia</b>, allows option to measure inertia
+</li>
+
+
+</ul>
+<p align="center">
+<img width="514" height="369" src="EtherCAT-Drive-ParameterAutoTuning_files/image008.png">
+</p>
+<ul type="disc">
+
+ 
+<li>
+<b>Setup</b>, set motion profile used for tuning process
+</li>
+
+
+</ul>
+<p align="center">
+<img width="513" height="368" src="EtherCAT-Drive-ParameterAutoTuning_files/image009.png">
+</p>
+<ul type="disc">
+
+ 
+<li>
+<b>Motion Trajectory</b>, visual representation of the
+     motion profile
+</li>
+
+
+</ul>
+<p align="center">
+<img width="515" height="369" src="EtherCAT-Drive-ParameterAutoTuning_files/image010.png">
+</p>
+<ul type="disc">
+
+ 
+<li>
+<b>Tuning</b>, run the tuning process
+</li>
+
+
+</ul>
+<p>
+&nbsp;
+</p>
+<p align="center">
+<img width="499" height="358" src="EtherCAT-Drive-ParameterAutoTuning_files/image011.png">
+</p>
+<ul type="disc">
+
+ 
+<li>
+<b>Results</b>, At the end of the process, if successful,
+     the calculated gain parameters are shown.  Clicking ‘Finish’ will save
+     these to the drive.
+</li>
+
+
+</ul>
+<p align="center">
+<img width="501" height="359" src="EtherCAT-Drive-ParameterAutoTuning_files/image012.png">
+</p>
+<h2>Limitations</h2>
+<p>
+Applied for the high rigidity (up to 20 times load moment of
+inertia) equipment. 
+</p>
+<p>
+Applied for the low rigidity (up to 10 times load moment of
+inertia) equipment. 
+</p>
+<p>
+The number of revolutions is more than 1 rotation, and the
+rotation speed is higher than 100 rpm.
+</p>
+<p>
+During operation of the Parameter
+Auto-Tuning the following functions are disabled:
+</p>
+<ul type="disc">
+
+ 
+<li>
+Gain switching 
+</li>
+
+ 
+<li>
+Model Following Control Function 
+</li>
+
+ 
+<li>
+Notch Filter 
+</li>
+
+ 
+<li>
+Vibration Suppression 
+</li>
+
+ 
+<li>
+Load Oscillation Suppression 
+</li>
+
+
+</ul>
+<p>
+The use of automatic vibration suppression is an option for
+the Parameter Auto-Tuning operation but is not enabled outside the process.
+</p>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="97" class="tablegrid">
+
+  
+<p class="CAUTIONHeading">
+<img width="67" height="67" src="EtherCAT-Drive-ParameterAutoTuning_files/image013.png">
+</p>
+
+  
+</td>
+<td width="493" class="tablegrid">
+
+  
+<p class="CAUTIONText">
+The
+  Parameter Auto-Tuning Tool is unavailable in fully-closed loop control.
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+&nbsp;
+</p>
+<span style='font-family:"Calibri",sans-serif'><br clear="all">
+
+</span><p>
+&nbsp;
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+&nbsp;
+</p>
+
+
+
+</body>
+</html>

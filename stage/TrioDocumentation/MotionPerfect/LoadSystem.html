@@ -1,0 +1,260 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>Load System Firmware</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>Load System Firmware</h1>
+<p>
+<a name="Load_System"></a>
+<i>Motion Coordinator</i>s feature
+a flash EPROM for storage of both user programs and the system firmware. Using 
+<i>Motion
+</i>Perfect  it is possible to upgrade the system firmware to a newer version
+using a system file supplied by Trio. 
+</p>
+<p class="note">
+We do not advise that you load a new version of the system firmware
+unless you are specifically advised to do so by your distributor or by Trio. 
+</p>
+<p class="warning">
+The process of loading new system firmware will erase all
+programs stored on the controller. So make sure that they are backed up (in a
+project on the PC) before starting.
+</p>
+<p>
+When you select the &quot;Load Firmware&quot; option from
+the controller menu, you will be presented with a wizard type interface showing
+a warning page.
+</p>
+<p>
+If you have a memory card in the controller the first
+warning page will suggest that you remove it as unless you are doing it for a
+specific reason, the settings stored on the memory card may cause problems
+after the firmware has been upgraded and could prevent 
+<i>Motion</i> Perfect
+from reconnecting to the controller.
+</p>
+<p>
+<img width="586" height="393" id="Picture 7" src="LoadSystem_files/image001.png">
+</p>
+<p>
+You will then be shown a warning page regarding disabling
+devices connected to the controller and advising that you should make sure that
+your project has been saved as the upgrade process will erase all programs from
+the controller.
+</p>
+<p>
+<img width="600" height="400" id="Picture 1" src="LoadSystem_files/image002.png">
+</p>
+<p>
+When you click on &quot;Next&quot; you will be presented with
+a select page.
+</p>
+<p>
+<img width="600" height="400" id="Picture 2" src="LoadSystem_files/image003.png">
+</p>
+<p>
+This will automatically start up a standard Windows file
+selector to choose the file you wish to load.
+</p>
+<p>
+<img width="600" height="400" id="Picture 3" src="LoadSystem_files/image003.png">
+</p>
+<p>
+Each 
+<i>Motion Coordinator</i> controller has its own system
+file, identified by the first characters of the file name. 
+</p>
+<table class="tablegrid">
+
+ 
+<thead>
+<tr>
+<td valign="top" class="tablegrid">
+
+   
+<p class="tableheader">
+System Code File Name
+</p>
+
+   
+</td>
+<td valign="top" class="tablegrid">
+
+   
+<p class="tableheader">
+File Type
+</p>
+
+   
+</td>
+<td class="tablegrid">
+
+   
+<p class="tableheader">
+Controller Type 
+</p>
+
+   
+</td>
+</tr>
+</thead>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+MC403*.OUT
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+COFF
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+MC403
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+MC405*.OUT
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+COFF
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+MC405
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+MC464*.OUT
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+COFF
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+MC464
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+You must ensure that you load only software designed for
+your specific controller, other versions will not work and will probably make
+the controller unusable.
+</p>
+<p>
+When the file dialog is closed the wizard remains on the
+select page. Pressing &quot;Next&quot; will display  a confirmation page.
+</p>
+<p>
+<img width="600" height="400" id="Picture 4" src="LoadSystem_files/image004.png">
+</p>
+<p>
+Pressing &quot;Next&quot; will display the Load page while
+the firmware is loading.
+</p>
+<p>
+<img width="600" height="400" id="Picture 5" src="LoadSystem_files/image005.png">
+</p>
+<p>
+Downloading may take several minutes, depending on the speed
+of your PC, the controller and the communications link being used. During the
+download, you should see the names of each section displayed in the 
+<a href="OutputWindow.html">Output Window</a>
+ as they are loaded.
+</p>
+<p>
+When the download is complete, a checksum check is performed
+to ensure that the download process was successful. If it passes the check you
+will be presented with a confirmation screen and asked if you wish to store the
+firmware into EPROM.
+</p>
+<p>
+<img border="0" width="600" height="400" id="Picture 6" src="LoadSystem_files/image006.png">
+</p>
+<p>
+Clicking on &quot;Next&quot; will start the STORE process
+and display a Store page.
+</p>
+<p>
+<img border="0" width="600" height="400" id="Picture 10" src="LoadSystem_files/image007.png">
+</p>
+<p>
+When the STORE operation has completed a Reconnect page will
+be displayed while Motion Perfect reconnects to the controller. When the
+reconnection process has completed press &quot;Finish&quot; to close the
+wizard.
+</p>
+<p>
+<img border="0" width="600" height="400" id="Picture 15" src="LoadSystem_files/image008.png">
+</p>
+<p class="tip">
+It is advisable to check the controller configuration to confirm
+the new firmware version. 
+</p>
+<p>
+&nbsp;
+</p>
+</body>
+</html>

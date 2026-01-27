@@ -1,0 +1,168 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>RTEX Overview</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1><a href="Glossary.html#RTEX">RTEX</a>
+ Overview</h1>
+<h2>Drives Supported</h2>
+<p>
+Panasonic A4N and A5N series 
+<a href="Glossary.html#RTEX">RTEX</a>
+
+drives.
+</p>
+<h2>Drives Overview</h2>
+<p>
+The Intelligent drives dialog contains a tab for each of the
+controller's interface modules to which supported intelligent drives can be
+connected. On a tab for an RTEX module a diagram of the drives and a list of
+the correspondingly assigned axes is displayed along with data for each drive
+and the motor connected to it.
+</p>
+<p>
+<img border="0" width="555" height="461" id="Picture 1" src="RTEX-Overview_files/image001.png">
+</p>
+<p>
+The 
+<img border="0" width="16" height="16" id="Picture 11" src="RTEX-Overview_files/image002.png">
+ icon toggles between a normal and
+higher resolution view of the controller and connected drives.
+</p>
+<p class="note">
+If drive information is not filled in for an axis it may mean
+that the SERVO_PERIOD for the controller is not set correctly.
+</p>
+<p>
+Hovering the mouse cursor over the controller displays a
+pop-up containing information about the current interface module.
+</p>
+<p>
+<img border="0" width="203" height="116" id="Picture 8" src="RTEX-Overview_files/image003.png">
+</p>
+<p>
+Hovering the mouse cursor over a drive displays a pop-up
+containing information about the drive.
+</p>
+<p>
+<img border="0" width="192" height="119" id="Picture 15" src="RTEX-Overview_files/image004.png">
+</p>
+<p>
+Hovering the mouse cursor over a motor displays a pop-up
+containing information about the motor.
+</p>
+<p>
+<img border="0" width="205" height="103" id="Picture 14" src="RTEX-Overview_files/image005.png">
+</p>
+<p>
+Double-clicking in a drive icon, motor icon, or a line in
+the Drives grid will bring up an 
+<a href="RTEX-Drive.html">RTEX Drive dialog</a>
+
+for the corresponding drive.
+</p>
+<h2>Modify STARTUP Program</h2>
+<p>
+Important drive parameters can be put in the STARTUP program
+in order to make sure that drives are configured correctly. The STARTUP program
+will check the value of a set of parameters defined by the user and update any
+which are not at the required value. The &quot;Modify STARTUP Program&quot;
+button starts up a configuration wizard to allow the user to specify which
+parameters to store. 
+</p>
+<h3>Select Drives</h3>
+<p>
+<img border="0" width="597" height="439" id="Picture 3" src="RTEX-Overview_files/image006.png">
+</p>
+<p>
+This page allows the user to select to drives for which
+parameters will be stored in the STARTUP program. Normally the user will wish
+to store parameters for all drives.
+</p>
+<p>
+Clicking on &quot;Next&quot; will cause 
+<i>Motion</i>
+Perfect to scan all the selected drives and then display a series of parameter
+selection pages. The scanning process can take a significant amount of time,
+especially if many drives are attached.
+</p>
+<h3><a name="SelectParametersAllDrives"></a>
+<a name="_Select_Parameters,_All"></a>
+Select
+Parameters, All Drives</h3>
+<p>
+This page will be displayed once for each family of drives
+used (A4N and A5N) as each drive family has a different set of parameters.
+</p>
+<p>
+<img border="0" width="601" height="434" id="Picture 5" src="RTEX-Overview_files/image007.png">
+</p>
+<p>
+This page controls the saving of parameters for all drives
+of a series (A5N in the picture above). The parameter names are coloured if any
+values are non-default, 
+<img border="0" width="20" height="20" id="Picture 7" src="RTEX-Overview_files/image008.png">
+ if that parameter on all drives has a
+non-default value, and 
+<img border="0" width="20" height="20" id="Picture 6" src="RTEX-Overview_files/image009.png">
+ if that parameter on only some drives
+has a non-default value. Parameters which require the drive to be power-cycled
+before any change will take effect are marked with the symbol 
+<img border="0" width="22" height="22" id="Picture 9" src="RTEX-Overview_files/image010.png">
+.
+After the parameters are selected, clicking in the &quot;Next&quot; button will
+either display the same page but for a different drive family or a Parameter
+Selection Summary Page.
+</p>
+<p class="note">
+Parameter values are always read from the connected drives.
+</p>
+<p class="note">
+&nbsp;
+</p>
+<h3><a name="ParameterSelectionSummary">Parameter Selection Summary</a>
+</h3>
+<p>
+<img border="0" width="602" height="475" id="Picture 10" src="RTEX-Overview_files/image011.jpg">
+</p>
+<p>
+This shows which parameters have been selected for each
+drive in the system (initially they will be the same for all drives of the same
+family) and allows the user to change which parameters are stored for each
+drive individually. The parameters are grouped by drive (axis number) and
+clicking on the &quot;Customize&quot; icon in the group header for a drive will
+show a &quot;Select Parameters&quot; page for a single drive.
+</p>
+<p>
+Clicking on &quot;Next&quot; displays a warning page about
+writing the STARTUP program.
+</p>
+<h3>Select Parameters, Single Drive</h3>
+<p>
+<img border="0" width="601" height="481" id="Picture 12" src="RTEX-Overview_files/image012.jpg">
+</p>
+<p>
+This is similar to the &quot;
+<a href="#_Select_Parameters,_All">Select Parameters, All Drives</a>
+&quot; page
+but only changes which parameters are stored for a single drive. Clicking on
+&quot;Next&quot; will return to the &quot;
+<a href="#ParameterSelectionSummary">Parameter
+Selection Summary</a>
+&quot; page.
+</p>
+<h3>Modify STARTUP Warning</h3>
+<p>
+<img border="0" width="602" height="422" id="Picture 13" src="RTEX-Overview_files/image013.jpg">
+</p>
+<p>
+This warning page is displayed before the accumulated
+parameter information is written to the STARTUP program. Clicking on the
+&quot;Modify&quot; button will cause the STARTUP program to be modified and
+written to the controller.
+</p>
+</body>
+</html>

@@ -1,0 +1,913 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>EtherCAT Drive One Parameter Auto Tuning</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>EtherCAT Drive One Parameter Auto Tuning</h1>
+<p>
+<a href="EtherCAT-Drive-SwitchTuningMode.html">Change Tuning Mode</a>
+</p>
+<p>
+<a href="EtherCAT-Drive-LoadInertia.html">Inertia
+Detection</a>
+</p>
+<p>
+This tuning function is similar to the tuning-less function,
+using an Autotune parameters adjustment module that updates the position loop
+and speed loop parameters in real time based on the servo operating state
+(position, speed, current). 
+</p>
+<p>
+<img border="0" width="602" height="371" id="Picture 1" src="EtherCAT-Drive-OneParameterAutoTuning_files/image001.png">
+</p>
+<p>
+Only the parameter Pn101 (Servo Rigidity) needs to set in One-Parameter
+Auto-Tuning function, and the figure below shows the block diagram in One-Parameter
+Auto-Tuning.
+</p>
+<p>
+<img border="0" width="643" height="259" src="EtherCAT-Drive-OneParameterAutoTuning_files/image002.png">
+</p>
+<p>
+Before performing One-Parameter Auto-Tuning, you need to
+manually set the following parameters: 
+</p>
+<table class="tablegrid">
+
+ 
+<thead>
+<tr>
+<td width="75" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Parameter</span></p>
+
+   
+</td>
+<td width="85" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Name</span></p>
+
+   
+</td>
+<td width="448" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Description</span></p>
+
+   
+</td>
+</tr>
+</thead>
+
+ 
+<tr>
+<td width="75" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn106</span></p>
+
+  
+</td>
+<td width="85" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Load
+  Inertia Percentage</span></p>
+
+  
+</td>
+<td width="448" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Properly
+  setting the Load Inertia Percentage is a prerequisite for the One-Parameter
+  Auto-Tuning to obtain a better Servo performance. </span></p>
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>You
+  can calculate the load inertia percentage (difficult and complex) by
+  yourself, or you can get it by the utility function Fn009 or by ESView V4,
+  certainly, you can directly modify the parameters by the host controller. </span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="75" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn100.3</span></p>
+
+  
+</td>
+<td width="85" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Damping
+  Selection</span></p>
+
+  
+</td>
+<td width="448" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Select
+  a damping method according to your requirement and application. </span></p>
+
+  
+<p class="ItemListinTable">
+<span style="font-family:   Wingdings">l<span style='font:7.0pt "Times New Roman"'>
+  </span></span><span style='font-family:"Calibri",sans-serif'>[0]
+  Standard: Short positioning time, but prone to overshoot.</span></p>
+
+  
+<p class="ItemListinTable">
+<span style="font-family:   Wingdings">l<span style='font:7.0pt "Times New Roman"'>
+  </span></span><span style='font-family:"Calibri",sans-serif'>[1]
+  Stable: Stable positioning, but long positioning time. </span></p>
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'><img border="0" width="298" height="173" src="EtherCAT-Drive-OneParameterAutoTuning_files/image003.png">
+ </span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="75" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn101</span></p>
+
+  
+</td>
+<td width="85" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Servo
+  Rigidity</span></p>
+
+  
+</td>
+<td width="448" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>The
+  Servo Rigidity determines the response characteristic of the position loop or
+  speed loop. </span></p>
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>The
+  performance can be improved by increasing the Servo Rigidity and decrease it
+  if a vibration occurs.</span></p>
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>The
+  figure below shows the speed step response for different Servo Rigidities: <br>
+
+  <img border="0" width="229" height="143" src="EtherCAT-Drive-OneParameterAutoTuning_files/image004.png">
+</span></p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+&nbsp;
+</p>
+<p>
+When using the One-Parameter Auto-Tuning function, the
+following parameters are automatically adjusted.
+</p>
+<table class="tablegrid">
+
+ 
+<thead>
+<tr>
+<td width="189" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Parameter</span></p>
+
+   
+</td>
+<td width="180" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Adjustment method</span></p>
+
+   
+</td>
+</tr>
+</thead>
+
+ 
+<tr>
+<td width="189" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Speed
+  Loop Gain</span></p>
+
+  
+</td>
+<td width="180" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Auto-tuning</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="189" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Speed
+  Loop Integral Time</span></p>
+
+  
+</td>
+<td width="180" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Auto-tuning</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="189" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Position
+  Loop Gain</span></p>
+
+  
+</td>
+<td width="180" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Auto-tuning</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="189" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Torque
+  Command Filter Time</span></p>
+
+  
+</td>
+<td width="180" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Auto-tuning</span></p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+<b>NOTE</b>: The gain terms used by the tuning-less model
+are not shown in the drive parameters. 
+</p>
+<p>
+One-Parameter Auto Tuning may offer some advantages over
+Tuning-less mode due to: 
+</p>
+<ul type="disc">
+
+ 
+<li>
+Tuning is based on a proper load inertia percentage so
+     tends to offer improved performance.
+</li>
+
+ 
+<li>
+The user selection of rigidity means that the tuning mode can
+     be applied to more operating conditions.
+</li>
+
+
+</ul>
+<h2>Use Case</h2>
+<p>
+Applicable for applications where the motor / load inertia
+mismatch is no more than 50 times.
+</p>
+<p>
+Applicable for applications of any motor speed. 
+</p>
+<h2>Parameters</h2>
+<table class="tablegrid">
+
+ 
+<thead>
+<tr>
+<td width="76" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Parameter</span></p>
+
+   
+</td>
+<td width="57" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Setting</span></p>
+
+   
+</td>
+<td width="378" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Meaning</span></p>
+
+   
+</td>
+<td width="85" class="tablegrid">
+
+   
+<p class="TableHeading">
+<span style='font-family:"Calibri",sans-serif'>Classification</span></p>
+
+   
+</td>
+</tr>
+</thead>
+
+ 
+<tr>
+<td width="76" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn100.0</span></p>
+
+  
+</td>
+<td width="57" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>3</span></p>
+
+  
+</td>
+<td width="378" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Set
+  the <b>Tuning Mode</b> as <b>One-Parameter Auto-Tuning</b>. </span></p>
+
+  
+</td>
+<td width="85" rowspan="3" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Function</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="76" rowspan="2" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn100.3</span></p>
+
+  
+</td>
+<td width="57" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>0</span></p>
+
+  
+</td>
+<td width="378" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Set
+  the damping method in <b>One-Parameter Auto-Tuning</b> as <b>Standard</b>.</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="57" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>1</span></p>
+
+  
+</td>
+<td width="378" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Set
+  the damping method in <b>One-Parameter Auto-Tuning</b> as <b>Stable</b>.</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="76" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn101</span></p>
+
+  
+</td>
+<td width="57" class="tablegrid">
+
+  
+<p class="TableText">
+<span style="font-family:STXihei">&#65293;</span></p>
+
+  
+</td>
+<td width="378" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Servo
+  Rigidity</span></p>
+
+  
+</td>
+<td width="85" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Adjustment</span></p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="76" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Pn106</span></p>
+
+  
+</td>
+<td width="57" class="tablegrid">
+
+  
+<p class="TableText">
+<span style="font-family:STXihei">&#65293;</span></p>
+
+  
+</td>
+<td width="378" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Load
+  Inertia Percentage</span></p>
+
+  
+</td>
+<td width="85" class="tablegrid">
+
+  
+<p class="TableText">
+<span style='font-family:"Calibri",sans-serif'>Adjustment</span></p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+Changing the tuning mode will require the drive to be
+restarted.
+</p>
+<h2>Restrictions</h2>
+<p>
+The following table shows a summary of functions available
+in one-parameter auto-tuning mode 
+</p>
+<table class="tablegrid">
+
+ 
+<thead>
+<tr>
+<td width="359" class="tablegrid">
+
+   
+<p>
+&nbsp;Function
+</p>
+
+   
+</td>
+<td width="101" class="tablegrid">
+
+   
+<p>
+One-Parameter
+</p>
+
+   
+</td>
+</tr>
+</thead>
+
+ 
+<tr>
+<td width="359" class="tablegrid">
+
+  
+<p>
+Damping
+  Selection
+</p>
+
+  
+</td>
+<td width="101" class="tablegrid">
+
+  
+<p>
+<a name="_Hlk39498472">Yes</a>
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="359" class="tablegrid">
+
+  
+<p>
+P
+  / PI Switching
+</p>
+
+  
+</td>
+<td width="101" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="359" class="tablegrid">
+
+  
+<p>
+Gain
+  Switching
+</p>
+
+  
+</td>
+<td width="101" class="tablegrid">
+
+  
+<p>
+No
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="359" class="tablegrid">
+
+  
+<p>
+Notch
+  Filter
+</p>
+
+  
+</td>
+<td width="101" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="359" class="tablegrid">
+
+  
+<p>
+Automatic
+  Vibration Suppression
+</p>
+
+  
+</td>
+<td width="101" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="359" class="tablegrid">
+
+  
+<p>
+Intermediate
+  Frequency Vibration Suppression
+</p>
+
+  
+</td>
+<td width="101" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="359" class="tablegrid">
+
+  
+<p>
+Velocity
+  Feedforward
+</p>
+
+  
+</td>
+<td width="101" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="359" class="tablegrid">
+
+  
+<p>
+Torque
+  Feedforward
+</p>
+
+  
+</td>
+<td width="101" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="359" class="tablegrid">
+
+  
+<p>
+Friction
+  Compensation
+</p>
+
+  
+</td>
+<td width="101" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="359" class="tablegrid">
+
+  
+<p>
+Model
+  Following Control
+</p>
+
+  
+</td>
+<td width="101" class="tablegrid">
+
+  
+<p>
+No
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="359" class="tablegrid">
+
+  
+<p>
+Load
+  Oscillation Suppression
+</p>
+
+  
+</td>
+<td width="101" class="tablegrid">
+
+  
+<p>
+No
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="359" class="tablegrid">
+
+  
+<p>
+Feedback
+  Speed Selection
+</p>
+
+  
+</td>
+<td width="101" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="359" class="tablegrid">
+
+  
+<p>
+Load
+  Torque Compensation
+</p>
+
+  
+</td>
+<td width="101" class="tablegrid">
+
+  
+<p>
+Yes
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+&nbsp;
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+&nbsp;
+</p>
+</body>
+</html>

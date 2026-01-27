@@ -1,0 +1,244 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>Robot Jog Tool</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>Robot Jog Tool</h1>
+<p>
+Robot jog tool provides ability for
+movement operations on a predefined kinematic group. 
+</p>
+<p>
+<img width="595" height="471" src="RobotJogTool_files/image001.jpg">
+</p>
+<p>
+It is capable to:
+</p>
+<p style="margin-left:36.0pt;text-indent:-18.0pt">
+-
+<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>jog joints – in that mode  joints of the robot
+can be moved individually
+</p>
+<p style="margin-left:36.0pt;text-indent:-18.0pt">
+-
+<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>do linear jog – in that mode all joints are
+moved simultaneously in order to produce linear movement with regard to world,
+base, tool or object frame coordinate system
+</p>
+<h2>Speed and Acceleration Control</h2>
+<p>
+Jog speed, acceleration and deceleration
+can be adjusted in the user interface using sliders controls. The speed and
+acceleration factors are expressed in percentage from the maximum values
+defined in robot configuration.
+</p>
+<p>
+In joint control mode the formula for
+calculating the actual speed, acceleration and deceleration are as follows:
+</p>
+<p>
+<b>JOGSPEED</b> = 
+<b>AXIS_JOGSPEED</b>
+* 
+<i>speed_factor</i> / 100
+</p>
+<p>
+<b>ACCEL</b> =
+<b>
+AXIS_ACCEL</b> * 
+<i>accel_decel_factor</i> / 100
+</p>
+<p>
+<b>DECEL</b> =
+<b>
+AXIS_DECEL </b>* 
+<i>accel_decel_factor</i> / 100
+</p>
+<p>
+In linear mode the similar equations are
+used but linear set of parameters are used as a base:
+</p>
+<p>
+<b>JOGSPEED</b> = 
+<b>WORLD_JOGSPEED</b>
+* 
+<i>speed_factor</i> / 100
+</p>
+<p>
+<b>ACCEL</b> =
+<b>
+WORLD_ACCEL</b> * 
+<i>accel_decel_factor</i> / 100
+</p>
+<p>
+<b>DECEL</b> =
+<b>
+WORLD_DECEL </b>* 
+<i>accel_decel_factor</i> / 100
+</p>
+<p>
+Current coordinates and effective speeds to
+be applied during jogging are displayed on per joint basis.
+</p>
+<p>
+Cartesian 3D directional X, Y, Z and
+angular U, V, W coordinates against global world, robot base and currently
+selected tool coordinate system are shown.
+</p>
+<h2>Linear jog</h2>
+<p>
+Once the robot is configured properly and 6
+axes are assigned to the kinematic group it is possible to perform a linear
+movement in X, Y and Z directions as well as rotational movement along these 3
+Cartesian axes. The user interface provides 12 buttons in an intuitive form to
+accommodate that functionality.
+</p>
+<p>
+Pressing 
+<img width="29" height="24" src="RobotJogTool_files/image002.png">
+ or 
+<img width="30" height="25" src="RobotJogTool_files/image003.png">
+ starts linear
+movement in negative or positive X direction respectively.
+</p>
+<p>
+Pressing 
+<img width="43" height="35" src="RobotJogTool_files/image004.png">
+ or 
+<img width="44" height="36" src="RobotJogTool_files/image005.png">
+ starts
+rotational movement along X axis in counter-clockwise or clockwise direction
+respectively.
+</p>
+<p>
+Pressing 
+<img width="28" height="22" src="RobotJogTool_files/image006.png">
+ or 
+<img width="28" height="21" src="RobotJogTool_files/image007.png">
+ starts linear
+movement in negative or positive Y direction respectively.
+</p>
+<p>
+Pressing 
+<img width="44" height="34" src="RobotJogTool_files/image008.png">
+ or 
+<img width="43" height="36" src="RobotJogTool_files/image009.png">
+ starts
+rotational movement along Y axis in counter-clockwise or clockwise direction
+respectively.
+</p>
+<p>
+Pressing 
+<img width="25" height="27" src="RobotJogTool_files/image010.png">
+ or 
+<img width="25" height="29" src="RobotJogTool_files/image011.png">
+ starts linear
+movement in negative or positive Z direction respectively.
+</p>
+<p>
+Pressing 
+<img width="30" height="45" src="RobotJogTool_files/image012.png">
+ or 
+<img width="30" height="45" src="RobotJogTool_files/image013.png">
+ starts
+rotational movement along Z axis in counter-clockwise or clockwise direction
+respectively.
+</p>
+<h3>Modes of Operation</h3>
+<p>
+Linear jogging can be performed in four
+different modes depending on the reference coordinate system – world, base,
+tool or frame. In each mode directional and rotational movement is done against
+XYZ axes of the corresponding coordinate system.
+</p>
+<p>
+<img width="160" height="120" src="RobotJogTool_files/image014.jpg">
+<img width="176" height="132" src="RobotJogTool_files/image015.jpg">
+<img width="176" height="132" src="RobotJogTool_files/image016.jpg">
+</p>
+<h2>Jog joints</h2>
+<p>
+Once the kinematic group is defined it will
+not be possible to use the normal jog tool to jog individual axes belonging to
+the kinematic group as an additional configuration will be required to
+initialize the jog operation. Robot jog tool provides functionality similar to
+the normal Jog tool but extended to properly initialize jog operation in such
+case. 
+</p>
+<p>
+Pressing 
+<img width="24" height="24" src="RobotJogTool_files/image017.png">
+ or 
+<img width="24" height="24" src="RobotJogTool_files/image018.png">
+ buttons
+initiates reverse or forward jog operation respectively. 
+</p>
+<p>
+The progress like indicator between the
+buttons indicates graphically the current joint position with regard to the
+limits.
+</p>
+<h2>Jog Configuration</h2>
+<p>
+Jog configuration window allows modifying
+the digital I/O assignments for forward and reverse jogging on per axis basis
+by modifying 
+<b>FWD_JOG</b> and 
+<b>REV_JOG</b> axis parameters. It is also
+possible to adjust the active state of the signals by using 
+<b>INVERT_IN</b>
+command.
+</p>
+<p>
+<img width="421" height="272" src="RobotJogTool_files/image019.png">
+</p>
+<h2>Selecting Active Robot, Tool and Frames</h2>
+<p>
+Robot jog tool supports configuration with
+multiple kinematic groups defined. For each kinematic group active tool, object
+frame and robot frame can be selected. A toolbar in the upper area of the jog
+tool provides the user with ability to select any of these.
+</p>
+<p>
+<img width="395" height="28" src="RobotJogTool_files/image020.png">
+</p>
+<h2>Position and Orientation Monitor</h2>
+<p>
+Current Cartesian coordinates of the
+selected kinematic group are visualized and periodically updated. Three sets of
+coordinates are displayed relative to:
+</p>
+<p style="margin-left:36.0pt;text-indent:-18.0pt">
+-
+<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>global world coordinate system – active tool
+offset, object and robot frame are taken into account when calculating the
+coordinates;
+</p>
+<p style="margin-left:36.0pt;text-indent:-18.0pt">
+-
+<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>base coordinate system of the robot – only
+active robot frame is taken into account when calculating the coordinates;
+</p>
+<p style="margin-left:36.0pt;text-indent:-18.0pt">
+-
+<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>tool coordinate system – active tool offset  and
+robot frame but not the object frame are taken into account when calculating
+the coordinates.
+</p>
+<p>
+<img width="371" height="138" src="RobotJogTool_files/image021.png">
+</p>
+<p>
+The last column displays the effective
+speeds that will be used when doing linear jog operation.
+</p>
+</body>
+</html>

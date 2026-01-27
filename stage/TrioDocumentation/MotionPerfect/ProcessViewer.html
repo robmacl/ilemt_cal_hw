@@ -1,0 +1,342 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>Process Viewer</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>Process Viewer</h1>
+<p>
+<img width="437" height="201" id="Picture 1" src="ProcessViewer_files/image001.jpg">
+</p>
+<p>
+The Process Viewer shows information about all currently
+running processes on the controller. The information in the grid is as follows:
+</p>
+<table class="tablegrid">
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Column
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Description
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Proc.
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Process number
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Program
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Program name
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Type
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Program type (See &quot;
+<a href="Programs.html">Program
+  Types</a>
+&quot;)
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Status
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Run status (usually RUNNING or PAUSED)
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Line
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Current execution line in the program (if PAUSED)
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+CPU %
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Percentage of CPU time being used
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Time
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Time since the process was started
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Call Stack
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Call stack information
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<h2>Toolbar</h2>
+<table class="tablegrid">
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Button
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Function
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+<img border="0" width="16" height="16" id="Picture 3" src="ProcessViewer_files/image002.png">
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Show / Hide system processes
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+<img border="0" width="19" height="18" id="Picture 2" src="ProcessViewer_files/image003.png">
+</p>
+
+  
+</td>
+<td valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Adjust  automatic updating speed (High or Normal).
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<h2>Call Stack</h2>
+<p>
+Call stack information is available for Trio BASIC processes
+and IEC 61131-3 task processes.
+</p>
+<p>
+<img width="602" height="338" src="ProcessViewer_files/image004.jpg" alt="A screenshot of a social media post&#10;&#10;Description automatically generated">
+<br clear="ALL">
+</p>
+<h3>Trio BASIC call stack</h3>
+<p>
+With Trio BASIC libraries it is possible to define user
+functions that can be called from Trio BASIC programs. When a Trio BASIC
+process is paused, the call stack information column displays call stack info
+for the corresponding process.
+</p>
+<p>
+For Trio BASIC processes only the top of the call stack is
+available:
+</p>
+<ul style="list_style_type:disc">
+<li class="indent-list-first">
+The program and the line number when the process is paused on a
+line of a Trio BASIC program
+</li>
+<li class="indent-list-middle">
+The library and the line number when the process is paused on a
+line in a Trio BASIC library function.
+</li>
+<li class="indent-list-last">
+</li>
+</ul>
+<h3>IEC 61131-3 call stack</h3>
+<p>
+In IEC 61131-3 programming environment it is possible to
+define sub-programs and user-defined function blocks that can be called from
+main programs. When an IEC 61131-3 task is paused, the call stack information
+column displays the full call stack information for the corresponding task. The
+call stack always starts with the currently scanned main program.
+</p>
+<p>
+The call stack information includes program name and line
+number / column index.
+</p>
+<p class="note">
+Note : double-click on an entry in the call-stack to open the
+corresponding program editor and navigate to the paused line.
+</p>
+</body>
+</html>

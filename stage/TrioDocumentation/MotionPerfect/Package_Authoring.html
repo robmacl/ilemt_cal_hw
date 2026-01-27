@@ -1,0 +1,605 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>Package Authoring</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>Package Authoring</h1>
+<p>
+A package is developed within a project. The source of a
+package is a project group named after the package for which it is going to be
+source. It is advised that this project is kept as a dedicated “package
+development” project. Outside the project group for the package the project may
+contain other items, likely related to testing the package. It is good practice
+is to keep the package development project under a source control versioning
+system.
+</p>
+<p>
+A package is created from the group’s context menu command
+“Create Package From Group...”. 
+</p>
+<p>
+<img width="394" height="278" id="Image1" src="Package_Authoring_files/image001.png">
+</p>
+<p>
+This brings up the Package Creation Wizard which will guide
+the user through the package creation process.
+</p>
+<h2>Package creation wizard</h2>
+<p>
+The wizard has several pages:
+</p>
+<h3>Properties page</h3>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="170" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Field
+</p>
+
+  
+</td>
+<td width="400" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Meaning
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="170" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Package name
+</p>
+
+  
+</td>
+<td width="400" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+The name of the package. The package will be referred
+  by this name.
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="170" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Package version
+</p>
+
+  
+</td>
+<td width="400" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+The version of the package. If previous version is
+  available it is displayed as a hint. See below for more detailed explanation.
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="170" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Package creator
+</p>
+
+  
+</td>
+<td width="400" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+The package creator. May be the name of the developer
+  responsible for the package release.
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="170" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Description
+</p>
+
+  
+</td>
+<td width="400" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Quick description of the package that will be displayed
+  with the package name.
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="170" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Icon(32x32)
+</p>
+
+  
+</td>
+<td width="400" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Optional icon to be displayed with the package. The
+  image will be re-scaled to size of 32 by 32 pixels.
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="170" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Help file
+</p>
+
+  
+</td>
+<td width="400" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+A file that describes package functionality and
+  interfacing. This file will be available for viewing in 
+<i>Motion</i> Perfect.
+  This should be the main source of help for the package. For example it should
+  contain information about provided BASIC functions and/or HMI functionality
+  (if any). 
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<h3>Package Version</h3>
+<p>
+Version must contain 2 to 4 numbers separated by dot and
+optionally followed by text suffix.
+</p>
+<p>
+Version numbers can optionally have leading zeros to
+accommodate versioning scheme with fixed number of digits.
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+Examples:
+</p>
+<p>
+    1.2 - two version numbers
+</p>
+<p>
+    1.2.3 - three version numbers
+</p>
+<p>
+    1.2.3.4 (test) - four version numbers with suffix
+</p>
+<p>
+</p>
+<p>
+    1.002 - correct and same as 1.2
+</p>
+<p>
+    1.010 - correct and bigger than 1.002 as it resolves to
+1.10 &gt; 1.2
+</p>
+<p>
+    1.01  - not correct when using fixed number of digits
+versioning scheme as it has different number of digits and resolves to 1.1 &lt;
+1.2
+</p>
+<h3>Additional Elements page</h3>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="170" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Field
+</p>
+
+  
+</td>
+<td width="400" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Meaning
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="170" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Limit Controller Types
+</p>
+
+  
+</td>
+<td width="400" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+If the package is applicable to certain controller
+  types those can be specified.
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="170" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Require Minimum Firmware Version
+</p>
+
+  
+</td>
+<td width="400" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+If the package is applicable above certain firmware
+  version it can be specified.
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="170" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Display Order
+</p>
+
+  
+</td>
+<td width="400" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+The positioning in the package list. This is purely for
+  UI purposes. This can push this package higher in the list (in case of a long
+  package list)
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="170" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Tags
+</p>
+
+  
+</td>
+<td width="400" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Tags to describe package in a way it should be treated
+  by package list filtering. For example: “pendant, TrioMotion”, “math”, etc. 
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<h3>Password page</h3>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="170" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Field
+</p>
+
+  
+</td>
+<td width="400" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Meaning
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="170" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Encrypting authority
+</p>
+
+  
+</td>
+<td width="400" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+The name of the authority with which this package is
+  associated. It works in conjunction with the password and generated project
+  key to protect the package contents. The field is case-sensitive.
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="170" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Enter password
+</p>
+
+  
+</td>
+<td width="400" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+A password used to protect the package. It should not
+  be changed for this authority after it has been created. If in an exceptional
+  case the password needs to be changed (for example: when compromised) this
+  will mean all the Uniplay devices that use this package (when the package
+  contains HMI content) will need to be loaded with a new licence file for this
+  authority and the new password applied. 
+</p>
+
+  
+<p class="warning">
+Keep the password safe and secure in order to protect the
+  intellectual property implemented in your package.
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="170" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Reenter password
+</p>
+
+  
+</td>
+<td width="400" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Password type error protection
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<h3>Preview page</h3>
+<p>
+Package information check.
+</p>
+<h3>HMI Protection Options</h3>
+<p>
+If the package contains HMI designs or HMI libraries then the
+HMI protection Options window is displayed. Refer to the HMI help page for the
+protected HMI content generation.
+</p>
+<p>
+&nbsp;
+</p>
+<h2>Package Distribution</h2>
+<p>
+After the package has been created Motion Perfect provides
+an easy way to distribute your package.
+</p>
+<p>
+<img width="494" height="326" id="Picture 2" src="Package_Authoring_files/image002.png">
+</p>
+<p>
+Two sharing options are available: export the package to a
+local file and send it via email. 
+</p>
+<table class="tablegrid">
+
+ 
+<tr>
+<td width="170" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Option
+</p>
+
+  
+</td>
+<td width="400" valign="top" class="tablegrid">
+
+  
+<p class="tableheader">
+Meaning
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="170" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Export To a File
+</p>
+
+  
+</td>
+<td width="400" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Exports the package to a file. The latter can be
+  imported on another system running Motion Perfect through the 
+<a href="PackageManager.html">Package Manager</a>
+ or “Packages…” menu. See 
+<a href="Package_Add.html">Add Package to a Project</a>
+ for details.
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="170" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Send Via Email
+</p>
+
+  
+</td>
+<td width="400" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Opens your default email client and prepares a new
+  email with attached package file and some details. If selected so the mail
+  will also contain a dedicated key to be used for package loading on the
+  recipient’s system
+</p>
+
+  
+<p class="warning">
+.
+</p>
+
+  
+</td>
+</tr>
+
+ 
+<tr>
+<td width="170" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+Generate project key for a user
+</p>
+
+  
+</td>
+<td width="400" valign="top" class="tablegrid">
+
+  
+<p class="tablecontent">
+When ON the project key generation routine will be
+  started. This is needed at list once in order to provide the recipient
+  (package user) with a key to enable loading the encrypted package content.
+  Providing following versions of the same package may not require that option –
+  assuming the user has stored his key already.
+</p>
+
+  
+</td>
+</tr>
+
+
+</table>
+<p>
+&nbsp;
+</p>
+</body>
+</html>

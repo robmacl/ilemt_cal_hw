@@ -1,0 +1,145 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="Microsoft Word 15 (filtered)">
+<title>EtherCAT Database Browser</title>
+<link rel="styleSheet" type="text/css" href="TrioHelpStyle.css">
+</head>
+<body>
+<h1>EtherCAT Database Browser</h1>
+<p>
+The controller contains an internal
+database of known EtherCAT devices. It is structured hierarchically by vendor
+and then by device provided by a given vendor. For each device one or more
+profiles are defined containing configuration information like:
+</p>
+<ul type="disc">
+
+ 
+<li>
+PDO configuration
+</li>
+
+ 
+<li>
+SDO configuration
+</li>
+
+ 
+<li>
+IO configuration
+</li>
+
+
+</ul>
+<h2>List of Known Vendors and Products</h2>
+<p>
+<img width="350" height="500" src="EtherCAT-DatabaseBrowser_files/image001.png">
+</p>
+<p>
+This window displays a list of all known vendors, and for
+each vendor, all known devices. For each vendor and device its name and unique
+identification number is displayed in hexadecimal form. By double-clicking on
+particular device a new window is displayed containing profile information.
+</p>
+<p>
+&nbsp;
+</p>
+<h2>Searching for Vendor or Device</h2>
+<h2><img width="196" height="80" src="EtherCAT-DatabaseBrowser_files/image002.png">
+</h2>
+<p>
+It is possible to search the database by vendor or device
+name or Id. The type of the search is selected with the drop-down button. 
+</p>
+<p>
+<img width="335" height="106" src="EtherCAT-DatabaseBrowser_files/image003.png">
+</p>
+<p>
+By typing in the text are the list is filtered and only
+entries that match remain visible. The text that matches the search criteria is
+highlighted.
+</p>
+<p>
+&nbsp;
+</p>
+<h2>Profile Viewer</h2>
+<p>
+<img width="380" height="500" src="EtherCAT-DatabaseBrowser_files/image004.png">
+</p>
+<p>
+Profile viewer display following configuration information
+stored in selected profile:
+</p>
+<ul type="disc">
+
+ 
+<li>
+PDO configuration – parameters that are periodically
+     exchanged between the controller and the device like status and control
+     words. 
+</li>
+
+ 
+<li>
+SDO configuration – parameters that are set during
+     initialization of the device
+</li>
+
+ 
+<li>
+IO configuration – information related to I/O
+     configuration of the device
+</li>
+
+
+</ul>
+<p>
+If several profiles and/or control modes are supported by
+given device then on the left side of the viewer a selection in form of
+radio-buttons is displayed. The information on the right side of the viewer is
+updated correspondingly when selecting other control mode or profile number.
+</p>
+<p>
+Profile information in form of a report can be copied to the
+clipboard or printed by pressing 
+<img width="23" height="23" src="EtherCAT-DatabaseBrowser_files/image005.png">
+  and 
+<img width="39" height="23" src="EtherCAT-DatabaseBrowser_files/image006.png">
+ buttons
+respectively.
+</p>
+<p>
+Adding the selected combination of control
+mode and profile number directly to the MC_CONFIG can be done by pressing “Add
+to MC_CONFIG” button.
+</p>
+<p>
+Depending on whether the device is a drive
+or not a different dialog box is displayed.
+</p>
+<h2>Add to MC_CONFIG for Drives</h2>
+<p>
+<img width="500" height="500" src="EtherCAT-DatabaseBrowser_files/image007.png">
+</p>
+<p>
+It is possible to select axes for which the
+desired configuration will be applied. In order to make MC_CONFIG easier to
+read the customer is given option to add a comment for both the control mode
+and profile number to be set. By pressing “Add to MC_CONFIG” button the
+selected configuration is stored in the MC_CONFIG file.
+</p>
+<h2>Add to MC_CONFIG for Non-Drives</h2>
+<p>
+<img width="321" height="148" src="EtherCAT-DatabaseBrowser_files/image008.png">
+</p>
+<p>
+For non-drive device types, only the
+profile number is subject to configuration. The user is given the option to
+select the slave number on the EtherCAT bus to which the profile configuration will
+be applied. It is also possible to enter a comment in order to improve
+MC_CONFIG file readability. By pressing “Add to MC_CONFIG” button the selected
+configuration is stored in the MC_CONFIG file.
+</p>
+</body>
+</html>
