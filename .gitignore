@@ -24,3 +24,7 @@ Thumbs.db
 *.dll
 *.so
 *.dylib
+
+# Large binary files and installers
+*.msi
+*.zip
