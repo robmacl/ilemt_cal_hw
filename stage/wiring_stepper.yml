@@ -1,0 +1,136 @@
+# WireViz: Stepper port + Enable/E-stop (one port, two drivers)
+# Render with: python -m wireviz wiring_stepper.yml
+
+metadata:
+  title: ILEMT Stage - Stepper Port & Enable/E-Stop
+
+connectors:
+  MC508_STEP:
+    type: MDR-20
+    notes: "MC508 Stepper Port (ATYPE 43, P849)"
+    pins: [1, 2, 3, 4, 11, 12, 13, 14, 7, 8]
+    pinlabels: ["Pulse(N)+", "/Pulse(N)", "Dir(N)+", "/Dir(N)",
+                "Pulse(N+8)+", "/Pulse(N+8)", "Dir(N+8)+", "/Dir(N+8)",
+                WDOG+, WDOG-]
+
+  DRV_A:
+    type: Screw Terminal
+    notes: "KL-4030 Driver A (Axis N)"
+    pins: [1, 2, 3, 4, 5, 6]
+    pinlabels: ["PUL+", "PUL-", "DIR+", "DIR-", "ENA+", "ENA-"]
+
+  DRV_B:
+    type: Screw Terminal
+    notes: "KL-4030 Driver B (Axis N+8)"
+    pins: [1, 2, 3, 4, 5, 6]
+    pinlabels: ["PUL+", "PUL-", "DIR+", "DIR-", "ENA+", "ENA-"]
+
+  ESTOP:
+    type: NC Pushbutton
+    notes: "Emergency Stop"
+    pins: [1, 2]
+    pinlabels: [COM, NC]
+    color: RD
+
+  EXT5V:
+    type: Power Supply
+    notes: "External 5V (enable circuit)"
+    pins: [1, 2]
+    pinlabels: ["+5V", GND]
+
+  R1:
+    style: simple
+    type: "Resistor 330-470R"
+    notes: "ENA current limit A"
+
+  R2:
+    style: simple
+    type: "Resistor 330-470R"
+    notes: "ENA current limit B"
+
+cables:
+  STEPA:
+    wirecount: 4
+    notes: "Axis N step/dir"
+    colors: [BK, BN, RD, OG]
+
+  STEPB:
+    wirecount: 4
+    notes: "Axis N+8 step/dir"
+    colors: [GNYE, LBBU, PK, BKWH]
+
+  PWR:
+    wirecount: 1
+    colors: [RD]
+
+  ES:
+    wirecount: 1
+    colors: [RD]
+
+  WD:
+    wirecount: 1
+    colors: [BU]
+
+  EA:
+    wirecount: 1
+    colors: [OG]
+
+  RA:
+    wirecount: 1
+    colors: [BK]
+
+  EB:
+    wirecount: 1
+    colors: [OG]
+
+  RB:
+    wirecount: 1
+    colors: [BK]
+
+connections:
+  # Axis N: MC508 → Driver A pulse/dir
+  -
+    - MC508_STEP: [1, 2, 3, 4]
+    - STEPA: [1-4]
+    - DRV_A: [1, 2, 3, 4]
+  # Axis N+8: MC508 → Driver B pulse/dir
+  -
+    - MC508_STEP: [11, 12, 13, 14]
+    - STEPB: [1-4]
+    - DRV_B: [1, 2, 3, 4]
+  # Enable: 5V → E-stop
+  -
+    - EXT5V: [1]
+    - PWR: [1]
+    - ESTOP: [1]
+  # E-stop → WDOG
+  -
+    - ESTOP: [2]
+    - ES: [1]
+    - MC508_STEP: [7]
+  # WDOG → R1 → Driver A ENA
+  -
+    - MC508_STEP: [8]
+    - WD: [1]
+    - R1: [1]
+  -
+    - R1: [1]
+    - EA: [1]
+    - DRV_A: [5]
+  -
+    - DRV_A: [6]
+    - RA: [1]
+    - EXT5V: [2]
+  # WDOG → R2 → Driver B ENA
+  -
+    - R1: [1]
+    - EB: [1]
+    - R2: [1]
+  -
+    - R2: [1]
+    - EB: [1]
+    - DRV_B: [5]
+  -
+    - DRV_B: [6]
+    - RB: [1]
+    - EXT5V: [2]

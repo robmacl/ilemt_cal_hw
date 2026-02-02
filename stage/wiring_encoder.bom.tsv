@@ -1,0 +1,7 @@
+Id	Description	Qty	Unit	Designators
+1	Cable, 1 wires	0	m	LFWD, LGND, LPWR, LREV, UFWD, UGND, UREV
+2	Cable, 8 wires	0	m	ENC
+3	Connector, D-Sub 25 Male, male, 13 pins	1		DB25
+4	Connector, DIP-16, 5 pins	1		ULN
+5	Connector, MDR-20, 10 pins	1		MC508_ENC
+6	Connector, Power Supply, 2 pins	1		EXT5V
