@@ -19,7 +19,12 @@ This project involves interfacing a precision motion stage to a Trio MC5408 P849
 ### Previous Setup
 - **NI UMI-7774** - National Instruments breakout interface
   - Documentation: `stage/NI_UMI-77774pdf.pdf`
-  - Existing stage cables terminate for this connector
+  - Existing stage cables terminate for this connector (DB-25 male)
+
+### Stepper Drivers
+- **KL-4030** (Keling) - Stepper motor drivers
+  - Opto-isolated inputs for PUL+/-, DIR+/-, ENA+/-
+  - Two drivers per MC508 stepper port (axis N and N+8)
 
 ### Motion Stage
 - Precision XYZ stage with stepper motors and encoders
@@ -39,17 +44,18 @@ This project involves interfacing a precision motion stage to a Trio MC5408 P849
 - [x] Understand flexible axis pin configuration
 - [x] Learn ATYPE configuration for stepper+encoder setup
 - [x] Understand registration inputs vs. regular inputs
-- [ ] Document NI UMI-7774 pinout
-- [ ] Map existing stage cable connections
+- [x] Document NI UMI-7774 pinout
+- [x] Map existing stage cable connections
 
-### Cable Adaptation (Immediate Task)
+### Cable Adaptation
 **Goal:** Create wirelist to adapt existing stage cables from NI UMI-7774 to Trio MC508
 
-- [ ] Document existing cable pinouts from NI UMI-7774
-- [ ] Map to MC508 flexible axis connectors
-- [ ] Create wirelist for each axis
-- [ ] Identify any needed breakout boards or adapters
-- [ ] Design/specify cable assemblies
+- [x] Document existing cable pinouts from NI UMI-7774
+- [x] Map to MC508 flexible axis connectors
+- [x] Create wirelist for each axis (encoder + stepper)
+- [x] Identify needed breakout boards or adapters (ULN2003A for limits)
+- [ ] Design/build adapter cables
+- [ ] Build ULN2003A interface board for limit switch level shifting
 
 ### Motion Controller Configuration
 - [ ] Write MC_CONFIG.bas initialization file
@@ -81,11 +87,11 @@ This allows:
 - Precise homing using limit switch + Z index
 - Custom control loop in user code
 
-**Pin Assignments for ATYPE 43 (Stepper Output):**
-- Pins 1-2: Pulse / /Pulse (differential)
-- Pins 3-4: Direction / /Direction (differential)
-- Pins 11-12: Enable / /Enable (differential)
-- Pins 7-8: WDOG relay output
+**Pin Assignments for ATYPE 43 (Stepper Output) — P849 variant:**
+- Pins 1-2: Pulse(N) / /Pulse(N) (differential)
+- Pins 3-4: Dir(N) / /Dir(N) (differential)
+- Pins 11-14: Pulse(N+8) / Dir(N+8) — second stepper axis (replaces enable)
+- Pins 7-8: WDOG SSR relay output (24V/100mA, ~25Ω)
 - Pin 5: +5V encoder power (100mA max per port)
 
 **Pin Assignments for ATYPE 76 (Encoder Input):**
@@ -121,17 +127,21 @@ MPOS(0) = MPOS(1)  ' Sync stepper axis
 
 ```
 ilemt_cal_hw/
-├── claude.md                 # This file
+├── CLAUDE.md                # This file
 ├── .gitignore               # Git ignore rules
 ├── optical/                 # Optical sensor designs
 │   ├── X_bracket.SLDPRT
 │   ├── YZ_bracket.SLDPRT
 │   ├── sensor_mount.SLDASM
 │   └── components/
-├── stage/                   # Motion stage documentation
+├── stage/                   # Motion stage documentation & wiring
 │   ├── MC508 Manual.pdf
 │   ├── MC508 v3.0.pdf
 │   ├── NI_UMI-77774pdf.pdf
+│   ├── stage_wiring.md      # Main wiring documentation
+│   ├── wiring_encoder.yml   # WireViz: encoder/limits adapter
+│   ├── wiring_stepper.yml   # WireViz: stepper port + enable/E-stop
+│   ├── gen_wiring.bat       # Runs WireViz on all YAML files
 │   ├── Pics/
 │   └── TrioDocumentation/   # Extracted help files
 │       ├── MotionPerfect/
@@ -164,31 +174,33 @@ The MC508 supports multiple protocols for LabVIEW integration:
 - `DATUM_IN` - Assigns input for homing limit switch
 - `REGIST()` - Arms hardware position capture
 - `SERVO` - Enables/disables servo loop (OFF for open-loop stepper)
-- `WDOG` - Enables amplifier enable relay
+- `WDOG` - Enables amplifier enable relay / SSR for drive enable
+
+### Key Hardware Findings
+- **MC508 inputs are ALL 24V** (6.8kΩ series, opto-isolated). 5V signals need ULN2003A level shifting.
+  - Level shift board only needs to sink current to ground — 24V is supplied internally through the 6.8kΩ.
+  - Connect MC508 Input Com (pin 10) to level shift GND for return path.
+- **MC508 VOUT+/VOUT-** are analog servo outputs (±10V DAC), NOT 24V power supply.
+- **P849 dual-axis ports**: ATYPE 43 pins 11-14 carry axis N+8 (second stepper), replacing enable outputs.
+- **WDOG relay** is used for drive enable instead of per-axis AXIS_ENABLE (which needs dedicated pins lost to N+8).
+- **Home switch not used** — only 2 limit inputs needed per axis, matching ATYPE 76's 2 inputs.
+- **Encoder power from MC508** (+5V, pin 5) avoids CM noise. Limit switches use external 5V supply.
+- **Step/Dir to KL-4030**: Single-ended connection — only use + output from RS-422 pair, tie driver PUL-/DIR- to MC508 0V (pin 15). Avoids reverse-biasing opto LED when output is low.
+- **KL-4030 ENA inputs**: Designed for 5V direct drive, no external current-limiting resistor needed.
+
+## Wiring Diagram Tools
+
+- **WireViz** (`pip install wireviz`): Generates harness diagrams from YAML. Requires **Graphviz** (`dot`).
+- **Graphviz**: Install from https://graphviz.org/ — Windows installer doesn't add to PATH automatically.
+- Run `stage/gen_wiring.bat` to regenerate all diagrams (handles PATH setup).
 
 ## Next Steps
 
-1. **Cable Documentation** (Immediate)
-   - Photograph existing cable connectors
-   - Document NI UMI-7774 pinout from manual
-   - Create pin-to-pin mapping spreadsheet
-
-2. **Adapter Design**
-   - Determine if breakout boards needed
-   - Design or specify cable assemblies
-   - Create wirelist documents
-
-3. **Initial Testing**
-   - Connect one axis as proof-of-concept
-   - Test encoder reading
-   - Test stepper pulse output
-   - Verify homing sequence
-
-4. **Software Development**
-   - Write MC_CONFIG.bas
-   - Develop LabVIEW communication library
-   - Implement motion control wrapper
-   - Create test/calibration routines
+1. **Build ULN2003A interface board** for limit switch level shifting (5V → 24V sink)
+2. **Design/build adapter cables** (DB-25 to MC508 20-pin MDR)
+3. **Write MC_CONFIG.bas** — axis type assignments and initial configuration
+4. **Initial testing** — one axis proof-of-concept
+5. **LabVIEW integration** — communication library and motion control
 
 ## Notes
 
