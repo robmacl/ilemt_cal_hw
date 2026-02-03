@@ -1,0 +1,107 @@
+# WireViz: Encoder/Limits adapter cable (one axis)
+# See stage_wiring.md for design rationale
+
+metadata:
+  title: ILEMT Stage - Encoder & Limits Adapter (Per Axis)
+
+connectors:
+  DB25:
+    type: D-Sub 25 Male
+    subtype: male
+    notes: Stage cable (from UMI-7774)
+    pins: [1, 14, 2, 15, 3, 16, 4, 17, 10, 12, 13, 22, 11]
+    pinlabels: [Enc A+, Enc A-, Enc B+, Enc B-, Enc Z+, Enc Z-,
+                +5V, Dig GND, Fwd Limit, Rev Limit, Viso, Ciso, Home N/C]
+
+  MC508_ENC:
+    type: MDR-20
+    notes: "MC508 Encoder Port (ATYPE 76)"
+    pins: [1, 2, 3, 4, 11, 12, 5, 15, 9, 20, 10]
+    pinlabels: [Enc A+, /Enc A, Enc B+, /Enc B, Enc Z+, /Enc Z,
+                +5V Enc, 0V, Input A, Input B, Input Com]
+
+  LVLSHIFT:
+    type: Board
+    notes: "Level Shift (ULN2003A or similar, 5V to 24V sink)"
+    pins: [1, 2, 3, 4, 5]
+    pinlabels: [In Fwd, In Rev, Out Fwd, Out Rev, GND]
+
+  EXT5V:
+    type: Power Supply
+    notes: "External 5V (limit switch power)"
+    pins: [1, 2]
+    pinlabels: ["+5V", GND]
+
+cables:
+  ENC:
+    wirecount: 8
+    notes: Encoder adapter (8 wires)
+    colors: [BK, BN, RD, OG, GNYE, LBBU, YE, BNWH]
+
+  LFWD:
+    wirecount: 1
+    colors: [BU]
+
+  LREV:
+    wirecount: 1
+    colors: [RD]
+
+  UFWD:
+    wirecount: 1
+    colors: [GY]
+
+  UREV:
+    wirecount: 1
+    colors: [BUWH]
+
+  LPWR:
+    wirecount: 1
+    colors: [RD]
+
+  LGND:
+    wirecount: 1
+    colors: [BK]
+
+  ICOM:
+    wirecount: 1
+    notes: "Input common (24V return)"
+    colors: [BK]
+
+connections:
+  # Encoder: DB25 → MC508 (direct, differential)
+  -
+    - DB25: [1, 14, 2, 15, 3, 16, 4, 17]
+    - ENC: [1-8]
+    - MC508_ENC: [1, 2, 3, 4, 11, 12, 5, 15]
+  # Limit switches: DB25 → Level Shift inputs
+  -
+    - DB25: [10]
+    - LFWD: [1]
+    - LVLSHIFT: [1]
+  -
+    - DB25: [12]
+    - LREV: [1]
+    - LVLSHIFT: [2]
+  # Level Shift outputs → MC508 digital inputs
+  -
+    - LVLSHIFT: [3]
+    - UFWD: [1]
+    - MC508_ENC: [9]
+  -
+    - LVLSHIFT: [4]
+    - UREV: [1]
+    - MC508_ENC: [20]
+  # MC508 Input Com + Level Shift GND → signal ground
+  -
+    - MC508_ENC: [10]
+    - ICOM: [1]
+    - LVLSHIFT: [5]
+  # Limit switch power: Viso/Ciso → External 5V
+  -
+    - DB25: [13]
+    - LPWR: [1]
+    - EXT5V: [1]
+  -
+    - DB25: [22]
+    - LGND: [1]
+    - EXT5V: [2]
