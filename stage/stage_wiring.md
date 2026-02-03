@@ -184,8 +184,8 @@ One ULN2003A handles all limit switches for all 3 axes (6 channels used of 7).
 | 13  | Dir(N+8)+       | Differential direction, axis N+8    |
 | 14  | /Dir(N+8)       |                                     |
 | 15  | 0V              | Digital ground                      |
-| 17  | VOUT+           | 24V output for sensors              |
-| 18  | VOUT-           |                                     |
+| 17  | VOUT+           | Analog servo output (±10V DAC)      |
+| 18  | VOUT-           | NOT a 24V power supply              |
 | 20  | Input 17+n*2    | Digital input (24V, PNP)            |
 
 Note: On P849, pins 11-14 carry axis N+8 pulse/direction instead of
@@ -263,31 +263,49 @@ ULN2003A outputs connect to MC508 SCSI cable:
 | Fwd Limit    | 9             | GRY       | Input 16+n*2  |
 | Rev Limit    | 20            | WHT/BLU   | Input 17+n*2  |
 
-ULN2003A common emitter → MC508 0V (WHT/BRN, pin 15) or external 5V ground.
+ULN2003A common emitter → MC508 Input Com (pin 10, WHT) for 24V return path.
+
+The level shift board does not need an external 24V supply — the MC508 sources
+24V internally through the 6.8kΩ series resistor. The ULN2003A just sinks
+that current to ground.
 
 ## Stepper Port Wirelist
 
 Two stepper axes per ATYPE 43 port (axis N and axis N+8). Each port drives
-two KL-4030 stepper drivers. The MC508 pulse/direction outputs are RS-422
-differential; the KL-4030 inputs are opto-isolated with both ends accessible.
+two KL-4030 stepper drivers.
 
-### Axis N (pins 1-4) → KL-4030 Driver A
+### Single-Ended Connection
 
-| MC508 MDR Pin | SCSI Wire | MC508 Signal | KL-4030 Pin | Notes           |
-|---------------|-----------|--------------|-------------|-----------------|
-| 1             | BLK       | Pulse(N)+    | PUL+ (+5V)  |                 |
-| 2             | BRN       | /Pulse(N)    | PUL-         |                 |
-| 3             | RED       | Dir(N)+      | DIR+ (+5V)  |                 |
-| 4             | ORN       | /Dir(N)      | DIR-         |                 |
+The MC508 pulse/direction outputs are RS-422 differential. The KL-4030 inputs
+are opto-isolated with both LED terminals accessible. We use single-ended
+connection: only the + output from each RS-422 pair connects to the driver's
+PUL+/DIR+, and the driver's PUL-/DIR- ties to MC508 0V (pin 15, signal ground).
 
-### Axis N+8 (pins 11-14) → KL-4030 Driver B
+This avoids reverse-biasing the opto LED (~5V reverse) when the RS-422 output
+is in the low state. The complementary /Pulse and /Dir outputs are left
+unconnected.
 
-| MC508 MDR Pin | SCSI Wire | MC508 Signal   | KL-4030 Pin | Notes           |
-|---------------|-----------|----------------|-------------|-----------------|
-| 11            | LTGRN     | Pulse(N+8)+    | PUL+ (+5V)  |                 |
-| 12            | LTBLU     | /Pulse(N+8)    | PUL-         |                 |
-| 13            | PINK      | Dir(N+8)+      | DIR+ (+5V)  |                 |
-| 14            | WHT/BLK   | /Dir(N+8)      | DIR-         |                 |
+### Axis N (pins 1, 3) → KL-4030 Driver A
+
+| MC508 MDR Pin | SCSI Wire | MC508 Signal | KL-4030 Pin | Notes              |
+|---------------|-----------|--------------|-------------|--------------------|
+| 1             | BLK       | Pulse(N)+    | PUL+        | Signal             |
+| 15            | WHT/BRN   | 0V           | PUL-        | Ground reference   |
+| 3             | RED       | Dir(N)+      | DIR+        | Signal             |
+| 15            | WHT/BRN   | 0V           | DIR-        | Ground reference   |
+
+Pins 2, 4 (/Pulse, /Dir) not connected.
+
+### Axis N+8 (pins 11, 13) → KL-4030 Driver B
+
+| MC508 MDR Pin | SCSI Wire | MC508 Signal   | KL-4030 Pin | Notes              |
+|---------------|-----------|----------------|-------------|--------------------|
+| 11            | LTGRN     | Pulse(N+8)+    | PUL+        | Signal             |
+| 15            | WHT/BRN   | 0V             | PUL-        | Ground reference   |
+| 13            | PINK      | Dir(N+8)+      | DIR+        | Signal             |
+| 15            | WHT/BRN   | 0V             | DIR-        | Ground reference   |
+
+Pins 12, 14 (/Pulse(N+8), /Dir(N+8)) not connected.
 
 ### Port Assignment
 
@@ -309,19 +327,21 @@ WDOG SSR relay to switch the enable circuit. Per-axis AXIS_ENABLE is not used.
 
 ```
 Ext 5V+ → E-stop NC → WDOG+ (pin 7, BLU) → WDOG- (pin 8, PUR) →
-  ├→ R1 → Driver A ENA+ → Driver A ENA- → Ext 5V return
-  └→ R2 → Driver B ENA+ → Driver B ENA- → Ext 5V return
+  ├→ Driver A ENA+ → Driver A ENA- → Ext 5V return
+  └→ Driver B ENA+ → Driver B ENA- → Ext 5V return
+
+MC508 0V (pin 15) → Ext 5V GND  (signal ground tie)
 ```
 
-- R1, R2: current-limiting resistors for the opto LED. Value depends on
-  KL-4030 ENA opto forward voltage and required current (TBD, likely ~330-470Ω
-  for ~8-10mA at 5V with ~1.2V Vf).
+- No current-limiting resistors needed — KL-4030 ENA opto inputs are designed
+  for 5V direct drive (internal current limiting).
 - E-stop is NC (normally closed) pushbutton in series — pressing it breaks
   the enable circuit at the hardware level regardless of MC508 software state.
 - WDOG SSR rated 24V/100mA, ~25Ω on-resistance. At 5V with two optos the
   current is well within rating.
 - All stepper ports share the same E-stop button (wired in series before
   splitting to each port's WDOG).
+- MC508 0V (pin 15) must be tied to Ext 5V GND for a common ground reference.
 
 ### E-Stop Software Feedback (Optional)
 
@@ -333,10 +353,14 @@ for safety — the hardwired circuit above handles that.
 
 WireViz YAML definitions for the two adapter cables:
 
-- **`wiring_encoder.yml`** — Encoder/limits adapter (DB-25 → MC508 encoder port + ULN2003A)
+- **`wiring_encoder.yml`** — Encoder/limits adapter (DB-25 → MC508 encoder port + level shift)
 - **`wiring_stepper.yml`** — Stepper port + enable/E-stop (MC508 stepper port → 2× KL-4030 drivers)
 
 Run `gen_wiring.bat` to regenerate diagrams (SVG + PNG + BOM).
+
+**This document (stage_wiring.md) is the definitive wiring reference.**
+The YAML files are rendering inputs for WireViz only — they should match
+the wirelists here but contain no additional design rationale.
 
 ## Next Steps
 

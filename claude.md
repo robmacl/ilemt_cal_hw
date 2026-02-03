@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This project involves interfacing a precision motion stage to a Trio MC5408 P849 motion controller for the ILEMT (Interferometric Laser Electron Metrology Test) calibration system. The stage will be controlled from LabVIEW.
+This project involves interfacing a precision motion stage to a Trio MC5408 P849 motion controller for the ILEMT Electromagnetic position tracker calibration system. The stage will be controlled from LabVIEW.
 
 ## Hardware Components
 

@@ -1,5 +1,5 @@
 # WireViz: Stepper port + Enable/E-stop (one port, two drivers)
-# Render with: python -m wireviz wiring_stepper.yml
+# See stage_wiring.md for design rationale
 
 metadata:
   title: ILEMT Stage - Stepper Port & Enable/E-Stop
@@ -8,10 +8,10 @@ connectors:
   MC508_STEP:
     type: MDR-20
     notes: "MC508 Stepper Port (ATYPE 43, P849)"
-    pins: [1, 2, 3, 4, 11, 12, 13, 14, 7, 8]
-    pinlabels: ["Pulse(N)+", "/Pulse(N)", "Dir(N)+", "/Dir(N)",
-                "Pulse(N+8)+", "/Pulse(N+8)", "Dir(N+8)+", "/Dir(N+8)",
-                WDOG+, WDOG-]
+    pins: [1, 3, 11, 13, 7, 8, 15]
+    pinlabels: ["Pulse(N)+", "Dir(N)+",
+                "Pulse(N+8)+", "Dir(N+8)+",
+                WDOG+, WDOG-, 0V]
 
   DRV_A:
     type: Screw Terminal
@@ -38,26 +38,46 @@ connectors:
     pins: [1, 2]
     pinlabels: ["+5V", GND]
 
-  R1:
-    style: simple
-    type: "Resistor 330-470R"
-    notes: "ENA current limit A"
-
-  R2:
-    style: simple
-    type: "Resistor 330-470R"
-    notes: "ENA current limit B"
-
 cables:
-  STEPA:
-    wirecount: 4
-    notes: "Axis N step/dir"
-    colors: [BK, BN, RD, OG]
+  STEPA_PUL:
+    wirecount: 1
+    notes: "Axis N pulse"
+    colors: [BK]
 
-  STEPB:
-    wirecount: 4
-    notes: "Axis N+8 step/dir"
-    colors: [GNYE, LBBU, PK, BKWH]
+  STEPA_DIR:
+    wirecount: 1
+    notes: "Axis N direction"
+    colors: [RD]
+
+  STEPB_PUL:
+    wirecount: 1
+    notes: "Axis N+8 pulse"
+    colors: [GNYE]
+
+  STEPB_DIR:
+    wirecount: 1
+    notes: "Axis N+8 direction"
+    colors: [PK]
+
+  GND_A1:
+    wirecount: 1
+    notes: "Driver A PUL- ground"
+    colors: [BK]
+
+  GND_A2:
+    wirecount: 1
+    notes: "Driver A DIR- ground"
+    colors: [BK]
+
+  GND_B1:
+    wirecount: 1
+    notes: "Driver B PUL- ground"
+    colors: [BK]
+
+  GND_B2:
+    wirecount: 1
+    notes: "Driver B DIR- ground"
+    colors: [BK]
 
   PWR:
     wirecount: 1
@@ -67,70 +87,97 @@ cables:
     wirecount: 1
     colors: [RD]
 
-  WD:
+  WDA:
     wirecount: 1
-    colors: [BU]
+    notes: "WDOG- to Driver A ENA+"
+    colors: [OG]
 
-  EA:
+  WDB:
     wirecount: 1
+    notes: "WDOG- to Driver B ENA+"
     colors: [OG]
 
   RA:
     wirecount: 1
+    notes: "Driver A ENA- return"
     colors: [BK]
-
-  EB:
-    wirecount: 1
-    colors: [OG]
 
   RB:
     wirecount: 1
+    notes: "Driver B ENA- return"
+    colors: [BK]
+
+  SGND:
+    wirecount: 1
+    notes: "Signal ground tie"
     colors: [BK]
 
 connections:
-  # Axis N: MC508 → Driver A pulse/dir
+  # Axis N: MC508 Pulse+/Dir+ → Driver A PUL+/DIR+ (single-ended)
   -
-    - MC508_STEP: [1, 2, 3, 4]
-    - STEPA: [1-4]
-    - DRV_A: [1, 2, 3, 4]
-  # Axis N+8: MC508 → Driver B pulse/dir
+    - MC508_STEP: [1]
+    - STEPA_PUL: [1]
+    - DRV_A: [1]
   -
-    - MC508_STEP: [11, 12, 13, 14]
-    - STEPB: [1-4]
-    - DRV_B: [1, 2, 3, 4]
-  # Enable: 5V → E-stop
+    - MC508_STEP: [3]
+    - STEPA_DIR: [1]
+    - DRV_A: [3]
+  # Axis N: Driver A PUL-/DIR- → MC508 0V (ground reference)
+  -
+    - DRV_A: [2]
+    - GND_A1: [1]
+    - MC508_STEP: [15]
+  -
+    - DRV_A: [4]
+    - GND_A2: [1]
+    - MC508_STEP: [15]
+  # Axis N+8: MC508 Pulse+/Dir+ → Driver B PUL+/DIR+ (single-ended)
+  -
+    - MC508_STEP: [11]
+    - STEPB_PUL: [1]
+    - DRV_B: [1]
+  -
+    - MC508_STEP: [13]
+    - STEPB_DIR: [1]
+    - DRV_B: [3]
+  # Axis N+8: Driver B PUL-/DIR- → MC508 0V (ground reference)
+  -
+    - DRV_B: [2]
+    - GND_B1: [1]
+    - MC508_STEP: [15]
+  -
+    - DRV_B: [4]
+    - GND_B2: [1]
+    - MC508_STEP: [15]
+  # Enable: 5V → E-stop → WDOG
   -
     - EXT5V: [1]
     - PWR: [1]
     - ESTOP: [1]
-  # E-stop → WDOG
   -
     - ESTOP: [2]
     - ES: [1]
     - MC508_STEP: [7]
-  # WDOG → R1 → Driver A ENA
+  # WDOG- → Driver A ENA+, Driver A ENA- → 5V return
   -
     - MC508_STEP: [8]
-    - WD: [1]
-    - R1: [1]
-  -
-    - R1: [1]
-    - EA: [1]
+    - WDA: [1]
     - DRV_A: [5]
   -
     - DRV_A: [6]
     - RA: [1]
     - EXT5V: [2]
-  # WDOG → R2 → Driver B ENA
+  # WDOG- → Driver B ENA+, Driver B ENA- → 5V return
   -
-    - R1: [1]
-    - EB: [1]
-    - R2: [1]
-  -
-    - R2: [1]
-    - EB: [1]
+    - MC508_STEP: [8]
+    - WDB: [1]
     - DRV_B: [5]
   -
     - DRV_B: [6]
     - RB: [1]
+    - EXT5V: [2]
+  # Signal ground: MC508 0V → EXT5V GND
+  -
+    - MC508_STEP: [15]
+    - SGND: [1]
     - EXT5V: [2]

@@ -1,8 +1,6 @@
 Id	Description	Qty	Unit	Designators
-1	Cable, 1 wires	0	m	EA, EB, ES, PWR, RA, RB, WD
-2	Cable, 4 wires	0	m	STEPA, STEPB
-3	Connector, MDR-20, 10 pins	1		MC508_STEP
-4	Connector, NC Pushbutton, 2 pins, RD	1		ESTOP
-5	Connector, Power Supply, 2 pins	1		EXT5V
-6	Connector, Resistor 330-470R	2		
-7	Connector, Screw Terminal, 6 pins	2		DRV_A, DRV_B
+1	Cable, 1 wires	0	m	ES, GND_A1, GND_A2, GND_B1, GND_B2, PWR, RA, RB, SGND, STEPA_DIR, STEPA_PUL, STEPB_DIR, STEPB_PUL, WDA, WDB
+2	Connector, MDR-20, 7 pins	1		MC508_STEP
+3	Connector, NC Pushbutton, 2 pins, RD	1		ESTOP
+4	Connector, Power Supply, 2 pins	1		EXT5V
+5	Connector, Screw Terminal, 6 pins	2		DRV_A, DRV_B
