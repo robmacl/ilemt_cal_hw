@@ -148,21 +148,25 @@ opto-isolator (needs ~3 mA, requiring ~21.6V minimum).
 
 **The 5V opto-interrupter outputs cannot directly drive MC508 inputs.**
 
-### Solution: ULN2003A Darlington Array
+### Solution: MIC2981 High-Side Source Driver
 
-Use a ULN2003A to interface the 5V opto-interrupter outputs to the MC508 24V
-inputs. The ULN2003A has 7 Darlington channels with integrated base resistors,
-so it can be driven directly from 5V logic. Each channel sinks up to 500mA
-(far more than needed). The MC508 PNP inputs source current through the 6.8kΩ
-resistor; the ULN2003A sinks this to ground.
+Use a MIC2981/82YN (or equivalent UDN2981-compatible) 8-channel high-side
+source driver to interface the 5V opto-interrupter outputs to the MC508 24V
+PNP inputs. The MIC2981 has 8 channels with integrated input resistors, so
+it can be driven directly from 5V logic. Each channel sources up to 500mA
+from the Vs supply (far more than needed). The MC508 PNP inputs expect to
+be driven high; the MIC2981 sources 24V to the input pin, and current flows
+through the internal 6.8kΩ + opto-isolator to Input Com (0V).
 
 **Circuit per limit switch:**
-- Opto-interrupter 5V output → ULN2003A input
-- ULN2003A output → MC508 digital input
-- MC508 input is internally pulled to 24V through 6.8kΩ
-- ULN2003A common emitter → ground (shared with MC508 0V)
+- Opto-interrupter 5V output → MIC2981 input
+- MIC2981 output sources +24V → MC508 digital input pin
+- MC508 Input Com tied to 0V (24V return)
+- Current path: +24V → MIC2981 → input pin → internal opto + 6.8kΩ → Input Com → 0V
+- MIC2981 Vs = +24V (same supply as MC508)
+- MIC2981 GND = 0V (shared with MC508)
 
-One ULN2003A handles all limit switches for all 3 axes (6 channels used of 7).
+One MIC2981 handles all limit switches for all 3 axes (6 channels used of 8).
 
 ## MC508 Flex Axis Connector Pinout (20-pin MDR)
 
@@ -221,8 +225,8 @@ reverse limits are needed (home input is not used).
 | 16        | Encoder Z-       | ATYPE 76 port pin 12 (/Enc Z) | Direct             |
 | 4         | +5V              | ATYPE 76 port pin 5 (+5V)     | Encoder power from MC508 |
 | 17        | Digital Ground   | ATYPE 76 port pin 15 (0V)     | Encoder ground     |
-| 10        | Forward Limit    | ULN2003A in → out to input pin 9  | Via level shifter |
-| 12        | Reverse Limit    | ULN2003A in → out to input pin 20 | Via level shifter |
+| 10        | Forward Limit    | MIC2981 in → out to input pin 9   | Via high-side driver |
+| 12        | Reverse Limit    | MIC2981 in → out to input pin 20  | Via high-side driver |
 | 13        | Viso             | External 5V supply             | Opto-interrupter power |
 | 22, 23    | Ciso             | External 5V ground             | Opto-interrupter return |
 | 11        | Home Input       | Not connected                  | Not used           |
@@ -250,24 +254,27 @@ DB-25 (stage cable) → MC508 SCSI cable, via adapter. Encoder port (ATYPE 76).
 | 16        | Enc Z-       | 12            | LTBLU       | Direct                 |
 | 4         | +5V          | 5             | YEL         | MC508 encoder power    |
 | 17        | Dig Gnd      | 15            | WHT/BRN     | Encoder ground         |
-| 10        | Fwd Limit    | —             | —           | To ULN2003A input      |
-| 12        | Rev Limit    | —             | —           | To ULN2003A input      |
+| 10        | Fwd Limit    | —             | —           | To MIC2981 input       |
+| 12        | Rev Limit    | —             | —           | To MIC2981 input       |
 | 13        | Viso         | —             | —           | To external 5V supply  |
 | 22, 23    | Ciso         | —             | —           | To external 5V ground  |
 | 11        | Home         | —             | —           | Not connected          |
 
-ULN2003A outputs connect to MC508 SCSI cable:
+MIC2981 outputs connect to MC508 SCSI cable:
 
-| ULN2003A Out | MC508 MDR Pin | SCSI Wire | MC508 Input   |
+| MIC2981 Out  | MC508 MDR Pin | SCSI Wire | MC508 Input   |
 |--------------|---------------|-----------|---------------|
 | Fwd Limit    | 9             | GRY       | Input 16+n*2  |
 | Rev Limit    | 20            | WHT/BLU   | Input 17+n*2  |
 
-ULN2003A common emitter → MC508 Input Com (pin 10, WHT) for 24V return path.
+MC508 Input Com (pin 10, WHT) → 24V 0V return.
 
-The level shift board does not need an external 24V supply — the MC508 sources
-24V internally through the 6.8kΩ series resistor. The ULN2003A just sinks
-that current to ground.
+MIC2981 power:
+
+| MIC2981 Pin | Signal | Connection              |
+|-------------|--------|-------------------------|
+| 9 (Vs)      | +24V   | External 24V supply +   |
+| 10 (GND)    | 0V     | External 24V supply 0V  |
 
 ## Stepper Port Wirelist
 
@@ -364,6 +371,6 @@ the wirelists here but contain no additional design rationale.
 
 ## Next Steps
 
-1. **Build ULN2003A interface board** for limit switch level shifting (5V → 24V sink)
+1. **Build MIC2981 interface board** for limit switch level shifting (5V → 24V high-side drive)
 2. **Design/build adapter cables**
 3. **Write MC_CONFIG.bas** — axis type assignments and initial configuration

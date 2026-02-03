@@ -20,17 +20,23 @@ connectors:
     pinlabels: [Enc A+, /Enc A, Enc B+, /Enc B, Enc Z+, /Enc Z,
                 +5V Enc, 0V, Input A, Input B, Input Com]
 
-  LVLSHIFT:
-    type: Board
-    notes: "Level Shift (ULN2003A or similar, 5V to 24V sink)"
-    pins: [1, 2, 3, 4, 5]
-    pinlabels: [In Fwd, In Rev, Out Fwd, Out Rev, GND]
+  MIC2981:
+    type: DIP-18
+    notes: "MIC2981/82YN High-Side Source Driver"
+    pins: [1, 2, 9, 10, 11, 18]
+    pinlabels: [In Fwd, In Rev, Vs, GND, Out Fwd, Out Rev]
 
   EXT5V:
     type: Power Supply
-    notes: "External 5V (limit switch power)"
+    notes: "External 5V (opto-interrupter power)"
     pins: [1, 2]
     pinlabels: ["+5V", GND]
+
+  EXT24V:
+    type: Power Supply
+    notes: "External 24V (MC508 supply)"
+    pins: [1, 2]
+    pinlabels: ["+24V", "0V"]
 
 cables:
   ENC:
@@ -40,31 +46,47 @@ cables:
 
   LFWD:
     wirecount: 1
+    notes: "Fwd limit → MIC2981 in"
     colors: [BU]
 
   LREV:
     wirecount: 1
+    notes: "Rev limit → MIC2981 in"
     colors: [RD]
 
   UFWD:
     wirecount: 1
+    notes: "MIC2981 out → MC508 Input A"
     colors: [GY]
 
   UREV:
     wirecount: 1
+    notes: "MIC2981 out → MC508 Input B"
     colors: [BUWH]
 
   LPWR:
     wirecount: 1
+    notes: "Viso → Ext 5V"
     colors: [RD]
 
   LGND:
     wirecount: 1
+    notes: "Ciso → Ext 5V GND"
     colors: [BK]
 
   ICOM:
     wirecount: 1
-    notes: "Input common (24V return)"
+    notes: "Input Com → 24V 0V"
+    colors: [BK]
+
+  V24:
+    wirecount: 1
+    notes: "+24V → MIC2981 Vs"
+    colors: [RD]
+
+  UGND:
+    wirecount: 1
+    notes: "MIC2981 GND → 24V 0V"
     colors: [BK]
 
 connections:
@@ -73,30 +95,44 @@ connections:
     - DB25: [1, 14, 2, 15, 3, 16, 4, 17]
     - ENC: [1-8]
     - MC508_ENC: [1, 2, 3, 4, 11, 12, 5, 15]
-  # Limit switches: DB25 → Level Shift inputs
+
+  # Limit switches: DB25 → MIC2981 inputs
   -
     - DB25: [10]
     - LFWD: [1]
-    - LVLSHIFT: [1]
+    - MIC2981: [1]
   -
     - DB25: [12]
     - LREV: [1]
-    - LVLSHIFT: [2]
-  # Level Shift outputs → MC508 digital inputs
+    - MIC2981: [2]
+
+  # MIC2981 outputs → MC508 digital inputs
   -
-    - LVLSHIFT: [3]
+    - MIC2981: [11]
     - UFWD: [1]
     - MC508_ENC: [9]
   -
-    - LVLSHIFT: [4]
+    - MIC2981: [18]
     - UREV: [1]
     - MC508_ENC: [20]
-  # MC508 Input Com + Level Shift GND → signal ground
+
+  # MC508 Input Com → 24V 0V (return for PNP inputs)
   -
     - MC508_ENC: [10]
     - ICOM: [1]
-    - LVLSHIFT: [5]
-  # Limit switch power: Viso/Ciso → External 5V
+    - EXT24V: [2]
+
+  # MIC2981 power: +24V to Vs, 0V to GND
+  -
+    - EXT24V: [1]
+    - V24: [1]
+    - MIC2981: [9]
+  -
+    - MIC2981: [10]
+    - UGND: [1]
+    - EXT24V: [2]
+
+  # Opto-interrupter power: Viso/Ciso → External 5V
   -
     - DB25: [13]
     - LPWR: [1]
