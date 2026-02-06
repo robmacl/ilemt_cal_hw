@@ -53,9 +53,9 @@ This project involves interfacing a precision motion stage to a Trio MC5408 P849
 - [x] Document existing cable pinouts from NI UMI-7774
 - [x] Map to MC508 flexible axis connectors
 - [x] Create wirelist for each axis (encoder + stepper)
-- [x] Identify needed breakout boards or adapters (ULN2003A for limits)
+- [x] Identify needed breakout boards or adapters (MIC2981 high-side driver for limits)
 - [ ] Design/build adapter cables
-- [ ] Build ULN2003A interface board for limit switch level shifting
+- [ ] Build MIC2981 interface board for limit switch level shifting
 
 ### Motion Controller Configuration
 - [ ] Write MC_CONFIG.bas initialization file
@@ -177,9 +177,10 @@ The MC508 supports multiple protocols for LabVIEW integration:
 - `WDOG` - Enables amplifier enable relay / SSR for drive enable
 
 ### Key Hardware Findings
-- **MC508 inputs are ALL 24V** (6.8kΩ series, opto-isolated). 5V signals need ULN2003A level shifting.
-  - Level shift board only needs to sink current to ground — 24V is supplied internally through the 6.8kΩ.
-  - Connect MC508 Input Com (pin 10) to level shift GND for return path.
+- **MC508 inputs are ALL 24V PNP** (6.8kΩ series, opto-isolated). 5V signals need MIC2981 high-side driver.
+  - MIC2981 sources 24V to input pin; current flows through internal opto + 6.8kΩ to Input Com.
+  - MIC2981 Vs = +24V (same supply as MC508), MIC2981 GND = 0V.
+  - MC508 Input Com (pin 10) connects to 24V 0V return.
 - **MC508 VOUT+/VOUT-** are analog servo outputs (±10V DAC), NOT 24V power supply.
 - **P849 dual-axis ports**: ATYPE 43 pins 11-14 carry axis N+8 (second stepper), replacing enable outputs.
 - **WDOG relay** is used for drive enable instead of per-axis AXIS_ENABLE (which needs dedicated pins lost to N+8).
@@ -196,7 +197,7 @@ The MC508 supports multiple protocols for LabVIEW integration:
 
 ## Next Steps
 
-1. **Build ULN2003A interface board** for limit switch level shifting (5V → 24V sink)
+1. **Build MIC2981 interface board** for limit switch level shifting (5V → 24V high-side drive)
 2. **Design/build adapter cables** (DB-25 to MC508 20-pin MDR)
 3. **Write MC_CONFIG.bas** — axis type assignments and initial configuration
 4. **Initial testing** — one axis proof-of-concept

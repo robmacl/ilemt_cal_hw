@@ -237,8 +237,7 @@ reverse limits are needed (home input is not used).
   Encoder ground returns to MC508 0V (pin 15). Using the MC508's own encoder
   power avoids common-mode noise on the differential signals.
 - **Opto-interrupters (limit switches)**: Powered from existing external 5V supply
-  (previously used for UMI-7774 Viso). Ground shared with ULN2003A common emitter
-  and MC508 0V.
+  (previously used for UMI-7774 Viso). Ground shared with MIC2981 GND and MC508 0V.
 
 ## Adapter Wirelist (per axis)
 
