@@ -275,6 +275,23 @@ MIC2981 power:
 | 9 (Vs)      | +24V   | External 24V supply +   |
 | 10 (GND)    | 0V     | External 24V supply 0V  |
 
+### Encoder Adapter Wire Colors
+
+These are the adapter wires (not from the SCSI cable) used in the encoder/limits
+adapter. Colors chosen for visibility and to avoid confusion with SCSI cable colors.
+
+| Wire ID | Function                    | Color   | WireViz Code |
+|---------|-----------------------------|---------|--------------|
+| LFWD    | Fwd limit → MIC2981 in      | Blue    | BU           |
+| LREV    | Rev limit → MIC2981 in      | Red     | RD           |
+| UFWD    | MIC2981 out → MC508 Input A | Gray    | GY           |
+| UREV    | MIC2981 out → MC508 Input B | Wht/Blu | WHBU         |
+| LPWR    | Viso → Ext 5V (+)           | Red     | RD           |
+| LGND    | Ciso → Ext 5V GND           | Black   | BK           |
+| ICOM    | Input Com → 24V 0V          | Black   | BK           |
+| V24     | +24V → MIC2981 Vs           | Red     | RD           |
+| UGND    | MIC2981 GND → 24V 0V        | Black   | BK           |
+
 ## Stepper Port Wirelist
 
 Two stepper axes per ATYPE 43 port (axis N and axis N+8). Each port drives
@@ -354,6 +371,29 @@ MC508 0V (pin 15) → Ext 5V GND  (signal ground tie)
 Wire E-stop to one MC508 digital input (0-15) so software can detect the
 E-stop state for status display and controlled recovery. This is not required
 for safety — the hardwired circuit above handles that.
+
+### Stepper Adapter Wire Colors
+
+These are the adapter wires for the stepper port connections. The step/dir
+signals use SCSI cable wires; the enable and ground wires are added.
+
+| Wire ID   | Function                    | Color   | WireViz Code |
+|-----------|-----------------------------|---------|--------------|
+| STEPA_PUL | Axis N pulse (SCSI pin 1)   | Black   | BK           |
+| STEPA_DIR | Axis N dir (SCSI pin 3)     | Red     | RD           |
+| STEPB_PUL | Axis N+8 pulse (SCSI pin 11)| Lt Green| #90EE90      |
+| STEPB_DIR | Axis N+8 dir (SCSI pin 13)  | Pink    | PK           |
+| GND_A1    | Driver A PUL- ground        | Black   | BK           |
+| GND_A2    | Driver A DIR- ground        | Black   | BK           |
+| GND_B1    | Driver B PUL- ground        | Black   | BK           |
+| GND_B2    | Driver B DIR- ground        | Black   | BK           |
+| PWR       | +5V → E-stop                | Red     | RD           |
+| ES        | E-stop → WDOG+              | Red     | RD           |
+| WDA       | WDOG- → Driver A ENA+       | Orange  | OG           |
+| WDB       | WDOG- → Driver B ENA+       | Orange  | OG           |
+| RA        | Driver A ENA- → 5V GND      | Black   | BK           |
+| RB        | Driver B ENA- → 5V GND      | Black   | BK           |
+| SGND      | MC508 0V → Ext 5V GND       | Black   | BK           |
 
 ## Wiring Diagrams (WireViz)
 

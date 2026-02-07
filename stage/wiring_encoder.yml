@@ -42,7 +42,7 @@ cables:
   ENC:
     wirecount: 8
     notes: Encoder adapter (8 wires)
-    colors: [BK, BN, RD, OG, GNYE, LBBU, YE, BNWH]
+    colors: [BK, BN, RD, OG, "#90EE90", LB, YE, WHBN]
 
   LFWD:
     wirecount: 1
@@ -62,7 +62,7 @@ cables:
   UREV:
     wirecount: 1
     notes: "MIC2981 out → MC508 Input B"
-    colors: [BUWH]
+    colors: [WHBU]
 
   LPWR:
     wirecount: 1

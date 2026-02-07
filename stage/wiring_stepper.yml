@@ -52,7 +52,7 @@ cables:
   STEPB_PUL:
     wirecount: 1
     notes: "Axis N+8 pulse"
-    colors: [GNYE]
+    colors: ["#90EE90"]
 
   STEPB_DIR:
     wirecount: 1
