@@ -57,7 +57,7 @@ cables:
   LREV:
     wirecount: 1
     notes: "Rev limit → MIC2981 in"
-    colors: [RD]
+    colors: [VT]
 
   UFWD:
     wirecount: 1

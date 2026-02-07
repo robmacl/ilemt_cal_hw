@@ -283,7 +283,7 @@ adapter. Colors chosen for visibility and to avoid confusion with SCSI cable col
 | Wire ID | Function                    | Color   | WireViz Code |
 |---------|-----------------------------|---------|--------------|
 | LFWD    | Fwd limit → MIC2981 in      | Blue    | BU           |
-| LREV    | Rev limit → MIC2981 in      | Red     | RD           |
+| LREV    | Rev limit → MIC2981 in      | Violet  | VT           |
 | UFWD    | MIC2981 out → MC508 Input A | Gray    | GY           |
 | UREV    | MIC2981 out → MC508 Input B | Wht/Blu | WHBU         |
 | LPWR    | Viso → Ext 5V (+)           | Red     | RD           |
