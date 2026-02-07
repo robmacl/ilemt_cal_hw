@@ -289,7 +289,7 @@ adapter. Colors chosen for visibility and to avoid confusion with SCSI cable col
 | LPWR    | Viso → Ext 5V (+)           | Red     | RD           |
 | LGND    | Ciso → Ext 5V GND           | Black   | BK           |
 | ICOM    | Input Com → 24V 0V          | Black   | BK           |
-| V24     | +24V → MIC2981 Vs           | Red     | RD           |
+| V24     | +24V → MIC2981 Vs           | Yellow  | YE           |
 | UGND    | MIC2981 GND → 24V 0V        | Black   | BK           |
 
 ## Stepper Port Wirelist

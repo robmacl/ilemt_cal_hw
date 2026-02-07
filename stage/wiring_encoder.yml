@@ -94,7 +94,7 @@ cables:
   V24:
     wirecount: 1
     notes: "+24V → MIC2981 Vs"
-    colors: [RD]
+    colors: [YE]
 
   UGND:
     wirecount: 1
