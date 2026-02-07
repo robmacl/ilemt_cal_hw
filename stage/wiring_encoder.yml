@@ -38,6 +38,11 @@ connectors:
     pins: [1, 2]
     pinlabels: ["+24V", "0V"]
 
+  TIE_0V:
+    style: simple
+    type: Splice
+    notes: "0V tie point"
+
 cables:
   ENC:
     wirecount: 8
@@ -74,7 +79,14 @@ cables:
     notes: "Ciso → Ext 5V GND"
     colors: [BK]
 
-  ICOM:
+  # SCSI cable wire from Input Com (pin 10) - white
+  ICOM_SCSI:
+    wirecount: 1
+    notes: "Input Com SCSI wire"
+    colors: [WH]
+
+  # Adapter wire from tie point to 24V 0V
+  ICOM_TIE:
     wirecount: 1
     notes: "Input Com → 24V 0V"
     colors: [BK]
@@ -116,13 +128,17 @@ connections:
     - UREV: [1]
     - MC508_ENC: [20]
 
-  # MC508 Input Com → 24V 0V (return for PNP inputs)
+  # MC508 Input Com (WHT SCSI wire) → tie point → 24V 0V
   -
     - MC508_ENC: [10]
-    - ICOM: [1]
+    - ICOM_SCSI: [1]
+    - TIE_0V: [1]
+  -
+    - TIE_0V: [1]
+    - ICOM_TIE: [1]
     - EXT24V: [2]
 
-  # MIC2981 power: +24V to Vs, 0V to GND
+  # MIC2981 power: +24V to Vs, 0V to GND (via tie point)
   -
     - EXT24V: [1]
     - V24: [1]
@@ -130,7 +146,7 @@ connections:
   -
     - MIC2981: [10]
     - UGND: [1]
-    - EXT24V: [2]
+    - TIE_0V: [1]
 
   # Opto-interrupter power: Viso/Ciso → External 5V
   -

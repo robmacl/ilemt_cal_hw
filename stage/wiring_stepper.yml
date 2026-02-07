@@ -38,27 +38,44 @@ connectors:
     pins: [1, 2]
     pinlabels: ["+5V", GND]
 
+  TIE_0V:
+    style: simple
+    type: Splice
+    notes: "0V tie point"
+
+  TIE_WDOG:
+    style: simple
+    type: Splice
+    notes: "WDOG- tie point"
+
 cables:
   STEPA_PUL:
     wirecount: 1
-    notes: "Axis N pulse"
+    notes: "Axis N pulse (SCSI pin 1)"
     colors: [BK]
 
   STEPA_DIR:
     wirecount: 1
-    notes: "Axis N direction"
+    notes: "Axis N direction (SCSI pin 3)"
     colors: [RD]
 
   STEPB_PUL:
     wirecount: 1
-    notes: "Axis N+8 pulse"
+    notes: "Axis N+8 pulse (SCSI pin 11)"
     colors: ["#90EE90"]
 
   STEPB_DIR:
     wirecount: 1
-    notes: "Axis N+8 direction"
+    notes: "Axis N+8 direction (SCSI pin 13)"
     colors: [PK]
 
+  # SCSI cable wire from 0V (pin 15) - white/brown
+  GND_SCSI:
+    wirecount: 1
+    notes: "0V SCSI wire (pin 15)"
+    colors: [WHBN]
+
+  # Adapter wires from 0V tie point to driver grounds
   GND_A1:
     wirecount: 1
     notes: "Driver A PUL- ground"
@@ -79,22 +96,36 @@ cables:
     notes: "Driver B DIR- ground"
     colors: [BK]
 
+  SGND:
+    wirecount: 1
+    notes: "Signal ground to EXT5V"
+    colors: [BK]
+
   PWR:
     wirecount: 1
+    notes: "+5V to E-stop"
     colors: [RD]
 
   ES:
     wirecount: 1
+    notes: "E-stop to WDOG+"
     colors: [RD]
 
+  # SCSI cable wire from WDOG- (pin 8) - purple
+  WDOG_SCSI:
+    wirecount: 1
+    notes: "WDOG- SCSI wire (pin 8)"
+    colors: [VT]
+
+  # Adapter wires from WDOG tie point to drivers
   WDA:
     wirecount: 1
-    notes: "WDOG- to Driver A ENA+"
+    notes: "WDOG tie to Driver A ENA+"
     colors: [OG]
 
   WDB:
     wirecount: 1
-    notes: "WDOG- to Driver B ENA+"
+    notes: "WDOG tie to Driver B ENA+"
     colors: [OG]
 
   RA:
@@ -107,11 +138,6 @@ cables:
     notes: "Driver B ENA- return"
     colors: [BK]
 
-  SGND:
-    wirecount: 1
-    notes: "Signal ground tie"
-    colors: [BK]
-
 connections:
   # Axis N: MC508 Pulse+/Dir+ → Driver A PUL+/DIR+ (single-ended)
   -
@@ -122,15 +148,7 @@ connections:
     - MC508_STEP: [3]
     - STEPA_DIR: [1]
     - DRV_A: [3]
-  # Axis N: Driver A PUL-/DIR- → MC508 0V (ground reference)
-  -
-    - DRV_A: [2]
-    - GND_A1: [1]
-    - MC508_STEP: [15]
-  -
-    - DRV_A: [4]
-    - GND_A2: [1]
-    - MC508_STEP: [15]
+
   # Axis N+8: MC508 Pulse+/Dir+ → Driver B PUL+/DIR+ (single-ended)
   -
     - MC508_STEP: [11]
@@ -140,16 +158,40 @@ connections:
     - MC508_STEP: [13]
     - STEPB_DIR: [1]
     - DRV_B: [3]
-  # Axis N+8: Driver B PUL-/DIR- → MC508 0V (ground reference)
+
+  # MC508 0V (WHT/BRN SCSI wire) → tie point
   -
-    - DRV_B: [2]
+    - MC508_STEP: [15]
+    - GND_SCSI: [1]
+    - TIE_0V: [1]
+
+  # 0V tie point → Driver A PUL-/DIR-
+  -
+    - TIE_0V: [1]
+    - GND_A1: [1]
+    - DRV_A: [2]
+  -
+    - TIE_0V: [1]
+    - GND_A2: [1]
+    - DRV_A: [4]
+
+  # 0V tie point → Driver B PUL-/DIR-
+  -
+    - TIE_0V: [1]
     - GND_B1: [1]
-    - MC508_STEP: [15]
+    - DRV_B: [2]
   -
-    - DRV_B: [4]
+    - TIE_0V: [1]
     - GND_B2: [1]
-    - MC508_STEP: [15]
-  # Enable: 5V → E-stop → WDOG
+    - DRV_B: [4]
+
+  # 0V tie point → EXT5V GND
+  -
+    - TIE_0V: [1]
+    - SGND: [1]
+    - EXT5V: [2]
+
+  # Enable: 5V → E-stop → WDOG+
   -
     - EXT5V: [1]
     - PWR: [1]
@@ -158,26 +200,31 @@ connections:
     - ESTOP: [2]
     - ES: [1]
     - MC508_STEP: [7]
-  # WDOG- → Driver A ENA+, Driver A ENA- → 5V return
+
+  # WDOG- (PUR SCSI wire) → tie point
   -
     - MC508_STEP: [8]
+    - WDOG_SCSI: [1]
+    - TIE_WDOG: [1]
+
+  # WDOG tie point → Driver A ENA+
+  -
+    - TIE_WDOG: [1]
     - WDA: [1]
     - DRV_A: [5]
+
+  # WDOG tie point → Driver B ENA+
+  -
+    - TIE_WDOG: [1]
+    - WDB: [1]
+    - DRV_B: [5]
+
+  # Driver ENA- returns → 5V GND
   -
     - DRV_A: [6]
     - RA: [1]
     - EXT5V: [2]
-  # WDOG- → Driver B ENA+, Driver B ENA- → 5V return
-  -
-    - MC508_STEP: [8]
-    - WDB: [1]
-    - DRV_B: [5]
   -
     - DRV_B: [6]
     - RB: [1]
-    - EXT5V: [2]
-  # Signal ground: MC508 0V → EXT5V GND
-  -
-    - MC508_STEP: [15]
-    - SGND: [1]
     - EXT5V: [2]
