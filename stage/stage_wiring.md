@@ -388,7 +388,7 @@ signals use SCSI cable wires; the enable and ground wires are added.
 | GND_B1    | Driver B PUL- ground        | Black   | BK           |
 | GND_B2    | Driver B DIR- ground        | Black   | BK           |
 | PWR       | +5V → E-stop                | Red     | RD           |
-| ES        | E-stop → WDOG+              | Red     | RD           |
+| ES        | E-stop → WDOG+ (SCSI pin 7) | Blue    | BU           |
 | WDA       | WDOG- → Driver A ENA+       | Orange  | OG           |
 | WDB       | WDOG- → Driver B ENA+       | Orange  | OG           |
 | RA        | Driver A ENA- → 5V GND      | Black   | BK           |

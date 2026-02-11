@@ -108,8 +108,8 @@ cables:
 
   ES:
     wirecount: 1
-    notes: "E-stop to WDOG+"
-    colors: [RD]
+    notes: "E-stop to WDOG+ (SCSI pin 7)"
+    colors: [BU]
 
   # SCSI cable wire from WDOG- (pin 8) - purple
   WDOG_SCSI:
