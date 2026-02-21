@@ -21,9 +21,9 @@ connectors:
                 +5V Enc, 0V, Input A, Input B, Input Com]
 
   MIC2981:
-    type: DIP-18
-    notes: "MIC2981/82YN High-Side Source Driver"
-    pins: [1, 2, 9, 10, 11, 18]
+    type: High-Side Driver
+    notes: "MIC2981/82YN (one per 3-axis system)"
+    pincount: 6
     pinlabels: [In Pos, In Neg, Vs, GND, Out Pos, Out Neg]
 
   EXT5V:
@@ -120,11 +120,11 @@ connections:
 
   # MIC2981 outputs → MC508 digital inputs
   -
-    - MIC2981: [11]
+    - MIC2981: [5]
     - UPOS: [1]
     - MC508_ENC: [9]
   -
-    - MIC2981: [18]
+    - MIC2981: [6]
     - UNEG: [1]
     - MC508_ENC: [20]
 
@@ -142,9 +142,9 @@ connections:
   -
     - EXT24V: [1]
     - V24: [1]
-    - MIC2981: [9]
+    - MIC2981: [3]
   -
-    - MIC2981: [10]
+    - MIC2981: [4]
     - UGND: [1]
     - TIE_0V: [1]
 

@@ -2,7 +2,7 @@ Id	Description	Qty	Unit	Designators
 1	Cable, 1 wires	0	m	ICOM_SCSI, ICOM_TIE, LGND, LNEG, LPOS, LPWR, UGND, UNEG, UPOS, V24
 2	Cable, 8 wires	0	m	ENC
 3	Connector, D-Sub 25 Male, male, 13 pins	1		DB25
-4	Connector, DIP-18, 6 pins	1		MIC2981
+4	Connector, High-Side Driver, 6 pins	1		MIC2981
 5	Connector, MDR-20, 11 pins	1		MC508_ENC
 6	Connector, Power Supply, 2 pins	2		EXT24V, EXT5V
 7	Connector, Splice	1		
