@@ -225,8 +225,8 @@ reverse limits are needed (home input is not used).
 | 16        | Encoder Z-       | ATYPE 76 port pin 12 (/Enc Z) | Direct             |
 | 4         | +5V              | ATYPE 76 port pin 5 (+5V)     | Encoder power from MC508 |
 | 17        | Digital Ground   | ATYPE 76 port pin 15 (0V)     | Encoder ground     |
-| 10        | Forward Limit    | MIC2981 in → out to input pin 9   | Via high-side driver |
-| 12        | Reverse Limit    | MIC2981 in → out to input pin 20  | Via high-side driver |
+| 10        | Pos Limit        | MIC2981 in → out to input pin 9   | Via high-side driver |
+| 12        | Neg Limit        | MIC2981 in → out to input pin 20  | Via high-side driver |
 | 13        | Viso             | External 5V supply             | Opto-interrupter power |
 | 22, 23    | Ciso             | External 5V ground             | Opto-interrupter return |
 | 11        | Home Input       | Not connected                  | Not used           |
@@ -282,10 +282,10 @@ adapter. Colors chosen for visibility and to avoid confusion with SCSI cable col
 
 | Wire ID | Function                    | Color   | WireViz Code |
 |---------|-----------------------------|---------|--------------|
-| LFWD    | Fwd limit → MIC2981 in      | Blue    | BU           |
-| LREV    | Rev limit → MIC2981 in      | Violet  | VT           |
-| UFWD    | MIC2981 out → MC508 Input A | Gray    | GY           |
-| UREV    | MIC2981 out → MC508 Input B | Wht/Blu | WHBU         |
+| LPOS    | Pos limit → MIC2981 in      | Blue    | BU           |
+| LNEG    | Neg limit → MIC2981 in      | Violet  | VT           |
+| UPOS    | MIC2981 out → MC508 Input A | Gray    | GY           |
+| UNEG    | MIC2981 out → MC508 Input B | Wht/Blu | WHBU         |
 | LPWR    | Viso → Ext 5V (+)           | Red     | RD           |
 | LGND    | Ciso → Ext 5V GND           | Black   | BK           |
 | ICOM    | Input Com → 24V 0V          | Black   | BK           |
@@ -352,19 +352,18 @@ WDOG SSR relay to switch the enable circuit. Per-axis AXIS_ENABLE is not used.
 Ext 5V+ → E-stop NC → WDOG+ (pin 7, BLU) → WDOG- (pin 8, PUR) →
   ├→ Driver A ENA+ → Driver A ENA- → Ext 5V return
   └→ Driver B ENA+ → Driver B ENA- → Ext 5V return
-
-MC508 0V (pin 15) → Ext 5V GND  (signal ground tie)
 ```
 
 - No current-limiting resistors needed — KL-4030 ENA opto inputs are designed
   for 5V direct drive (internal current limiting).
+- KL-4030 ENA opto is isolated — ENA- returns to Ext 5V GND, not to MC508 0V.
+  MC508 0V (pin 15, WHT/BRN) only ties to driver PUL-/DIR- (step/dir ground reference).
 - E-stop is NC (normally closed) pushbutton in series — pressing it breaks
   the enable circuit at the hardware level regardless of MC508 software state.
 - WDOG SSR rated 24V/100mA, ~25Ω on-resistance. At 5V with two optos the
   current is well within rating.
 - All stepper ports share the same E-stop button (wired in series before
   splitting to each port's WDOG).
-- MC508 0V (pin 15) must be tied to Ext 5V GND for a common ground reference.
 
 ### E-Stop Software Feedback (Optional)
 
@@ -393,7 +392,6 @@ signals use SCSI cable wires; the enable and ground wires are added.
 | WDB       | WDOG- → Driver B ENA+       | Orange  | OG           |
 | RA        | Driver A ENA- → 5V GND      | Black   | BK           |
 | RB        | Driver B ENA- → 5V GND      | Black   | BK           |
-| SGND      | MC508 0V → Ext 5V GND       | Black   | BK           |
 
 ## Wiring Diagrams (WireViz)
 

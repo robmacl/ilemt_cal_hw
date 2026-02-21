@@ -11,7 +11,7 @@ connectors:
     notes: Stage cable (from UMI-7774)
     pins: [1, 14, 2, 15, 3, 16, 4, 17, 10, 12, 13, 22, 11]
     pinlabels: [Enc A+, Enc A-, Enc B+, Enc B-, Enc Z+, Enc Z-,
-                +5V, Dig GND, Fwd Limit, Rev Limit, Viso, Ciso, Home N/C]
+                +5V, Dig GND, Pos Limit, Neg Limit, Viso, Ciso, Home N/C]
 
   MC508_ENC:
     type: MDR-20
@@ -24,7 +24,7 @@ connectors:
     type: DIP-18
     notes: "MIC2981/82YN High-Side Source Driver"
     pins: [1, 2, 9, 10, 11, 18]
-    pinlabels: [In Fwd, In Rev, Vs, GND, Out Fwd, Out Rev]
+    pinlabels: [In Pos, In Neg, Vs, GND, Out Pos, Out Neg]
 
   EXT5V:
     type: Power Supply
@@ -49,22 +49,22 @@ cables:
     notes: Encoder adapter (8 wires)
     colors: [BK, BN, RD, OG, "#90EE90", LB, YE, WHBN]
 
-  LFWD:
+  LPOS:
     wirecount: 1
-    notes: "Fwd limit → MIC2981 in"
+    notes: "Pos limit → MIC2981 in"
     colors: [BU]
 
-  LREV:
+  LNEG:
     wirecount: 1
-    notes: "Rev limit → MIC2981 in"
+    notes: "Neg limit → MIC2981 in"
     colors: [VT]
 
-  UFWD:
+  UPOS:
     wirecount: 1
     notes: "MIC2981 out → MC508 Input A"
     colors: [GY]
 
-  UREV:
+  UNEG:
     wirecount: 1
     notes: "MIC2981 out → MC508 Input B"
     colors: [WHBU]
@@ -111,21 +111,21 @@ connections:
   # Limit switches: DB25 → MIC2981 inputs
   -
     - DB25: [10]
-    - LFWD: [1]
+    - LPOS: [1]
     - MIC2981: [1]
   -
     - DB25: [12]
-    - LREV: [1]
+    - LNEG: [1]
     - MIC2981: [2]
 
   # MIC2981 outputs → MC508 digital inputs
   -
     - MIC2981: [11]
-    - UFWD: [1]
+    - UPOS: [1]
     - MC508_ENC: [9]
   -
     - MIC2981: [18]
-    - UREV: [1]
+    - UNEG: [1]
     - MC508_ENC: [20]
 
   # MC508 Input Com (WHT SCSI wire) → tie point → 24V 0V

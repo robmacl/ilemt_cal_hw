@@ -96,11 +96,6 @@ cables:
     notes: "Driver B DIR- ground"
     colors: [BK]
 
-  SGND:
-    wirecount: 1
-    notes: "Signal ground to EXT5V"
-    colors: [BK]
-
   PWR:
     wirecount: 1
     notes: "+5V to E-stop"
@@ -184,12 +179,6 @@ connections:
     - TIE_0V: [1]
     - GND_B2: [1]
     - DRV_B: [4]
-
-  # 0V tie point → EXT5V GND
-  -
-    - TIE_0V: [1]
-    - SGND: [1]
-    - EXT5V: [2]
 
   # Enable: 5V → E-stop → WDOG+
   -
