@@ -405,9 +405,3 @@ Run `gen_wiring.bat` to regenerate diagrams (SVG + PNG + BOM).
 **This document (stage_wiring.md) is the definitive wiring reference.**
 The YAML files are rendering inputs for WireViz only — they should match
 the wirelists here but contain no additional design rationale.
-
-## Next Steps
-
-1. **Build MIC2981 interface board** for limit switch level shifting (5V → 24V high-side drive)
-2. **Design/build adapter cables**
-3. **Write MC_CONFIG.bas** — axis type assignments and initial configuration
