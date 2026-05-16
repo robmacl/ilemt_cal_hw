@@ -54,8 +54,8 @@ This project involves interfacing a precision motion stage to a Trio MC5408 P849
 - [x] Map to MC508 flexible axis connectors
 - [x] Create wirelist for each axis (encoder + stepper)
 - [x] Identify needed breakout boards or adapters (MIC2981 high-side driver for limits)
-- [ ] Design/build adapter cables
-- [ ] Build MIC2981 interface board for limit switch level shifting
+- [x] Design/build adapter cables
+- [x] Build MIC2981 interface board for limit switch level shifting
 
 ### Motion Controller Configuration
 - [ ] Write MC_CONFIG.bas initialization file

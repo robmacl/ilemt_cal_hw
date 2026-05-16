@@ -28,3 +28,9 @@ Thumbs.db
 # Large binary files and installers
 *.msi
 *.zip
+/stage/back_panel.3mf
+/stage/back_panel.STL
+/stage/wiring_encoder.html
+/stage/wiring_encoder.png
+/stage/wiring_stepper.html
+/stage/wiring_stepper.png
