@@ -1,4 +1,4 @@
-# ILEMT Calibration Hardware Project
+
 
 ## Project Overview
 
@@ -101,16 +101,18 @@ This allows:
 - Pins 9, 20: Additional digital inputs (16+n*2, 17+n*2)
 
 ### Homing Procedure
-```basic
-' Example homing with limit switch + encoder index
-BASE(1)  ' Encoder axis
-DATUM_IN = 10  ' Any input (doesn't require registration)
-SPEED = 5000   ' Fast search
-CREEP = 500    ' Slow creep
-DATUM(6)       ' Reverse to limit, forward to Z mark
-WAIT IDLE
-MPOS(0) = MPOS(1)  ' Sync stepper axis
-```
+See z_axis_test.py for basic homing procedure where the encoder. There's also some discussion in MC508_quirks "Homing in Split-Axis Setup". Note that the encoder is on a different 
+
+The full homing procedure should
+- Run in reverse until negative limit is hit.
+- Run forward until positive limit is hit
+- Go to the +/- midpoint and then move forward until the encoder Z/index pulse and set the origin there.
+
+Home axes in this sequence:
+- Axes 1-3 XYZ (these can be concurrent or sequential) 
+- Axis 4 (z rotation)
+
+Axis 4 is homed last because it can cause large motion of attached fixtures which might result in a collision.
 
 ### Registration Inputs (Inputs 0-7 only)
 **Registration** = Hardware position capture at the instant an input triggers
@@ -197,11 +199,9 @@ The MC508 supports multiple protocols for LabVIEW integration:
 
 ## Next Steps
 
-1. **Build MIC2981 interface board** for limit switch level shifting (5V → 24V high-side drive)
-2. **Design/build adapter cables** (DB-25 to MC508 20-pin MDR)
-3. **Write MC_CONFIG.bas** — axis type assignments and initial configuration
-4. **Initial testing** — one axis proof-of-concept
-5. **LabVIEW integration** — communication library and motion control
+1. **Write MC_CONFIG.bas** — axis type assignments and initial configuration
+2. Implementation of homing
+3. **LabVIEW integration** — communication library and motion control
 
 ## Notes
 
