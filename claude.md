@@ -4,6 +4,10 @@
 
 This project involves interfacing a precision motion stage to a Trio MC5408 P849 motion controller for the ILEMT Electromagnetic position tracker calibration system. The stage will be controlled from LabVIEW.
 
+**Status (2026-05):** Cabling and the MIC2981 limit interface are complete on
+all four axes (X, Y, Z, Rz). Remaining work is the MC508 BASIC power-on init
+and homing procedure, then LabVIEW integration.
+
 ## Hardware Components
 
 ### Motion Controller
@@ -87,21 +91,10 @@ This allows:
 - Precise homing using limit switch + Z index
 - Custom control loop in user code
 
-**Pin Assignments for ATYPE 43 (Stepper Output) — P849 variant:**
-- Pins 1-2: Pulse(N) / /Pulse(N) (differential)
-- Pins 3-4: Dir(N) / /Dir(N) (differential)
-- Pins 11-14: Pulse(N+8) / Dir(N+8) — second stepper axis (replaces enable)
-- Pins 7-8: WDOG SSR relay output (24V/100mA, ~25Ω)
-- Pin 5: +5V encoder power (100mA max per port)
-
-**Pin Assignments for ATYPE 76 (Encoder Input):**
-- Pins 1-2: Encoder A / /A
-- Pins 3-4: Encoder B / /B
-- Pins 11-12: Encoder Z / /Z (index pulse)
-- Pins 9, 20: Additional digital inputs (16+n*2, 17+n*2)
+Detailed FlexAxis connector pin functions for ATYPE 43 (stepper) and ATYPE 76 (encoder) are in [stage/stage_wiring.md](stage/stage_wiring.md) ("MC508 Flex Axis Connector Pinout"). The per-axis limit-input map is in [stage/Configuration.md](stage/Configuration.md) ("Limit Switch Inputs").
 
 ### Homing Procedure
-See z_axis_test.py for basic homing procedure where the encoder. There's also some discussion in MC508_quirks "Homing in Split-Axis Setup". Note that the encoder is on a different 
+See z_axis_test.py for a basic homing procedure. The split-axis constraints (why DATUM cannot be used) are discussed in Configuration.md ("Homing (split-axis)"). Note that the encoder and stepper are on different MC508 axes, so the Z index must be captured on the encoder axis while the stepper axis is moving.
 
 The full homing procedure should
 - Run in reverse until negative limit is hit.
@@ -114,6 +107,7 @@ Home axes in this sequence:
 
 Axis 4 is homed last because it can cause large motion of attached fixtures which might result in a collision.
 
+Because of the need for human supervision to make sure that nothing is fouled, homing needs to be explicitly initiated using the Labview UI. Labview also needs to be able to query whether the stage has been homed since we don't want to have to home after each time the labview restarts.
 ### Registration Inputs (Inputs 0-7 only)
 **Registration** = Hardware position capture at the instant an input triggers
 
@@ -127,32 +121,18 @@ Axis 4 is homed last because it can cause large motion of attached fixtures whic
 
 ## Repository Structure
 
-```
-ilemt_cal_hw/
-├── CLAUDE.md                # This file
-├── .gitignore               # Git ignore rules
-├── optical/                 # Optical sensor designs
-│   ├── X_bracket.SLDPRT
-│   ├── YZ_bracket.SLDPRT
-│   ├── sensor_mount.SLDASM
-│   └── components/
-├── stage/                   # Motion stage documentation & wiring
-│   ├── MC508 Manual.pdf
-│   ├── MC508 v3.0.pdf
-│   ├── NI_UMI-77774pdf.pdf
-│   ├── stage_wiring.md      # Main wiring documentation
-│   ├── wiring_encoder.yml   # WireViz: encoder/limits adapter
-│   ├── wiring_stepper.yml   # WireViz: stepper port + enable/E-stop
-│   ├── gen_wiring.bat       # Runs WireViz on all YAML files
-│   ├── Pics/
-│   └── TrioDocumentation/   # Extracted help files
-│       ├── MotionPerfect/
-│       └── TrioBASIC/
-├── b82450a_e.pdf           # Component datasheet
-├── b82451l_e.pdf           # Component datasheet
-└── TC1812.pdf              # Component datasheet
-```
-
+- `claude.md` - project orientation and index (this file)
+- `stage/` - motion stage interfacing work
+  - `Configuration.md` - controller config: axis map, units, I/O, quirks, homing, pin functions
+  - `stage_wiring.md` - physical/electrical wiring, adapter wirelist, harness diagrams
+  - `MC_CONFIG.bas` - power-on axis-type (ATYPE) assignments
+  - `trio_cmd.py`, `trio_upload_config.py`, `z_axis_test.py` - host-side Python tooling
+  - `wiring_*.yml`, `gen_wiring.bat` - WireViz harness sources and generator
+  - `Pics/` - reference photos
+  - `TrioDocumentation/` - extracted Trio help (TrioBASIC, MotionPerfect)
+  - `mechanical/` - sensor boom CAD
+- `optical/` - optical sensor bracket and target SolidWorks designs
+- `b82450a_e.pdf`, `b82451l_e.pdf`, `TC1812.pdf` - component datasheets
 ## Communication Protocols
 
 The MC508 supports multiple protocols for LabVIEW integration:
@@ -179,17 +159,15 @@ The MC508 supports multiple protocols for LabVIEW integration:
 - `WDOG` - Enables amplifier enable relay / SSR for drive enable
 
 ### Key Hardware Findings
-- **MC508 inputs are ALL 24V PNP** (6.8kΩ series, opto-isolated). 5V signals need MIC2981 high-side driver.
-  - MIC2981 sources 24V to input pin; current flows through internal opto + 6.8kΩ to Input Com.
-  - MIC2981 Vs = +24V (same supply as MC508), MIC2981 GND = 0V.
-  - MC508 Input Com (pin 10) connects to 24V 0V return.
-- **MC508 VOUT+/VOUT-** are analog servo outputs (±10V DAC), NOT 24V power supply.
-- **P849 dual-axis ports**: ATYPE 43 pins 11-14 carry axis N+8 (second stepper), replacing enable outputs.
-- **WDOG relay** is used for drive enable instead of per-axis AXIS_ENABLE (which needs dedicated pins lost to N+8).
-- **Home switch not used** — only 2 limit inputs needed per axis, matching ATYPE 76's 2 inputs.
-- **Encoder power from MC508** (+5V, pin 5) avoids CM noise. Limit switches use external 5V supply.
-- **Step/Dir to KL-4030**: Single-ended connection — only use + output from RS-422 pair, tie driver PUL-/DIR- to MC508 0V (pin 15). Avoids reverse-biasing opto LED when output is low.
-- **KL-4030 ENA inputs**: Designed for 5V direct drive, no external current-limiting resistor needed.
+
+Detailed findings now live with their topic:
+
+- **Electrical interface** (24V PNP inputs, MIC2981 level shifting, encoder
+  power, Step/Dir to KL-4030, drive-enable wiring) -
+  [stage/stage_wiring.md](stage/stage_wiring.md).
+- **Controller design rationale and quirks** (P849 N+8 dual-axis ports, WDOG
+  used as drive enable, ATYPE-after-power-cycle, split-axis homing) -
+  [stage/Configuration.md](stage/Configuration.md).
 
 ## Wiring Diagram Tools
 

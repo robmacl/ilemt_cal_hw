@@ -1,5 +1,9 @@
 # Stage Wiring Documentation
 
+This document is the definitive reference for the physical/electrical wiring.
+Controller configuration (axis mapping, units, I/O, motion parameters, homing)
+and MC508 quirks live in [Configuration.md](Configuration.md).
+
 ## Overview
 
 This document tracks the wiring of the existing ILEMT calibration stage cables,
@@ -329,15 +333,6 @@ Pins 2, 4 (/Pulse, /Dir) not connected.
 | 15            | WHT/BRN   | 0V             | DIR-        | Ground reference   |
 
 Pins 12, 14 (/Pulse(N+8), /Dir(N+8)) not connected.
-
-### Port Assignment
-
-| MC508 Port | Axis N | Axis N+8 | Stepper Axes |
-|------------|--------|----------|--------------|
-| Port 0     | 0 (X)  | 8 (X')   | X + one spare or Y |
-| Port 2     | 2 (Z)  | —        | Z only (if 3 axes) |
-
-Exact axis-to-port assignment TBD based on physical layout.
 
 ## Enable and E-Stop Wiring
 

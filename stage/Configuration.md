@@ -1,7 +1,15 @@
-# Stage Configuration
-The MC 508 is connected at 192.168.0.250
+# Stage Configuration & MC508 Quirks
 
-For initial single axis testing the Z axis connected.
+The MC508 is connected at 192.168.0.250.
+
+This is the authoritative reference for the motion-controller configuration
+(axis mapping, units, I/O, motion parameters, homing) and for the
+non-obvious controller behaviours ("quirks") discovered during bring-up.
+Physical/electrical wiring is documented separately in
+[stage_wiring.md](stage_wiring.md).
+
+For initial single-axis testing the Z axis was connected first.
+
 ## Terminology
 
 - **Axis** (or "axis N") — a stage motion axis. Numbered 0–3 to match the
@@ -46,7 +54,8 @@ DRV_A path, so the stepper axis numbers don't follow the stage axis order.
 
 The MC508 FlexAxis stepper output works internally at 16x finer resolution
 than the actual output pulse rate, for smoother pulse timing. UNITS must
-account for this.
+account for this. As a consequence, **DPOS and MPOS on stepper axes are in
+these 16x internal units.**
 
 The x16 multiplier has been experimentally confirmed on the P849
 (encoder/stepper delta ratio ≈ 1.0 after test moves with these UNITS
@@ -80,7 +89,8 @@ encoder Z index).
 The encoder counts in the opposite direction to the stepper. The encoder
 UNITS are negated so that positive stepper demand produces positive encoder
 position change. INVERT_STEP has no effect on the P849 (reads back as set
-but does not change physical direction).
+but does not change physical direction), so the sign is reconciled with
+negative encoder UNITS instead.
 
 For the Z axis, positive = down, negative = up.
 
@@ -95,3 +105,99 @@ For the Z axis, positive = down, negative = up.
 
 SERVO = OFF on all axes (open-loop stepper; custom closed-loop in BASIC).
 WDOG = ON enables the drive relays (global, controlled at runtime).
+
+## Homing (split-axis)
+
+The full homing procedure and axis sequencing are described under "Homing
+Procedure" in [../CLAUDE.md](../CLAUDE.md). The split-axis layout (stepper
+and encoder on different MC508 axes) imposes these constraints:
+
+- **DATUM(6) cannot be used** when stepper and encoder are on separate
+  axes. DATUM expects both the motion output and the encoder Z index on the
+  same axis.
+- **Simple homing:** Move toward a limit (`MOVE(±large)`, let REV_IN/FWD_IN
+  stop it), back off, then `DEFPOS(0)` on both axes.
+- **Full Z-index homing** requires custom code: move the stepper axis while
+  using `REGIST` on the encoder axis to capture position at the Z mark.
+
+---
+
+# Quirks and Gotchas
+
+Non-obvious behaviours discovered during bring-up. These supplement the
+official Trio documentation.
+
+## Telnet Command Line
+
+- **`REV_JOG` / `FWD_JOG` are program-only commands.** They cannot be
+  issued from the telnet command line or via Execute(). Use
+  `MOVE(±large_value)` instead and let FWD_IN/REV_IN stop motion at the
+  limit.
+
+- **`JOG(speed)` fails on the command line** with "Variables not permitted".
+  Same workaround as above.
+
+- **`DPOS` and `MPOS` are read-only** on the command line. Cannot assign
+  with `DPOS AXIS(n) = 0`. Use `DEFPOS(0) AXIS(n)` instead, which sets
+  both DPOS and MPOS to the given value.
+
+- **The `>>` prompt signals command completion.** Use this for
+  response-complete detection rather than fixed timeouts. Commands are
+  CR-terminated. No authentication required.
+
+- **The controller echoes commands** back over telnet. Filter these from
+  responses along with the `>>` prompt lines.
+
+## ATYPE Only Takes Effect After Power Cycle
+
+Setting ATYPE in MC_CONFIG.bas and uploading requires a full power cycle —
+not just a software reset. Before the power cycle, axes will show the
+default ATYPE 44 (Analogue Servo).
+
+## Stepper Output (ATYPE 43)
+
+- **x16 internal multiplier.** See "Counts and Units" above — DPOS/MPOS on
+  stepper axes are in 16x internal units and UNITS must include the factor.
+
+- **Step/Dir is RS-422 differential.** For single-ended drivers like the
+  KL-4030, connect only the positive output (+) and tie the driver's
+  PUL-/DIR- to MC508 0V (pin 15). Do not connect the negative RS-422
+  output, to avoid reverse-biasing the driver's opto-isolator LED when the
+  output is low.
+
+## Encoder Axes (ATYPE 76)
+
+- **Don't set SPEED/ACCEL/DECEL/CREEP with negative UNITS.** When UNITS is
+  negative (used to flip the encoder sign convention), setting
+  ACCEL/DECEL/CREEP errors out with "Parameter out of range". Encoder axes
+  are read-only position feedback with no motion commands, so these
+  parameters are not needed and should not be set.
+
+## Limit Switches and FWD_IN / REV_IN
+
+- **Swapping FWD_IN/REV_IN is dangerous.** If limit assignments don't
+  match the physical direction, the motor will drive into the limit switch
+  with no protection. Always verify which input triggers at which end
+  before relying on limits for homing.
+
+- **Any input 0-31 can be used for FWD_IN/REV_IN/DATUM_IN.** They do not
+  need to be registration inputs (0-7). Registration is only needed for
+  hardware position capture (the REGIST command).
+
+(Polarity: FWD_IN/REV_IN are active-low — see "Limit Switch Inputs" above.)
+
+## KL-4030 Driver ENA Input
+
+- **ENA is active-high DISABLE, not enable.** Current through the ENA
+  opto-isolator disables the motor driver. The WDOG relay circuit must
+  be wired so that ENA is de-energized when drives should be active.
+  Current wiring is inverted (e-stop pressed = motor enabled).
+
+## MC508 Inputs
+
+- **All inputs are 24V PNP** with an internal 6.8kΩ series resistor and
+  opto-isolator. 5V signals require a MIC2981 high-side driver to source
+  24V to the input pin.
+
+- **Input Com (pin 10) connects to the 24V 0V return**, not to signal
+  ground.
