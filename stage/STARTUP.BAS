@@ -81,7 +81,7 @@ HOME_SPEED = 6300        ' ~5 mm/s slow approach to limits
 HOME_DIST = 2000000      ' "drive until limit stops us" distance, usteps
 MIN_RANGE = 5000         ' self-test floor: travel must exceed this
 HOME_TMO = 1500          ' seek timeout in 20ms ticks (~30 s)
-ESTOP_IN = 8             ' TBD: digital input wired to e-stop sense
+ESTOP_IN = 0             ' input XA0 (expansion A term 0): ON=released, OFF=pressed
 MSG_BASE = 200
 
 ' ==========================================================================
@@ -133,8 +133,9 @@ GOSUB store_msg
 ' ==========================================================================
 WHILE TRUE
   ' Live e-stop status for LabVIEW.
-  IF IN(ESTOP_IN) = ON THEN
-    VR(112) = 1
+  ' ESTOP_IN reads ON when e-stop is released (out), OFF when pressed.
+  IF IN(ESTOP_IN) = OFF THEN
+    VR(112) = 1                  ' e-stop asserted (pressed)
   ELSE
     VR(112) = 0
   ENDIF
@@ -295,7 +296,7 @@ wait_move:
   REPEAT
     WA(20)
     t = t + 1
-    IF IN(ESTOP_IN) = ON THEN ok = 0
+    IF IN(ESTOP_IN) = OFF THEN ok = 0      ' e-stop pressed -> abort
     IF t > HOME_TMO THEN ok = 0
   UNTIL (MTYPE AXIS(sa) = 0) OR (ok = 0)
   IF ok = 0 THEN CANCEL AXIS(sa)
@@ -303,7 +304,7 @@ wait_move:
 
 ' Decide whether an aborted seek was e-stop or timeout.
 chk_abort_cause:
-  IF IN(ESTOP_IN) = ON THEN
+  IF IN(ESTOP_IN) = OFF THEN               ' e-stop pressed
     VR(113) = 6                            ' ESTOP_ABORT
     VR(115) = 91
   ELSE

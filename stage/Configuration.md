@@ -215,10 +215,11 @@ over telnet; LabVIEW uses the same VRs via TrioPC.
 HOMED lives in RAM, so it survives a LabVIEW restart but clears on controller
 power-cycle (correct: positions are meaningless after power-up).
 
-> **Open hardware item:** `ESTOP_IN` in `STARTUP.BAS` is set to input 8 as a
-> placeholder — update it to the digital input actually wired to the e-stop
-> sense, and confirm whether it reads 1 or 0 when pressed (the code assumes
-> 1 = pressed; flip with `INVERT_IN` or the test if not).
+**E-stop sense:** wired to digital input **0** (terminal **XA0**, expansion A
+terminal 0). The input reads **ON when the e-stop is released** ("out") and
+OFF when pressed, **independent of the WDOG relay state**. This is fail-safe:
+a broken wire reads OFF and is treated as pressed. `STARTUP.BAS` treats
+`IN(0)=OFF` as e-stop asserted (sets `ESTOP` VR, aborts homing).
 
 ---
 
