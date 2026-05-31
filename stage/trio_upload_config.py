@@ -1,19 +1,40 @@
-"""Upload MC_CONFIG.bas to MC508 via telnet using EDPROG1 (!) commands.
+"""Upload a TrioBASIC program to the MC508 over telnet, and optionally run it
+or set it to autorun at power-up.
 
-Usage:
-    python trio_upload_config.py [config_file]
+Uses the EDPROG1 ("!") line editor to insert the program line-by-line, then
+commits to flash. Generalized from the original MC_CONFIG-only uploader.
 
-Default config file: stage/MC_CONFIG.bas
+Examples:
+    # Upload MC_CONFIG (ATYPE assignments), then power-cycle to apply:
+    python trio_upload_config.py MC_CONFIG.bas
 
-After upload, power cycle the controller to apply ATYPE changes, then verify:
-    python trio_cmd.py "?ATYPE AXIS(2)" "?ATYPE AXIS(5)"
+    # Upload STARTUP and RUN it now for a manual test (not persistent):
+    python trio_upload_config.py STARTUP.BAS --run
+
+    # Same, on a specific process, watching with the monitor in another shell:
+    python trio_upload_config.py STARTUP.BAS --run --proc 2
+
+    # Once happy, make STARTUP run automatically at power-up:
+    python trio_upload_config.py STARTUP.BAS --autorun
+
+    # Stop a running program (no upload):
+    python trio_upload_config.py STARTUP.BAS --no-upload --stop
+
+Program name on the controller is derived from the filename (STARTUP.BAS ->
+STARTUP), or set with --name.
+
+NOTE: a program cannot be edited while it is running. This tool issues
+STOP "NAME" before uploading; use --halt to stop ALL programs first if the
+controller still refuses (it won't let you edit while anything runs).
 """
-import socket
-import time
+import argparse
+import os
 import sys
+import time
+
+from trio_cmd import connect
 
 HOST = '192.168.0.250'
-PORT = 23
 
 
 def recv_all(sock, timeout=1.0):
@@ -25,17 +46,21 @@ def recv_all(sock, timeout=1.0):
             if not d:
                 break
             data += d
-        except socket.timeout:
+        except Exception:
             break
     return data
 
 
-def send_cmd(sock, cmd):
-    """Send a command, wait for response, return cleaned text."""
+def send_cmd(sock, cmd, settle=0.3, timeout=1.0):
+    """Send a command, wait a fixed settle time, return cleaned text.
+
+    Fixed-delay (not prompt-based) because the EDPROG line editor is what this
+    tool drives and that combination is proven for the upload path.
+    """
     recv_all(sock, timeout=0.1)  # flush
     sock.sendall((cmd + '\r').encode())
-    time.sleep(0.3)
-    raw = recv_all(sock, timeout=1.0)
+    time.sleep(settle)
+    raw = recv_all(sock, timeout=timeout)
     text = raw.decode(errors='replace')
     lines = text.replace('\r\n', '\n').split('\n')
     filtered = [l for l in lines
@@ -43,112 +68,177 @@ def send_cmd(sock, cmd):
     return '\n'.join(filtered).strip()
 
 
+def prog_name_from_file(path):
+    base = os.path.basename(path)
+    name = os.path.splitext(base)[0]
+    return name.upper()
+
+
+def load_program_lines(path, keep_comments=False):
+    """Read a .bas file into upload-ready lines.
+
+    Skips blank lines and (by default) comment-only lines. Inline comments on
+    code lines are kept so the on-controller listing stays readable for
+    debugging. Leading indentation is stripped (cosmetic in TrioBASIC).
+    """
+    out = []
+    with open(path, 'r') as f:
+        for line in f:
+            s = line.strip()
+            if not s:
+                continue
+            if s.startswith("'") and not keep_comments:
+                continue
+            out.append(s)
+    return out
+
+
+def upload_program(sock, prog, lines, list_after=True):
+    """Replace program 'prog' on the controller with 'lines' and commit."""
+    # SELECT creates the program if it doesn't exist (as BASIC type).
+    resp = send_cmd(sock, f'SELECT {prog}')
+    if resp:
+        print(f"  SELECT {prog} -> {resp}")
+
+    # Current line count, then delete existing lines (always from line 0).
+    resp = send_cmd(sock, f'!{prog},N')
+    try:
+        nlines = int(resp.strip())
+    except (ValueError, AttributeError):
+        nlines = 0
+    if nlines > 0:
+        print(f"  Deleting {nlines} existing lines...")
+        for _ in range(nlines):
+            r = send_cmd(sock, f'!{prog},0D')
+            if r and '%' in r:
+                print(f"  Delete error: {r}")
+                return False
+
+    # Insert new lines. EDPROG takes the text after 'I,' verbatim, so commas
+    # and quotes inside the BASIC line are preserved.
+    print(f"  Inserting {len(lines)} lines...")
+    for i, pl in enumerate(lines):
+        r = send_cmd(sock, f'!{prog},{i}I,{pl}')
+        if r and '%' in r:
+            print(f"  ERROR on line {i}: {pl}\n    -> {r}")
+            return False
+
+    # Verify count.
+    resp = send_cmd(sock, f'!{prog},N')
+    print(f"  Line count after insert -> {resp}")
+
+    if list_after:
+        resp = send_cmd(sock, f'!{prog},0,{len(lines)}L', settle=0.6, timeout=2.0)
+        print(f"  Listing:\n{resp}")
+
+    # Commit to flash (slower; give it time).
+    print("  Committing to flash...")
+    resp = send_cmd(sock, f'!{prog},M', settle=2.0, timeout=3.0)
+    if resp:
+        print(f"  Commit -> {resp}")
+    print("  Commit done.")
+    return True
+
+
+def stop_program(sock, prog):
+    r = send_cmd(sock, f'STOP "{prog}"')
+    print(f"  STOP \"{prog}\" -> {r if r else 'ok'}")
+
+
+def run_program(sock, prog, proc=None):
+    cmd = f'RUN "{prog}"' + (f', {proc}' if proc is not None else '')
+    r = send_cmd(sock, cmd, settle=0.5)
+    print(f"  {cmd} -> {r if r else 'ok'}")
+
+
+def set_runtype(sock, prog, proc=None, mode=1):
+    cmd = f'RUNTYPE "{prog}", {mode}' + (f', {proc}' if proc is not None else '')
+    r = send_cmd(sock, cmd)
+    print(f"  {cmd} -> {r if r else 'ok'}")
+
+
 def main():
-    config_file = sys.argv[1] if len(sys.argv) > 1 else 'stage/MC_CONFIG.bas'
+    ap = argparse.ArgumentParser(description="Upload/run a TrioBASIC program on the MC508")
+    ap.add_argument("progfile", nargs="?", default="MC_CONFIG.bas",
+                    help="path to the .bas file (default: MC_CONFIG.bas)")
+    ap.add_argument("--name", help="program name on controller (default: from filename)")
+    ap.add_argument("--host", default=HOST, help=f"controller IP (default {HOST})")
+    ap.add_argument("--keep-comments", action="store_true",
+                    help="upload comment-only lines too (default: skip them)")
+    ap.add_argument("--no-upload", action="store_true",
+                    help="skip the upload step (use with --run/--stop/--autorun)")
+    ap.add_argument("--halt", action="store_true",
+                    help="HALT all programs before editing")
+    ap.add_argument("--stop", action="store_true",
+                    help="STOP the program (also done automatically before upload)")
+    ap.add_argument("--run", action="store_true",
+                    help="RUN the program now (manual test, not persistent)")
+    ap.add_argument("--autorun", action="store_true",
+                    help='set RUNTYPE NAME,1 so it runs at power-up')
+    ap.add_argument("--proc", type=int, default=None,
+                    help="process number for --run / --autorun (default: controller chooses)")
+    args = ap.parse_args()
 
-    with open(config_file, 'r') as f:
-        lines = f.readlines()
+    prog = args.name if args.name else prog_name_from_file(args.progfile)
 
-    # Filter to actual BASIC lines (skip comment-only and blank lines)
-    program_lines = []
-    for line in lines:
-        stripped = line.strip()
-        if stripped and not stripped.startswith("'"):
-            program_lines.append(stripped)
+    lines = None
+    if not args.no_upload:
+        if not os.path.exists(args.progfile):
+            print(f"File not found: {args.progfile}")
+            return 1
+        lines = load_program_lines(args.progfile, keep_comments=args.keep_comments)
+        if not lines:
+            print(f"No program lines found in {args.progfile}")
+            return 1
 
-    if not program_lines:
-        print("No program lines found in", config_file)
-        return
-
-    print(f"Config file: {config_file}")
-    print(f"Program lines to upload:")
-    for pl in program_lines:
-        print(f"  {pl}")
-
-    # EDPROG1 "!" syntax: NO space after "!"
-    # !MC_CONFIG,N         -> line count
-    # !MC_CONFIG,0 D       -> delete line 0
-    # !MC_CONFIG,0 I,text  -> insert text at line 0
-    # !MC_CONFIG,0,10 L    -> list lines 0-10
-    # !MC_CONFIG,M          -> commit to flash
-    PROG = 'MC_CONFIG'
-
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.settimeout(5)
+    sock = connect(host=args.host)
+    print(f"\nProgram name: {prog}")
 
     try:
-        s.connect((HOST, PORT))
-        print(f"\nConnected to {HOST}:{PORT}")
-        time.sleep(1)
-        recv_all(s, timeout=1.0)
+        if args.halt:
+            r = send_cmd(sock, 'HALT')
+            print(f"  HALT -> {r if r else 'ok'}")
 
-        # Select MC_CONFIG
-        resp = send_cmd(s, f'SELECT {PROG}')
-        print(f"SELECT {PROG} -> {resp}")
+        # A program can't be edited while running; stop the target first.
+        if not args.no_upload or args.stop:
+            stop_program(sock, prog)
 
-        # Get current line count
-        resp = send_cmd(s, f'!{PROG},N')
-        print(f"Current line count -> {resp}")
+        if not args.no_upload:
+            ok = upload_program(sock, prog, lines)
+            if not ok:
+                print("\nUpload FAILED.")
+                return 1
 
-        try:
-            nlines = int(resp.strip())
-        except ValueError:
-            nlines = 0
+        if args.run:
+            print("\nStarting program (manual run)...")
+            run_program(sock, prog, args.proc)
+            print(f"  '{prog}' is running. Watch it with:")
+            print("    python homing_monitor.py")
 
-        # Delete existing lines (always delete from line 0)
-        if nlines > 0:
-            print(f"Deleting {nlines} existing lines...")
-            for i in range(nlines):
-                resp = send_cmd(s, f'!{PROG},0D')
-                if '%' in resp:
-                    print(f"  Delete error: {resp}")
-                    break
+        if args.autorun:
+            print("\nSetting autorun...")
+            set_runtype(sock, prog, args.proc, mode=1)
+            print("  NOTE: autorun requires ALL programs to compile cleanly.")
+            print("  NOTE: STARTUP sets WDOG=ON at power-up (drives enabled, holding).")
 
-        # Insert new lines
-        print("Inserting lines...")
-        for i, pl in enumerate(program_lines):
-            cmd = f'!{PROG},{i}I,{pl}'
-            resp = send_cmd(s, cmd)
-            if resp and '%' in resp:
-                print(f"  ERROR on line {i} '{pl}': {resp}")
-                return
-            print(f"  Line {i}: {pl} -> OK")
-
-        # Verify
-        resp = send_cmd(s, f'!{PROG},N')
-        print(f"\nLine count after insert -> {resp}")
-
-        n = len(program_lines)
-        resp = send_cmd(s, f'!{PROG},0,{n}L')
-        print(f"Listing:\n{resp}")
-
-        # Commit to flash
-        print("\nCommitting to flash...")
-        resp = send_cmd(s, f'!{PROG},M')
-        time.sleep(2)
-        extra = recv_all(s, timeout=2.0).decode(errors='replace').strip()
-        if resp:
-            print(f"Commit -> {resp}")
-        if extra:
-            extra_lines = [l for l in extra.split('\r\n')
-                           if l.strip() and l.strip() != '>>']
-            if extra_lines:
-                print('\n'.join(extra_lines))
-        print("Commit -> done")
-
-        # Verify DIR
-        resp = send_cmd(s, 'DIR')
-        print(f"\nDIR:\n{resp}")
-
-        print("\nDone! Power cycle the controller to apply ATYPE changes.")
-        print("Then verify with:")
-        print('  python stage/trio_cmd.py "?ATYPE AXIS(2)" "?ATYPE AXIS(5)"')
+        # Guidance.
+        print()
+        if prog == "MC_CONFIG" and not args.no_upload:
+            print("MC_CONFIG uploaded. POWER-CYCLE the controller to apply ATYPE.")
+            print('Then verify:  python trio_cmd.py "?ATYPE AXIS(2)" "?ATYPE AXIS(5)"')
+        elif not args.run and not args.autorun and not args.no_upload:
+            print(f"{prog} uploaded. To test it manually:")
+            print(f"    python trio_upload_config.py {args.progfile} --no-upload --run")
+            print("To make it run at power-up:")
+            print(f"    python trio_upload_config.py {args.progfile} --no-upload --autorun")
 
     except Exception as e:
         print(f"Error: {type(e).__name__}: {e}")
+        return 1
     finally:
-        s.close()
+        sock.close()
+    return 0
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main())

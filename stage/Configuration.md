@@ -215,6 +215,48 @@ over telnet; LabVIEW uses the same VRs via TrioPC.
 HOMED lives in RAM, so it survives a LabVIEW restart but clears on controller
 power-cycle (correct: positions are meaningless after power-up).
 
+## Bring-up Workflow (host tooling)
+
+All host scripts default to the controller at 192.168.0.250 over telnet.
+
+1. **Upload ATYPEs and apply** (one-time / after any ATYPE change):
+   ```
+   python trio_upload_config.py MC_CONFIG.bas
+   ```
+   Then **power-cycle** the controller (ATYPE only takes effect on power cycle).
+   Verify: `python trio_cmd.py "?ATYPE AXIS(0)" "?ATYPE AXIS(4)"`.
+
+2. **Upload and manually test the homing program** (preferred before autorun):
+   ```
+   python trio_upload_config.py STARTUP.BAS --run
+   ```
+   In another shell, watch and drive it:
+   ```
+   python homing_monitor.py            # watch status
+   python homing_monitor.py --home 4   # home Z (bit2); 15 = all, 7 = XYZ
+   ```
+   `--run` is not persistent — a power-cycle or `EX` stops it. Iterate freely.
+
+3. **Promote to power-up autorun** once validated:
+   ```
+   python trio_upload_config.py STARTUP.BAS --no-upload --autorun
+   ```
+   Autorun requires every program on the controller to compile cleanly.
+
+A program cannot be edited while running; the uploader issues `STOP "NAME"`
+before editing (use `--halt` to stop all programs if needed).
+
+### Changing the controller IP
+
+Set it in `MC_CONFIG.bas` (held in flash, applied at power-up), then
+power-cycle and move the PC's NIC to the same subnet:
+```
+IP_ADDRESS = 192.168.1.250
+IP_NETMASK = 255.255.255.0
+```
+Afterward update the `HOST`/`--host` default in `trio_cmd.py`,
+`trio_upload_config.py`, and `homing_monitor.py`.
+
 **E-stop sense:** wired to digital input **0** (terminal **XA0**, expansion A
 terminal 0). The input reads **ON when the e-stop is released** ("out") and
 OFF when pressed, **independent of the WDOG relay state**. This is fail-safe:
