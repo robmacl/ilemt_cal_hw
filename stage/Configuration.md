@@ -251,6 +251,14 @@ All host scripts default to the controller at 192.168.0.250 over telnet.
 A program cannot be edited while running; the uploader issues `STOP "NAME"`
 before editing (use `--halt` to stop all programs if needed).
 
+**One telnet connection at a time.** The MC508 command line accepts a single
+telnet session. Run the host tools sequentially, not concurrently — opening a
+second connection drops the first. The intended flow is: `--run` uploads and
+starts STARTUP then **exits** (releasing the connection), and only *then* do
+you run `homing_monitor.py`. `--run` does not move anything: STARTUP inits
+(WDOG on, drives energize and hold) and waits for a `HOME_REQ`; the monitor's
+`--home N` is what actually triggers motion.
+
 ### Changing the controller IP
 
 Set it in `MC_CONFIG.bas` (held in flash, applied at power-up), then

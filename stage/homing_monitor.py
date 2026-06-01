@@ -196,6 +196,10 @@ def main():
 
     except KeyboardInterrupt:
         print("\nStopped.")
+    except (ConnectionError, OSError) as e:
+        print(f"\nConnection lost ({type(e).__name__}). The MC508 telnet command"
+              " line allows only ONE connection at a time — did another tool"
+              " (e.g. trio_upload_config.py) connect? Run them one at a time.")
     finally:
         sock.close()
 

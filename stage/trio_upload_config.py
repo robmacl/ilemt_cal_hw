@@ -32,36 +32,24 @@ import os
 import sys
 import time
 
-from trio_cmd import connect
+from trio_cmd import connect, recv_all, recv_until_prompt, strip_telnet
 
 HOST = '192.168.0.250'
 
 
-def recv_all(sock, timeout=1.0):
-    sock.settimeout(timeout)
-    data = b''
-    while True:
-        try:
-            d = sock.recv(4096)
-            if not d:
-                break
-            data += d
-        except Exception:
-            break
-    return data
+def send_cmd(sock, cmd, settle=0.0, timeout=3.0):
+    """Send a command and return the cleaned response.
 
-
-def send_cmd(sock, cmd, settle=0.3, timeout=1.0):
-    """Send a command, wait a fixed settle time, return cleaned text.
-
-    Fixed-delay (not prompt-based) because the EDPROG line editor is what this
-    tool drives and that combination is proven for the upload path.
+    Prompt-based: returns as soon as the controller emits the '>>' prompt, so
+    a 228-line insert takes a few seconds instead of a fixed delay per line.
+    'settle' adds an optional extra wait (used for the slow flash commit).
     """
-    recv_all(sock, timeout=0.1)  # flush
+    recv_all(sock, timeout=0.05)  # flush
     sock.sendall((cmd + '\r').encode())
-    time.sleep(settle)
-    raw = recv_all(sock, timeout=timeout)
-    text = raw.decode(errors='replace')
+    if settle:
+        time.sleep(settle)
+    raw = recv_until_prompt(sock, timeout=timeout)
+    text = strip_telnet(raw).decode(errors='replace')
     lines = text.replace('\r\n', '\n').split('\n')
     filtered = [l for l in lines
                 if l.strip() and l.strip() != '>>' and l.strip() != cmd.strip()]
@@ -116,12 +104,17 @@ def upload_program(sock, prog, lines, list_after=True):
 
     # Insert new lines. EDPROG takes the text after 'I,' verbatim, so commas
     # and quotes inside the BASIC line are preserved.
-    print(f"  Inserting {len(lines)} lines...")
+    n = len(lines)
+    print(f"  Inserting {n} lines...")
     for i, pl in enumerate(lines):
         r = send_cmd(sock, f'!{prog},{i}I,{pl}')
         if r and '%' in r:
-            print(f"  ERROR on line {i}: {pl}\n    -> {r}")
+            print(f"\n  ERROR on line {i}: {pl}\n    -> {r}")
             return False
+        if (i + 1) % 20 == 0 or i + 1 == n:
+            sys.stdout.write(f"\r    {i + 1}/{n}")
+            sys.stdout.flush()
+    print()
 
     # Verify count.
     resp = send_cmd(sock, f'!{prog},N')
