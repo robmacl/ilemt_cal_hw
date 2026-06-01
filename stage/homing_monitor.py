@@ -45,6 +45,7 @@ FAULT_TEXT = {
     4: "RANGE_TOO_SMALL",
     6: "ESTOP_ABORT",
     7: "TIMEOUT",
+    8: "STALL (limit not detected?)",
 }
 
 STATE_TEXT = {

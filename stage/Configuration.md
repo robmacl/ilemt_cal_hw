@@ -214,7 +214,15 @@ over telnet; LabVIEW uses the same VRs via TrioPC.
 | 200–249 | detail | packed ASCII; read with `PRINT VRSTRING(200)` |
 
 **FAULT codes:** 0 OK · 1 NEG_LIMIT_NOT_FOUND · 2 POS_LIMIT_NOT_FOUND ·
-4 RANGE_TOO_SMALL · 6 ESTOP_ABORT · 7 TIMEOUT
+4 RANGE_TOO_SMALL · 6 ESTOP_ABORT · 7 TIMEOUT · 8 STALL (stepper demand
+outran the shaft encoder — likely a missing/dead limit, hardstop, or collision)
+
+A fresh `HOME_REQ` auto-clears a stale FAULT latch (when e-stop is released),
+so re-pressing Home after a fault simply retries — no explicit `CLR_FAULT`
+needed. Seeks are guarded by **encoder stall detection** (abort within ~1 tick
+if demand and the shaft encoder diverge by more than ~400 microsteps), with a
+generous ~120 s timeout as a secondary backstop. This catches a dead limit
+immediately instead of grinding the motor into a hardstop until a timeout.
 
 **STATE codes:** 0 idle · 1 init_done · 10 seek_neg · 11 seek_pos ·
 12 to_mid · 13 axis_homed · 90 fault · 91 estop_abort

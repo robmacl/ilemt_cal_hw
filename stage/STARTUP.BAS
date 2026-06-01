@@ -31,6 +31,7 @@
 '
 '   FAULT codes:  0 OK  1 NEG_LIMIT_NOT_FOUND  2 POS_LIMIT_NOT_FOUND
 '                 4 RANGE_TOO_SMALL  6 ESTOP_ABORT  7 TIMEOUT
+'                 8 STALL (demand outran encoder; likely a missing/dead limit)
 '   STATE codes:  0 idle  1 init_done  10 seek_neg  11 seek_pos
 '                12 to_mid  13 axis_homed  90 fault  91 estop_abort
 ' --------------------------------------------------------------------------
@@ -80,7 +81,8 @@ RUN_ACCEL = 63000        ' ~50 mm/s^2 equivalent
 HOME_SPEED = 6300        ' ~5 mm/s slow approach to limits
 HOME_DIST = 2000000      ' "drive until limit stops us" distance, usteps
 MIN_RANGE = 5000         ' self-test floor: travel must exceed this
-HOME_TMO = 1500          ' seek timeout in 20ms ticks (~30 s)
+HOME_TMO = 6000          ' seek timeout in 20ms ticks (~120 s) - generous backstop
+STALL_THRESH = 400       ' stall: |stepper demand - encoder| divergence, usteps
 ESTOP_IN = 0             ' input XA0 (expansion A term 0): ON=released, OFF=pressed
 MSG_BASE = 200
 
@@ -151,7 +153,14 @@ WHILE TRUE
   ENDIF
 
   ' Home request: process requested axes in order 0,1,2,3 (Rz=bit3 last).
-  IF (VR(100) <> 0) AND (VR(112) = 0) AND (VR(113) = 0) THEN
+  ' A fresh request auto-clears a stale fault latch (as long as e-stop is
+  ' released), so re-pressing Home after a fault just retries.
+  IF (VR(100) <> 0) AND (VR(112) = 0) THEN
+    IF VR(113) <> 0 THEN
+      VR(113) = 0
+      VR(114) = -1
+      IF VR(115) >= 90 THEN VR(115) = 0
+    ENDIF
     GOSUB do_home_all
     VR(100) = 0
   ENDIF
@@ -289,24 +298,45 @@ do_seek:
   GOSUB wait_move
   RETURN
 
-' Wait for the current move on sa to finish, watching e-stop and timeout.
+' Wait for the current move on sa to finish, watching e-stop, stall, timeout.
+' Stall = stepper demand (DPOS) and shaft encoder (MPOS) diverge: the motor is
+' commanded but isn't following (hardstop, dead limit, collision). The encoder
+' is on the motor shaft, so a true stall shows up here within ~1 tick.
+' Sets abort_reason: 0 none, 1 e-stop, 2 stall, 3 timeout.
 wait_move:
   ok = 1
+  abort_reason = 0
   t = 0
+  sd0 = DPOS AXIS(sa)
+  se0 = MPOS AXIS(ea)
   REPEAT
     WA(20)
     t = t + 1
-    IF IN(ESTOP_IN) = OFF THEN ok = 0      ' e-stop pressed -> abort
-    IF t > HOME_TMO THEN ok = 0
+    IF IN(ESTOP_IN) = OFF THEN              ' e-stop pressed -> abort
+      ok = 0
+      abort_reason = 1
+    ENDIF
+    dd = (DPOS AXIS(sa) - sd0) - (MPOS AXIS(ea) - se0)
+    IF ABS(dd) > STALL_THRESH THEN          ' demand outran the shaft
+      ok = 0
+      abort_reason = 2
+    ENDIF
+    IF t > HOME_TMO THEN
+      ok = 0
+      abort_reason = 3
+    ENDIF
   UNTIL (MTYPE AXIS(sa) = 0) OR (ok = 0)
   IF ok = 0 THEN CANCEL AXIS(sa)
   RETURN
 
-' Decide whether an aborted seek was e-stop or timeout.
+' Map abort_reason (set by wait_move) to a fault code.
 chk_abort_cause:
-  IF IN(ESTOP_IN) = OFF THEN               ' e-stop pressed
+  IF abort_reason = 1 THEN
     VR(113) = 6                            ' ESTOP_ABORT
     VR(115) = 91
+  ELSEIF abort_reason = 2 THEN
+    VR(113) = 8                            ' STALL (likely a missing/dead limit)
+    VR(115) = 90
   ELSE
     VR(113) = 7                            ' TIMEOUT
     VR(115) = 90
