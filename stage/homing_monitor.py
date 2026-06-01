@@ -6,6 +6,7 @@ Optionally issues a HOME_REQ and/or clears a fault latch.
 
 Usage:
     python homing_monitor.py                 # just watch
+    python homing_monitor.py --range          # measured travel + enc/stp ratio
     python homing_monitor.py --inputs         # no-motion limit/e-stop toggle test
     python homing_monitor.py --home 7         # home X+Y+Z (bitmask), then watch
     python homing_monitor.py --home all       # home all 4 axes
@@ -117,6 +118,25 @@ def inputs_view(sock, interval):
         time.sleep(interval)
 
 
+def range_view(sock):
+    """One-shot print of measured per-axis travel (microsteps) and the
+    encoder/stepper ratio (a free correctness check; should be ~1.0)."""
+    print("Measured travel per axis (microsteps), from the last homing:")
+    print(f"  {'axis':<4} {'stepper':>14} {'encoder':>14} {'enc/stp':>9}  ~mm/deg")
+    for i, name in enumerate(AXIS_NAMES):
+        stp = get_vr(sock, VR_RANGE_STP + i)
+        enc = get_vr(sock, VR_RANGE_ENC + i)
+        if stp is None or enc is None:
+            print(f"  {name:<4} {'?':>14} {'?':>14}")
+            continue
+        ratio = (enc / stp) if stp else 0.0
+        # microsteps -> physical: XYZ 5.08/6400 mm, Rz 2/6400 deg
+        scale = (2.0 if i == 3 else 5.08) / 6400.0
+        phys = abs(stp) * scale
+        unit = "deg" if i == 3 else "mm"
+        print(f"  {name:<4} {stp:>14.1f} {enc:>14.1f} {ratio:>9.5f}  {phys:.3f} {unit}")
+
+
 def set_vr(sock, n, value):
     send_cmd(sock, f"VR({n})={value}")
 
@@ -145,12 +165,17 @@ def main():
                     help="poll interval seconds (default 0.25)")
     ap.add_argument("--inputs", action="store_true",
                     help="no-motion live view of e-stop + limit inputs (toggle test)")
+    ap.add_argument("--range", action="store_true", dest="show_range",
+                    help="print measured per-axis travel + enc/stp ratio, then exit")
     args = ap.parse_args()
 
     sock = connect()
     print("Connected. Ctrl-C to stop.\n")
 
     try:
+        if args.show_range:
+            range_view(sock)
+            return
         if args.inputs:
             inputs_view(sock, args.interval)
             return

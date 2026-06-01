@@ -71,6 +71,13 @@ unit means the error you read (encoder) is directly the increment you command
 |------|---------------|---------------|-------|
 | all (0-3) | 16 | -1.5625 | stepper x16 -> microsteps; enc 10000/6400, sign flips dir |
 
+**Validated on Z (2026-06-01).** First homing run measured the Z travel
+independently on both axes: stepper 126670.9, encoder 126666.9 microsteps —
+ratio 0.99997 (~32 ppm, ~4 microsteps over the full range). This confirms the
+x16 multiplier, both UNITS values, and the encoder direction. Range ≈ 100.5 mm
+(19.8 rev). Use `python homing_monitor.py --range` to read per-axis travel and
+the enc/stp ratio after homing.
+
 - **Stepper UNITS = 16:** the internal counter is 16x microsteps, so dividing
   by 16 makes DPOS/MPOS read directly in microsteps. (The leftover fractional
   count you see is the x16 interpolation showing through — harmless.)
