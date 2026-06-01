@@ -70,9 +70,9 @@ maskv(1) = 2
 maskv(2) = 4
 maskv(3) = 8
 
-' ---- Tunable parameters (microstep units; plain locals, set once) ----
-DIM STEP_UNITS, ENC_UNITS, RUN_SPEED, RUN_ACCEL, HOME_SPEED
-DIM HOME_DIST, MIN_RANGE, HOME_TMO, ESTOP_IN, MSG_BASE
+' ---- Tunable parameters (microstep units) ----
+' Scalars are left undeclared (local variables default to FLOAT); DIM cannot
+' take a comma-separated list, only "DIM name AS type".
 STEP_UNITS = 16          ' DPOS in microsteps (x16 FlexAxis multiplier)
 ENC_UNITS = -1.5625      ' 10000 enc / 6400 ustep, sign flips direction
 RUN_SPEED = 18900        ' ~15 mm/s (XYZ) / ~5.9 deg/s (Rz); same RPM
