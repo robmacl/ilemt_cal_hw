@@ -235,6 +235,11 @@ All host scripts default to the controller at 192.168.0.250 over telnet.
    python homing_monitor.py            # watch status
    python homing_monitor.py --home 4   # home Z (bit2); 15 = all, 7 = XYZ
    ```
+   Before the first seek on a new axis, confirm its limit switches with a
+   no-motion toggle test (trip each switch by hand, watch the marker flip):
+   ```
+   python homing_monitor.py --inputs
+   ```
    `--run` is not persistent — a power-cycle or `EX` stops it. Iterate freely.
 
 3. **Promote to power-up autorun** once validated:

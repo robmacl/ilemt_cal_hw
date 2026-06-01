@@ -6,6 +6,7 @@ Optionally issues a HOME_REQ and/or clears a fault latch.
 
 Usage:
     python homing_monitor.py                 # just watch
+    python homing_monitor.py --inputs         # no-motion limit/e-stop toggle test
     python homing_monitor.py --home 7         # home X+Y+Z (bitmask), then watch
     python homing_monitor.py --home all       # home all 4 axes
     python homing_monitor.py --clear          # clear fault latch, then watch
@@ -57,6 +58,17 @@ STATE_TEXT = {
 }
 
 
+# Limit inputs per axis (see Configuration.md "Limit Switch Inputs").
+# (pos/FWD input, neg/REV input)
+LIMIT_INPUTS = [
+    ("X", 16, 17),
+    ("Y", 18, 19),
+    ("Z", 20, 21),
+    ("Rz", 22, 23),
+]
+ESTOP_INPUT = 0  # XA0: ON=released, OFF=pressed
+
+
 def get_vr(sock, n):
     """Read VR(n) as a float, or None on parse failure."""
     r = send_cmd(sock, f"PRINT VR({n})")
@@ -64,6 +76,45 @@ def get_vr(sock, n):
         return float(r.strip().split()[-1])
     except (ValueError, AttributeError, IndexError):
         return None
+
+
+def get_in(sock, n):
+    """Read digital input IN(n) as 0/1, or None on parse failure."""
+    r = send_cmd(sock, f"PRINT IN({n})")
+    try:
+        return int(float(r.strip().split()[-1]))
+    except (ValueError, AttributeError, IndexError):
+        return None
+
+
+def inputs_view(sock, interval):
+    """Live, no-motion display of e-stop + all limit inputs.
+
+    Use this to confirm by hand that each limit switch toggles its input and
+    that pos/neg are on the end you expect, BEFORE trusting a homing seek.
+    Trip each switch manually and watch its marker flip.
+
+    Convention reminder (Configuration.md): a limit reads 1 when AWAY from the
+    limit and 0 when AT it. E-stop (XA0) reads 1 when released, 0 when pressed.
+    """
+    print("Live input monitor. Trip each switch by hand; Ctrl-C to stop.")
+    print("  limit: 1=away  0=AT-LIMIT     e-stop: 1=released  0=PRESSED\n")
+    while True:
+        es = get_in(sock, ESTOP_INPUT)
+        es_txt = "????"
+        if es is not None:
+            es_txt = "released" if es == 1 else "PRESSED "
+        cells = []
+        for name, pin_pos, pin_neg in LIMIT_INPUTS:
+            p = get_in(sock, pin_pos)
+            n = get_in(sock, pin_neg)
+            pm = "AT" if p == 0 else ("--" if p == 1 else "??")
+            nm = "AT" if n == 0 else ("--" if n == 1 else "??")
+            cells.append(f"{name}: +{pm} -{nm}")
+        line = f"\rE-stop[{es_txt}]  " + "  ".join(cells)
+        sys.stdout.write(line)
+        sys.stdout.flush()
+        time.sleep(interval)
 
 
 def set_vr(sock, n, value):
@@ -92,12 +143,17 @@ def main():
                     help="clear fault/e-stop latch before watching")
     ap.add_argument("--interval", type=float, default=0.25,
                     help="poll interval seconds (default 0.25)")
+    ap.add_argument("--inputs", action="store_true",
+                    help="no-motion live view of e-stop + limit inputs (toggle test)")
     args = ap.parse_args()
 
     sock = connect()
     print("Connected. Ctrl-C to stop.\n")
 
     try:
+        if args.inputs:
+            inputs_view(sock, args.interval)
+            return
         if args.clear:
             set_vr(sock, VR_CLR_FAULT, 1)
             print("Fault latch clear requested.")
