@@ -37,6 +37,21 @@ DRV_A is the primary axis (N) on a stepper port; DRV_B is the secondary
 axis (N+8) on the P849 dual-axis connector. X and Z happen to be on the
 DRV_A path, so the stepper axis numbers don't follow the stage axis order.
 
+> **⚠ BLOCKER (2026-06): N+8 secondary stepper outputs produce no pulses.**
+> X and Z (primary axes 4, 5) home and move correctly. Y and Rz (secondary
+> axes 12, 13) advance DPOS but emit **no step pulses** — scope shows pins
+> 11/12 driven statically HIGH, i.e. the primary ATYPE-43 axis is driving its
+> **Enable(n) output** on the same pins the n+8 axis needs for Pulse(n+8).
+> ATYPE 43 = "pulse+direction *with enable output*", and that enable shares
+> pins 11–14 with the n+8 pulse/dir (see manual FlexAxis pinout, P849 column).
+> `AXIS_Z_OUTPUT AXIS(4)=0` did not free the pins. Awaiting Trio support — see
+> [trio_support_inquiry.md](trio_support_inquiry.md).
+>
+> **Likely fallback:** move Y/Rz stepper cables to the unused ports 6/7 as
+> primary ATYPE-43 axes (pins 1–4). Keeps encoder Z index; costs a 2-connector
+> rewire. If adopted, the Stepper Axis column above becomes 4/6/5/7 and
+> `MC_CONFIG.bas` sets ATYPE 43 on 6,7 instead of 12,13.
+
 ## Hardware
 
 - **Encoder:** US Digital E6-2500-250-IE-D-E-D-B — 2500 CPR (cycles/rev)
