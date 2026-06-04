@@ -103,30 +103,30 @@ likely one shared return and one spare, or separate returns for sensor groups.
 
 ### MC508 SCSI Cable Wire Colors (20-pin MDR)
 
-From handwritten notes (stage/Pics/PXL_20260106_162549339.jpg):
+**WARNING:** This pinout of the cable assembly from pins to colors was from continuity test on a single cable (stage/Pics/PXL_20260106_162549339.jpg). It turns out that some of the cables used have some pairs swapped, and really *who knows* what's in these actual cables. The pair swaps cause are known to cause some of the steppers step/direction to be negated. **Really all of the cables should be rebuilt from quality flying lead cables with documented pinout.**
 
-| MDR Pin | Wire Color      | MC508 Signal    |
-|---------|-----------------|-----------------|
-| 1       | BLK             | Enc A+          |
-| 2       | BRN             | /Enc A          |
-| 3       | RED             | Enc B+          |
-| 4       | ORN             | /Enc B          |
-| 5       | YEL             | +5V Enc         |
-| 6       | GRN             | N/C             |
-| 7       | BLU             | WDOG+           |
-| 8       | PUR             | WDOG-           |
-| 9       | GRY             | Input A+        |
-| 10      | WHT             | Input Com       |
-| 11      | LTGRN           | Enc Z+          |
-| 12      | LTBLU           | /Enc Z          |
-| 13      | PINK            | Dir+  / Pulse+  |
-| 14      | WHT/BLK         | /Dir  / /Pulse  |
-| 15      | WHT/BRN         | 0V Enc          |
-| 16      | WHT/RED         | N/C             |
-| 17      | WHT/ORN         | VOUT+           |
-| 18      | WHT/YEL         | VOUT-           |
-| 19      | WHT/GRN         | N/C             |
-| 20      | WHT/BLU         | Input B+        |
+| MDR Pin | Wire Color | MC508 Signal   |
+| ------- | ---------- | -------------- |
+| 1       | BLK        | Enc A+         |
+| 2       | BRN        | /Enc A         |
+| 3       | RED        | Enc B+         |
+| 4       | ORN        | /Enc B         |
+| 5       | YEL        | +5V Enc        |
+| 6       | GRN        | N/C            |
+| 7       | BLU        | WDOG+          |
+| 8       | PUR        | WDOG-          |
+| 9       | GRY        | Input A+       |
+| 10      | WHT        | Input Com      |
+| 11      | LTGRN      | Enc Z+         |
+| 12      | LTBLU      | /Enc Z         |
+| 13      | PINK       | Dir+  / Pulse+ |
+| 14      | WHT/BLK    | /Dir  / /Pulse |
+| 15      | WHT/BRN    | 0V Enc         |
+| 16      | WHT/RED    | N/C            |
+| 17      | WHT/ORN    | VOUT+          |
+| 18      | WHT/YEL    | VOUT-          |
+| 19      | WHT/GRN    | N/C            |
+| 20      | WHT/BLU    | Input B+       |
 
 Note: Pins 13/14 are labeled "Dir+5" / "/Dir+5" in the notes. On the ATYPE 43
 (stepper) port these are Pulse+/Pulse- (pins 1-2) or Dir+/Dir- (pins 3-4)
@@ -347,25 +347,15 @@ Pins 2, 4 (/Pulse, /Dir) not connected. Pins 11–14 (N+8) not used.
 
 ### Stepper Driver Enable
 
-The KL-4030 enable input (ENA+/ENA-) is an opto-isolator. We use the MC508
-WDOG SSR relay to switch the enable circuit. Per-axis AXIS_ENABLE is not used.
+The KL-4030 enable input (ENA+/ENA-) is an opto-isolator. There is some enable logic on the front panel, see [[front_panel_schematic.jpg]]. This is connected to the main panel by a DB-9 connector, see [[front_panel_conn_main_panel_schematic.jpg]]. The WDOG relay in the MC508 port 6 (Z axis stepper) cable is used to gate the driver enable for all drivers. Per-axis AXIS_ENABLE is not used.
 
 **Circuit (per stepper port, one driver per port):**
 
-```
-Ext 5V+ → E-stop NC → WDOG+ (pin 7, BLU) → WDOG- (pin 8, PUR) →
-  Driver ENA+ → Driver ENA- → Ext 5V return
-```
-
-- No current-limiting resistors needed — KL-4030 ENA opto inputs are designed
+- Note that the ENA input is actually a *disable*. It must be low to enable the driver. No current-limiting resistors needed — KL-4030 ENA opto inputs are designed
   for 5V direct drive (internal current limiting).
 - KL-4030 ENA opto is isolated — ENA- returns to Ext 5V GND, not to MC508 0V.
   MC508 0V (pin 15, WHT/BRN) only ties to driver PUL-/DIR- (step/dir ground reference).
-- E-stop is NC (normally closed) pushbutton in series — pressing it breaks
-  the enable circuit at the hardware level regardless of MC508 software state.
-- WDOG SSR rated 24V/100mA, ~25Ω on-resistance. Well within rating.
-- All stepper ports share the same E-stop button (wired in series before
-  splitting to each port's WDOG).
+
 
 ### E-Stop Software Feedback
 
@@ -375,29 +365,35 @@ released, OFF when pressed — independent of the WDOG relay. The hardwired
 circuit above is what actually guarantees safety; this input is for status and
 clean recovery. See Configuration.md.
 
-### Stepper Adapter Wire Colors
+### Stepper Cable Wires Used
 
-These are the adapter wires for one stepper port (one driver). The step/dir
-signals use SCSI cable wires; the enable and ground wires are added. Colours
-are nominal — see the cable-uncertainty note above.
+Only a few wires of each stepper SCSI cable are used. Step/Dir + 0V go to the
+driver; the enable is generated on the front panel (not per-port) and so is
+**not** in the stepper cables — except the WDOG relay, which is carried to the
+front panel on the **port 6 (Z)** cable only.
 
-| Wire ID   | Function                    | Color   | WireViz Code |
-|-----------|-----------------------------|---------|--------------|
-| STEP_PUL  | Pulse+ (SCSI pin 1)         | Black   | BK           |
-| STEP_DIR  | Dir+ (SCSI pin 3)           | Red     | RD           |
-| GND_1     | Driver PUL- ground          | Black   | BK           |
-| GND_2     | Driver DIR- ground          | Black   | BK           |
-| PWR       | +5V → E-stop                | Red     | RD           |
-| ES        | E-stop → WDOG+ (SCSI pin 7) | Blue    | BU           |
-| WDOG_SCSI | WDOG- (SCSI pin 8) → Driver ENA+ | Purple | VT       |
-| R         | Driver ENA- → 5V GND        | Black   | BK           |
+| SCSI Pin | Color (nominal) | Signal  | Used for                         |
+|----------|-----------------|---------|----------------------------------|
+| 1        | BK              | Pulse+  | → Driver PUL+                    |
+| 3        | RD              | Dir+    | → Driver DIR+                    |
+| 15       | WH/BR           | 0V      | → Driver PUL-/DIR- (gnd ref)     |
+| 7        | BU              | WDOG+   | → front panel (port 6 cable only)|
+| 8        | VT              | WDOG-   | → front panel (port 6 cable only)|
+
+Colours are nominal — see the cable-uncertainty note above (and the SCSI
+colour-table WARNING). The driver enable arrives from the front panel as a
+shared bus: **OG = ENA+ (active-low disable), BK = ENA- (system ground)**.
 
 ## Wiring Diagrams (WireViz)
 
 WireViz YAML definitions for the two adapter cables:
 
 - **`wiring_encoder.yml`** — Encoder/limits adapter (DB-25 → MC508 encoder port + level shift)
-- **`wiring_stepper.yml`** — Stepper port + enable/E-stop (MC508 stepper port → 2× KL-4030 drivers)
+- **`wiring_stepper.yml`** — One stepper port → one KL-4030 driver, with the
+  shared front-panel enable bus shown as a dummy connector. The front-panel
+  E-stop/enable logic itself is hand-drawn in
+  `Pics/front_panel_schematic.jpg` and `Pics/front_panel_conn_main_panel_schematic.jpg`
+  (not reproduced in WireViz).
 
 Run `gen_wiring.bat` to regenerate diagrams (SVG + PNG + BOM).
 

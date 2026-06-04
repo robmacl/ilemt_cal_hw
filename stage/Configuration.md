@@ -419,9 +419,9 @@ default ATYPE 44 (Analogue Servo).
 
 ## MC508 Inputs
 
-- **All inputs are 24V PNP** with an internal 6.8kΩ series resistor and
+- **Limit inputs are 24V PNP** with an internal 6.8kΩ series resistor and
   opto-isolator. 5V signals require a MIC2981 high-side driver to source
   24V to the input pin.
-
+- **E-stop sense input** is wired with common to +24V giving a "NPN" active low input.
 - **Input Com (pin 10) connects to the 24V 0V return**, not to signal
   ground.

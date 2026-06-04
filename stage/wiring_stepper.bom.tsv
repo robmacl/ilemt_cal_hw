@@ -1,7 +1,6 @@
 Id	Description	Qty	Unit	Designators
-1	Cable, 1 wires	0	m	ES, GND_1, GND_2, GND_SCSI, PWR, R, STEP_DIR, STEP_PUL, WDOG_SCSI
-2	Connector, MDR-20, 5 pins	1		MC508_STEP
-3	Connector, NC Pushbutton, 2 pins, RD	1		ESTOP
-4	Connector, Power Supply, 2 pins	1		EXT5V
-5	Connector, Screw Terminal, 6 pins	1		DRV
-6	Connector, Splice	1		
+1	Cable, 1 wires	0	m	ENA_N, ENA_P, GND_1, GND_2, GND_SCSI, STEP_DIR, STEP_PUL
+2	Connector, Front-panel enable bus, 2 pins	1		FP_ENABLE
+3	Connector, MDR-20, 3 pins	1		MC508_STEP
+4	Connector, Screw Terminal, 6 pins	1		DRV
+5	Connector, Splice	1		

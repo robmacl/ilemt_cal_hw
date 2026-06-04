@@ -1,42 +1,44 @@
-# WireViz: Stepper port + Enable/E-stop (one port, one driver)
+# WireViz: Stepper port -> one KL-4030 driver (generic, one port per driver)
 # See stage_wiring.md for design rationale.
-# One stepper per ATYPE-43 primary port (pins 1-4). Ports: 4=X 5=Y 6=Z 7=Rz.
-# (The P849 N+8 second-axis-per-connector scheme did not work; see Configuration.md.)
+# Ports: 4=X 5=Y 6=Z 7=Rz, each a primary ATYPE-43 axis (pins 1-4).
+#
+# The driver ENABLE is NOT generated here. It is produced on the front panel
+# (E-stop + WDOG-relay-buffered PNP, see Pics/front_panel_schematic.jpg) and
+# distributed to ALL drivers as a shared bus: OG = ENA+ ("disable" line),
+# BK = ENA- (system ground, returns to +5V). The MC508 WDOG relay reaches the
+# front panel via the PORT 6 (Z) cable only (pins 7/8, BU/VT). This drawing
+# shows that shared enable as the FP_ENABLE dummy connector.
+#
 # NOTE: SCSI wire colours are nominal -- some cables have swapped diff pairs.
 
 metadata:
-  title: ILEMT Stage - Stepper Port & Enable/E-Stop (one driver per port)
+  title: ILEMT Stage - Stepper Port to KL-4030 (one driver per port)
 
 connectors:
   MC508_STEP:
     type: MDR-20
-    notes: "MC508 Stepper Port (ATYPE 43 primary, P849)"
-    pins: [1, 3, 7, 8, 15]
-    pinlabels: ["Pulse+", "Dir+", WDOG+, WDOG-, 0V]
+    notes: "MC508 Stepper Port (ATYPE 43 primary). Pins 1/3/15 used."
+    pins: [1, 3, 15]
+    pinlabels: ["Pulse+", "Dir+", "0V"]
 
   DRV:
     type: Screw Terminal
-    notes: "KL-4030 Driver"
+    notes: "KL-4030 Driver (one per port)"
     pins: [1, 2, 3, 4, 5, 6]
     pinlabels: ["PUL+", "PUL-", "DIR+", "DIR-", "ENA+", "ENA-"]
 
-  ESTOP:
-    type: NC Pushbutton
-    notes: "Emergency Stop"
+  FP_ENABLE:
+    type: Front-panel enable bus
+    notes: "Driver enable/disable, generated on the front panel (E-stop +
+      WDOG-buffered PNP; see Pics/front_panel_schematic.jpg). Shared by all
+      drivers. ENA+ is active-LOW = disable."
     pins: [1, 2]
-    pinlabels: [COM, NC]
-    color: RD
-
-  EXT5V:
-    type: Power Supply
-    notes: "External 5V (enable circuit)"
-    pins: [1, 2]
-    pinlabels: ["+5V", GND]
+    pinlabels: ["ENA+ (disable)", "ENA- (sys GND)"]
 
   TIE_0V:
     style: simple
     type: Splice
-    notes: "0V tie point"
+    notes: "MC508 0V tie (step/dir ground reference)"
 
 cables:
   STEP_PUL:
@@ -49,46 +51,33 @@ cables:
     notes: "Dir+ (SCSI pin 3)"
     colors: [RD]
 
-  # SCSI cable wire from 0V (pin 15) - white/brown
   GND_SCSI:
     wirecount: 1
-    notes: "0V SCSI wire (pin 15)"
+    notes: "0V (SCSI pin 15)"
     colors: [WHBN]
 
   GND_1:
     wirecount: 1
-    notes: "Driver PUL- ground"
-    colors: [BK]
+    notes: "0V to Driver PUL-"
+    colors: [WHBN]
 
   GND_2:
     wirecount: 1
-    notes: "Driver DIR- ground"
-    colors: [BK]
+    notes: "0V to Driver DIR-"
+    colors: [WHBN]
 
-  PWR:
+  ENA_P:
     wirecount: 1
-    notes: "+5V to E-stop"
-    colors: [RD]
+    notes: "Front-panel enable to Driver ENA+"
+    colors: [OG]
 
-  ES:
+  ENA_N:
     wirecount: 1
-    notes: "E-stop to WDOG+ (SCSI pin 7)"
-    colors: [BU]
-
-  # SCSI cable wire from WDOG- (pin 8) - purple. With one driver per port
-  # there is no fan-out, so this goes straight to the driver ENA+.
-  WDOG_SCSI:
-    wirecount: 1
-    notes: "WDOG- SCSI wire (pin 8) to Driver ENA+"
-    colors: [VT]
-
-  R:
-    wirecount: 1
-    notes: "Driver ENA- return"
+    notes: "Driver ENA- to system ground"
     colors: [BK]
 
 connections:
-  # Primary axis: MC508 Pulse+/Dir+ -> Driver PUL+/DIR+ (single-ended)
+  # Step/Dir: MC508 Pulse+/Dir+ -> Driver PUL+/DIR+ (single-ended)
   -
     - MC508_STEP: [1]
     - STEP_PUL: [1]
@@ -98,13 +87,11 @@ connections:
     - STEP_DIR: [1]
     - DRV: [3]
 
-  # MC508 0V (WHT/BRN SCSI wire) -> tie point
+  # MC508 0V -> tie -> Driver PUL-/DIR-
   -
     - MC508_STEP: [15]
     - GND_SCSI: [1]
     - TIE_0V: [1]
-
-  # 0V tie point -> Driver PUL-/DIR-
   -
     - TIE_0V: [1]
     - GND_1: [1]
@@ -114,24 +101,12 @@ connections:
     - GND_2: [1]
     - DRV: [4]
 
-  # Enable: 5V -> E-stop -> WDOG+
+  # Enable bus (front panel) -> Driver ENA+/ENA-
   -
-    - EXT5V: [1]
-    - PWR: [1]
-    - ESTOP: [1]
-  -
-    - ESTOP: [2]
-    - ES: [1]
-    - MC508_STEP: [7]
-
-  # WDOG- (PUR SCSI wire) -> Driver ENA+
-  -
-    - MC508_STEP: [8]
-    - WDOG_SCSI: [1]
+    - FP_ENABLE: [1]
+    - ENA_P: [1]
     - DRV: [5]
-
-  # Driver ENA- return -> 5V GND
   -
+    - FP_ENABLE: [2]
+    - ENA_N: [1]
     - DRV: [6]
-    - R: [1]
-    - EXT5V: [2]
