@@ -42,6 +42,7 @@ DIM enc_ax AS INTEGER(4)
 DIM fwd_inp AS INTEGER(4)
 DIM rev_inp AS INTEGER(4)
 DIM maskv AS INTEGER(4)
+DIM enc_sign AS FLOAT(4)
 DIM rng_stp AS FLOAT(4)
 DIM rng_enc AS FLOAT(4)
 DIM msg AS STRING(50)
@@ -50,10 +51,13 @@ DIM msg AS STRING(50)
 
 ' ---- Per-axis hardware map (see Configuration.md) ----
 ' Index = stage axis (0=X 1=Y 2=Z 3=Rz).
+' One stepper per port: X=4 Y=5 Z=6 Rz=7 (the n+8 second-axis output on
+' ports 4/5 did not work, so each stepper uses its own primary connector).
+' Limit inputs are unchanged (they ride on the encoder ports 0-3).
 step_ax(0) = 4
-step_ax(1) = 12
-step_ax(2) = 5
-step_ax(3) = 13
+step_ax(1) = 5
+step_ax(2) = 6
+step_ax(3) = 7
 enc_ax(0) = 0
 enc_ax(1) = 1
 enc_ax(2) = 2
@@ -61,21 +65,31 @@ enc_ax(3) = 3
 fwd_inp(0) = 16
 fwd_inp(1) = 18
 fwd_inp(2) = 20
-fwd_inp(3) = 22
+fwd_inp(3) = 23
 rev_inp(0) = 17
 rev_inp(1) = 19
 rev_inp(2) = 21
-rev_inp(3) = 23
+rev_inp(3) = 22
 maskv(0) = 1
 maskv(1) = 2
 maskv(2) = 4
 maskv(3) = 8
 
+' Per-axis encoder sign (cabling is non-uniform). -1 = encoder counts same
+' direction as stepper demand (X/Y/Z); +1 = inverted differential pair so the
+' encoder counts opposite (Rz). enc UNITS = enc_sign * 1.5625.
+' Rz (3): limits also swapped above (fwd=23 rev=22) vs the wired-default 22/23,
+' because the actuator tab reaches the sensors opposite to the seek direction.
+enc_sign(0) = -1
+enc_sign(1) = -1
+enc_sign(2) = -1
+enc_sign(3) = 1
+
 ' ---- Tunable parameters (microstep units) ----
 ' Scalars are left undeclared (local variables default to FLOAT); DIM cannot
 ' take a comma-separated list, only "DIM name AS type".
 STEP_UNITS = 16          ' DPOS in microsteps (x16 FlexAxis multiplier)
-ENC_UNITS = -1.5625      ' 10000 enc / 6400 ustep, sign flips direction
+ENC_UNITS_MAG = 1.5625   ' |enc UNITS| = 10000 enc / 6400 ustep; sign per axis (enc_sign)
 RUN_SPEED = 18900        ' ~15 mm/s (XYZ) / ~5.9 deg/s (Rz); same RPM
 RUN_ACCEL = 63000        ' ~50 mm/s^2 equivalent
 HOME_SPEED = 6300        ' ~5 mm/s slow approach to limits
@@ -115,7 +129,7 @@ FOR ax = 0 TO 3
   ' negative UNITS makes those error out (see Configuration.md quirk).
   BASE(ea)
   SERVO = OFF
-  UNITS = ENC_UNITS
+  UNITS = enc_sign(ax) * ENC_UNITS_MAG
   DATUM_IN = rev_inp(ax)         ' reserved for future Z-index homing
 NEXT ax
 

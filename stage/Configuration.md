@@ -26,31 +26,30 @@ stepper axis for motor drive.
 
 ## Axes
 
-| Axis | Name | Encoder Port | Encoder Axis | Stepper Port | Stepper Axis | Driver Path |
-|------|------|-------------|-------------|-------------|-------------|-------------|
-| 0    | X    | 0           | 0           | 4           | 4           | DRV_A       |
-| 1    | Y    | 1           | 1           | 4           | 12          | DRV_B       |
-| 2    | Z    | 2           | 2           | 5           | 5           | DRV_A       |
-| 3    | Rz   | 3           | 3           | 5           | 13          | DRV_B       |
+| Axis | Name | Encoder Port | Encoder Axis | Stepper Port | Stepper Axis |
+|------|------|-------------|-------------|-------------|-------------|
+| 0    | X    | 0           | 0           | 4           | 4           |
+| 1    | Y    | 1           | 1           | 5           | 5           |
+| 2    | Z    | 2           | 2           | 6           | 6           |
+| 3    | Rz   | 3           | 3           | 7           | 7           |
 
-DRV_A is the primary axis (N) on a stepper port; DRV_B is the secondary
-axis (N+8) on the P849 dual-axis connector. X and Z happen to be on the
-DRV_A path, so the stepper axis numbers don't follow the stage axis order.
+**One stepper per connector.** Each stepper uses its own primary FlexAxis port
+(pins 1–4), so the stepper axis number equals the stepper port number. The
+encoder axis number equals the encoder port number. Encoders on ports 0–3,
+steppers on ports 4–7.
 
-> **⚠ BLOCKER (2026-06): N+8 secondary stepper outputs produce no pulses.**
-> X and Z (primary axes 4, 5) home and move correctly. Y and Rz (secondary
-> axes 12, 13) advance DPOS but emit **no step pulses** — scope shows pins
-> 11/12 driven statically HIGH, i.e. the primary ATYPE-43 axis is driving its
-> **Enable(n) output** on the same pins the n+8 axis needs for Pulse(n+8).
-> ATYPE 43 = "pulse+direction *with enable output*", and that enable shares
-> pins 11–14 with the n+8 pulse/dir (see manual FlexAxis pinout, P849 column).
-> `AXIS_Z_OUTPUT AXIS(4)=0` did not free the pins. Awaiting Trio support — see
-> [trio_support_inquiry.md](trio_support_inquiry.md).
->
-> **Likely fallback:** move Y/Rz stepper cables to the unused ports 6/7 as
-> primary ATYPE-43 axes (pins 1–4). Keeps encoder Z index; costs a 2-connector
-> rewire. If adopted, the Stepper Axis column above becomes 4/6/5/7 and
-> `MC_CONFIG.bas` sets ATYPE 43 on 6,7 instead of 12,13.
+> **Why not two steppers per connector?** The P849 *can* put a second
+> (N+8) pulse+direction axis on the same connector (pins 11–14), and we
+> originally wired X+Y on port 4 and Z+Rz on port 5 that way. It did not work:
+> with the primary axis at stepper ATYPE 43 ("pulse+direction *with enable
+> output*"), the enable output drives pins 11/12 — the same pins the N+8 axis
+> needs for Pulse(N+8) — so the secondary axis emitted no pulses (scope showed
+> pins 11/12 static-high). High-density ATYPE 100 frees those pins but is a
+> global mode incompatible with the ATYPE-76 encoders we need for the Z index
+> (with HD set, the boot banner reported `Stepper Axes : None`). So we moved
+> each stepper to its own port. The open question is still out to Trio — see
+> [trio_support_inquiry.md](trio_support_inquiry.md) — but one-stepper-per-port
+> is the working configuration and the likely permanent one.
 
 ## Hardware
 
@@ -84,7 +83,35 @@ unit means the error you read (encoder) is directly the increment you command
 
 | Axis | Stepper UNITS | Encoder UNITS | Notes |
 |------|---------------|---------------|-------|
-| all (0-3) | 16 | -1.5625 | stepper x16 -> microsteps; enc 10000/6400, sign flips dir |
+| 0 (X)  | 16 | -1.5625 | stepper x16 -> microsteps; enc 10000/6400 |
+| 1 (Y)  | 16 | -1.5625 | |
+| 2 (Z)  | 16 | -1.5625 | |
+| 3 (Rz) | 16 | **+1.5625** | encoder counts *opposite* (see cable note) |
+
+The encoder UNITS **sign is per-axis** (`enc_sign[]` in `STARTUP.BAS`): the
+goal is only that a positive stepper move produces a positive encoder change,
+so the loop and stall detector stay consistent. X/Y/Z need a negative sign;
+Rz needs positive because its encoder counts the other way (a +3200 stepper
+move gave −3202 on the Rz encoder). The *absolute* direction of any axis
+doesn't matter — LabVIEW applies its own sign flips at the control level.
+
+> **⚠ Cable wiring is uncertain (2026-06).** The stage was brought up with
+> cables of unknown internal wiring. Continuity checks found differential pairs
+> swapped in some connectors but not others (e.g. on X, "RED" lands on pin 4
+> = /Dir, while on Rz it matches the colour table). Observed effects:
+> - **Stepper Step/Dir polarity differs by axis** — X/Y idle Dir low with
+>   positive-going step pulses; Z/Rz idle Dir high with negated pulses. This is
+>   in the cabling, not the MC508 (it doesn't change when connectors are
+>   swapped at the controller). It is cosmetic: a stepper doesn't care about
+>   pulse/dir *polarity*, only edges and relative direction.
+> - **Encoder sign** is also affected — Rz ended up with the opposite
+>   stepper-vs-encoder sign from X/Y/Z, hence its `+1.5625` above.
+>
+> Everything is made self-consistent **in software** (`enc_sign[]` and the
+> per-axis limit map) rather than by trusting the colour code. The 0V wire
+> (WHT/BRN, pin 15) is correct on all, so grounds are fine. **If the cables are
+> ever rebuilt, re-verify every axis's encoder sign and Step/Dir, and the
+> per-axis `enc_sign`/limit entries can likely return to uniform values.**
 
 **Validated on Z (2026-06-01).** First homing run measured the Z travel
 independently on both axes: stepper 126670.9, encoder 126666.9 microsteps —
@@ -101,8 +128,9 @@ the enc/stp ratio after homing.
   — which is what lets the loop resolve sub-step stiction. Negative sign
   reconciles encoder direction with stepper demand.
 
-All four axes share the same UNITS because translation and rotation run at the
-same shaft RPM; the microstep is axis-independent.
+All four axes share the same stepper UNITS magnitude because translation and
+rotation run at the same shaft RPM; the microstep is axis-independent. Only the
+encoder sign differs per axis (above).
 
 **Physical units (mm, degrees) are a presentation/output conversion at the
 LabVIEW boundary**, applied only where physical position is needed (displays,
@@ -125,21 +153,31 @@ at limit, and FWD_IN/REV_IN/DATUM_IN all trigger on 0).
 | 0 (X) | input 16 | input 17 | 17 (enc axis 0) |
 | 1 (Y) | input 18 | input 19 | 19 (enc axis 1) |
 | 2 (Z) | input 20 | input 21 | 21 (enc axis 2) |
-| 3 (Rz) | input 22 | input 23 | 23 (enc axis 3) |
+| 3 (Rz) | **input 23** | **input 22** | 22 (enc axis 3) |
 
 FWD_IN and REV_IN are assigned on the stepper axes (to halt motion at
 limits). DATUM_IN is assigned on the encoder axes (homing uses the
 encoder Z index).
 
+**Rz limits are swapped** (FWD=23, REV=22, the opposite of the wired default)
+because the actuator tab reaches the two sensors in the opposite order to the
+seek direction. The inputs themselves are unchanged — only which one is
+assigned FWD vs REV. (Rz is rotary, so a wrong assignment cruises past both
+sensors rather than crashing, but it must still be correct for homing to work.)
+
 ## Direction Convention
 
-The encoder counts in the opposite direction to the stepper. The encoder
-UNITS are negated so that positive stepper demand produces positive encoder
-position change. INVERT_STEP has no effect on the P849 (reads back as set
-but does not change physical direction), so the sign is reconciled with
-negative encoder UNITS instead.
+The goal is only that **positive stepper demand produces a positive encoder
+change** on each axis, so the closed loop and stall detector agree. The encoder
+UNITS sign achieves this — negative for X/Y/Z, positive for Rz (see the
+per-axis table and cable note above). INVERT_STEP has no effect on the P849
+(reads back as set but does not change physical direction), so stepper
+direction cannot be flipped in software — the sign is always reconciled on the
+encoder side, and limit FWD/REV is fixed by swapping the input assignment.
 
-For the Z axis, positive = down, negative = up.
+Absolute axis directions are not meaningful here (cabling is non-uniform and
+LabVIEW applies its own sign convention); only per-axis self-consistency
+matters.
 
 ## Motion Parameters
 

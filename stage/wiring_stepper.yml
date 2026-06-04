@@ -1,27 +1,22 @@
-# WireViz: Stepper port + Enable/E-stop (one port, two drivers)
-# See stage_wiring.md for design rationale
+# WireViz: Stepper port + Enable/E-stop (one port, one driver)
+# See stage_wiring.md for design rationale.
+# One stepper per ATYPE-43 primary port (pins 1-4). Ports: 4=X 5=Y 6=Z 7=Rz.
+# (The P849 N+8 second-axis-per-connector scheme did not work; see Configuration.md.)
+# NOTE: SCSI wire colours are nominal -- some cables have swapped diff pairs.
 
 metadata:
-  title: ILEMT Stage - Stepper Port & Enable/E-Stop
+  title: ILEMT Stage - Stepper Port & Enable/E-Stop (one driver per port)
 
 connectors:
   MC508_STEP:
     type: MDR-20
-    notes: "MC508 Stepper Port (ATYPE 43, P849)"
-    pins: [1, 3, 11, 13, 7, 8, 15]
-    pinlabels: ["Pulse(N)+", "Dir(N)+",
-                "Pulse(N+8)+", "Dir(N+8)+",
-                WDOG+, WDOG-, 0V]
+    notes: "MC508 Stepper Port (ATYPE 43 primary, P849)"
+    pins: [1, 3, 7, 8, 15]
+    pinlabels: ["Pulse+", "Dir+", WDOG+, WDOG-, 0V]
 
-  DRV_A:
+  DRV:
     type: Screw Terminal
-    notes: "KL-4030 Driver A (Axis N)"
-    pins: [1, 2, 3, 4, 5, 6]
-    pinlabels: ["PUL+", "PUL-", "DIR+", "DIR-", "ENA+", "ENA-"]
-
-  DRV_B:
-    type: Screw Terminal
-    notes: "KL-4030 Driver B (Axis N+8)"
+    notes: "KL-4030 Driver"
     pins: [1, 2, 3, 4, 5, 6]
     pinlabels: ["PUL+", "PUL-", "DIR+", "DIR-", "ENA+", "ENA-"]
 
@@ -43,31 +38,16 @@ connectors:
     type: Splice
     notes: "0V tie point"
 
-  TIE_WDOG:
-    style: simple
-    type: Splice
-    notes: "WDOG- tie point"
-
 cables:
-  STEPA_PUL:
+  STEP_PUL:
     wirecount: 1
-    notes: "Axis N pulse (SCSI pin 1)"
+    notes: "Pulse+ (SCSI pin 1)"
     colors: [BK]
 
-  STEPA_DIR:
+  STEP_DIR:
     wirecount: 1
-    notes: "Axis N direction (SCSI pin 3)"
+    notes: "Dir+ (SCSI pin 3)"
     colors: [RD]
-
-  STEPB_PUL:
-    wirecount: 1
-    notes: "Axis N+8 pulse (SCSI pin 11)"
-    colors: ["#90EE90"]
-
-  STEPB_DIR:
-    wirecount: 1
-    notes: "Axis N+8 direction (SCSI pin 13)"
-    colors: [PK]
 
   # SCSI cable wire from 0V (pin 15) - white/brown
   GND_SCSI:
@@ -75,25 +55,14 @@ cables:
     notes: "0V SCSI wire (pin 15)"
     colors: [WHBN]
 
-  # Adapter wires from 0V tie point to driver grounds
-  GND_A1:
+  GND_1:
     wirecount: 1
-    notes: "Driver A PUL- ground"
+    notes: "Driver PUL- ground"
     colors: [BK]
 
-  GND_A2:
+  GND_2:
     wirecount: 1
-    notes: "Driver A DIR- ground"
-    colors: [BK]
-
-  GND_B1:
-    wirecount: 1
-    notes: "Driver B PUL- ground"
-    colors: [BK]
-
-  GND_B2:
-    wirecount: 1
-    notes: "Driver B DIR- ground"
+    notes: "Driver DIR- ground"
     colors: [BK]
 
   PWR:
@@ -112,75 +81,44 @@ cables:
     notes: "WDOG- SCSI wire (pin 8)"
     colors: [VT]
 
-  # Adapter wires from WDOG tie point to drivers
-  WDA:
+  WD:
     wirecount: 1
-    notes: "WDOG tie to Driver A ENA+"
+    notes: "WDOG- to Driver ENA+"
     colors: [OG]
 
-  WDB:
+  R:
     wirecount: 1
-    notes: "WDOG tie to Driver B ENA+"
-    colors: [OG]
-
-  RA:
-    wirecount: 1
-    notes: "Driver A ENA- return"
-    colors: [BK]
-
-  RB:
-    wirecount: 1
-    notes: "Driver B ENA- return"
+    notes: "Driver ENA- return"
     colors: [BK]
 
 connections:
-  # Axis N: MC508 Pulse+/Dir+ → Driver A PUL+/DIR+ (single-ended)
+  # Primary axis: MC508 Pulse+/Dir+ -> Driver PUL+/DIR+ (single-ended)
   -
     - MC508_STEP: [1]
-    - STEPA_PUL: [1]
-    - DRV_A: [1]
+    - STEP_PUL: [1]
+    - DRV: [1]
   -
     - MC508_STEP: [3]
-    - STEPA_DIR: [1]
-    - DRV_A: [3]
+    - STEP_DIR: [1]
+    - DRV: [3]
 
-  # Axis N+8: MC508 Pulse+/Dir+ → Driver B PUL+/DIR+ (single-ended)
-  -
-    - MC508_STEP: [11]
-    - STEPB_PUL: [1]
-    - DRV_B: [1]
-  -
-    - MC508_STEP: [13]
-    - STEPB_DIR: [1]
-    - DRV_B: [3]
-
-  # MC508 0V (WHT/BRN SCSI wire) → tie point
+  # MC508 0V (WHT/BRN SCSI wire) -> tie point
   -
     - MC508_STEP: [15]
     - GND_SCSI: [1]
     - TIE_0V: [1]
 
-  # 0V tie point → Driver A PUL-/DIR-
+  # 0V tie point -> Driver PUL-/DIR-
   -
     - TIE_0V: [1]
-    - GND_A1: [1]
-    - DRV_A: [2]
+    - GND_1: [1]
+    - DRV: [2]
   -
     - TIE_0V: [1]
-    - GND_A2: [1]
-    - DRV_A: [4]
+    - GND_2: [1]
+    - DRV: [4]
 
-  # 0V tie point → Driver B PUL-/DIR-
-  -
-    - TIE_0V: [1]
-    - GND_B1: [1]
-    - DRV_B: [2]
-  -
-    - TIE_0V: [1]
-    - GND_B2: [1]
-    - DRV_B: [4]
-
-  # Enable: 5V → E-stop → WDOG+
+  # Enable: 5V -> E-stop -> WDOG+
   -
     - EXT5V: [1]
     - PWR: [1]
@@ -190,30 +128,14 @@ connections:
     - ES: [1]
     - MC508_STEP: [7]
 
-  # WDOG- (PUR SCSI wire) → tie point
+  # WDOG- (PUR SCSI wire) -> Driver ENA+
   -
     - MC508_STEP: [8]
     - WDOG_SCSI: [1]
-    - TIE_WDOG: [1]
+    - DRV: [5]
 
-  # WDOG tie point → Driver A ENA+
+  # Driver ENA- return -> 5V GND
   -
-    - TIE_WDOG: [1]
-    - WDA: [1]
-    - DRV_A: [5]
-
-  # WDOG tie point → Driver B ENA+
-  -
-    - TIE_WDOG: [1]
-    - WDB: [1]
-    - DRV_B: [5]
-
-  # Driver ENA- returns → 5V GND
-  -
-    - DRV_A: [6]
-    - RA: [1]
-    - EXT5V: [2]
-  -
-    - DRV_B: [6]
-    - RB: [1]
+    - DRV: [6]
+    - R: [1]
     - EXT5V: [2]

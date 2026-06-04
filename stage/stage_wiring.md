@@ -298,8 +298,15 @@ adapter. Colors chosen for visibility and to avoid confusion with SCSI cable col
 
 ## Stepper Port Wirelist
 
-Two stepper axes per ATYPE 43 port (axis N and axis N+8). Each port drives
-two KL-4030 stepper drivers.
+**One stepper per ATYPE 43 port** (the primary axis, pins 1–4). Four stepper
+ports are used: 4=X, 5=Y, 6=Z, 7=Rz. Each port drives one KL-4030 driver.
+
+> **History:** the original design put two steppers per connector using the
+> P849 N+8 secondary output (pins 11–14), to use only ports 4 and 5. That did
+> not work — the primary ATYPE-43 enable output occupies pins 11/12, so the
+> N+8 axis emitted no pulses. We moved to one stepper per port (ports 4–7).
+> See Configuration.md "Axes" for the full explanation. The N+8 pin functions
+> are kept in the connector pinout table above for reference only.
 
 ### Single-Ended Connection
 
@@ -312,27 +319,29 @@ This avoids reverse-biasing the opto LED (~5V reverse) when the RS-422 output
 is in the low state. The complementary /Pulse and /Dir outputs are left
 unconnected.
 
-### Axis N (pins 1, 3) → KL-4030 Driver A
+### Per port: primary axis (pins 1, 3) → KL-4030 driver
 
 | MC508 MDR Pin | SCSI Wire | MC508 Signal | KL-4030 Pin | Notes              |
 |---------------|-----------|--------------|-------------|--------------------|
-| 1             | BLK       | Pulse(N)+    | PUL+        | Signal             |
+| 1             | BLK       | Pulse+       | PUL+        | Signal             |
 | 15            | WHT/BRN   | 0V           | PUL-        | Ground reference   |
-| 3             | RED       | Dir(N)+      | DIR+        | Signal             |
+| 3             | RED       | Dir+         | DIR+        | Signal             |
 | 15            | WHT/BRN   | 0V           | DIR-        | Ground reference   |
 
-Pins 2, 4 (/Pulse, /Dir) not connected.
+Pins 2, 4 (/Pulse, /Dir) not connected. Pins 11–14 (N+8) not used.
 
-### Axis N+8 (pins 11, 13) → KL-4030 Driver B
-
-| MC508 MDR Pin | SCSI Wire | MC508 Signal   | KL-4030 Pin | Notes              |
-|---------------|-----------|----------------|-------------|--------------------|
-| 11            | LTGRN     | Pulse(N+8)+    | PUL+        | Signal             |
-| 15            | WHT/BRN   | 0V             | PUL-        | Ground reference   |
-| 13            | PINK      | Dir(N+8)+      | DIR+        | Signal             |
-| 15            | WHT/BRN   | 0V             | DIR-        | Ground reference   |
-
-Pins 12, 14 (/Pulse(N+8), /Dir(N+8)) not connected.
+> **⚠ Cable wiring uncertain.** The SCSI-wire colour column above is the
+> *intended* mapping, but continuity checks during bring-up found differential
+> pairs swapped inside some connectors (e.g. on X, "RED" actually lands on
+> pin 4 = /Dir, not pin 3 = Dir+; on Rz it matches). The practical effect is
+> that Step/Dir *polarity* differs by axis (X/Y vs Z/Rz idle-inverted), which
+> is cosmetic for the stepper, and that **encoder sign** differs by axis — Rz
+> ended up inverted relative to its stepper and is corrected in software
+> (`enc_sign[]` in STARTUP.BAS). Pin 15 (0V, WHT/BRN) is correct on all axes.
+> Treat the colour codes as nominal; the wirelist is correct by *pin function*,
+> not necessarily by the colour found in a given physical cable. See
+> Configuration.md "Counts and Units" cable note. If cables are rebuilt,
+> re-verify pair orientation per axis.
 
 ## Enable and E-Stop Wiring
 
@@ -341,12 +350,11 @@ Pins 12, 14 (/Pulse(N+8), /Dir(N+8)) not connected.
 The KL-4030 enable input (ENA+/ENA-) is an opto-isolator. We use the MC508
 WDOG SSR relay to switch the enable circuit. Per-axis AXIS_ENABLE is not used.
 
-**Circuit (per stepper port, shared by both drivers on that port):**
+**Circuit (per stepper port, one driver per port):**
 
 ```
 Ext 5V+ → E-stop NC → WDOG+ (pin 7, BLU) → WDOG- (pin 8, PUR) →
-  ├→ Driver A ENA+ → Driver A ENA- → Ext 5V return
-  └→ Driver B ENA+ → Driver B ENA- → Ext 5V return
+  Driver ENA+ → Driver ENA- → Ext 5V return
 ```
 
 - No current-limiting resistors needed — KL-4030 ENA opto inputs are designed
@@ -355,38 +363,34 @@ Ext 5V+ → E-stop NC → WDOG+ (pin 7, BLU) → WDOG- (pin 8, PUR) →
   MC508 0V (pin 15, WHT/BRN) only ties to driver PUL-/DIR- (step/dir ground reference).
 - E-stop is NC (normally closed) pushbutton in series — pressing it breaks
   the enable circuit at the hardware level regardless of MC508 software state.
-- WDOG SSR rated 24V/100mA, ~25Ω on-resistance. At 5V with two optos the
-  current is well within rating.
+- WDOG SSR rated 24V/100mA, ~25Ω on-resistance. Well within rating.
 - All stepper ports share the same E-stop button (wired in series before
   splitting to each port's WDOG).
 
-### E-Stop Software Feedback (Optional)
+### E-Stop Software Feedback
 
-Wire E-stop to one MC508 digital input (0-15) so software can detect the
-E-stop state for status display and controlled recovery. This is not required
-for safety — the hardwired circuit above handles that.
+E-stop is wired to MC508 digital **input 0 (terminal XA0)** so software can
+detect the E-stop state (homing aborts on it; LabVIEW reads it). Reads ON when
+released, OFF when pressed — independent of the WDOG relay. The hardwired
+circuit above is what actually guarantees safety; this input is for status and
+clean recovery. See Configuration.md.
 
 ### Stepper Adapter Wire Colors
 
-These are the adapter wires for the stepper port connections. The step/dir
-signals use SCSI cable wires; the enable and ground wires are added.
+These are the adapter wires for one stepper port (one driver). The step/dir
+signals use SCSI cable wires; the enable and ground wires are added. Colours
+are nominal — see the cable-uncertainty note above.
 
 | Wire ID   | Function                    | Color   | WireViz Code |
 |-----------|-----------------------------|---------|--------------|
-| STEPA_PUL | Axis N pulse (SCSI pin 1)   | Black   | BK           |
-| STEPA_DIR | Axis N dir (SCSI pin 3)     | Red     | RD           |
-| STEPB_PUL | Axis N+8 pulse (SCSI pin 11)| Lt Green| #90EE90      |
-| STEPB_DIR | Axis N+8 dir (SCSI pin 13)  | Pink    | PK           |
-| GND_A1    | Driver A PUL- ground        | Black   | BK           |
-| GND_A2    | Driver A DIR- ground        | Black   | BK           |
-| GND_B1    | Driver B PUL- ground        | Black   | BK           |
-| GND_B2    | Driver B DIR- ground        | Black   | BK           |
+| STEP_PUL  | Pulse+ (SCSI pin 1)         | Black   | BK           |
+| STEP_DIR  | Dir+ (SCSI pin 3)           | Red     | RD           |
+| GND_1     | Driver PUL- ground          | Black   | BK           |
+| GND_2     | Driver DIR- ground          | Black   | BK           |
 | PWR       | +5V → E-stop                | Red     | RD           |
 | ES        | E-stop → WDOG+ (SCSI pin 7) | Blue    | BU           |
-| WDA       | WDOG- → Driver A ENA+       | Orange  | OG           |
-| WDB       | WDOG- → Driver B ENA+       | Orange  | OG           |
-| RA        | Driver A ENA- → 5V GND      | Black   | BK           |
-| RB        | Driver B ENA- → 5V GND      | Black   | BK           |
+| WD        | WDOG- → Driver ENA+         | Orange  | OG           |
+| R         | Driver ENA- → 5V GND        | Black   | BK           |
 
 ## Wiring Diagrams (WireViz)
 
