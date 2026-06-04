@@ -5,11 +5,12 @@ REM Because Windows can't manage a PATH to save its life.
 REM Graphviz: installed system-wide but not on PATH because... reasons.
 set PATH=%PATH%;C:\Program Files\Graphviz\bin
 
-REM WireViz: installed via pip. If wireviz isn't found, install it:
-REM   pip install wireviz
-REM and ensure your Python Scripts dir is on PATH. The line below adds the
-REM Microsoft Store Python per-user Scripts dir for the current user (adjust
-REM the Python version if needed); harmless if the dir doesn't exist.
+REM WireViz: installed via pip (pip install wireviz). Add the Python Scripts
+REM dir(s) to PATH. We add the candidates for both setups seen on this project;
+REM nonexistent ones are harmless.
+REM   - regular Python 3.12 per-user install (current machine):
+set PATH=%PATH%;%LOCALAPPDATA%\Programs\Python\Python312\Scripts
+REM   - Microsoft Store Python 3.11 per-user install (original machine):
 set PATH=%PATH%;%LOCALAPPDATA%\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\Scripts
 
 REM Verify tools exist before wasting everyone's time
