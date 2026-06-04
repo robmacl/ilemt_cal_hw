@@ -389,7 +389,7 @@ are nominal — see the cable-uncertainty note above.
 | GND_2     | Driver DIR- ground          | Black   | BK           |
 | PWR       | +5V → E-stop                | Red     | RD           |
 | ES        | E-stop → WDOG+ (SCSI pin 7) | Blue    | BU           |
-| WD        | WDOG- → Driver ENA+         | Orange  | OG           |
+| WDOG_SCSI | WDOG- (SCSI pin 8) → Driver ENA+ | Purple | VT       |
 | R         | Driver ENA- → 5V GND        | Black   | BK           |
 
 ## Wiring Diagrams (WireViz)

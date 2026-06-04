@@ -75,16 +75,12 @@ cables:
     notes: "E-stop to WDOG+ (SCSI pin 7)"
     colors: [BU]
 
-  # SCSI cable wire from WDOG- (pin 8) - purple
+  # SCSI cable wire from WDOG- (pin 8) - purple. With one driver per port
+  # there is no fan-out, so this goes straight to the driver ENA+.
   WDOG_SCSI:
     wirecount: 1
-    notes: "WDOG- SCSI wire (pin 8)"
+    notes: "WDOG- SCSI wire (pin 8) to Driver ENA+"
     colors: [VT]
-
-  WD:
-    wirecount: 1
-    notes: "WDOG- to Driver ENA+"
-    colors: [OG]
 
   R:
     wirecount: 1
