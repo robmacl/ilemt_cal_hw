@@ -4,9 +4,13 @@
 
 This project involves interfacing a precision motion stage to a Trio MC5408 P849 motion controller for the ILEMT Electromagnetic position tracker calibration system. The stage will be controlled from LabVIEW.
 
-**Status (2026-05):** Cabling and the MIC2981 limit interface are complete on
-all four axes (X, Y, Z, Rz). Remaining work is the MC508 BASIC power-on init
-and homing procedure, then LabVIEW integration.
+**Status (2026-06):** Cabling and the MIC2981 limit interface are complete on
+all four axes (X, Y, Z, Rz). The MC508 power-on init and homing are written and
+validated on hardware: `STARTUP.BAS` does coarse limit homing plus a fine
+encoder Z-index datum (verified sub-microstep repeatable on all four axes). Set
+it to power-up autorun with
+`python stage/trio_upload_config.py STARTUP.BAS --no-upload --autorun`.
+Remaining work is LabVIEW integration.
 
 ## Hardware Components
 
@@ -62,10 +66,13 @@ and homing procedure, then LabVIEW integration.
 - [x] Build MIC2981 interface board for limit switch level shifting
 
 ### Motion Controller Configuration
-- [ ] Write MC_CONFIG.bas initialization file
-- [ ] Configure axes as ATYPE 43 (stepper) and ATYPE 76 (encoder)
-- [ ] Set up homing sequences using DATUM commands
-- [ ] Implement custom closed-loop control algorithm
+- [x] Write MC_CONFIG.bas initialization file
+- [x] Configure axes as ATYPE 43 (stepper) and ATYPE 76 (encoder)
+- [x] Write power-on init + homing (`STARTUP.BAS`): limit homing + Z-index datum
+      via REGIST (DATUM is unusable on the split-axis layout). Validated on all
+      four axes; set to autorun with `trio_upload_config.py --autorun`.
+- [ ] Implement custom closed-loop control algorithm (lives in LabVIEW; the
+      MC508 owns init/homing/status only)
 
 ### LabVIEW Integration
 - [ ] Research Trio communication protocols (Ethernet, Telnet, Modbus TCP)
@@ -94,12 +101,21 @@ This allows:
 Detailed FlexAxis connector pin functions for ATYPE 43 (stepper) and ATYPE 76 (encoder) are in [stage/stage_wiring.md](stage/stage_wiring.md) ("MC508 Flex Axis Connector Pinout"). The per-axis limit-input map is in [stage/Configuration.md](stage/Configuration.md) ("Limit Switch Inputs").
 
 ### Homing Procedure
-See z_axis_test.py for a basic homing procedure. The split-axis constraints (why DATUM cannot be used) are discussed in Configuration.md ("Homing (split-axis)"). Note that the encoder and stepper are on different MC508 axes, so the Z index must be captured on the encoder axis while the stepper axis is moving.
+Implemented in `stage/STARTUP.BAS` and validated on hardware; the authoritative
+description is in Configuration.md ("Homing (split-axis)"). The split-axis
+constraint (why DATUM cannot be used) is that the encoder and stepper are on
+different MC508 axes, so the Z index is captured on the encoder axis (via
+`REGIST`) while the stepper axis moves. `stage/index_test.py` is the standalone
+index-verification tool.
 
-The full homing procedure should
+The homing procedure (per axis):
 - Run in reverse until negative limit is hit.
-- Run forward until positive limit is hit
-- Go to the +/- midpoint and then move forward until the encoder Z/index pulse and set the origin there.
+- Run forward until positive limit is hit.
+- Go to the +/- midpoint, then creep (fixed per-axis direction) until the
+  encoder Z/index pulse and set the origin there (`OFFPOS` both axes to the
+  index). The midpoint->index offset is reported per axis (`IDX_OFF` VRs); if it
+  is too small, that axis's seek direction can be flipped (`seek_dir[]`). On the
+  current hardware all four offsets are well-separated, so no flips are needed.
 
 Home axes in this sequence:
 - Axes 1-3 XYZ (these can be concurrent or sequential) 
@@ -177,9 +193,12 @@ Detailed findings now live with their topic:
 
 ## Next Steps
 
-1. **Write MC_CONFIG.bas** — axis type assignments and initial configuration
-2. Implementation of homing
-3. **LabVIEW integration** — communication library and motion control
+1. ~~Write MC_CONFIG.bas — axis type assignments~~ (done)
+2. ~~Implement homing (`STARTUP.BAS`, limit + Z-index)~~ (done, validated)
+3. **LabVIEW integration** — communication library and motion control, using the
+   VR interface in Configuration.md ("MC508 ↔ LabVIEW Interface"): write
+   `HOME_REQ`/`CLR_FAULT`, poll `HOMED`/`BUSY`/`FAULT`/etc., and run the
+   closed-loop point-to-point/creep moves around the encoder.
 
 ## Notes
 

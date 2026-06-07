@@ -34,6 +34,7 @@ VR_STATE = 115
 VR_CUR_AXIS = 116
 VR_RANGE_STP = 120  # +axis
 VR_RANGE_ENC = 124  # +axis
+VR_IDX_OFF = 128    # +axis: midpoint->index offset (microsteps)
 VR_MSG_BASE = 200
 
 AXIS_NAMES = ["X", "Y", "Z", "Rz"]
@@ -46,6 +47,7 @@ FAULT_TEXT = {
     6: "ESTOP_ABORT",
     7: "TIMEOUT",
     8: "STALL (limit not detected?)",
+    9: "INDEX_NOT_FOUND",
 }
 
 STATE_TEXT = {
@@ -55,6 +57,7 @@ STATE_TEXT = {
     11: "seek_pos",
     12: "to_mid",
     13: "axis_homed",
+    14: "seek_index",
     90: "FAULT",
     91: "ESTOP_ABORT",
 }
@@ -119,14 +122,20 @@ def inputs_view(sock, interval):
         time.sleep(interval)
 
 
+IDX_MIN = 1280  # must match STARTUP.BAS; flag small midpoint->index offsets
+
+
 def range_view(sock):
-    """One-shot print of measured per-axis travel (microsteps) and the
-    encoder/stepper ratio (a free correctness check; should be ~1.0)."""
+    """One-shot print of measured per-axis travel (microsteps), the
+    encoder/stepper ratio (a free correctness check; should be ~1.0), and the
+    midpoint->index offset (flagged if small -- consider flipping seek_dir)."""
     print("Measured travel per axis (microsteps), from the last homing:")
-    print(f"  {'axis':<4} {'stepper':>14} {'encoder':>14} {'enc/stp':>9}  ~mm/deg")
+    print(f"  {'axis':<4} {'stepper':>14} {'encoder':>14} {'enc/stp':>9} "
+          f"{'idx_off':>10}  ~mm/deg")
     for i, name in enumerate(AXIS_NAMES):
         stp = get_vr(sock, VR_RANGE_STP + i)
         enc = get_vr(sock, VR_RANGE_ENC + i)
+        idx = get_vr(sock, VR_IDX_OFF + i)
         if stp is None or enc is None:
             print(f"  {name:<4} {'?':>14} {'?':>14}")
             continue
@@ -135,7 +144,11 @@ def range_view(sock):
         scale = (2.0 if i == 3 else 5.08) / 6400.0
         phys = abs(stp) * scale
         unit = "deg" if i == 3 else "mm"
-        print(f"  {name:<4} {stp:>14.1f} {enc:>14.1f} {ratio:>9.5f}  {phys:.3f} {unit}")
+        idx_cell = f"{idx:>10.1f}" if idx is not None else f"{'?':>10}"
+        flag = "  <-SMALL (consider flipping seek_dir)" \
+            if (idx is not None and abs(idx) < IDX_MIN) else ""
+        print(f"  {name:<4} {stp:>14.1f} {enc:>14.1f} {ratio:>9.5f} "
+              f"{idx_cell}  {phys:.3f} {unit}{flag}")
 
 
 def set_vr(sock, n, value):

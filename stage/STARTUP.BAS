@@ -26,14 +26,18 @@
 '     VR(116) CUR_AXIS   axis (0-3) currently being homed
 '     VR(120..123) RANGE_STP   measured stepper travel per axis (microsteps)
 '     VR(124..127) RANGE_ENC   measured encoder travel per axis (microsteps)
+'     VR(128..131) IDX_OFF     midpoint->index offset per axis (microsteps);
+'                              flag if |IDX_OFF| < IDX_MIN (consider flipping
+'                              that axis's seek_dir)
 '   Detail string:
 '     VR(200..249) packed ASCII, read with  PRINT VRSTRING(200)
 '
 '   FAULT codes:  0 OK  1 NEG_LIMIT_NOT_FOUND  2 POS_LIMIT_NOT_FOUND
 '                 4 RANGE_TOO_SMALL  6 ESTOP_ABORT  7 TIMEOUT
 '                 8 STALL (demand outran encoder; likely a missing/dead limit)
+'                 9 INDEX_NOT_FOUND (no encoder Z mark within IDX_SWEEP)
 '   STATE codes:  0 idle  1 init_done  10 seek_neg  11 seek_pos
-'                12 to_mid  13 axis_homed  90 fault  91 estop_abort
+'                12 to_mid  13 axis_homed  14 seek_index  90 fault  91 estop_abort
 ' --------------------------------------------------------------------------
 
 ' Arrays must be declared "AS type(size)"; size N gives indices 0..N-1.
@@ -45,6 +49,8 @@ DIM maskv AS INTEGER(4)
 DIM enc_sign AS FLOAT(4)
 DIM rng_stp AS FLOAT(4)
 DIM rng_enc AS FLOAT(4)
+DIM seek_dir AS INTEGER(4)
+DIM idx_off AS FLOAT(4)
 DIM msg AS STRING(50)
 ' Scalars (ax, sa, ea, seek_sign, sn, sp, en, ep, midp, t, ok, mi, msglen)
 ' are left undeclared: local variables default to FLOAT.
@@ -85,6 +91,16 @@ enc_sign(1) = -1
 enc_sign(2) = -1
 enc_sign(3) = 1
 
+' Per-axis index seek direction from the midpoint: +1 = seek the Z index in the
+' + direction, -1 = in the - direction. Fixed per axis so homing always
+' converges on the same index. After a homing run, check IDX_OFF (VR 128..131):
+' if an axis's |midpoint->index| is small (< IDX_MIN), flip that axis to -1 here
+' so it catches the well-separated index on the other side instead.
+seek_dir(0) = 1
+seek_dir(1) = 1
+seek_dir(2) = 1
+seek_dir(3) = 1
+
 ' ---- Tunable parameters (microstep units) ----
 ' Scalars are left undeclared (local variables default to FLOAT); DIM cannot
 ' take a comma-separated list, only "DIM name AS type".
@@ -97,6 +113,8 @@ HOME_DIST = 2000000      ' "drive until limit stops us" distance, usteps
 MIN_RANGE = 5000         ' self-test floor: travel must exceed this
 HOME_TMO = 6000          ' seek timeout in 20ms ticks (~120 s) - generous backstop
 STALL_THRESH = 400       ' stall: |stepper demand - encoder| divergence, usteps
+IDX_SWEEP = 8000         ' index seek distance, usteps (>1 motor rev = 6400)
+IDX_MIN = 1280           ' report-only flag: |midpoint->index| < this (~0.2 rev)
 ESTOP_IN = 0             ' input XA0 (expansion A term 0): ON=released, OFF=pressed
 MSG_BASE = 200
 
@@ -130,7 +148,10 @@ FOR ax = 0 TO 3
   BASE(ea)
   SERVO = OFF
   UNITS = enc_sign(ax) * ENC_UNITS_MAG
-  DATUM_IN = rev_inp(ax)         ' reserved for future Z-index homing
+  ' DATUM_IN is unused: Z-index homing uses REGIST on this axis (see
+  ' do_home_axis step 4), and the limits are enforced via FWD_IN/REV_IN on the
+  ' stepper axis. Left set (harmless) only as a record of the limit-input map.
+  DATUM_IN = rev_inp(ax)
 NEXT ax
 
 WDOG = ON                        ' energize drive-enable relay
@@ -207,6 +228,7 @@ do_home_all:
 '   1. seek negative limit, record positions
 '   2. seek positive limit, record positions  (both-limits self test)
 '   3. move to geometric midpoint, zero both axes there
+'   4. seek the encoder Z index (fixed dir) and make the index the datum
 ' ==========================================================================
 do_home_axis:
   sa = step_ax(ax)
@@ -288,12 +310,54 @@ do_home_axis:
     RETURN
   ENDIF
 
+  ' Zero at the midpoint so REG_POS reads directly as the midpoint->index
+  ' distance, and so the index seek starts from a repeatable point.
   DEFPOS(0) AXIS(sa)
   DEFPOS(0) AXIS(ea)
 
+  ' ---- 4. seek the encoder Z index, make it the datum ----
+  VR(115) = 14
+  msg = "Axis " + STR(ax, 0) + ": seeking index"
+  GOSUB store_msg
+
+  BASE(ea)
+  REGIST(20, 0, 1, 0, 0)                   ' arm channel A on the encoder Z mark
+  BASE(sa)
+  IF seek_dir(ax) < 0 THEN
+    MOVE(-IDX_SWEEP)
+  ELSE
+    MOVE(IDX_SWEEP)
+  ENDIF
+  GOSUB wait_mark                          ' sets ok, and idx = REG_POS at index
+  IF ok = 0 THEN
+    GOSUB chk_abort_cause
+    VR(114) = ax
+    GOSUB report_fault
+    RETURN
+  ENDIF
+
+  ' idx = encoder position at the index, relative to the midpoint = the
+  ' midpoint->index offset (signed). Record it, then shift both axes so the
+  ' index reads 0. The encoder is the datum; the stepper tracks 1:1 in
+  ' microsteps, so the same offset keeps DPOS aligned with the encoder. We do
+  ' NOT move back to the index (REG_POS is hardware-latched and exact, so the
+  ' math datum is as repeatable as the index itself).
+  idx_off(ax) = idx
+  VR(128 + ax) = idx
+  OFFPOS AXIS(ea) = -idx
+  OFFPOS AXIS(sa) = -idx
+  WA(20)
+
+  BASE(sa)
+  SPEED = RUN_SPEED                        ' restore (seek phases used HOME_SPEED)
+
   VR(110) = VR(110) OR maskv(ax)           ' set HOMED bit
   VR(115) = 13
-  msg = "Axis " + STR(ax, 0) + " homed. range=" + STR(rng_stp(ax), 0)
+  IF ABS(idx) < IDX_MIN THEN
+    msg = "Axis " + STR(ax, 0) + " homed. idx=" + STR(idx, 0) + " (SMALL-consider flip)"
+  ELSE
+    msg = "Axis " + STR(ax, 0) + " homed. idx=" + STR(idx, 0)
+  ENDIF
   GOSUB store_msg
   RETURN
 
@@ -343,13 +407,48 @@ wait_move:
   IF ok = 0 THEN CANCEL AXIS(sa)
   RETURN
 
-' Map abort_reason (set by wait_move) to a fault code.
+' Creep sa toward the index while a Z-mark REGIST is armed on ea. On the mark,
+' capture idx = REG_POS (hardware-latched at the index, so poll latency and any
+' overshoot do not affect it) and stop. Sets ok=1 on capture; ok=0 with
+' abort_reason on e-stop(1)/stall(2)/timeout(3)/no-index(4). Same guards as
+' wait_move; "no-index" means the sweep finished without ever seeing the mark.
+wait_mark:
+  ok = 0
+  abort_reason = 0
+  t = 0
+  sd0 = DPOS AXIS(sa)
+  se0 = MPOS AXIS(ea)
+  REPEAT
+    WA(20)
+    t = t + 1
+    IF MARK AXIS(ea) THEN
+      idx = REG_POS AXIS(ea)
+      ok = 1
+    ELSEIF IN(ESTOP_IN) = OFF THEN
+      abort_reason = 1
+    ELSE
+      dd = (DPOS AXIS(sa) - sd0) - (MPOS AXIS(ea) - se0)
+      IF ABS(dd) > STALL_THRESH THEN
+        abort_reason = 2
+      ELSEIF t > HOME_TMO THEN
+        abort_reason = 3
+      ENDIF
+    ENDIF
+  UNTIL (ok = 1) OR (abort_reason <> 0) OR (MTYPE AXIS(sa) = 0)
+  IF (ok = 0) AND (abort_reason = 0) THEN abort_reason = 4   ' moved, no mark
+  CANCEL AXIS(sa)
+  RETURN
+
+' Map abort_reason (set by wait_move / wait_mark) to a fault code.
 chk_abort_cause:
   IF abort_reason = 1 THEN
     VR(113) = 6                            ' ESTOP_ABORT
     VR(115) = 91
   ELSEIF abort_reason = 2 THEN
     VR(113) = 8                            ' STALL (likely a missing/dead limit)
+    VR(115) = 90
+  ELSEIF abort_reason = 4 THEN
+    VR(113) = 9                            ' INDEX_NOT_FOUND
     VR(115) = 90
   ELSE
     VR(113) = 7                            ' TIMEOUT

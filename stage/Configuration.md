@@ -226,17 +226,34 @@ on different MC508 axes) means:
 
 - **`DATUM(n)` cannot be used** — it expects the motion output and the encoder
   Z index on the *same* axis.
-- **Current (simple) homing — no Z index yet:** drive the stepper to the
-  negative limit (`MOVE(-large)`, REV_IN cancels it), then to the positive
-  limit (FWD_IN cancels it), then `MOVEABS` to the geometric midpoint and
-  `DEFPOS(0)` both axes there. Hitting both limits is a **self-test**: it
-  proves full travel and measures the range (reported in `RANGE_STP`/
-  `RANGE_ENC` VRs).
-- **Future Z-index homing** (finer, repeatable datum) would add: after a limit,
-  `REGIST` on the encoder axis while the stepper creeps, `WAIT UNTIL MARK`,
-  read `REG_POS`, and `OFFPOS`/`DEFPOS` the encoder at the index. The
-  REGIST/MARK/REG_POS path is verified; deferred until simple homing is
-  validated on hardware.
+- **Coarse homing (limits):** drive the stepper to the negative limit
+  (`MOVE(-large)`, REV_IN cancels it), then to the positive limit (FWD_IN
+  cancels it), then `MOVEABS` to the geometric midpoint and `DEFPOS(0)` both
+  axes there. Hitting both limits is a **self-test**: it proves full travel and
+  measures the range (reported in `RANGE_STP`/`RANGE_ENC` VRs).
+- **Fine datum (Z index):** from the midpoint, arm `REGIST(20,0,1,0,0)` on the
+  encoder axis (channel A, source 1 = Z mark, rising edge), creep the stepper a
+  fixed per-axis direction (`seek_dir[]`, all `+1` by default), `wait_mark`
+  until `MARK`, read `REG_POS`, and `OFFPOS` **both** axes by `-REG_POS` so the
+  index reads zero (encoder is the datum; the stepper tracks 1:1 in microsteps,
+  so the same offset keeps DPOS aligned). The capture is hardware-latched at the
+  index, so poll latency and creep overshoot don't shift the datum — we do
+  **not** move back to the index. The midpoint→index offset is reported per axis
+  in `IDX_OFF` (VR 128..131); if it is small (< `IDX_MIN` ≈ 0.2 rev) the seek
+  can land on either side of that index between runs, so flip that axis's
+  `seek_dir` to `-1` to catch the well-separated index on the other side. No
+  index within `IDX_SWEEP` faults `INDEX_NOT_FOUND` (9).
+
+  **Verified on hardware (2026-06, all four axes)** with `index_test.py`: the
+  encoder index fires a clean registration mark on X/Y/Z/Rz; consecutive indices
+  are exactly one motor rev (6400 microsteps) apart; and re-approaching the same
+  index from the same side returns a bit-identical `REG_POS` (0.00 microstep
+  peak-to-peak). The index is a sub-microstep-repeatable datum on every axis.
+  Re-check anytime with `python index_test.py 0 1 2 3`. (The aliasing seen in
+  that script's repeatability phase — `REG_POS` jumping by exactly one rev on
+  some approaches — is a host-polling artifact of its re-staging, not datum
+  jitter; in `STARTUP.BAS` the seek starts from the fixed midpoint so it always
+  catches the same index.)
 
 ## MC508 ↔ LabVIEW Interface (VRs)
 
@@ -246,10 +263,10 @@ over telnet; LabVIEW uses the same VRs via TrioPC.
 
 **Command (LabVIEW writes):**
 
-| VR | Name | Meaning |
-|----|------|---------|
-| 100 | HOME_REQ | axis bitmask to home: bit0=X bit1=Y bit2=Z bit3=Rz (cleared when accepted) |
-| 101 | CLR_FAULT | write ≠0 to clear the FAULT/ESTOP latch |
+| VR  | Name      | Meaning                                                                    |     |
+| --- | --------- | -------------------------------------------------------------------------- | --- |
+| 100 | HOME_REQ  | axis bitmask to home: bit0=X bit1=Y bit2=Z bit3=Rz (cleared when accepted) |     |
+| 101 | CLR_FAULT | write ≠0 to clear the FAULT/ESTOP latch                                    |     |
 
 **Status (LabVIEW / monitor polls):**
 
@@ -264,11 +281,13 @@ over telnet; LabVIEW uses the same VRs via TrioPC.
 | 116 | CUR_AXIS | axis currently being homed |
 | 120–123 | RANGE_STP | measured stepper travel per axis (microsteps) |
 | 124–127 | RANGE_ENC | measured encoder travel per axis (microsteps) |
+| 128–131 | IDX_OFF | midpoint→index offset per axis (microsteps); flag if small |
 | 200–249 | detail | packed ASCII; read with `PRINT VRSTRING(200)` |
 
 **FAULT codes:** 0 OK · 1 NEG_LIMIT_NOT_FOUND · 2 POS_LIMIT_NOT_FOUND ·
 4 RANGE_TOO_SMALL · 6 ESTOP_ABORT · 7 TIMEOUT · 8 STALL (stepper demand
-outran the shaft encoder — likely a missing/dead limit, hardstop, or collision)
+outran the shaft encoder — likely a missing/dead limit, hardstop, or collision) ·
+9 INDEX_NOT_FOUND (no encoder Z mark within `IDX_SWEEP` of the midpoint)
 
 A fresh `HOME_REQ` auto-clears a stale FAULT latch (when e-stop is released),
 so re-pressing Home after a fault simply retries — no explicit `CLR_FAULT`
@@ -278,7 +297,7 @@ generous ~120 s timeout as a secondary backstop. This catches a dead limit
 immediately instead of grinding the motor into a hardstop until a timeout.
 
 **STATE codes:** 0 idle · 1 init_done · 10 seek_neg · 11 seek_pos ·
-12 to_mid · 13 axis_homed · 90 fault · 91 estop_abort
+12 to_mid · 13 axis_homed · 14 seek_index · 90 fault · 91 estop_abort
 
 HOMED lives in RAM, so it survives a LabVIEW restart but clears on controller
 power-cycle (correct: positions are meaningless after power-up).
@@ -371,6 +390,16 @@ official Trio documentation.
 
 - **The controller echoes commands** back over telnet. Filter these from
   responses along with the `>>` prompt lines.
+
+## Boolean Reads: TRUE is -1, not 1
+
+TrioBASIC status flags read back as **-1 for TRUE**, 0 for FALSE — `MARK`,
+`IDLE`, and similar. In BASIC `IF MARK AXIS(n) THEN` works naturally (nonzero is
+true), but **host code must not test `== 1` or `>= 0.5`** — `-1` fails both.
+Compare against nonzero instead (`abs(v) >= 0.5`). This bit the first
+`index_test.py` run: a `MARK >= 0.5` check silently missed every `-1`, so a
+working index seek looked like a timeout. Digital inputs `IN(n)` are the
+exception — they read 1/0, not -1, so the e-stop/limit checks test `< 0.5`.
 
 ## ATYPE Only Takes Effect After Power Cycle
 
