@@ -34,7 +34,7 @@ import time
 
 from trio_cmd import connect, recv_all, recv_until_prompt, strip_telnet
 
-HOST = '192.168.0.250'
+HOST = '192.168.1.250' # factory default is 192.168.0.250
 
 
 def send_cmd(sock, cmd, settle=0.0, timeout=3.0):

@@ -1,9 +1,10 @@
 # Stage Configuration & MC508 Quirks
 
-The MC508 is connected at 192.168.0.250.
+The MC508 is connected at 192.168.1.250.  Factory default is 192.168.0.250.
 
 This is the authoritative reference for the motion-controller configuration
-(axis mapping, units, I/O, motion parameters, homing) and for the
+(axis mapping, units, I/O, motion parameters, homing) and for the--help
+
 non-obvious controller behaviours ("quirks") discovered during bring-up.
 Physical/electrical wiring is documented separately in
 [stage_wiring.md](stage_wiring.md).
@@ -304,7 +305,7 @@ power-cycle (correct: positions are meaningless after power-up).
 
 ## Bring-up Workflow (host tooling)
 
-All host scripts default to the controller at 192.168.0.250 over telnet.
+All host scripts default to the controller at 192.168.1.250 over telnet.
 
 1. **Upload ATYPEs and apply** (one-time / after any ATYPE change):
    ```
@@ -354,8 +355,8 @@ power-cycle and move the PC's NIC to the same subnet:
 IP_ADDRESS = 192.168.1.250
 IP_NETMASK = 255.255.255.0
 ```
-Afterward update the `HOST`/`--host` default in `trio_cmd.py`,
-`trio_upload_config.py`, and `homing_monitor.py`.
+Afterward update the `HOST`/`--host` default in `trio_cmd.py` and
+`trio_upload_config.py`.
 
 **E-stop sense:** wired to digital input **0** (terminal **XA0**, expansion A
 terminal 0). The input reads **ON when the e-stop is released** ("out") and

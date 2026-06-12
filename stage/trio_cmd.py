@@ -17,7 +17,7 @@ import socket
 import sys
 import time
 
-HOST = '192.168.0.250'
+HOST = '192.168.1.250' # factory default is 192.168.0.250
 PORT = 23
 TIMEOUT = 5
 
