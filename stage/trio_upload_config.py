@@ -26,6 +26,14 @@ STARTUP), or set with --name.
 NOTE: a program cannot be edited while it is running. This tool issues
 STOP "NAME" before uploading; use --halt to stop ALL programs first if the
 controller still refuses (it won't let you edit while anything runs).
+
+NOTE: long uploads (e.g. STARTUP) occasionally fail mid-insert with
+"%[COMMAND 3] Error programming Flash" - a transient flash-write error that
+shows up under sustained rapid line inserts and is not seen on short files
+like MC_CONFIG. The uploader now auto-retries the entire upload a few times on
+this error; because every attempt deletes all existing lines before
+re-inserting, a retry is safe (no duplicate or shifted lines). If it still
+fails after the retries, just run it again, or add --halt.
 """
 import argparse
 import os
@@ -35,6 +43,14 @@ import time
 from trio_cmd import connect, recv_all, recv_until_prompt, strip_telnet
 
 HOST = '192.168.1.250' # factory default is 192.168.0.250
+
+# Transient flash-write error seen mid-insert on long uploads; retryable.
+FLASH_ERR = 'Error programming Flash'
+
+
+def is_flash_error(resp):
+    """True if a controller response is the transient flash-write error."""
+    return bool(resp) and FLASH_ERR in resp
 
 
 def send_cmd(sock, cmd, settle=0.0, timeout=3.0):
@@ -98,6 +114,9 @@ def upload_program(sock, prog, lines, list_after=True):
         print(f"  Deleting {nlines} existing lines...")
         for _ in range(nlines):
             r = send_cmd(sock, f'!{prog},0D')
+            if is_flash_error(r):
+                print("  Flash write error during delete.")
+                return 'flash'
             if r and '%' in r:
                 print(f"  Delete error: {r}")
                 return False
@@ -108,6 +127,9 @@ def upload_program(sock, prog, lines, list_after=True):
     print(f"  Inserting {n} lines...")
     for i, pl in enumerate(lines):
         r = send_cmd(sock, f'!{prog},{i}I,{pl}')
+        if is_flash_error(r):
+            print(f"\n  Flash write error on line {i}.")
+            return 'flash'
         if r and '%' in r:
             print(f"\n  ERROR on line {i}: {pl}\n    -> {r}")
             return False
@@ -127,6 +149,9 @@ def upload_program(sock, prog, lines, list_after=True):
     # Commit to flash (slower; give it time).
     print("  Committing to flash...")
     resp = send_cmd(sock, f'!{prog},M', settle=2.0, timeout=3.0)
+    if is_flash_error(resp):
+        print("  Flash write error during commit.")
+        return 'flash'
     if resp:
         print(f"  Commit -> {resp}")
     print("  Commit done.")
@@ -197,8 +222,20 @@ def main():
             stop_program(sock, prog)
 
         if not args.no_upload:
-            ok = upload_program(sock, prog, lines)
-            if not ok:
+            # upload_program returns True (ok), 'flash' (transient flash-write
+            # error, retryable), or False (deterministic failure). A retry
+            # deletes all lines first, so it cannot leave duplicates.
+            FLASH_RETRIES = 3
+            status = False
+            for attempt in range(1, FLASH_RETRIES + 2):
+                status = upload_program(sock, prog, lines)
+                if status is True or status is False:
+                    break
+                if attempt <= FLASH_RETRIES:
+                    print(f"  Transient flash error; retrying whole upload "
+                          f"(attempt {attempt + 1}/{FLASH_RETRIES + 1})...")
+                    time.sleep(1.0)
+            if status is not True:
                 print("\nUpload FAILED.")
                 return 1
 

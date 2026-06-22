@@ -136,7 +136,10 @@ FOR ax = 0 TO 3
   SPEED = RUN_SPEED
   ACCEL = RUN_ACCEL
   DECEL = RUN_ACCEL
-  FASTDEC = RUN_ACCEL * 4
+  ' FASTDEC: abrupt stop on limit / CANCEL / RAPIDSTOP only (normal moves use
+  ' DECEL). A limit hit after homing is a fault, so stop hard to stay off the
+  ' hard stop. Overshoot ~= RUN_SPEED^2 / (2 * FASTDEC).
+  FASTDEC = RUN_ACCEL * 40
   CREEP = HOME_SPEED
   FWD_IN = fwd_inp(ax)
   REV_IN = rev_inp(ax)
