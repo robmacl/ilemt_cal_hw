@@ -165,6 +165,7 @@ def main():
 
     commands = args if args else ['PRINT "Hello MC508"']
 
+    s = None
     try:
         s = connect(HOST, port, wait_time, debug)
         print(f"Connected to {HOST}:{port}")
@@ -178,14 +179,24 @@ def main():
                 print("(no response)")
 
     except ConnectionRefusedError:
-        print(f"Connection refused on port {port}")
-    except socket.timeout:
-        print(f"Connection timed out")
+        # Host reachable but nothing is listening on the telnet port.
+        print(f"Connection refused by {HOST}:{port}. The MC508 is reachable "
+              "but not accepting telnet there - is it the right port?")
+        return 1
+    except (socket.timeout, TimeoutError, OSError) as e:
+        # Timeout / no route / network unreachable - the usual "it's offline".
+        print(f"Could not reach the MC508 at {HOST}:{port} ({type(e).__name__}).")
+        print("Check that the controller is powered on, on the network, and at "
+              f"the expected IP (currently HOST={HOST}).")
+        return 1
     except Exception as e:
         print(f"Error: {type(e).__name__}: {e}")
+        return 1
     finally:
-        s.close()
+        if s is not None:
+            s.close()
+    return 0
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main())
