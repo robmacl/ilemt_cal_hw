@@ -1,0 +1,86 @@
+Axis feedback connector:
+
+Pin    Signal		Wire
+1      Encoder Phase A	Blue /white stripe
+2      Encoder Phase B	Brown /white stripe
+3      Encoder Index	Orange /white stripe
+4      +5 V (Output)	White /green stripe
+8      +5 V (Output)
+10     Forward Limit	YEL (limit CCW N.O.)
+11     Home Input	GRN (limit home N.O.)
+12     Reverse Limit	WHT (limit CW N.O.)
+13     Viso (Output)	RED (limit +5 VDC)
+14     Encoder Phase A-	White /blue stripe
+15     Encoder Phase B-	White /brown stripe
+16     Encoder Index-	White /orange stripe
+17     Digital Ground	Green /white stripe
+18     Digital Ground
+19     Digital Ground
+20     Digital Ground
+22     Ciso		BLK (limit DC ground)
+23     Ciso
+24     Ciso
+25     Ciso
+
+Note: Home and limit inputs require a 200-250 ohm pull-up to Viso, since the
+opto limit switch can't source current.
+
+Alternate color code on replacement limit switch cable:
+1	+5V	     	RED
+2	DC ground    	BLK
+3	Home (NO)    	GRN
+4	Home (NC)    	BLK
+5	key
+6	CW limit (NO)	WHT
+7	CW limit (NC)	BLK
+8	CCW limit (NO)	BLU
+9	CCW limit (NO)	BLK
+N/C	Shield		bare	
+Use continuity to identify black wires.
+
+
+Axis control connector:
+1	Analog Output	
+2 	NC
+3 	+5 V (Output)	RED (Step, Dir +)
+4	Step (CW)	GRN (Step -)
+5 	NC
+6	Enable		WHT (Ena +)
+7 	Fault +
+8 	Viso (Output)
+9 	Analog Ground
+10 	Digital Ground
+11 	Digital Ground
+12 	Dir (CCW)	BLK (Dir -)
+13 	NC
+14 	Fault
+15 	Ciso		Drain wire, Ena-
+
+Notes: Enable is an isolated sourcing output, while Step and Dir are
+non-isolated sinking outputs.
+
+
+Global stop:
+1      	Shutdown
+2	Inhibit All	WHT
+3	NC
+4	NC
+5	Viso (Output)	RED
+6	Ciso		BLK
+7	Ciso
+8	Ciso
+9	Ciso
+
+
+Steppers:
+
+Molex mini-fit 6 pin
+Digi-key PN: WM3602/WM3702
+
+	Motor wire	Cable wire	Alt cable
+1: A+	BLK		WHT/YEL		BLK
+2: B+	RED		WHT/RED		RED
+3: GND			(shield)	(shield)
+4: A-	GRN		WHT/GRN		GRN
+5: B-	BLU		WHT/BLU		WHT
+6: N/C

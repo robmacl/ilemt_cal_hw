@@ -271,19 +271,19 @@ over telnet; LabVIEW uses the same VRs via TrioPC.
 
 **Status (LabVIEW / monitor polls):**
 
-| VR | Name | Meaning |
-|----|------|---------|
-| 110 | HOMED | axis bitmask of homed axes; persists until power cycle |
-| 111 | BUSY | 1 while homing |
-| 112 | ESTOP | 1 if e-stop input currently asserted (live) |
-| 113 | FAULT | fault code (0 = OK) |
-| 114 | FAULT_AXIS | axis (0–3) the fault occurred on |
-| 115 | STATE | coarse progress code (live monitor) |
-| 116 | CUR_AXIS | axis currently being homed |
-| 120–123 | RANGE_STP | measured stepper travel per axis (microsteps) |
-| 124–127 | RANGE_ENC | measured encoder travel per axis (microsteps) |
-| 128–131 | IDX_OFF | midpoint→index offset per axis (microsteps); flag if small |
-| 200–249 | detail | packed ASCII; read with `PRINT VRSTRING(200)` |
+| VR      | Name       | Meaning                                                    |
+| ------- | ---------- | ---------------------------------------------------------- |
+| 110     | HOMED      | axis bitmask of homed axes; persists until power cycle     |
+| 111     | BUSY       | 1 while homing                                             |
+| 112     | ESTOP      | 1 if e-stop input currently asserted (live)                |
+| 113     | FAULT      | fault code (0 = OK)                                        |
+| 114     | FAULT_AXIS | axis (0–3) the fault occurred on                           |
+| 115     | STATE      | coarse progress code (live monitor)                        |
+| 116     | CUR_AXIS   | axis currently being homed                                 |
+| 120–123 | RANGE_STP  | measured stepper travel per axis (microsteps)              |
+| 124–127 | RANGE_ENC  | measured encoder travel per axis (microsteps)              |
+| 128–131 | IDX_OFF    | midpoint→index offset per axis (microsteps); flag if small |
+| 200–249 | detail     | packed ASCII; read with `PRINT VRSTRING(200)`              |
 
 **FAULT codes:** 0 OK · 1 NEG_LIMIT_NOT_FOUND · 2 POS_LIMIT_NOT_FOUND ·
 4 RANGE_TOO_SMALL · 6 ESTOP_ABORT · 7 TIMEOUT · 8 STALL (stepper demand
