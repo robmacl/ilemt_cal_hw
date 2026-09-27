@@ -12,6 +12,7 @@ Thumbs.db
 *.swp
 *.swo
 *.tmp
+~$*
 
 # IDE files
 .vscode/
@@ -34,3 +35,4 @@ Thumbs.db
 /stage/wiring_encoder.png
 /stage/wiring_stepper.html
 /stage/wiring_stepper.png
+/stage/__pycache__/*.pyc
